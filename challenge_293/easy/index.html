@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+	<meta charset="UTF-8" />
+	<title>Challenge &#35;293</title>
+	<meta name="description" content="Reddit Challenge" />
+	<meta name="author" content="Yi Zhang" />		
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+</head>
+<body>
+	<header><h1>Challenge &#35;293[Easy] Defuse Bomb</h1></header>
+	<label for="wireCut">Please Choose a Wire (add at least two): </label><br/>
+	<select name="wireCut" id="wireCut">
+	  <option value="-1">Choose a wire</option>
+		<option value="white">white</option>
+		<option value="red">red</option>
+		<option value="black">black</option>
+		<option value="orange">orange</option>
+		<option value="green">green</option>
+		<option value="purple">purple</option>
+	</select>
+	<input type="button" id="addWire" name="addWire" value="Add Wire" />
+	<input type="button" id="defuseBomb" name="defuse" value="Defuse Bomb" />
+	<span id="validation"></span><br/>
+	<span id="displayResult">Result: </span>
+	<script src="defuseBomb.js"></script>
+</body>
+</html>

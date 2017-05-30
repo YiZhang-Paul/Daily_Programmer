@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+	<meta charset="UTF-8" />
+	<title>Challenge &#35;315</title>
+	<meta name="description" content="Reddit Challenge" />
+	<meta name="author" content="Yi Zhang" />		
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<style>
+		html, body {
+			background-color: black;
+			color: white;
+		}
+		
+		.wrapper {
+			background-color: white;
+			height: 70%;
+			width: 50%;
+			z-index: 1;
+		}
+
+		.canvas, .wrapper {
+			position: absolute;
+			margin: auto;
+			top: 0;
+			bottom: 0;
+			left: 0;
+			right: 0;
+		}
+
+		.canvas {
+			z-index: 2; 
+		}
+	</style>
+</head>
+<body>
+	<header><h1>Challenge &#35;315[Intermediate] Game of life that has a twist</h1></header>
+	<main>
+		<section>
+			<div id="main" class="wrapper"></div>
+		</section>
+	</main>
+	<script src="gameOfLife.js"></script>
+</body>
+</html>
