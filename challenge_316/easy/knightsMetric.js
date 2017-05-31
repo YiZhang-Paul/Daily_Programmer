@@ -3,16 +3,18 @@
 	document.addEventListener("DOMContentLoaded", () => {
 		class Node {
 			/**
-			 * @param int, int, obj {}
+			 * @param int, int, obj {}, obj {}
 			 *
 			 * xCord    : X-Coordinate of node 
 			 * yCord    : Y-Coordinate of node
 			 * prevNode : previous node (parent)
+			 * lastMove : last move from previous node
 			 */
-			constructor(xCord, yCord, prevNode = null) {
+			constructor(xCord, yCord, prevNode = null, lastMove = null) {
 				this.xCord = xCord;
 				this.yCord = yCord;
 				this.prevNode = prevNode;
+				this.lastMove = lastMove;
 				this.moves = [{x : -1, y : -2}, {x : 1, y : 2},
 				              {x : 1, y : -2}, {x : -1, y : 2},
 				              {x : -2, y : -1}, {x : 2, y : 1},
@@ -25,12 +27,9 @@
 			 */
 			nextNodes() {
 				return this.moves.map(move =>
-					new Node(this.xCord + move.x, this.yCord + move.y, this));
+					new Node(this.xCord + move.x, this.yCord + move.y, this, `(${move.x}, ${move.y})`));
 			} 
 		}
-		//start and end point
-		let curPoint = new Node(0, 0);
-		let endPoint = new Node(0, 1);
 		/**
 		 * find path to end point
 		 * @param obj {}, obj {}
@@ -41,36 +40,50 @@
 		function findPath(start, end) {
 			let queue = [start]; //nodes to be visited
 			let visited = [];    //nodes already visited
-			let path = [];
-
+			let path = [], moves = [];
+			//check if nodes list contains end point
 			let findNode = array => array.find(node => 
 				node.xCord == end.xCord && node.yCord == end.yCord);
-			let filterVisted = array => array.filter(node => 
+			//filter out all visited nodes
+			let findUnvisted = array => array.filter(node => 
 				visited.indexOf(node) == -1);
-
+			//visit every node in queue
 			while(queue.length > 0) {
 				let curNode = queue.shift();
 				visited.push(curNode);
 				let nextNodes = curNode.nextNodes();
+				//check if end point is one of the next possible nodes
 				let lastNode = findNode(nextNodes); 
-				//when end point is reached
 				if(lastNode) {
+					//add all nodes into path
 					while(lastNode.prevNode) {
-					  //add all node into path
-						path.push(lastNode);
+						path.push(`(${lastNode.xCord}, ${lastNode.yCord})`);
+						moves.push(lastNode.lastMove);
 						lastNode = lastNode.prevNode;
 					}
-					path.push(start);
-					return path.reverse();
+					path.push(`(${start.xCord}, ${start.yCord})`);
+					//clear queue to end function execution
+					queue = [];
 				} else {
-					queue.push(...filterVisted(nextNodes));
+					//record unvisited nodes
+					queue.push(...findUnvisted(nextNodes));
 				}
 			}
-
-			return path;
+			return [path.reverse(), moves.reverse()];
 		}
-		
-		let path = findPath(curPoint, endPoint);
-		console.log(path.length - 1);
+		//start point
+		let curPoint = new Node(0, 0);
+		//default output
+		let endPoint = new Node(0, 1);
+		let [path, moves] = findPath(curPoint, endPoint);
+		console.log(`Route taken: ${path.join(" -> ")}`);
+		console.log(`Moves used: ${moves.join(", ")}`);
+		console.log(`Total Steps: ${moves.length}`);
+		//challenge output
+		endPoint = new Node(3, 7);
+		[path, moves] = findPath(curPoint, endPoint);
+		console.log(`Route taken: ${path.join(" -> ")}`);
+		console.log(`Moves used: ${moves.join(", ")}`);
+		console.log(`Total Steps: ${moves.length}`);
 	});
 })(); 
