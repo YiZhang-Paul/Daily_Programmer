@@ -3,16 +3,20 @@
 	document.addEventListener("DOMContentLoaded", () => {
 		class Node {
 			/**
-			 * @param int, int, obj {}, String
+			 * @param int, int, int, int, obj {}, String
 			 *
 			 * xCord    : X-Coordinate of node 
 			 * yCord    : Y-Coordinate of node
+			 * level    : current level of node
+			 * depth    : current depth of node
 			 * prevNode : previous node (parent)
 			 * lastMove : last move from previous node
 			 */
-			constructor(xCord, yCord, prevNode = null, lastMove = null) {
+			constructor(xCord, yCord, level = 0, depth = 0, prevNode = null, lastMove = null) {
 				this.xCord = xCord;
 				this.yCord = yCord;
+				this.level = level;
+				this.depth = depth;
 				this.prevNode = prevNode;
 				this.lastMove = lastMove;
 				this.moves = [{x : -1, y : -2}, {x : 1, y : 2},
@@ -27,25 +31,32 @@
 			 */
 			nextNodes() {
 				return this.moves.map(move =>
-					new Node(this.xCord + move.x, this.yCord + move.y, this, `(${move.x}, ${move.y})`));
+					new Node(this.xCord + move.x, 
+						       this.yCord + move.y, 
+						       this.level + 1,
+						       this.depth + 1,
+						       this, `(${move.x}, ${move.y})`));
 			} 
 		}
 		/**
 		 * find path to end point
+		 * using breadth-first search
 		 * @param obj {}, obj {}
 		 *
 		 * start : start point
 		 * end   : end point
+		 *
+		 * returns array []
 		 */
-		function findPath(start, end) {
+		function findPathBFS(start, end) {
 			let queue = [start]; //nodes to be visited
 			let visited = [];    //nodes already visited
 			let path = [], moves = [];
 			//check if nodes list contains end point
-			let findNode = array => array.find(node => 
+			let findEndNode = nodeList => nodeList.find(node => 
 				node.xCord == end.xCord && node.yCord == end.yCord);
 			//filter out all visited nodes
-			let findUnvisted = array => array.filter(node => 
+			let findUnvisted = nodeList => nodeList.filter(node => 
 				visited.indexOf(node) == -1);
 			//visit every node in queue
 			while(queue.length > 0) {
@@ -53,13 +64,13 @@
 				visited.push(curNode);
 				let nextNodes = curNode.nextNodes();
 				//check if end point is one of the next possible nodes
-				let lastNode = findNode(nextNodes); 
-				if(lastNode) {
+				let endNode = findEndNode(nextNodes); 
+				if(endNode) {
 					//add all nodes into path
-					while(lastNode.prevNode) {
-						path.push(`(${lastNode.xCord}, ${lastNode.yCord})`);
-						moves.push(lastNode.lastMove);
-						lastNode = lastNode.prevNode;
+					while(endNode.prevNode) {
+						path.push(`(${endNode.xCord}, ${endNode.yCord})`);
+						moves.push(endNode.lastMove);
+						endNode = endNode.prevNode;
 					}
 					path.push(`(${start.xCord}, ${start.yCord})`);
 					//clear queue to end function execution
@@ -73,15 +84,73 @@
 		}
 		//start point
 		let curPoint = new Node(0, 0);
+		console.log("Breadth-first Search: ");
 		//default output
 		let endPoint = new Node(0, 1);
-		let [path, moves] = findPath(curPoint, endPoint);
+		let [path, moves] = findPathBFS(curPoint, endPoint);
 		console.log(`Route taken: ${path.join(" -> ")}`);
 		console.log(`Moves used: ${moves.join(", ")}`);
 		console.log(`Total Steps: ${moves.length}`);
 		//challenge output
 		endPoint = new Node(3, 7);
-		[path, moves] = findPath(curPoint, endPoint);
+		[path, moves] = findPathBFS(curPoint, endPoint);
+		console.log(`Route taken: ${path.join(" -> ")}`);
+		console.log(`Moves used: ${moves.join(", ")}`);
+		console.log(`Total Steps: ${moves.length}`);
+		/**
+		 * find path to end point
+		 * using depth-first search
+		 * @param obj {}, obj {}, int
+		 *
+		 * start    : start point
+		 * end      : end point
+		 * maxDepth : maximum depth allowed
+		 *
+		 * returns array []
+		 */
+		function findPathDFS(start, end, maxDepth = 1) {
+			let queue = [start]; //nodes to be visited
+			let path = [], moves = [];
+			//check if nodes list contains end point
+			let findEndNode = nodeList => nodeList.find(node => 
+				node.xCord == end.xCord && node.yCord == end.yCord);
+			//visit nodes in a branch as deep as possible
+			while(queue.length > 0) {
+				let nextNodes = queue.pop().nextNodes();
+				//check if end point is one of the next possible nodes
+				let endNode = findEndNode(nextNodes); 
+				if(endNode) {
+					//add all nodes into path
+					while(endNode.prevNode) {
+						path.push(`(${endNode.xCord}, ${endNode.yCord})`);
+						moves.push(endNode.lastMove);
+						endNode = endNode.prevNode;
+					}
+					path.push(`(${start.xCord}, ${start.yCord})`);
+					//clear queue to end function execution
+					queue = [];
+				} else {
+					//record unvisited nodes
+					if(nextNodes[0].depth < maxDepth) {
+						queue.push(...nextNodes);
+					}
+				}
+			}
+			if(moves.length === 0) {
+				return findPathDFS(start, end, Math.min(maxDepth + 1, 15));
+			}
+			return [path.reverse(), moves.reverse()];
+		}
+		console.log("\nDepth-first Search: ");
+		//default output
+		endPoint = new Node(0, 1);
+		[path, moves] = findPathDFS(curPoint, endPoint);
+		console.log(`Route taken: ${path.join(" -> ")}`);
+		console.log(`Moves used: ${moves.join(", ")}`);
+		console.log(`Total Steps: ${moves.length}`);
+		//challenge output
+		endPoint = new Node(3, 7);
+		[path, moves] = findPathDFS(curPoint, endPoint);
 		console.log(`Route taken: ${path.join(" -> ")}`);
 		console.log(`Moves used: ${moves.join(", ")}`);
 		console.log(`Total Steps: ${moves.length}`);
