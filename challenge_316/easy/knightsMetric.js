@@ -41,6 +41,7 @@
 		/**
 		 * find path to end point
 		 * using breadth-first search
+		 * e.g. [0|] -> [|11] -> [1|1] -> [|122] -> [1|22] -> [|2222]
 		 * @param obj {}, obj {}
 		 *
 		 * start : start point
@@ -51,7 +52,7 @@
 		function findPathBFS(start, end) {
 			let queue = [start]; //nodes to be visited
 			let visited = [];    //nodes already visited
-			let path = [], moves = [];
+			let path = [], moves = [], steps;
 			//check if nodes list contains end point
 			let findEndNode = nodeList => nodeList.find(node => 
 				node.xCord == end.xCord && node.yCord == end.yCord);
@@ -66,6 +67,7 @@
 				//check if end point is one of the next possible nodes
 				let endNode = findEndNode(nextNodes); 
 				if(endNode) {
+					steps = endNode.level;
 					//add all nodes into path
 					while(endNode.prevNode) {
 						path.push(`(${endNode.xCord}, ${endNode.yCord})`);
@@ -80,26 +82,27 @@
 					queue.push(...findUnvisted(nextNodes));
 				}
 			}
-			return [path.reverse(), moves.reverse()];
+			return [path.reverse(), moves.reverse(), steps];
 		}
 		//start point
 		let curPoint = new Node(0, 0);
 		console.log("Breadth-first Search: ");
 		//default output
 		let endPoint = new Node(0, 1);
-		let [path, moves] = findPathBFS(curPoint, endPoint);
+		let [path, moves, steps] = findPathBFS(curPoint, endPoint);
 		console.log(`Route taken: ${path.join(" -> ")}`);
 		console.log(`Moves used: ${moves.join(", ")}`);
-		console.log(`Total Steps: ${moves.length}`);
+		console.log(`Total Steps: ${steps}`);
 		//challenge output
 		endPoint = new Node(3, 7);
-		[path, moves] = findPathBFS(curPoint, endPoint);
+		[path, moves, steps] = findPathBFS(curPoint, endPoint);
 		console.log(`Route taken: ${path.join(" -> ")}`);
 		console.log(`Moves used: ${moves.join(", ")}`);
-		console.log(`Total Steps: ${moves.length}`);
+		console.log(`Total Steps: ${steps}`);
 		/**
 		 * find path to end point
 		 * using depth-first search
+		 * e.g. [|0] -> [|11] -> [1|1] -> [1|22] - > [12|2] -> [12|33]
 		 * @param obj {}, obj {}, int
 		 *
 		 * start    : start point
@@ -136,7 +139,7 @@
 					}
 				}
 			}
-			if(moves.length === 0) {
+			if(moves.length === 0 && maxDepth != 15) {
 				return findPathDFS(start, end, Math.min(maxDepth + 1, 15));
 			}
 			return [path.reverse(), moves.reverse()];
