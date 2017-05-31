@@ -3,7 +3,7 @@
 	document.addEventListener("DOMContentLoaded", () => {
 		class Node {
 			/**
-			 * @param int, int, obj {}, obj {}
+			 * @param int, int, obj {}, String
 			 *
 			 * xCord    : X-Coordinate of node 
 			 * yCord    : Y-Coordinate of node
