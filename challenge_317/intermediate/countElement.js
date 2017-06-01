@@ -37,7 +37,7 @@
 		 */
 		function breakDown(formula) {
 			let segments = [], counter = 0;
-			while(counter < formula.length - 1) {
+			while(counter < formula.length) {
 				//starting point
 				let start = counter++;
 				while(counter < formula.length &&
@@ -51,11 +51,35 @@
 
 			return segments;
 		}
+		/**
+		 * count number of elements
+		 * @param array []
+		 *
+		 * segments : segments of elements
+		 *
+		 * returns obj {}
+		 */
+		function count(segments) {
+			let counts = {};
+			for(let i = 0; i < segments.length; i++) {
+				//elements with two characters and/or with more than 1
+				if(segments[i].length > 1) {
+					if(segments[i][1].charCodeAt() <= 57) { //if second character is a digit
+						counts[segments[i][0]] = counts[segments[i][0]] ? 
+							counts[segments[i][0]] + (Number(segments[i].slice(1)) || 1) : (Number(segments[i].slice(1)) || 1);
+					} else {
+						counts[segments[i].slice(0, 2)] = counts[segments[i].slice(0, 2)] ? 
+							counts[segments[i].slice(0, 2)] + (Number(segments[i].slice(2)) || 1) : (Number(segments[i].slice(2)) || 1);
+					}
+					//for single character element with number of 1
+				} else {
+					counts[segments[i]] = counts[segments[i]] ? counts[segments[i]] + 1 : 1;
+				}
+			}
 
-		function count() {
-
+			return counts;
 		}
 
-		console.log(breakDown(reform(inputs[4])));
+		console.log(count(breakDown(reform(inputs[4]))));
 	});
 })();
