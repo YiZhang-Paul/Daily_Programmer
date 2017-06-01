@@ -8,9 +8,24 @@
 		 * @param String
 		 * 
 		 * formula : formula string to be reformed
+		 *
+		 * returns String
 		 */
 		function reform(formula) {
+			let elements = formula.split(/(?=[()])/g);
+			//reform formula by pieces
+			let reformElements = elements.map((element, index, array) => {
+				if(element.search("\\(") != -1) {
+					return element.slice(1); //take off "("
+				} else if(element.search("\\)") != -1) {
+					//repeat sequence and take off ")"
+					return array[index - 1].slice(1).repeat(Number(element.slice(1) - 1)); 
+				} else {
+					return element;
+				}
+			});
 			
+			return reformElements.join("");
 		}
 
 		function breakDown() {
@@ -20,5 +35,7 @@
 		function count() {
 
 		}
+
+		console.log(reform(inputs[3]));
 	});
 })();
