@@ -1,5 +1,7 @@
 #317[Intermediate] Counting Elements
 
+All Done
+
 url: https://www.reddit.com/r/dailyprogrammer/comments/6eerfk/20170531_challenge_317_intermediate_counting/
 
 Chemical formulas describe which elements and how many atoms comprise a molecule. Probably the most well known chemical formula, H2O, tells us that there are 2 H atoms and one O atom in a molecule of water (Normally numbers are subscripted but reddit doesnt allow for that). More complicated chemical formulas can include brackets that indicate that there are multiple copies of the molecule within the brackets attached to the main one. For example, Iron (III) Sulfate's formula is Fe2(SO4)3 this means that there are 2 Fe, 3 S, and 12 O atoms since the formula inside the brackets is multiplied by 3.

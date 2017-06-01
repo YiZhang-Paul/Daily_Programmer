@@ -79,7 +79,10 @@
 
 			return counts;
 		}
-
-		console.log(count(breakDown(reform(inputs[4]))));
+		//print results
+		inputs.forEach(input => {
+			let result = count(breakDown(reform(input)));
+			console.log(`${input} -> ${JSON.stringify(result)}`);
+		});
 	});
 })();
