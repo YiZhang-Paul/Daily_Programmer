@@ -24,18 +24,38 @@
 					return element;
 				}
 			});
-			
+
 			return reformElements.join("");
 		}
+		/**
+		 * break formula string into separate pieces
+		 * @param String
+		 *
+		 * formula : reformed formula string
+		 *
+     * returns array []
+		 */
+		function breakDown(formula) {
+			let segments = [], counter = 0;
+			while(counter < formula.length - 1) {
+				//starting point
+				let start = counter++;
+				while(counter < formula.length &&
+					    (formula[counter].charCodeAt() < 65 ||
+					     formula[counter].charCodeAt() > 90)) {
+					//move until reaching an capitalized letter (new elements)
+					counter++;
+				}
+				segments.push(formula.slice(start, counter));
+			}
 
-		function breakDown() {
-
+			return segments;
 		}
 
 		function count() {
 
 		}
 
-		console.log(reform(inputs[3]));
+		console.log(breakDown(reform(inputs[4])));
 	});
 })();
