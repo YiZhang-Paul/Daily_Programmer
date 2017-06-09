@@ -66,6 +66,9 @@
 			 * returns obj {}
 			 */
 			pickHomeTeam(homeTeams) {
+				if(!homeTeams.length) {
+					return;
+				}
 				let opponent = homeTeams[Math.floor(Math.random() * homeTeams.length)];
 				this.updateOpponentStatus("home", opponent);
 				return opponent;
@@ -79,6 +82,9 @@
 			 * returns obj {}
 			 */
 			pickAwayTeam(awayTeams) {
+				if(!awayTeams.length) {
+					return;
+				}
 				let opponent = awayTeams[Math.floor(Math.random() * awayTeams.length)];
 				this.updateOpponentStatus("away", opponent);
 				return opponent;
@@ -107,7 +113,7 @@
 				} else {
 					opponent = homeTeams.length ? this.pickHomeTeam(homeTeams) : this.pickAwayTeam(awayTeams);
 				}
-				return opponent.opponent;
+				return opponent ? opponent.opponent : opponent;
 			} 
 		} 
 		/**
@@ -146,16 +152,18 @@
 				this.allTeams.forEach(team => {
 					if(!scheduledTeams.has(team)) {
 						let opponent = team.pickOpponent(scheduledTeams);
-						let schedule = opponent.lastGameLocation == "home" ? 
-							`${opponent.name} - ${team.name}` : `${team.name} - ${opponent.name}`;
-						//record new schedule
-						curRound.push(schedule);
-						//record team already picked
-						scheduledTeams.add(team);
-						scheduledTeams.add(opponent);
+						if(opponent) {
+							let schedule = opponent.lastGameLocation == "home" ? 
+								`${opponent.name} - ${team.name}` : `${team.name} - ${opponent.name}`;
+							//record new schedule
+							curRound.push(schedule);
+							//record team already picked
+							scheduledTeams.add(team);
+							scheduledTeams.add(opponent);
+						}
 					}
 				});
-				return curRound;
+				return curRound.length == this.allTeams.length * 0.5 ? curRound : this.scheduleRound();
 			}
 			/**
 			 * print out schedule for one round
@@ -184,5 +192,9 @@
 		//create manager for all teams
 		let allTeams = allTeamNames.map(name => new Team(name));
 		let scheduleManager = new ScheduleManager(allTeams);
+		//challenge input
+		allTeamNames = ["Atlanta Hawks", "Boston Celtics", "Brooklyn Nets", "Charlotte Hornets", "Chicago Bulls", "Cleveland Cavaliers", "Dallas Mavericks", "Denver Nuggets", "Detroit Pistons", "Golden State Warriors", "Houston Rockets", "Indiana Pacers", "Los Angeles Clippers", "Los Angeles Lakers", "Memphis Grizzlies", "Miami Heat", "Milwaukee Bucks", "Minnesota Timberwolves", "New Orleans Pelicans", "New York Knicks", "Oklahoma City Thunder", "Orlando Magic", "Philadelphia 76ers", "Phoenix Suns", "Portland Trail Blazers", "Sacramento Kings", "San Antonio Spurs", "Toronto Raptors", "Utah Jazz", "Washington Wizards"];
+		allTeams = allTeamNames.map(name => new Team(name));
+		scheduleManager = new ScheduleManager(allTeams);
 	});
 })();
