@@ -12,5 +12,16 @@
 				this.remainingOpponents = null;
 			}
 		} 
+		/**
+		 * schedule manager class
+		 */
+		class ScheduleManager {
+			constructor(allTeams) {
+				this.allTeams = allTeams;
+				this.totalGames = 0;
+				this.homeTeamList = [];
+				this.awayTeamList = [];
+			}
+		} 
 	});
 })();
