@@ -49,6 +49,7 @@
 			}
 			return numPatterns[curIndex + 1] ? +numPatterns[curIndex + 1] : +numPatterns[curIndex];
 		} 
+		console.log("Solution 1:");
 		//default input
 		console.log(getNextLargeInt1(292761));
 		//challenge input
@@ -76,14 +77,13 @@
 					break;
 				}
 			}
-			let trailingNum = curInt.slice(swapIndex + 1);
-			//find number to be swapped and number used for the swap
-			let toBeSwapped = curInt[swapIndex];
-			let usedToSwap = Math.min(...trailingNum.filter(digit => digit > toBeSwapped)); 
-			trailingNum.push(toBeSwapped);
-			trailingNum.splice(trailingNum.indexOf(usedToSwap.toString()), 1);
-			return usedToSwap ? +[...curInt.slice(0, swapIndex), usedToSwap, ...trailingNum.sort()].join("") : integer;
+			let trailingNum = curInt.slice(swapIndex).sort();
+			//find number used for the swap
+			let swapNum = Math.min(...trailingNum.filter(digit => digit > curInt[swapIndex]));
+			trailingNum.unshift(trailingNum.splice(trailingNum.indexOf(swapNum.toString()), 1)[0]); 
+			return swapNum ? +[...curInt.slice(0, swapIndex), ...trailingNum].join("") : integer;
 		}
+		console.log("Solution 2:");
 		//default input
 		console.log(getNextLargeInt2(292761));
 		//challenge input
