@@ -13,7 +13,9 @@
 				this.numList = numList.splice(" ");
 				this.operatorList = operatorList; 
 				this.totalOperators = this.numList.length - 2;
+				this.numPattern = this.permuteNumber(); 
 				this.operatorPattern = this.permuteOperator();
+				console.log(this);
 			}
 			/**
 			 * generate all possible permutation of operators
@@ -31,9 +33,35 @@
 				for(let i = 0; i < this.operatorList.length; i++) {
 					let result = this.permuteOperator(curPattern + this.operatorList[i]);
 					if(Array.isArray(result)) {
-						permutation.push(...result);
+						permutation.push(...result);	
 					} else {
-						permutation.push(result);
+						permutation.push(result);	
+					}
+				}
+				return permutation;
+			} 
+			/**
+			 * generate all possible permutation of numbers
+			 * @param array [], array []
+			 *
+			 * allNums    : all available numbers
+			 * curPattern : current number pattern
+			 *
+			 * returns array []
+			 */
+			permuteNumber(allNums = this.numList.slice(0, this.numList.length - 1), curPattern = []) {
+				if(curPattern.length == this.numList.length - 1) {
+					return curPattern;
+				}
+				let permutation = [];
+				for(let i = 0; i < allNums.length; i++) {
+					let curNum = allNums[i];
+					let otherNums = [...allNums.slice(0, i), ...allNums.slice(i + 1)];
+					let result = this.permuteNumber(otherNums, [...curPattern, curNum]);
+					if(!Array.isArray(result[0])) {
+						permutation.push(result);	
+					} else {
+						permutation.push(...result);	
 					}
 				}
 				return permutation;
@@ -84,8 +112,15 @@
 			 * returns array []
 			 */
 			getCountDown() {
-				return this.operatorPattern.slice().filter(pattern =>
-					this.getListResult(pattern) == this.numList[this.numList.length - 1]);
+				let validCountDowns = [];
+				this.numPattern.forEach(numPattern => {
+					let validPatterns = this.operatorPattern.slice().filter(opPattern => 
+						this.getListResult(opPattern) == this.numList[this.numList.length - 1]);
+					if(validPatterns.length) {
+						validCountDowns.push([...numPattern, ...validPatterns]);
+					}
+				});
+				return validCountDowns;
 			}
 		} 
 		//default input
