@@ -15,7 +15,6 @@
 				this.totalOperators = this.numList.length - 2;
 				this.numPattern = this.permuteNumber(); 
 				this.operatorPattern = this.permuteOperator();
-				console.log(this);
 			}
 			/**
 			 * generate all possible permutation of operators
@@ -96,14 +95,15 @@
 			} 
 			/**
 			 * calculate result for entire list
-			 * @param String
+			 * @param array [],String
 			 *
+			 * numPattern      : number patterns to be applied
 			 * operatorPattern : operator patterns to be applied
 			 *
 			 * returns float
 			 */
-			getListResult(operatorPattern) {
-				return this.numList.slice(0, this.numList.length - 1).reduce((acc, val, index) =>
+			getListResult(numPattern, operatorPattern) {
+				return numPattern.slice().reduce((acc, val, index) =>
 					this.calculateResult(acc, val, operatorPattern[index - 1]));
 			} 
 			/**
@@ -115,19 +115,31 @@
 				let validCountDowns = [];
 				this.numPattern.forEach(numPattern => {
 					let validPatterns = this.operatorPattern.slice().filter(opPattern => 
-						this.getListResult(opPattern) == this.numList[this.numList.length - 1]);
+						this.getListResult(numPattern, opPattern) == this.numList[this.numList.length - 1]);
 					if(validPatterns.length) {
-						validCountDowns.push([...numPattern, ...validPatterns]);
+						validCountDowns.push([numPattern, ...validPatterns]);
 					}
 				});
 				return validCountDowns;
+			}
+			/**
+			 * display count downs
+			 */
+			displayCountDown() {
+				let validCountDown = this.getCountDown();
+				validCountDown.forEach(countDown => {
+					//console.log(operators);
+					let finalResult = countDown[0].reduce((acc, val, index) => {
+						return acc + ` ${countDown[1][index - 1]} ` + val;
+					});
+					console.log(`${finalResult} = ${this.numList[this.numList.length - 1]}`);
+				});
 			}
 		} 
 		//default input
 		let operatorList = ["+", "-", "*", "/"];
 		let numList = [1, 3, 7, 6, 8, 3, 250];
 		let countDown = new CountDown(numList, operatorList);
-		let result = countDown.getCountDown();
-		console.log(result);
+		countDown.displayCountDown();
 	});
 })();
