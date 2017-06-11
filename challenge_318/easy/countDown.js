@@ -11,10 +11,8 @@
 		class CountDown {
 			constructor(numList, operatorList) {
 				this.numList = numList.splice(" ");
-				this.operatorList = operatorList; 
-				this.totalOperators = this.numList.length - 2;
-				this.numPattern = this.permuteNumber(); 
-				this.operatorPattern = this.permuteOperator();
+				this.operatorList = operatorList;
+				this.targetNum = this.numList[this.numList.length - 1]; 
 			}
 			/**
 			 * generate all possible permutation of operators
@@ -25,7 +23,7 @@
 			 * returns array []
 			 */
 			permuteOperator(curPattern = "") {
-				if(curPattern.length == this.totalOperators) {
+				if(curPattern.length == this.numList.length - 2) {
 					return curPattern;
 				}
 				let permutation = [];
@@ -48,7 +46,7 @@
 			 *
 			 * returns array []
 			 */
-			permuteNumber(allNums = this.numList.slice(0, this.numList.length - 1), curPattern = []) {
+			permuteNumber(allNums = this.numList.slice(0, -1), curPattern = []) {
 				if(curPattern.length == this.numList.length - 1) {
 					return curPattern;
 				}
@@ -95,7 +93,7 @@
 			} 
 			/**
 			 * calculate result for entire list
-			 * @param array [],String
+			 * @param array [], String
 			 *
 			 * numPattern      : number patterns to be applied
 			 * operatorPattern : operator patterns to be applied
@@ -113,9 +111,11 @@
 			 */
 			getCountDown() {
 				let validCountDowns = [];
-				this.numPattern.forEach(numPattern => {
-					let validPatterns = this.operatorPattern.slice().filter(opPattern => 
-						this.getListResult(numPattern, opPattern) == this.numList[this.numList.length - 1]);
+				let numPatterns = this.permuteNumber();
+				let opPatterns = this.permuteOperator();
+				numPatterns.forEach(numPattern => {
+					let validPatterns = opPatterns.slice().filter(opPattern => 
+						this.getListResult(numPattern, opPattern) == this.targetNum);
 					if(validPatterns.length) {
 						validCountDowns.push([numPattern, ...validPatterns]);
 					}
@@ -129,11 +129,10 @@
 				let validCountDown = this.getCountDown();
 				console.log(`Numbers: ${this.numList}`);
 				validCountDown.forEach(countDown => {
-					//console.log(operators);
 					let finalResult = countDown[0].reduce((acc, val, index) => {
 						return acc + ` ${countDown[1][index - 1]} ` + val;
 					});
-					console.log(`${finalResult} = ${this.numList[this.numList.length - 1]}`);
+					console.log(`${finalResult} = ${this.targetNum}`);
 				});
 			}
 		} 
@@ -144,10 +143,10 @@
 		countDown.displayCountDown();
 		//challenge input
 		numList = [25, 100, 9, 7, 3, 7, 881];
-		countDown = new CountDown(numList, operatorList);
+		countDown.numList = numList;
 		countDown.displayCountDown();
 		numList = [6, 75, 3, 25, 50, 100, 952];
-		countDown = new CountDown(numList, operatorList);
+		countDown.numList = numList;
 		countDown.displayCountDown();
 	});
 })();
