@@ -31,13 +31,14 @@
 		}
 		/**
 		 * find next largest integer
+		 * through permutation
 		 * @param int
 		 *
 		 * integer : integer to be used
 		 *
 		 * returns int
 		 */
-		function getNextLargeInt(integer) {
+		function getNextLargeInt1(integer) {
 			//get all number permutations
 			let integerArr = integer.toString().split("");
 			let numPatterns = permuteNum(integerArr, integerArr.length).sort((a, b) => +a - +b);
@@ -46,14 +47,49 @@
 			while(numPatterns[curIndex + 1] && +numPatterns[curIndex + 1] == integer) {
 				curIndex++;
 			}
-			return numPatterns[curIndex + 1] ? numPatterns[curIndex + 1] : numPatterns[curIndex];
+			return numPatterns[curIndex + 1] ? +numPatterns[curIndex + 1] : +numPatterns[curIndex];
 		} 
 		//default input
-		console.log(getNextLargeInt(292761));
+		console.log(getNextLargeInt1(292761));
 		//challenge input
-		console.log(getNextLargeInt(1234));
-		console.log(getNextLargeInt(1243));
-		console.log(getNextLargeInt(234765));
-		console.log(getNextLargeInt(19000));
+		console.log(getNextLargeInt1(1234));
+		console.log(getNextLargeInt1(1243));
+		console.log(getNextLargeInt1(234765));
+		console.log(getNextLargeInt1(19000));
+		//solution 2
+		/**
+		 * find next largest integer
+		 * through swaping digits
+		 * @param int
+		 *
+		 * integer : integer to be used
+		 *
+		 * returns int
+		 */
+		function getNextLargeInt2(integer) {
+			let curInt = integer.toString().split("");
+			//find swaping point
+			let swapIndex = 0;
+			for(let i = curInt.length - 1; i >= 0; i--) {
+				if(!i || curInt[i] > curInt[i - 1]) {
+					swapIndex = !i ? i : i - 1;
+					break;
+				}
+			}
+			let trailingNum = curInt.slice(swapIndex + 1);
+			//find number to be swapped and number used for the swap
+			let toBeSwapped = curInt[swapIndex];
+			let usedToSwap = Math.min(...trailingNum.filter(digit => digit > toBeSwapped)); 
+			trailingNum.push(toBeSwapped);
+			trailingNum.splice(trailingNum.indexOf(usedToSwap.toString()), 1);
+			return usedToSwap ? +[...curInt.slice(0, swapIndex), usedToSwap, ...trailingNum.sort()].join("") : integer;
+		}
+		//default input
+		console.log(getNextLargeInt2(292761));
+		//challenge input
+		console.log(getNextLargeInt2(1234));
+		console.log(getNextLargeInt2(1243));
+		console.log(getNextLargeInt2(234765));
+		console.log(getNextLargeInt2(19000));
 	});
 })();
