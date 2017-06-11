@@ -144,9 +144,11 @@
 		//challenge input
 		numList = [25, 100, 9, 7, 3, 7, 881];
 		countDown.numList = numList;
+		countDown.targetNum = numList[numList.length - 1];
 		countDown.displayCountDown();
 		numList = [6, 75, 3, 25, 50, 100, 952];
 		countDown.numList = numList;
+		countDown.targetNum = numList[numList.length - 1];
 		countDown.displayCountDown();
 	});
 })();
