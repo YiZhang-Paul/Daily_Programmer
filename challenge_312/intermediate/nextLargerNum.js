@@ -43,7 +43,7 @@
 			let numPatterns = permuteNum(integerArr, integerArr.length).sort((a, b) => +a - +b);
 			//find current integer and determine next larger integer
 			let curIndex = numPatterns.indexOf(integer.toString());
-			while(numPatterns[curIndex + 1] == numPatterns[curIndex] && curIndex + 1 <= numPatterns.length - 1) {
+			while(numPatterns[curIndex + 1] && +numPatterns[curIndex + 1] == integer) {
 				curIndex++;
 			}
 			return numPatterns[curIndex + 1] ? numPatterns[curIndex + 1] : numPatterns[curIndex];
