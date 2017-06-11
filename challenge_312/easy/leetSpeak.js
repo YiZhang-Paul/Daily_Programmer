@@ -27,23 +27,24 @@
 		 * returns String
 		 */
 		function translate(input, table) {
+			input = input.toUpperCase();
 			let output = "";
 			let start = 0, end = 1;
 			while(end <= input.length) {
-				let key = input.slice(start, end).toUpperCase();
+				let key = input.slice(start, end);
 				while(!table.has(key)) {
 					end++;
-					key = input.slice(start, end).toUpperCase();
+					key = input.slice(start, end);
 					if(end >= input.length) {
 						end = start + 1;
-						key = input.slice(start, end).toUpperCase();
+						key = input.slice(start, end);
 						break;
 					}
 				}
-				output += table.has(key) ? table.get(key).toLowerCase() : key.toLowerCase();
+				output += table.has(key) ? table.get(key) : key;
 				start = end++;
 			}
-			return output;
+			return output.toLowerCase();
 		} 
 		//character set
 		let charSet = [
@@ -63,14 +64,17 @@
 		//bi-directional translate table
 		let transTable = getTransTable(charSet);
 		//default input
+		console.log(`"BASIC" -> ${translate("BASIC", transTable)}`); 
+		console.log(`"ELEET" -> ${translate("ELEET", transTable)}`); 
+		console.log(`"WOW" -> ${translate("WOW", transTable)}`); 
+		console.log(`"MOM" -> ${translate("MOM", transTable)}`); 
 		console.log(`"31337" -> ${translate("31337", transTable)}`); 
-		console.log(`"31337" -> ${translate("storm", transTable)}`);  
+		console.log(`"storm" -> ${translate("storm", transTable)}`);  
 		//challege input
-		let string = `I am elite.\nDa pain!Eye need help!\n3Y3 (\\)33d j00 t0 g37 d4 d0c70r.\n1 n33d m4 p1llz!`;
 		console.log(`"I am elite." -> ${translate("I am elite.", transTable)}`);  
 		console.log(`"Da pain!" -> ${translate("Da pain!", transTable)}`);  
 		console.log(`"Eye need help!" -> ${translate("Eye need help!", transTable)}`);  
-		console.log(`"3133Y3 (\\)33d j00 t0 g37 d4 d0c70r.37" -> ${translate("3133Y3 (\\)33d j00 t0 g37 d4 d0c70r.37", transTable)}`);  
+		console.log(`"3Y3 (\\)33d j00 t0 g37 d4 d0c70r." -> ${translate("3Y3 (\\)33d j00 t0 g37 d4 d0c70r.", transTable)}`);  
 		console.log(`"1 n33d m4 p1llz!" -> ${translate("1 n33d m4 p1llz!", transTable)}`);  
 	});
 })();
