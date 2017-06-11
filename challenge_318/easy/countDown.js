@@ -127,6 +127,7 @@
 			 */
 			displayCountDown() {
 				let validCountDown = this.getCountDown();
+				console.log(`Numbers: ${this.numList}`);
 				validCountDown.forEach(countDown => {
 					//console.log(operators);
 					let finalResult = countDown[0].reduce((acc, val, index) => {
@@ -140,6 +141,13 @@
 		let operatorList = ["+", "-", "*", "/"];
 		let numList = [1, 3, 7, 6, 8, 3, 250];
 		let countDown = new CountDown(numList, operatorList);
+		countDown.displayCountDown();
+		//challenge input
+		numList = [25, 100, 9, 7, 3, 7, 881];
+		countDown = new CountDown(numList, operatorList);
+		countDown.displayCountDown();
+		numList = [6, 75, 3, 25, 50, 100, 952];
+		countDown = new CountDown(numList, operatorList);
 		countDown.displayCountDown();
 	});
 })();
