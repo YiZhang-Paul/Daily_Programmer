@@ -1,5 +1,7 @@
 #311[Easy] Jolly Jumper
 
+All Done
+
 url: https://www.reddit.com/r/dailyprogrammer/comments/65vgkh/20170417_challenge_311_easy_jolly_jumper/
 
 A sequence of n > 0 integers is called a jolly jumper if the absolute values of the differences between successive elements take on all possible values through n - 1 (which may include negative numbers). For instance,
