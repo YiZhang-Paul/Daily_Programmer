@@ -37,24 +37,59 @@
 		 * 
 		 * returns array []
 		 */ 
-		function findLowAndHigh(numList) {
+		function findLowAndHigh1(numList) {
 			//find all permutations and sort from lowest to highest
 			let numPattern = permuteNum(numList, numList.join("").length).sort((a, b) => +a - +b);
 			return [numPattern[0], numPattern[numPattern.length - 1]];
 		} 
+		console.log("Solution 1:");
 		//default input 
 		let input = ["5", "56", "50"];
-		let [low, high] = findLowAndHigh(input);
-		console.log(+low, +high);
+		let [low, high] = findLowAndHigh1(input);
+		console.log(`${input} -> Low: ${+low}, High: ${+high}`);
 		//challenge input
 		input = ["79", "82", "34", "83", "69"];
-		[low, high] = findLowAndHigh(input);
-		console.log(+low, +high);
+		[low, high] = findLowAndHigh1(input);
+		console.log(`${input} -> Low: ${+low}, High: ${+high}`);
 		input = ["420", "34", "19", "71", "341"];
-		[low, high] = findLowAndHigh(input);
-		console.log(+low, +high);
+		[low, high] = findLowAndHigh1(input);
+		console.log(`${input} -> Low: ${+low}, High: ${+high}`);
 		input = ["17", "32", "91", "7", "46"];
-		[low, high] = findLowAndHigh(input);
-		console.log(+low, +high);
+		[low, high] = findLowAndHigh1(input);
+		console.log(`${input} -> Low: ${+low}, High: ${+high}`);
+		//solution 2
+    /**
+     * find lowest and highest numbers
+     * @param array []
+		 *
+		 * numList : list of all numbers
+		 * 
+		 * returns array []
+     */
+    function findLowAndHigh2(numList) {
+    	numList = numList.sort((a, b) => {
+    		let aLonger = a.length > b.length;
+    		let tempNum = aLonger ? b.slice() : a.slice();
+    		while(tempNum.length != (aLonger ? a.length : b.length)) {
+    			tempNum += tempNum[0];
+    		}
+    		return aLonger ? +a - +tempNum : +tempNum - +b;
+    	});
+    	return [numList.slice().join(""), numList.slice().reverse().join("")];
+    } 
+		console.log("Solution 2:");
+    input = ["5", "56", "50"];
+    [low, high] = findLowAndHigh2(input);
+		console.log(`${input} -> Low: ${+low}, High: ${+high}`);
+		//challenge input
+		input = ["79", "82", "34", "83", "69"];
+		[low, high] = findLowAndHigh2(input);
+		console.log(`${input} -> Low: ${+low}, High: ${+high}`);
+		input = ["420", "34", "19", "71", "341"];
+		[low, high] = findLowAndHigh2(input);
+		console.log(`${input} -> Low: ${+low}, High: ${+high}`);
+		input = ["17", "32", "91", "7", "46"];
+		[low, high] = findLowAndHigh2(input);
+		console.log(`${input} -> Low: ${+low}, High: ${+high}`);
 	});
 })();
