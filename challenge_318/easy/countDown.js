@@ -114,26 +114,24 @@
 				let numPatterns = this.permuteNumber();
 				let opPatterns = this.permuteOperator();
 				numPatterns.forEach(numPattern => {
-					let validPatterns = opPatterns.slice().filter(opPattern => 
+					let validOpPatterns = opPatterns.slice().filter(opPattern => 
 						this.getListResult(numPattern, opPattern) == this.targetNum);
-					if(validPatterns.length) {
-						validCountDowns.push([numPattern, ...validPatterns]);
+					if(validOpPatterns.length) {
+						validOpPatterns.forEach(pattern => {
+							let result = numPattern.slice().reduce((acc, val, index) =>
+								acc + ` ${pattern[index - 1]} ` + val);
+							validCountDowns.push(`${result} = ${this.targetNum}`);
+						});
 					}
 				});
-				return validCountDowns;
+				return new Set(validCountDowns);
 			}
 			/**
 			 * display count downs
 			 */
 			displayCountDown() {
-				let validCountDown = this.getCountDown();
 				console.log(`Numbers: ${this.numList}`);
-				validCountDown.forEach(countDown => {
-					let finalResult = countDown[0].reduce((acc, val, index) => {
-						return acc + ` ${countDown[1][index - 1]} ` + val;
-					});
-					console.log(`${finalResult} = ${this.targetNum}`);
-				});
+				this.getCountDown().forEach(countDown => console.log(countDown));
 			}
 		} 
 		//default input
@@ -143,12 +141,10 @@
 		countDown.displayCountDown();
 		//challenge input
 		numList = [25, 100, 9, 7, 3, 7, 881];
-		countDown.numList = numList;
-		countDown.targetNum = numList[numList.length - 1];
+		countDown = new CountDown(numList, operatorList);
 		countDown.displayCountDown();
 		numList = [6, 75, 3, 25, 50, 100, 952];
-		countDown.numList = numList;
-		countDown.targetNum = numList[numList.length - 1];
+		countDown = new CountDown(numList, operatorList);
 		countDown.displayCountDown();
 	});
 })();
