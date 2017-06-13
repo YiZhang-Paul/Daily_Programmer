@@ -10,18 +10,16 @@
 		 * returns String
 		 */
 		function condense(sentence) {
-			sentence = sentence.split(" ");
-			for(let i = 0; i < sentence.length; i++) {
-				for(let j = 0; j < sentence[i].length; j++) {
-					if(sentence[i + 1] && sentence[i + 1].search(sentence[i].slice(j).toLowerCase()) === 0) {
-						sentence[i] = sentence[i].slice(0, j) + sentence[i + 1];
-						sentence.splice(i + 1, 1);
-						i--;
+			let newSentence = sentence.split(" ");
+			for(let i = 0; i < newSentence.length - 1; i++) {
+				for(let j = 0; j < newSentence[i].length; j++) {
+					if(newSentence[i + 1].search(newSentence[i].slice(j).toLowerCase()) === 0) {
+						newSentence[i] = newSentence[i].slice(0, j) + newSentence.splice(1 + i--, 1)[0];
 						break;
 					}
 				}
 			}
-			return sentence.join(" ");
+			return newSentence.join(" ");
 		} 
 		//default input
 		let input = "I heard the pastor sing live verses easily.";
