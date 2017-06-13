@@ -10,40 +10,29 @@
 		 * returns String
 		 */
 		function simplifySqrt(a, b, c, d) {
-			[b, c] = [b * d, c * d];
+			//find greatest common divisor
+			let findGCD = (num1, num2) => num2 === 0 ? num1 : findGCD(num2, num1 % num2);
+			//prime numbers up to 20
+			let primes = [2, 3, 5, 7, 11, 13, 17, 19];
 			let primeSqrs = primes.map(prime => Math.pow(prime, 2));
+			[b, c] = [b * d, c * d]; //eliminate d from radical
 			let factored = false;
-			while(!factored) {
-				factored = true;
+			do {
 				for(let i = 0; i < primeSqrs.length; i++) {
+					factored = b % primeSqrs[i] !== 0;
 					if(b % primeSqrs[i] === 0) {
-						b /= primeSqrs[i];
-						a *= primes[i];
-						factored = false;
+						[a, b] = [a * primes[i], b / primeSqrs[i]];
 						break;
 					}
 				}
-			}
-			factored = false;
-			while(!factored) {
-				factored = true;
-				for(let i = 0; i < primes.length; i++) {
-					if(a % primes[i] === 0 && c % primes[i] === 0) {
-						a /= primes[i];
-						c /= primes[i];
-						factored = false;
-						break;
-					}
-				}
-			}
-			return `a = ${a}, b = ${b}, c = ${c}`;
+			} while(!factored);
+			return `a = ${a / findGCD(a, c)}, b = ${b}, c = ${c / findGCD(a, c)}`;
 		}	
-		//prime numbers up to 20
-		let primes = [2, 3, 5, 7, 11, 13, 17, 19];
 		//default input
 		let input = [2, 5, 5, 10];
-		console.log(simplifySqrt(...input));
+		console.log(`${input.join(" ")} -> ${simplifySqrt(...input)}`);
+		//challenge input
 		input = [45, 1465, 26, 15];
-		console.log(simplifySqrt(...input));
+		console.log(`${input.join(" ")} -> ${simplifySqrt(...input)}`);
 	});
 })();		
