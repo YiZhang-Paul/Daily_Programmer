@@ -31,16 +31,19 @@
 		} 
 		/**
 		 * print result
-		 * @param array []
+		 * @param array [], String
 		 *
 		 * result : result to be printed
+		 * rotate : direction of spiral to be displayed
 		 */
-		function printResult(result) {
-			result.forEach(row => {console.log(row);});
+		function printResult(result, rotate) {
+			result.forEach(row => {
+				console.log(rotate == "counter" ? row.reverse() : row);
+			});
 		} 
 		/**
 		 * get current direction
-		 * @param String, int, int, int
+		 * @param String, int, int, array []
 		 *
 		 * curDir : current direction
 		 * row    : current row
@@ -50,10 +53,10 @@
 		 * returns String
 		 */
 		function getDirection(curDir, row, col, square) {
-			if((curDir == "right" || curDir == "left") && row + col == square.length - 1) {
-				curDir = curDir == "right" ? "down" : "up";	
-			} else if(curDir == "down" && row == col) {
+			if(row == col && curDir == "down") {
 				curDir = "left";
+			} else if(row + col == square.length - 1 && (curDir == "left" || curDir == "right")) {
+				curDir = curDir == "left" ? "up" : "down";
 			} else if(curDir == "up" && square[row - 1][col]) {
 				curDir = "right";
 			}
@@ -61,16 +64,15 @@
 		} 
 		/**
 		 * traverse in square
-		 * @param String, int, int, array []
+		 * @param String, int, int
 		 *
 		 * curDir : current direction
 		 * row    : current row
 		 * col    : current column
-		 * square : square to be traversed
 		 *
 		 * returns array []
 		 */
-		function traverse(curDir, row, col, square) {
+		function traverse(curDir, row, col) {
 			switch(curDir) {
 				case "right" : case "left" :
 					col = curDir == "right" ? col + 1 : col - 1;
@@ -83,13 +85,14 @@
 		} 
 		/**
 		 * fill square with spiral
-		 * @param int
+		 * @param int, String
 		 *
-		 * num : total number of digits on each row and column
+		 * num    : total number of digits on each row and column
+		 * rotate : indicate direction of spiral
 		 *
 		 * returns array [] 
 		 */
-		function fillSpiral(num) {
+		function fillSpiral(num, rotate = "clock") {
 			//make square to hold all numbers
 			let square = makeSquare(num);
 			let maxNum = Math.pow(num, 2), maxLength = maxNum.toString().length;
@@ -100,12 +103,13 @@
 				//get direction
 				direction = getDirection(direction, curRow, curCol, square);	
 				//move through square
-				[curRow, curCol] = traverse(direction, curRow, curCol, square);
+				[curRow, curCol] = traverse(direction, curRow, curCol);
 			}
-			printResult(square);
+			printResult(square, rotate);
 		} 
 		//get user input
 		let input = prompt("Please Enter a Number: ");
-		fillSpiral(Number(input));
+		let rotate = prompt("Please Enter Direction(1 -> clockwise, 2 -> counter-clockwise):");
+		fillSpiral(Number(input), rotate == 1 ? "clock" : "counter");
 	});
 })();				
