@@ -22,80 +22,21 @@
 			});
 		} 
 		/**
-		 * construct a table of all repeating patterns
-		 * @param array []
-		 *
-		 * wordList : list of all words
-		 *
-		 * returns obj {}
-		 */
-		function getPattern(wordList) {
-			let patterns = {};
-			for(let i = 0; i < wordList.length; i++) {
-				for(let lastChar, j = 0; j < wordList[i].length; j++) {
-					let curChar = wordList[i][j];		
-					if(!lastChar) {
-						lastChar = curChar;
-						continue;
-					}
-					if(lastChar == curChar) {
-						patterns[curChar] = patterns[curChar] ? patterns[curChar] : true;
-					}
-					lastChar = curChar;
-				}
-			}
-			return patterns;
-		} 
-		/**
-		 * check if a repeating pattern exist
-		 * @param char, String, obj {}, String
-		 *
-		 * letter   : letter to be inserted 
-		 * previous : previous letter block
-		 * table : table containing max repeating character length
-		 * next     : next letter block
-		 *
-		 * returns boolean
-		 */
-		function canInsert(letter, table, previous = "", next = "") {
-			if(previous.indexOf(letter) != -1 || next.indexOf(letter) != -1) {
-				return table[letter];
-			}
-			return true;
-		} 
-		/**
 		 * merge two words together base on letter weight
-		 * @param array [], String, obj {}
+		 * @param array [], String
 		 *
 		 * word1 : word 1
 		 * word2 : word 2
-		 * table : table containing max repeating character length
 		 *
 		 * returns array [] 
 		 */ 
-		function merge(word1, word2, table) {
+		function merge(word1, word2) {
 			word1 = Array.isArray(word1) ? word1 : word1.split("");
 			for(let i = 0; i < word2.length; i++) {
 				if(!word1[i]) {
-					if(!word1[i - 1] || word1[i - 1].indexOf(word2[i]) == -1) {
-						word1[i] = word2[i];
-					} else if(table[word2[i]]) {
-						word1[i] = word2[i];
-					} else {
-						let index = word1[i - 1].indexOf(word2[i]);
-						word1[i - 1] += word1[i - 1].split("").splice(index, 1)[0];
-					}
+					word1[i] = word2[i];
 				} else if(word1[i].indexOf(word2[i]) == -1) {
-					if(canInsert(word2[i], table, word1[i - 1], word1[i + 1])) {
-						word1[i] += word2[i];
-					} else {
-						if(word1[i - 1] && word1[i - 1].indexOf(word2[i]) != -1) {
-							word1[i - 1] += word1[i - 1].split("").splice(word1[i - 1].indexOf(word2[i]), 1)[0];
-						}
-						if(word1[i + 1] && word1[i + 1].indexOf(word2[i]) != -1) {
-							word1[i] += word1[i + 1].split("").splice(word1[i + 1].indexOf(word2[i]), 1)[0];
-						}		
-					}
+					word1[i] += word2[i];	
 				}
 			}
 			return word1;
@@ -128,9 +69,47 @@
 		 * returns String
 		 */
 		function embed(wordList) {
-			let patternTable = getPattern(wordList);
-			let allMerged = wordList.reduce((acc, val) => merge(acc, val, patternTable)).join("");
-			return trimSequence(allMerged, wordList);
+			let trimedList = removeEmbed(wordList);
+			let allMerged = trimedList.reduce((acc, val) => merge(acc, val)).join("");
+			return trimSequence(allMerged, trimedList);
+		}
+		/**
+		 * check if a word is embedded in another
+		 * @param String, String
+		 *
+		 * test  : word to be tested 
+		 * other : other word used for the test
+		 *
+		 * returns boolean
+		 */
+		function isEmbed(test, other) {
+			for(let start = 0, i = 0; i < test.length; i++) {
+				let index = other.indexOf(test[i], start); 
+				if(index == -1) {
+					return false;
+				}
+				start = index + 1;
+			}
+			return true;
+		} 
+		/**
+		 * remove embedded words
+		 * @param array []
+		 *
+		 * wordList : list of all words
+		 *
+		 * returns array []
+		 */
+		function removeEmbed(wordList) {
+			wordList = wordList.sort((a, b) => a.length - b.length);
+			return wordList.filter((word, index) => {
+				for(let i = wordList.length - 1; i >= 0; i--) {
+					if(i != index && isEmbed(word, wordList[i])) {
+						return false;
+					}
+				}
+				return true;
+			});
 		} 
 		//default input
 		let input = ["one", "two", "three", "four", "five"];
@@ -138,7 +117,7 @@
 		console.log(embedded, embedded.length); 
 		//challenge input
 		getText("wordList.txt").then(result => {
-			let embedded = embed(result);
+			let embedded = embed(result.slice(0, 10000));
 			console.log(embedded, embedded.length); 	
 		});
 	});
