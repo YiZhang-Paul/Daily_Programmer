@@ -22,23 +22,66 @@
 			});
 		} 
 		/**
+		 * construct a table of all repeating patterns
+		 * @param array []
+		 *
+		 * wordList : list of all words
+		 *
+		 * returns obj {}
+		 */
+		function getPattern(wordList) {
+			let patterns = {};
+			for(let i = 0; i < wordList.length; i++) {
+				for(let lastChar, j = 0; j < wordList[i].length; j++) {
+					let curChar = wordList[i][j];		
+					if(!lastChar) {
+						lastChar = curChar;
+						continue;
+					}
+					if(lastChar == curChar) {
+						patterns[curChar] = patterns[curChar] ? patterns[curChar] : true;
+					}
+					lastChar = curChar;
+				}
+			}
+			return patterns;
+		} 
+		/**
+		 * check if a repeating pattern exist
+		 * @param char, String, String, obj {}
+		 *
+		 * letter   : letter to be inserted 
+		 * previous : previous letter block
+		 * next     : next letter block
+		 * table : table containing max repeating character length
+		 *
+		 * returns boolean
+		 */
+		function checkPattern(letter, previous, next, table) {
+			if(previous.indexOf(letter) != -1 || next.indexOf(letter) != -1) {
+				return table[letter];
+			}
+			return false;
+		} 
+		/**
 		 * merge two words together base on letter weight
-		 * @param array [], String
+		 * @param array [], String, obj {}
 		 *
 		 * word1 : word 1
 		 * word2 : word 2
+		 * table : table containing max repeating character length
 		 *
 		 * returns array [] 
 		 */ 
-		function merge(word1, word2) {
+		function merge(word1, word2, table) {
 			word1 = Array.isArray(word1) ? word1 : word1.split("");
-			word2.split("").forEach((letter, index) => {
-				if(!word1[index]) {
-					word1[index] = letter;
-				} else if(word1[index].indexOf(letter) == -1) {
-					word1[index] += letter;
+			for(let i = 0; i < word2.length; i++) {
+				if(!word1[i]) {
+					word1[i] = word2[i];
+				} else if(word1[i].indexOf(word2[i]) == -1) {
+					word1[i] += word2[i];
 				}
-			});
+			}
 			return word1;
 		}
 		/** 
@@ -52,13 +95,12 @@
 		 */
 		function trimSequence(sequence, wordList) {
 			let useFlag = new Array(sequence.length).fill(0);
-			wordList.forEach(word => {
-				for(let start = 0, i = 0; i < word.length; i++) {
-					let index = sequence.indexOf(word[i], start);
-					useFlag[index]++;
-					start = index + 1;
+			for(let i = 0; i < wordList.length; i++) {
+				for(let start = 0, j = 0; j < wordList[i].length; j++) {
+					start = sequence.indexOf(wordList[i][j], start) + 1;
+					useFlag[start - 1]++;
 				}
-			});
+			}
 			return sequence.split("").reduce((acc, val, index) => acc + (useFlag[index] ? val : ""));
 		} 
 		/**
@@ -70,8 +112,8 @@
 		 * returns String
 		 */
 		function embed(wordList) {
-			let allMerged = wordList.sort((a, b) => a.length - b.length)
-				.reduce((acc, val) => merge(acc, val)).join("");
+			let patternTable = getPattern(wordList);
+			let allMerged = wordList.reduce((acc, val) => merge(acc, val, patternTable)).join("");
 			return trimSequence(allMerged, wordList);
 		} 
 		//default input
@@ -79,10 +121,9 @@
 		let embedded = embed(input);
 		console.log(embedded, embedded.length); 
 		//challenge input
-		let promise = getText("wordList.txt");
-		promise.then(result => {
-			let embedded = embed(result);
-			console.log(embedded, embedded.length); 	
+		getText("wordList.txt").then(result => {
+			//let embedded = embed(result);
+			//console.log(embedded, embedded.length); 	
 		});
 	});
 })();		
