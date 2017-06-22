@@ -48,20 +48,20 @@
 		} 
 		/**
 		 * check if a repeating pattern exist
-		 * @param char, String, String, obj {}
+		 * @param char, String, obj {}, String
 		 *
 		 * letter   : letter to be inserted 
 		 * previous : previous letter block
-		 * next     : next letter block
 		 * table : table containing max repeating character length
+		 * next     : next letter block
 		 *
 		 * returns boolean
 		 */
-		function checkPattern(letter, previous, next, table) {
+		function canInsert(letter, table, previous = "", next = "") {
 			if(previous.indexOf(letter) != -1 || next.indexOf(letter) != -1) {
 				return table[letter];
 			}
-			return false;
+			return true;
 		} 
 		/**
 		 * merge two words together base on letter weight
@@ -77,9 +77,25 @@
 			word1 = Array.isArray(word1) ? word1 : word1.split("");
 			for(let i = 0; i < word2.length; i++) {
 				if(!word1[i]) {
-					word1[i] = word2[i];
+					if(!word1[i - 1] || word1[i - 1].indexOf(word2[i]) == -1) {
+						word1[i] = word2[i];
+					} else if(table[word2[i]]) {
+						word1[i] = word2[i];
+					} else {
+						let index = word1[i - 1].indexOf(word2[i]);
+						word1[i - 1] += word1[i - 1].split("").splice(index, 1)[0];
+					}
 				} else if(word1[i].indexOf(word2[i]) == -1) {
-					word1[i] += word2[i];
+					if(canInsert(word2[i], table, word1[i - 1], word1[i + 1])) {
+						word1[i] += word2[i];
+					} else {
+						if(word1[i - 1] && word1[i - 1].indexOf(word2[i]) != -1) {
+							word1[i - 1] += word1[i - 1].split("").splice(word1[i - 1].indexOf(word2[i]), 1)[0];
+						}
+						if(word1[i + 1] && word1[i + 1].indexOf(word2[i]) != -1) {
+							word1[i] += word1[i + 1].split("").splice(word1[i + 1].indexOf(word2[i]), 1)[0];
+						}		
+					}
 				}
 			}
 			return word1;
@@ -122,8 +138,8 @@
 		console.log(embedded, embedded.length); 
 		//challenge input
 		getText("wordList.txt").then(result => {
-			//let embedded = embed(result);
-			//console.log(embedded, embedded.length); 	
+			let embedded = embed(result);
+			console.log(embedded, embedded.length); 	
 		});
 	});
 })();		
