@@ -69,9 +69,8 @@
 		 * returns String
 		 */
 		function embed(wordList) {
-			let trimedList = removeEmbed(wordList);
-			let allMerged = trimedList.reduce((acc, val) => merge(acc, val)).join("");
-			return trimSequence(allMerged, trimedList);
+			let allMerged = wordList.reduce((acc, val) => merge(acc, val)).join("");
+			return trimSequence(allMerged, wordList);
 		}
 		/**
 		 * check if a word is embedded in another
@@ -110,15 +109,38 @@
 				}
 				return true;
 			});
-		} 
+ 		} 
+ 		/**
+ 		 * categorize words base on initial letter
+ 		 * @param array []
+ 		 *
+ 		 * wordList : list of all words
+ 		 * 
+ 		 * returns array []
+ 		 */
+ 		function groupWord(wordList) {
+ 			let category = [], charCodeA = "a".charCodeAt();
+ 			for(let i = 0; i < wordList.length; i++) {
+ 				let curCharCode = wordList[i][0].charCodeAt();
+ 				if(category[curCharCode - charCodeA]) {
+ 					category[curCharCode - charCodeA].push(wordList[i]);
+ 				} else {
+ 					category[curCharCode - charCodeA] = [wordList[i]];
+ 				}
+ 			}
+ 			return category;
+ 		} 
 		//default input
 		let input = ["one", "two", "three", "four", "five"];
-		let embedded = embed(input);
-		console.log(embedded, embedded.length); 
+		//let embedded = embed(input);
+		//console.log(embedded, embedded.length); 
 		//challenge input
 		getText("wordList.txt").then(result => {
-			let embedded = embed(result.slice(0, 10000));
-			console.log(embedded, embedded.length); 	
+			console.log(groupWord(result));
+			//let time = new Date().getTime();
+			//console.log(removeEmbed(result.slice(0, 100)), new Date().getTime() - time);
+			//let embedded = embed(result);
+			//console.log(embedded, embedded.length, new Date().getTime() - time); 	
 		});
 	});
 })();		
