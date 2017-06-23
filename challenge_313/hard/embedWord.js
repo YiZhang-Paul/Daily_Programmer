@@ -79,7 +79,7 @@
  			}
  			return categories.reduce((acc, val) => [...acc, (val ? val : [])], []);
  		} 
- 				/**
+ 		/**
 		 * merge two words together base on letter weight
 		 * @param array [], String
 		 *
@@ -116,8 +116,21 @@
 					useFlag[start - 1]++;
 				}
 			}
+				console.log(useFlag);
 			return sequence.split("").reduce((acc, val, index) => acc + (useFlag[index] ? val : ""));
-		} 
+		}
+		/**
+		 * generate alphabet that will cover all words
+		 *
+		 * returns String
+		 */
+		 function getAlphabet() {
+		 	let alphabet = "";
+		 	for(let curCode = "a".charCodeAt(), i = 0; i < 26; i++	) {
+		 		alphabet += String.fromCharCode(curCode++);
+		 	}
+		 	return alphabet;
+		 }
 		/**
 		 * embed a list of word inside each other
 		 * @param array []
@@ -133,12 +146,10 @@
 			for(let i = 0; i < categories.length; i++) {
 				categories[i] = removeEmbed(categories[i]);
 			}
-			wordList = categories.reduce((acc, val) => acc.concat(val));
-			let alphabet = "", maxLength = wordList.sort((a, b) => b.length - a.length)[0].length;
-			for(let curCode = "a".charCodeAt(), j = 0; j < 26; j++) {
-				alphabet += String.fromCharCode(curCode++);
-			}
-			return trimSequence(alphabet.repeat(maxLength), wordList);
+			wordList = categories.sort((a, b) => b.length - a.length).reduce((acc, val) => acc.concat(val));
+			console.log(categories);
+			let maxLength = wordList.sort((a, b) => b.length - a.length)[0].length;
+			return trimSequence(getAlphabet().repeat(maxLength), wordList);
 		}
 		//default input
 		let input = ["one", "two", "three", "four", "five"];
@@ -147,7 +158,7 @@
 		//challenge input
 		getText("wordList.txt").then(result => {
 			let time = new Date().getTime();
-			let embedded = embed(result);
+			let embedded = embed(result.slice(5000, 6000));
 			console.log(embedded, embedded.length, new Date().getTime() - time); 	
 		});
 	});
