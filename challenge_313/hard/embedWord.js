@@ -22,6 +22,64 @@
 			});
 		} 
 		/**
+		 * check if a word is embedded in another
+		 * @param String, String
+		 *
+		 * test  : word to be tested 
+		 * other : other word used for the test
+		 *
+		 * returns boolean
+		 */
+		function isEmbed(test, other) {
+			for(let start = 0, i = 0; i < test.length; i++) {
+				let index = other.indexOf(test[i], start); 
+				if(index == -1) {
+					return false;
+				}
+				start = index + 1;
+			}
+			return true;
+		} 
+		/**
+		 * remove embedded words
+		 * @param array []
+		 *
+		 * wordList : list of all words
+		 *
+		 * returns array []
+		 */
+		function removeEmbed(wordList) {
+			return wordList.filter((word, index) => {
+				for(let i = wordList.length - 1; i >= 0; i--) {
+					if(i != index && isEmbed(word, wordList[i])) {
+						return false;
+					}
+				}
+				return true;
+			});
+ 		} 
+ 		/**
+ 		 * categorize words base on initial letter
+ 		 * @param array []
+ 		 *
+ 		 * wordList : list of all words
+ 		 * 
+ 		 * returns array []
+ 		 */
+ 		function groupWord(wordList) {
+ 			wordList = wordList.sort((a, b) => a.length - b.length);
+ 			let categories = [], charCodeA = "a".charCodeAt();
+ 			for(let i = 0; i < wordList.length; i++) {
+ 				let curCharCode = wordList[i][0].charCodeAt();
+ 				if(categories[curCharCode - charCodeA]) {
+ 					categories[curCharCode - charCodeA].push(wordList[i]);
+ 				} else {
+ 					categories[curCharCode - charCodeA] = [wordList[i]];
+ 				}
+ 			}
+ 			return categories.reduce((acc, val) => [...acc, (val ? val : [])], []);
+ 		} 
+ 				/**
 		 * merge two words together base on letter weight
 		 * @param array [], String
 		 *
@@ -69,78 +127,28 @@
 		 * returns String
 		 */
 		function embed(wordList) {
-			let allMerged = wordList.reduce((acc, val) => merge(acc, val)).join("");
-			return trimSequence(allMerged, wordList);
-		}
-		/**
-		 * check if a word is embedded in another
-		 * @param String, String
-		 *
-		 * test  : word to be tested 
-		 * other : other word used for the test
-		 *
-		 * returns boolean
-		 */
-		function isEmbed(test, other) {
-			for(let start = 0, i = 0; i < test.length; i++) {
-				let index = other.indexOf(test[i], start); 
-				if(index == -1) {
-					return false;
-				}
-				start = index + 1;
+			//categorize all words
+			let categories = groupWord(wordList);
+			//remove embed words
+			for(let i = 0; i < categories.length; i++) {
+				categories[i] = removeEmbed(categories[i]);
 			}
-			return true;
-		} 
-		/**
-		 * remove embedded words
-		 * @param array []
-		 *
-		 * wordList : list of all words
-		 *
-		 * returns array []
-		 */
-		function removeEmbed(wordList) {
-			wordList = wordList.sort((a, b) => a.length - b.length);
-			return wordList.filter((word, index) => {
-				for(let i = wordList.length - 1; i >= 0; i--) {
-					if(i != index && isEmbed(word, wordList[i])) {
-						return false;
-					}
-				}
-				return true;
-			});
- 		} 
- 		/**
- 		 * categorize words base on initial letter
- 		 * @param array []
- 		 *
- 		 * wordList : list of all words
- 		 * 
- 		 * returns array []
- 		 */
- 		function groupWord(wordList) {
- 			let category = [], charCodeA = "a".charCodeAt();
- 			for(let i = 0; i < wordList.length; i++) {
- 				let curCharCode = wordList[i][0].charCodeAt();
- 				if(category[curCharCode - charCodeA]) {
- 					category[curCharCode - charCodeA].push(wordList[i]);
- 				} else {
- 					category[curCharCode - charCodeA] = [wordList[i]];
- 				}
- 			}
- 			return category;
- 		} 
+			wordList = categories.reduce((acc, val) => acc.concat(val));
+			let alphabet = "", maxLength = wordList.sort((a, b) => b.length - a.length)[0].length;
+			for(let curCode = "a".charCodeAt(), j = 0; j < 26; j++) {
+				alphabet += String.fromCharCode(curCode++);
+			}
+			return trimSequence(alphabet.repeat(maxLength), wordList);
+		}
 		//default input
 		let input = ["one", "two", "three", "four", "five"];
-		//let embedded = embed(input);
-		//console.log(embedded, embedded.length); 
+		let embedded = embed(input);
+		console.log(embedded, embedded.length); 
 		//challenge input
 		getText("wordList.txt").then(result => {
-			console.log(groupWord(result));
-			//let time = new Date().getTime();
-			//console.log(removeEmbed(result.slice(0, 100)), new Date().getTime() - time);
-			//let embedded = embed(result);
-			//console.log(embedded, embedded.length, new Date().getTime() - time); 	
+			let time = new Date().getTime();
+			let embedded = embed(result);
+			console.log(embedded, embedded.length, new Date().getTime() - time); 	
 		});
 	});
 })();		
