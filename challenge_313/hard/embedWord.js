@@ -145,18 +145,26 @@
 		 * returns String
 		 */
 		function mixSegment(segment1, segment2) {
-			let toMix = segment1.length > segment2.length ? segment1 : segment2;
-			let toBeMixed = toMix == segment1 ? segment2 : segment1;
 			let mixed;
-			if(!toMix.length || !toBeMixed.length) {
-				mixed = toMix + toBeMixed;
+			if(!segment1.length || !segment2.length) {
+				mixed = segment1 + segment2;
 			} else {
+				let toMix = segment1.length > segment2.length ? segment1.split("") : segment2.split("");
+				let toBeMixed = toMix.join("") == segment1 ? segment2.split("") : segment1.split("");				
 				for(let start = 0, i = 0; i < toBeMixed.length; i++) {
-
+					for(let j = Math.min(start, toMix.length); j <= toMix.length; j++) {
+						if(!toMix[j] || toBeMixed[i].charCodeAt() <= toMix[j].charCodeAt()) {
+							toMix.splice(j, 0, toBeMixed[i]);
+							start = j + 1;
+							break;
+						}
+					}
 				}
+				mixed = toMix.join("");
 			}
 			return mixed;
 		} 
+		mixSegment("", "fsz");
 		/**
 		 * merge two words together
 		 * @param String, String, array []
