@@ -82,7 +82,7 @@
 			});
 			let categories = groupWord(wordList).sort((a, b) => b.length - a.length);
 			for(let i = 0; i < categories.length; i++) {
-				let list = categories[i].sort((a, b) => a.length - b.length).slice(0, 100);
+				let list = categories[i].sort((a, b) => a.length - b.length);
 				categories[i] = filterEmbed(list).sort((a, b) => b.length - a.length);
 			}
 			return categories.reduce((acc, val) => [...acc, ...val]);
@@ -155,7 +155,6 @@
 			mixed += segment1 + segment2;
 			return mixed;
 		} 
-		console.log(mixSegment("asdsa", "ljkzk"));
 		/**
 		 * merge two words together
 		 * @param String, String, array []
@@ -170,10 +169,30 @@
 			let segment1 = reuse.length ? segmentWord(word1, reuse, "sIndex") : [word1];
 			let segment2 = reuse.length ? segmentWord(word2, reuse, "wIndex") : [word2]; 
 			let merged = "";
-			for(let i = 0; i < segment1.length; i++) {
-				merged += mixSegment(segment1[i], segment2[i]);
+			for(let i = 0; i < segment1.length - 1; i++) {
+				merged += mixSegment(segment1[i], segment2[i]) + word1[reuse[i].sIndex];
 			}
+			merged += mixSegment(segment1[segment1.length - 1], segment2[segment2.length - 1]);
 			return merged;
+		} 
+		/**
+		 * trim merged sequence
+		 * @param array [], String
+		 *
+		 * wordList : list of all words
+		 * sequence : merged sequence of all words
+		 */
+		function trimSequence(wordList, sequence) {
+			sequence = sequence.split("").reverse();
+			let useFlag = new Array(sequence.length).fill(0);
+			for(let i = 0; i < wordList.length; i++) {
+				let reversed = wordList[i].split("").reverse();
+				for(let start = 0, j = 0; j < reversed.length; j++) {
+					start = sequence.indexOf(reversed[j], start) + 1;
+					useFlag[start - 1]++;
+				}
+			}
+			return sequence.filter((letter, index) => useFlag[index]).reverse().join("");
 		} 
 		/**
 		 * embed words into a single sequence
@@ -185,25 +204,27 @@
 		 */
 		function embed(wordList) {
 			let trimedList = removeEmbed(wordList);
-			return trimedList.reduce((acc, val) => {
-				//let reuse1 = maxReusable(acc, val);
-				//let reuse2 = maxReusable(val, acc);
-				//if(reuse1.length >= reuse2.length) {
-				//	return merge(acc, val, reuse1);
-				//}	else {
-				//	return merge(val, acc, reuse2);
-				//}			
+			let sequence = trimedList.reduce((acc, val) => {
+				let reuse1 = maxReusable(acc, val);
+				let reuse2 = maxReusable(val, acc);
+				if(reuse1.length >= reuse2.length) {
+					return merge(acc, val, reuse1);
+				}	else {
+					return merge(val, acc, reuse2);
+				}			
 			});
+			return trimSequence(wordList, sequence);
 		} 
 		//default input
 		let input = ["one", "two", "three", "four", "five"];
 		let test = embed(input);
+		console.log(test, test.length);
 		//challenge input
 		getText("wordList.txt").then(result => {
-			//let time = new Date().getTime();
-			//let test = embed(result);
-			//let now = new Date().getTime();
-			//console.log(test, now - time);
+			let time = new Date().getTime();
+			let test = embed(result);
+			let now = new Date().getTime();
+			console.log(test, test.length, now - time);
 		});
 	});
 })();
