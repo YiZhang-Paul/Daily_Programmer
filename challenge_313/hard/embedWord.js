@@ -94,25 +94,39 @@
 		 * word     : word to be tested
 		 * sequence : sequence to be tested again
 		 *
-		 * returns obj {}
+		 * returns array []
 		 */
 		function maxReusable(word, sequence) {
 			let indexUsed = [];
-			for(let i = 0; i < word.length; i++) {
-				for(let start = 0, max = 0, j = i; j < word.length; j++) {
+			for(let start = 0, max = 0, i = 0; i < word.length; i++) {
+				for(let j = i; j < word.length; j++) {
 					let index = sequence.indexOf(word[j], start);
 					if(index != -1) {
 						indexUsed.push({wIndex : j, sIndex : index});
 						start = index + 1;
 						max++;
 					} else {
-						let prevMax = indexUsed.length - max;
-						indexUsed = max > prevMax ? indexUsed.slice(-max) : indexUsed.slice(0, prevMax);
-						start = 0; 
-						max = 0;
+						break;
 					}
 				}
+				let prevMax = indexUsed.length - max;
+				indexUsed = max > prevMax ? indexUsed.slice(-max) : indexUsed.slice(0, prevMax);	
+				start = 0;
+				max = 0;
 			}
+			return indexUsed;
+		} 
+		/**
+		 * merge two words together
+		 * @param String, String
+		 *
+		 * word1 : word 1
+		 * word2 : word 2
+		 *
+		 * returns String
+		 */
+		function merge(word1, word2) {
+
 		} 
 		/**
 		 * embed words into a single sequence
@@ -124,17 +138,20 @@
 		 */
 		function embed(wordList) {
 			let trimedList = removeEmbed(wordList);
+			console.log(trimedList);
+			console.log(maxReusable("sadsagasgsad", "irtthfghtrhavefz"));
+			console.log(maxReusable("irtthfghtrhavefz", "sadsagasgsad"));
 		} 
 		//default input
 		let input = ["one", "two", "three", "four", "five"];
-		let test = removeEmbed(input);
+		let test = embed(input);
 		console.log(test);
 		//challenge input
 		getText("wordList.txt").then(result => {
-			let time = new Date().getTime();
-			let test = embed(result);
-			let now = new Date().getTime();
-			console.log(test, now - time);
+			//let time = new Date().getTime();
+			//let test = embed(result);
+			//let now = new Date().getTime();
+			//console.log(test, now - time);
 		});
 	});
 })();
