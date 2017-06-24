@@ -136,6 +136,28 @@
 			return segment;
 		} 
 		/**
+		 * combine two word segments into one
+		 * @param String, String
+		 *
+		 * segment1 : segment 1
+		 * segment2 : segment 2
+		 *
+		 * returns String
+		 */
+		function mixSegment(segment1, segment2) {
+			let toMix = segment1.length > segment2.length ? segment1 : segment2;
+			let toBeMixed = toMix == segment1 ? segment2 : segment1;
+			let mixed;
+			if(!toMix.length || !toBeMixed.length) {
+				mixed = toMix + toBeMixed;
+			} else {
+				for(let start = 0, i = 0; i < toBeMixed.length; i++) {
+
+				}
+			}
+			return mixed;
+		} 
+		/**
 		 * merge two words together
 		 * @param String, String, array []
 		 *
@@ -148,9 +170,12 @@
 		function merge(word1, word2, reuse) { 
 			let segment1 = reuse.length ? segmentWord(word1, reuse, "sIndex") : [word1];
 			let segment2 = reuse.length ? segmentWord(word2, reuse, "wIndex") : [word2]; 
-			console.log(segment1, segment2);
+			let merged = "";
+			for(let i = 0; i < segment1.length; i++) {
+				merged += mixSegment(segment1[i], segment2[i]);
+			}
+			return merged;
 		} 
-		merge("fyjivje", "ivezzf", maxReusable("fyjivje", "ivezzf"));
 		/**
 		 * embed words into a single sequence
 		 * @param array []
@@ -161,7 +186,6 @@
 		 */
 		function embed(wordList) {
 			let trimedList = removeEmbed(wordList);
-			console.log(trimedList);
 			return trimedList.reduce((acc, val) => {
 				//let reuse1 = maxReusable(acc, val);
 				//let reuse2 = maxReusable(val, acc);
