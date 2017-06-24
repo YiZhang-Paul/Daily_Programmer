@@ -91,12 +91,12 @@
 		 * find max reusable pattern from a sequence
 		 * @param String, String
 		 *
-		 * word     : word to be tested
 		 * sequence : sequence to be tested again
+		 * word     : word to be tested
 		 *
 		 * returns array []
 		 */
-		function maxReusable(word, sequence) {
+		function maxReusable(sequence, word) {
 			let indexUsed = [];
 			for(let start = 0, max = 0, i = 0; i < word.length; i++) {
 				for(let j = i; j < word.length; j++) {
@@ -117,17 +117,40 @@
 			return indexUsed;
 		} 
 		/**
+		 * segment words base on break points
+		 * @param String, array [], String
+		 *
+		 * word  : word to be segmented
+		 * reuse : reuse index
+		 * type  : type of reuse index
+		 *
+		 * returns array []
+		 */
+		function segmentWord(word, reuse, type) {
+			let segment = [];
+			for(let start = 0, i = 0; i < reuse.length; i++) {
+				segment.push(word.slice(start, reuse[i][type]));
+				start = Math.min(reuse[i][type] + 1, word.length - 1);
+			}
+			segment.push(word.slice(reuse[reuse.length - 1][type] + 1));
+			return segment;
+		} 
+		/**
 		 * merge two words together
-		 * @param String, String
+		 * @param String, String, array []
 		 *
 		 * word1 : word 1
 		 * word2 : word 2
+		 * reuse : max reuse index
 		 *
 		 * returns String
 		 */
-		function merge(word1, word2) {
-
+		function merge(word1, word2, reuse) { 
+			let segment1 = reuse.length ? segmentWord(word1, reuse, "sIndex") : [word1];
+			let segment2 = reuse.length ? segmentWord(word2, reuse, "wIndex") : [word2]; 
+			console.log(segment1, segment2);
 		} 
+		merge("fyjivje", "ivezzf", maxReusable("fyjivje", "ivezzf"));
 		/**
 		 * embed words into a single sequence
 		 * @param array []
@@ -139,13 +162,19 @@
 		function embed(wordList) {
 			let trimedList = removeEmbed(wordList);
 			console.log(trimedList);
-			console.log(maxReusable("sadsagasgsad", "irtthfghtrhavefz"));
-			console.log(maxReusable("irtthfghtrhavefz", "sadsagasgsad"));
+			return trimedList.reduce((acc, val) => {
+				//let reuse1 = maxReusable(acc, val);
+				//let reuse2 = maxReusable(val, acc);
+				//if(reuse1.length >= reuse2.length) {
+				//	return merge(acc, val, reuse1);
+				//}	else {
+				//	return merge(val, acc, reuse2);
+				//}			
+			});
 		} 
 		//default input
 		let input = ["one", "two", "three", "four", "five"];
 		let test = embed(input);
-		console.log(test);
 		//challenge input
 		getText("wordList.txt").then(result => {
 			//let time = new Date().getTime();
