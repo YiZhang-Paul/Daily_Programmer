@@ -28,6 +28,23 @@
 				}
 			} 
 			/**
+			 * check game end and determine winner
+			 */
+			checkGameEnd() {
+				if(!this.player1.deck.length || !this.player2.deck.length) {
+					this.state = "finished";
+					let winner;
+					if(this.player1.deck.length) {
+						winner = 1;
+					} else if(this.player2.deck.length) {
+						winner = 2;
+					} else {
+						winner = 0;
+					}
+					console.log(winner); 
+				}
+			} 
+			/**
 			 * game states
 			 */
 			//battle state
@@ -40,8 +57,10 @@
 				} else {
 					let winner = card1 > card2 ? this.player1 : this.player2;
 					winner.retrieveCard(this.state, this.cardPool);
+					this.checkGameEnd();
 				}
 			} 
+			//war state
 		} 
 		/**
 		 * player class
