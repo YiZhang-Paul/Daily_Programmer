@@ -12,8 +12,7 @@
 				this.wordFile = this.getFile(url);
 				this.wordFile.then(list => {
 					let start = new Date().getTime();
-					this.getOccurrence(list);
-					//let result = this.embed2(list);
+					let result = this.embed2(list);
 					let end = new Date().getTime();
 					//console.log("Result: " + result);
 					//console.log("Length: " + result.length);
@@ -263,18 +262,26 @@
 			} 
 			/**
 			 * generate alphabet table
-			 * @param int
+			 * @param int, obj {}
 			 *
-			 * length : length of longest word in word list
-			 *
+			 * length      : length of longest word in word list
+			 * occurrence  : order alphabet base on letter occurrence
+			 * 
 			 * returns String
 			 */
-			getAlphabet(length) {
-				let alphabet = "";
-				for(let i = "a".charCodeAt(); i < "a".charCodeAt() + 26; i++) {
-					alphabet += String.fromCharCode(i);
-				} 
-				return alphabet.repeat(length);
+			getAlphabet(length, occurrence) {
+				let alphabet = [];
+				if(occurrence) {
+					for(let letter in occurrence) {
+						alphabet.push({char : letter, total : occurrence[letter]});
+					}
+					alphabet = alphabet.sort((a, b) => b.total - a.total).map(letter => letter.char);
+				} else {
+					for(let i = "a".charCodeAt(); i < "a".charCodeAt() + 26; i++) {
+						alphabet.push(String.fromCharCode(i));
+					} 
+				}
+				return alphabet.join("").repeat(length);
 			} 
 			/**
 			 * another solution for embedding words
@@ -286,9 +293,10 @@
 			 */
 			embed2(list) {
 				//get alphabet table
-				let alphabet = this.getAlphabet(list.sort((a, b) => b.length - a.length)[0].length);
+				let length = list.sort((a, b) => b.length - a.length)[0].length;
+				let alphabet = this.getAlphabet(length, this.getOccurrence(list));
 				//remove unused letters from alphabet table
-				return this.trimSequence(list, alphabet);
+				//return this.trimSequence(list, alphabet);
 			} 
 		} 
 		//default input
