@@ -14,8 +14,8 @@
 					let start = new Date().getTime();
 					let result = this.embed2(list);
 					let end = new Date().getTime();
-					//console.log("Result: " + result);
-					//console.log("Length: " + result.length);
+					console.log("Result: " + result);
+					console.log("Length: " + result.length);
 					console.log(`Time Spent: ${end - start}ms(${(end - start) / 1000} seconds)`);
 				});
 			}
@@ -296,7 +296,7 @@
 				let length = list.sort((a, b) => b.length - a.length)[0].length;
 				let alphabet = this.getAlphabet(length, this.getOccurrence(list));
 				//remove unused letters from alphabet table
-				//return this.trimSequence(list, alphabet);
+				return this.trimSequence(list, alphabet);
 			} 
 		} 
 		//default input
