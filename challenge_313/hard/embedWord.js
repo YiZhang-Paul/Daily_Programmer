@@ -12,10 +12,11 @@
 				this.wordFile = this.getFile(url);
 				this.wordFile.then(list => {
 					let start = new Date().getTime();
-					let result = this.embed2(list);
+					this.getOccurrence(list);
+					//let result = this.embed2(list);
 					let end = new Date().getTime();
-					console.log("Result: " + result);
-					console.log("Length: " + result.length);
+					//console.log("Result: " + result);
+					//console.log("Length: " + result.length);
 					console.log(`Time Spent: ${end - start}ms(${(end - start) / 1000} seconds)`);
 				});
 			}
@@ -61,6 +62,23 @@
 					categories.push(initials[letter]);
 				}
 				return categories;
+			} 
+			/**
+			 * record occurrence of letters
+			 * @param array []
+			 *
+			 * list : list of all words
+			 *
+			 * returns obj {}
+			 */
+			getOccurrence(list) {
+				let occurrence = {};
+				for(let i = 0; i < list.length; i++) {	
+					for(let j = 0; j < list[i].length; j++) {
+						occurrence[list[i][j]] = occurrence[list[i][j]] ? occurrence[list[i][j]] + 1 : 1;
+					}
+				}
+				return occurrence;
 			} 
 			/**
 			 * check if a word is embedded in another word
