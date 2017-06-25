@@ -12,7 +12,7 @@
 				this.wordFile = this.getFile(url);
 				this.wordFile.then(list => {
 					let start = new Date().getTime();
-					let result = this.embed(list);
+					let result = this.embed2(list);
 					let end = new Date().getTime();
 					console.log("Result: " + result);
 					console.log("Length: " + result.length);
@@ -208,6 +208,25 @@
 				merged += this.mixSegment(segment1[segment1.length - 1], segment2[segment2.length - 1]);
 				return merged;
 			} 
+			/**
+			 * trim sequence by removing unused letters
+			 * @param array [], String
+			 *
+			 * list     : list of all words
+			 * sequence : sequence to be trimed
+			 *
+			 * returns String
+			 */
+			trimSequence(list, sequence) {
+				for(let i = 0; i < sequence.length; i++) {
+					let restSequence = sequence.slice(0, i) + sequence.slice(i + 1);
+					if(this.allEmbed(list, restSequence)) {
+						sequence = restSequence;
+						i--;
+					}
+				}
+				return sequence;
+			} 
 			/** 
 			 * embed words into a single sequence
 			 * @param array []
@@ -216,21 +235,43 @@
 			 *
 			 * returns String
 			 */
-			embed(list) {
+			embed1(list) {
 				//remove embedded words in word list
 				let trimList = this.removeEmbed(list);
 				//generate sequence
 				let sequence = trimList.reduce((acc, val) => this.merge(acc, val));
 				//trim sequence
-				for(let i = 0; i < sequence.length; i++) {
-					let restSequence = sequence.slice(0, i) + sequence.slice(i + 1);
-					if(this.allEmbed(trimList, restSequence)) {
-						sequence = restSequence;
-						i--;
-					}
-				}
-				return sequence;
-			}  
+				return this.trimSequence(trimList, sequence);
+			} 
+			/**
+			 * generate alphabet table
+			 * @param int
+			 *
+			 * length : length of longest word in word list
+			 *
+			 * returns String
+			 */
+			getAlphabet(length) {
+				let alphabet = "";
+				for(let i = "a".charCodeAt(); i < "a".charCodeAt() + 26; i++) {
+					alphabet += String.fromCharCode(i);
+				} 
+				return alphabet.repeat(length);
+			} 
+			/**
+			 * another solution for embedding words
+			 * @param array []
+			 *
+			 * list : list of all words
+			 *
+			 * returns String
+			 */
+			embed2(list) {
+				//get alphabet table
+				let alphabet = this.getAlphabet(list.sort((a, b) => b.length - a.length)[0].length);
+				//remove unused letters from alphabet table
+				return this.trimSequence(list, alphabet);
+			} 
 		} 
 		//default input
 		let compressor1 = new Compressor("defaultInput.txt");
