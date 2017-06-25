@@ -10,21 +10,26 @@
 		 */	
 		class War {
 			constructor(deck1, deck2) {
-				this.player1 = new Player(deck1);
-				this.player2 = new Player(deck2);
+				this.player1 = new Player(deck1, 1);
+				this.player2 = new Player(deck2, 2);
+				console.log("initial");
+				console.log(this.player1.deck);
+				console.log(this.player2.deck);
 				this.cardPool = new CardPool();
 				this.state = "battle";
-				//this.proceedGame();
-				
-
-				this[this.state]();
+				this.proceedGame();
 			}
 			/**
 			 * proceed a game
 			 */
 			proceedGame() {
+				let round = 1;
 				while(this.state != "finished") {
 					this[this.state]();
+					console.log("round " + round);
+					console.log(this.player1.deck);
+					console.log(this.player2.deck);
+					round++;
 				}
 			} 
 			/**
@@ -61,16 +66,42 @@
 				}
 			} 
 			//war state
+			war() {
+				this.checkGameEnd();
+				if(this.state != "finished") {
+					let warDecks = Math.min(this.player1.deck.length, this.player2.deck.length, 4);
+					let faceDowns1 = this.player1.drawCard(warDecks - 1);
+					let faceDowns2 = this.player2.drawCard(warDecks - 1);
+					let faceUp1 = this.player1.drawCard(1)[0];
+					let faceUp2 = this.player2.drawCard(1)[0];
+					if(faceUp1 == faceUp2) {
+						this.cardPool.battleCard.push(faceUp1, faceUp2);
+						this.cardPool.warCard.push([faceDowns1, faceDowns2]);
+					} else {
+						this.cardPool.warCard.push([[...faceDowns1, faceUp1], [...faceDowns2, faceUp2]]);
+					}
+					if(faceUp1 == faceUp2) {
+						this.war();
+					} else {
+						let winner = faceUp1 > faceUp2 ? this.player1 : this.player2;
+						winner.retrieveCard(this.state, this.cardPool);
+						this.state = "battle";
+						this.checkGameEnd();
+					}
+				}
+			}
 		} 
 		/**
 		 * player class
-		 * @param array []
+		 * @param array [], int
 		 *
-		 * deck : holding deck
+		 * deck   : holding deck
+		 * number : player number
 		 */
 		class Player {
-			constructor(deck) {
+			constructor(deck, number) {
 				this.deck = deck;
+				this.number = number;
 			}
 			/**
 			 * draw card on top of a deck
@@ -95,10 +126,16 @@
 			 * pool  : pool of current cards
 			 */
 			retrieveCard(state, pool) {
-				switch(state) {
-					case "battle" :
-						this.deck = [...this.deck, ...pool.clearPool(pool.battleCard)];
-						break;
+				if(state == "battle") {
+					this.deck = [...this.deck, ...pool.clearPool(pool.battleCard)];
+				} else {
+					for(let i = 0; i < pool.warCard.length; i++) {
+						let warCards = [pool.clearPool(pool.warCard[i])][0];
+						warCards = this.number == 1 ? [...warCards[0], ...warCards[1]] : [...warCards[1], ...warCards[0]];
+						this.deck = [...this.deck, ...warCards];
+					}
+					this.deck = [...this.deck, ...pool.clearPool(pool.battleCard)];
+					pool.warCard = [];
 				}
 			} 
 		} 
