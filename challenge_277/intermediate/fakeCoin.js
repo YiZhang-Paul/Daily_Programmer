@@ -119,28 +119,56 @@
 		 * default input
 		 */
 		//input 1  
+		console.log("Default 1:");
 		let input = ["a b left", "a c equal"];
+		input.forEach(evaluation => {
+			console.log(evaluation);
+		});
 		console.log(getFakeCoin(input));
 		//input 2
+		console.log("Default 2:");
 		input = ["a c equal"];
+		input.forEach(evaluation => {
+			console.log(evaluation);
+		});
 		console.log(getFakeCoin(input));
 		//input 3
+		console.log("Default 3:");
 		input = ["a c equal", "a b equal", "c b left"];
+		input.forEach(evaluation => {
+			console.log(evaluation);
+		});
 		console.log(getFakeCoin(input));
 		/**
 		 * challenge input
 		 */
 		//challenge 1 
+		console.log("Challenge 1:");
 		input = ["ab xy left", "b x equal", "a b equal"];
+		input.forEach(evaluation => {
+			console.log(evaluation);
+		});
 		console.log(getFakeCoin(input));
 		//challenge 2 
+		console.log("Challenge 2:");
 		input = ["a x equal", "b x equal", "y a left"];
+		input.forEach(evaluation => {
+			console.log(evaluation);
+		});
 		console.log(getFakeCoin(input));
 		//challenge 3 
+		console.log("Challenge 3:");
 		input = ["abcd efgh equal", "abci efjk left", "abij efgl equal", "mnopqrs tuvwxyz equal"];
+		input.forEach(evaluation => {
+			console.log(evaluation);
+		});
 		console.log(getFakeCoin(input));
 		//challenge 4
+		console.log("Challenge 4:");
 		input = ["abc efg equal", "a e left"];
+		input.forEach(evaluation => {
+			console.log(evaluation);
+		});
 		console.log(getFakeCoin(input));
 	});
 })();	

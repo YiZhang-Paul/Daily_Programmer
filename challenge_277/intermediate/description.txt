@@ -1,5 +1,7 @@
 #277[Intermediate] Fake coins
 
+All Done
+
 url: https://www.reddit.com/r/dailyprogrammer/comments/4utlaz/20160727_challenge_277_intermediate_fake_coins/
 
 Their are some false golden coins, wich are lighter then others, in the treasure chest. The assistant has weighed the coins, but can not figure out which are false and which are not.
