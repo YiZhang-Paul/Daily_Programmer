@@ -2,8 +2,97 @@
 (() => {
 	document.addEventListener("DOMContentLoaded", () => {
 		/**
-		 * group coins with equal 
+		 * record labels
+		 * @param String, obj {}
+		 *
+		 * labels : all labels
+		 * set    : set to record all labels
+		 *
+		 * returns obj {}
 		 */
+		function recordLabel(labels, set) {
+			for(let i = 0; i < labels.length; i++) {
+				set.add(labels[i]);
+			}
+			return set;
+		} 
+		/**
+		 * record all coins
+		 * @param array []
+		 *
+		 * evaluations : list of all evaluations
+		 *
+		 * returns obj {}
+		 */
+		function getAllCoins(evaluations) {
+			let allCoins = new Set();
+			evaluations.forEach(evaluation => {
+				recordLabel(evaluation[0], allCoins);
+				recordLabel(evaluation[1], allCoins);
+			});
+			return allCoins;
+		}
+		/**
+		 * record all coins of the same weight (real coins)
+		 * @param array []
+		 *
+		 * evaluations : list of all evaluations
+		 *
+		 * returns obj {}
+		 */
+		function getRealCoins(evaluations) {
+			let realCoins = new Set();
+			evaluations.forEach(evaluation => {
+				if(evaluation[2] == "equal") {
+					recordLabel(evaluation[0], realCoins);
+					recordLabel(evaluation[1], realCoins);
+				}
+			});
+			return realCoins;
+		} 
+		/**
+		 * check for data inconsistency
+		 * @param obj {}, obj {}, array []
+		 *
+		 * allCoins    : set recording all coins
+		 * realCoins   : set recording real coins
+		 * evaluations : list of all evaluations
+		 *
+		 * returns String
+		 */
+		function checkInconsistency(allCoins, realCoins, evaluations) {
+			let checkLighter = lighter => lighter.every(label => realCoins.has(label));
+			if(allCoins.size - realCoins.size > 1) {
+				return false;
+			}
+			for(let i = 0; i < evaluations.length; i++) {
+				if(evaluations[i][2] != "equal") {
+					let lighter = evaluations[i][2] == "left" ? evaluations[i][1].split("") : evaluations[i][0].split("");
+					if(checkLighter(lighter)) {
+						return false;
+					}
+				}
+			}
+			return true;
+		}
+		/**
+		 * filter out real coins
+		 * @param obj {}, obj {}
+		 *
+		 * allCoins  : set recording all coins
+		 * realCoins : set recording real coins
+		 *
+		 * returns char
+		 */
+		function filterReal(allCoins, realCoins) {
+			allCoins = Array.from(allCoins);
+			for(let i = 0; i < allCoins.length; i++) {
+				if(!realCoins.has(allCoins[i])) {
+					return allCoins[i];
+				}
+			}
+			return "";
+		} 
 		/**
 		 * find out the fake coin
 		 * @param array []
@@ -14,47 +103,15 @@
 		 */
 		function getFakeCoin(evaluations) {
 			evaluations = evaluations.map(evaluation => evaluation.split(" "));
-			let allCoins = new Set(), realCoins = new Set();
-			evaluations.forEach(evaluation => {
-				for(let i = 0; i < evaluation[0].length; i++) {
-					allCoins.add(evaluation[0][i]);
-					if(evaluation[2] == "equal") {
-						realCoins.add(evaluation[0][i]);
-					}
-				}
-				for(let i = 0; i < evaluation[1].length; i++) {
-					allCoins.add(evaluation[1][i]);
-					if(evaluation[2] == "equal") {
-						realCoins.add(evaluation[1][i]);
-					}	
-				}
-			});
+			let allCoins = getAllCoins(evaluations);
+			let realCoins = getRealCoins(evaluations);
 			let result = null;
-			evaluations.forEach(evaluation => {
-				if(evaluation[2] != "equal") {
-					let lighter = evaluation[2] == "left" ? evaluation[1].split("") : evaluation[0].split("");
-					if(lighter.every(label => realCoins.has(label))) {
-						result = "Data is inconsistent.";
-					}
-				}
-			});
-			if(result) {
-				return result;
-			}
-			if(allCoins.size == realCoins.size) {
-				result = "No fake coins detected.";
-			}	else if(allCoins.size - realCoins.size == 1) {
-				let fakeCoin = ""; 
-				allCoins = Array.from(allCoins);
-				for(let i = 0; i < allCoins.length; i++) {
-					if(!realCoins.has(allCoins[i])) {
-						fakeCoin = allCoins[i];
-						break;
-					}
-				}
-				result = `${fakeCoin} is lighter.`;
-			} else {
+			if(!checkInconsistency(allCoins, realCoins, evaluations)) {
 				result = "Data is inconsistent.";
+			} else if(allCoins.size == realCoins.size) {
+				result = "No fake coins detected.";
+			} else {
+				result = `${filterReal(allCoins, realCoins)} is lighter.`;
 			}
 			return result;
 		} 
@@ -86,4 +143,4 @@
 		input = ["abc efg equal", "a e left"];
 		console.log(getFakeCoin(input));
 	});
-})();		
+})();	
