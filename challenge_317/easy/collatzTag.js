@@ -18,27 +18,38 @@
 			return tags;
 		}
 		/**
-		 * encoder/decoder
+		 * encoder
 		 * @param String
 		 *
-		 * code : code to be encoded/decoded
+		 * code : code to be encoded
 		 *
 		 * returns String
 		 */
-		function converter(code) {
-			let converted;
-			switch(code) {
-				case "a" : case "100" :
-					converted = code == "a" ? "100" : "a";
-					break;
-				case "b" : case "010" :
-					converted = code == "b" ? "010" : "b";
-					break;
-				case "c" : case "001" :
-					converted = code == "c" ? "001" : "c";
-					break;		
+		function encode(code) {
+			let encoded = "";
+			for(let i = 0; i < code.length; i++) {
+				encoded += code[i] == "a" ? "100" : (code[i] == "b" ? "010" : "001");
 			}
-			return converted;
+			return encoded;
+		} 
+		/**
+		 * decoder
+		 * @param String
+		 *
+		 * code : code to be decoded
+		 *
+		 * returns String
+		 */ 
+		function decode(code) {
+			if(code.length % 3) {
+				return "";
+			}
+			let decoded = "";
+			for(let i = 0; i < code.length; i += 3) {
+				let segment = code.slice(i, i + 3);
+				decoded += segment == "100" ? "a" : (segment == "010" ? "b" : "c");
+			}
+			return decoded;
 		} 
 		/**
 		 * generate cyclic tag
@@ -49,16 +60,23 @@
 		 * returns array [] 
 		 */
 		function cyclicTag(aEncode) {
-			let splitEncode = encode => {
-				let segment = [];
-				for(let i = 0; i < encode.length; i += 3) {
-					segment.push(encode.slice(i, i + 3));
-				}	
-				return segment;
-			};
-			console.log(splitEncode(aEncode));
-			let tags = [];
-
+			let aString = "", tags = [];
+			for(let i = 0; i < aEncode.length; i += 3) {
+				aString += converter(aEncode.slice(i, i + 3));
+			}
+			let counter = 0;
+			while(aString.length > 1) {
+				let produce = aString[0] == "a" ? "bc" : (aString[0] == "b" ? "a" : "aaa");
+				aString = aString.slice(2) + produce;
+				let encodedProduce = "";
+				for(let i = 0; i < produce.length; i++) {
+					encodedProduce += converter(produce[i]);
+				}
+				counter++;
+				aEncode = Number(aEncode[0]) && counter % 6 < 3 ? aEncode.slice(1) + encodedProduce : aEncode.slice(1);
+				console.log(aEncode);	
+			}
+			return tags;
 		} 
 		cyclicTag("100100100");
 		//challenge input 1
