@@ -10,7 +10,13 @@
   	 * returns String
   	 */
   	function indexToVal(index) {
-
+  		let length = 1, baseIndex = 0;
+  		while(baseIndex < index) {
+  			if(baseIndex + Math.pow(2, length) > index) {
+  				break;
+  			}
+  			baseIndex += Math.pow(2, length++);
+  		}
   	} 
   	/**
   	 * convert value to index using a binary tree
