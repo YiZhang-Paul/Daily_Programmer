@@ -10,7 +10,7 @@
   	 * returns String
   	 */
   	function indexToVal(index) {
-  		//find base index and length of value
+  		//find sub index and length of value
   		let length = 1, baseIndex = 0, subIndex = 1;
   		while(baseIndex < index) {
   			if(baseIndex + Math.pow(2, length) > index) {
@@ -44,16 +44,30 @@
   			baseIndex += Math.pow(2, i);
   		}
   		//find sub index
-  		let subIndex, low = 1, high = Math.pow(2, value.length);
+  		let low = 1, high = Math.pow(2, value.length);
   		for(let i = 0; i < value.length; i++) {
   			low += Number(value[i]) ? (high - low + 1) * 0.5 : 0;
   			high -= Number(value[i]) ? 0 : (high - low + 1) * 0.5;
   		}
-  		subIndex = low;
-  		return baseIndex - 1 + subIndex;
+  		return baseIndex + low - 1;
   	} 
   	//default input
-  	let input = "111000111";
+  	console.log("Default input: ");
+  	let input = 54;
+  	console.log(indexToVal(input));
+  	input = "111000111";
+  	console.log(valToIndex(input));
+  	//challenge input
+  	console.log("Challenge input: ");
+  	input = 234234234;
+  	console.log(indexToVal(input));
+		input = 234234234234234;
+  	console.log(indexToVal(input));
+		input = 234234234234234234234234;
+  	console.log(indexToVal(input));
+		input = "000111000111111000111111000111111000111";
+  	console.log(valToIndex(input));
+		input = "11111111000111000111111000111111000111111000111"; 
   	console.log(valToIndex(input));
   });
 })();    	
