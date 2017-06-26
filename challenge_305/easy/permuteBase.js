@@ -21,13 +21,22 @@
   	 * returns int
   	 */
   	function valToIndex(value) {
-  		let low = 1, high = Math.pow(2, value.length);
+  		//find base index
+  		let baseIndex = 0;
+  		for(let i = 1; i < value.length; i++) {
+  			baseIndex += Math.pow(2, i);
+  		}
+  		//find sub index
+  		let subIndex, low = 1, high = Math.pow(2, value.length);
   		for(let i = 0; i < value.length; i++) {
   			low += Number(value[i]) ? (high - low + 1) * 0.5 : 0;
   			high -= Number(value[i]) ? 0 : (high - low + 1) * 0.5;
   		}
-  		let subIndex = low;
+  		subIndex = low;
+  		return baseIndex - 1 + subIndex;
   	} 
-  	valToIndex("010");
+  	//default input
+  	let input = "111000111";
+  	console.log(valToIndex(input));
   });
 })();    	
