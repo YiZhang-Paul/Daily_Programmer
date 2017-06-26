@@ -19,6 +19,15 @@
   			}
   			baseIndex += Math.pow(2, length++);
   		}
+  		//find value
+  		let value = "", low = 1, high = Math.pow(2, length);
+  		for(let i = 0; i < length; i++) {
+  			let leftBranch = subIndex < (high - low + 1) * 0.5 + low;
+  			low += leftBranch ? 0 : (high - low + 1) * 0.5; 
+  			high -= leftBranch ? (high - low + 1) * 0.5 : 0;
+  			value += leftBranch ? 0 : 1;
+  		}
+  		return value;
   	} 
     /**
   	 * convert value to index
