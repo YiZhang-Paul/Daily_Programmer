@@ -3,24 +3,25 @@
   document.addEventListener("DOMContentLoaded", () => {
   	/**
   	 * convert index to value
-  	 * @param int
+  	 * @param int, int
   	 *
   	 * index : index to be converted
+  	 * base  : base of number system
   	 *
   	 * returns String
   	 */
-  	function indexToVal(index) {
+  	function indexToVal(index, base) {
   		//find sub index and length of value
   		let length = 1, baseIndex = 0, subIndex = 1;
   		while(baseIndex < index) {
-  			if(baseIndex + Math.pow(2, length) > index) {
+  			if(baseIndex + Math.pow(base, length) > index) {
   				subIndex = index - baseIndex + 1; 
   				break;
   			}
-  			baseIndex += Math.pow(2, length++);
+  			baseIndex += Math.pow(base, length++);
   		}
   		//find value
-  		let value = "", low = 1, high = Math.pow(2, length);
+  		let value = "", low = 1, high = Math.pow(base, length);
   		for(let i = 0; i < length; i++) {
   			let leftBranch = subIndex < (high - low + 1) * 0.5 + low;
   			low += leftBranch ? 0 : (high - low + 1) * 0.5; 
@@ -31,20 +32,21 @@
   	} 
     /**
   	 * convert value to index
-  	 * @param String
+  	 * @param String, int
   	 *
   	 * value : value to be converted
+  	 * base  : base of number system
   	 *
   	 * returns int
   	 */
-  	function valToIndex(value) {
+  	function valToIndex(value, base) {
   		//find base index
   		let baseIndex = 0;
   		for(let i = 1; i < value.length; i++) {
-  			baseIndex += Math.pow(2, i);
+  			baseIndex += Math.pow(base, i);
   		}
   		//find sub index
-  		let low = 1, high = Math.pow(2, value.length);
+  		let low = 1, high = Math.pow(base, value.length);
   		for(let i = 0; i < value.length; i++) {
   			low += Number(value[i]) ? (high - low + 1) * 0.5 : 0;
   			high -= Number(value[i]) ? 0 : (high - low + 1) * 0.5;
@@ -54,20 +56,26 @@
   	//default input
   	console.log("Default input: ");
   	let input = 54;
-  	console.log(indexToVal(input));
+  	console.log(indexToVal(input, 2));
   	input = "111000111";
-  	console.log(valToIndex(input));
+  	console.log(valToIndex(input, 2));
   	//challenge input
   	console.log("Challenge input: ");
   	input = 234234234;
-  	console.log(indexToVal(input));
+  	console.log(indexToVal(input, 2));
 		input = 234234234234234;
-  	console.log(indexToVal(input));
+  	console.log(indexToVal(input, 2));
 		input = 234234234234234234234234;
-  	console.log(indexToVal(input));
+  	console.log(indexToVal(input, 2));
 		input = "000111000111111000111111000111111000111";
-  	console.log(valToIndex(input));
+  	console.log(valToIndex(input, 2));
 		input = "11111111000111000111111000111111000111111000111"; 
-  	console.log(valToIndex(input));
+  	console.log(valToIndex(input, 2));
+  	//bonus input
+  	console.log("Bonus input: ");
+  	input = 10;
+  	console.log(indexToVal(input, 10));
+  	input = 109;
+  	console.log(indexToVal(input, 10));
   });
 })();    	
