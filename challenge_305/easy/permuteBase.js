@@ -49,9 +49,8 @@
   		//find sub index
   		let low = 1, high = Math.pow(base, value.length);
   		for(let i = 0; i < value.length; i++) {
-  			let leftBranch = Number(value[i]) < base * 0.5;
-  			low += leftBranch ? 0 : (high - low + 1) * 0.5;
-  			high -= leftBranch ? (high - low + 1) * 0.5 : 0;
+  			low += Number(value[i]) < base * 0.5 ? 0 : (high - low + 1) * 0.5;
+  			high -= Number(value[i]) < base * 0.5 ? (high - low + 1) * 0.5 : 0;
   		}
   		return baseIndex + low - 1;
   	} 
