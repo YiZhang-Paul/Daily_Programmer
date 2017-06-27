@@ -2,7 +2,7 @@
 
 All Done
 
-url: https://www.reddit.com/r/dailyprogrammer/comments/5go843/20161205_challenge_294_easy_rack_management_1/?st=iwddghf0&sh=5f11aa08
+url: https://www.reddit.com/r/dailyprogrammer/comments/5go843/20161205_challenge_294_easy_rack_management_1/?st=iwddghf0&sh=5f11aa08 
 
 Today's challenge is inspired by the board game Scrabble. Given a set of 7 letter tiles and a word, determine whether you can make the given word using the given tiles.
 
