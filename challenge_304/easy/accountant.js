@@ -84,6 +84,38 @@
  				this.entries = [];
  			}
  			/**
+ 			 * get starting record
+ 			 * @param String
+ 			 *
+ 			 * start : start date
+ 			 *
+ 			 * returns int
+ 			 */
+ 			getStart(start) {
+ 				if(start == "*") {
+ 					return 0;
+ 				}
+ 				let index = this.entries.findIndex(entry => 
+ 					entry.period >= new Date(start).getTime());
+ 				return index == -1 ? this.entries.length : index; 
+ 			} 
+ 			/**
+ 			 * get ending record
+ 			 * @param String
+ 			 *
+ 			 * end : end date
+ 			 *
+ 			 * returns int
+ 			 */
+ 			getEnd(end) {
+ 				if(end == "*") {
+ 					return this.entries.length;
+ 				}
+ 				let index = this.entries.findIndex(entry => 
+ 					entry.period >= new Date(end).getTime());
+ 				return index == -1 ? this.entries.length : index;
+ 			}  
+ 			/**
  			 * get balance
  			 * @param String, String
  			 *
@@ -93,12 +125,8 @@
  			 * returns array []
  			 */
  			getBalance(start, end) {
- 				let startEntry = start == "*" ? 
- 					0 : this.entries.findIndex(entry => entry.period >= new Date(start).getTime());
- 				let endEntry = end == "*" ? 
- 					this.entries.length : this.entries.findIndex(entry => entry.period >= new Date(end).getTime());
  				let debit = 0, credit = 0;
- 				this.entries.slice(startEntry, endEntry).forEach(entry => {
+ 				this.entries.slice(this.getStart(start), this.getEnd(end)).forEach(entry => {
  					debit += entry.debit;
  					credit += entry.credit;
  				});
