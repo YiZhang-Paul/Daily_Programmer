@@ -2,7 +2,7 @@
 
 All Done
 
-url: https://www.reddit.com/r/dailyprogrammer/comments/6coqwk/20170522_challenge_316_easy_knights_metric/
+url: https://www.reddit.com/r/dailyprogrammer/comments/6coqwk/20170522_challenge_316_easy_knights_metric/ 
 
 A knight piece in chess can only make L-shaped moves. Specifically, it can only move x steps to the right and y steps up if (x,y) is one of:
 
