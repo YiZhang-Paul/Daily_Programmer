@@ -111,8 +111,13 @@
  				if(end == "*") {
  					return this.entries.length;
  				}
- 				let index = this.entries.findIndex(entry => 
- 					entry.period >= new Date(end).getTime());
+ 				let index = -1;
+ 				for(let i = this.entries.length - 1; i >= 0; i--) {
+ 					if(this.entries[i].period <= new Date(end).getTime()) {
+ 						index = i;
+ 						break;
+ 					}
+ 				}
  				return index == -1 ? this.entries.length : index;
  			}  
  			/**
@@ -193,7 +198,7 @@
  			 * validate journal entry
  			 * @param array []
  			 *
- 			 * journal : journal records
+ 			 * journal : journal records 
  			 *
  			 * returns boolean
  			 */ 
@@ -204,6 +209,21 @@
  					credit += entry.credit;
  				});
  				return debit == credit;
+ 			} 
+ 			/**
+ 			 * get balance from selected accounts 
+ 			 * within selected period
+ 			 * @param String, String, String, String
+ 			 *
+ 			 * startAcc  : start account
+ 			 * endAcc    : end account
+ 			 * startDate : start date
+ 			 * endDate   : end date
+ 			 *
+ 			 * returns array []
+ 			 */
+ 			getAllBalance(startAcc, endAcc, startDate, endDate) {
+
  			} 
  		} 
  		let accountManager = new AccountManager(accounts, journal);							
