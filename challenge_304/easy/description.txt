@@ -78,7 +78,7 @@ This user request must output all accounts from acounts starting with "12" to ac
 
 2 * * MAY-16 CSV
 
-This user request must output all accounts from accounts starting wiht "2" to last account from source file, from first periof of file to MAY-16. Output should be formatted as CSV.
+This user request must output all accounts from accounts starting with "2" to last account from source file, from first period of file to MAY-16. Output should be formatted as CSV.
 Outputs
 
 Challenge Input 1

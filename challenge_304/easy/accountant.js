@@ -91,7 +91,7 @@
  			 *
  			 * returns int
  			 */
- 			getStart(start) {
+ 			startDate(start) {
  				if(start == "*") {
  					return 0;
  				}
@@ -107,7 +107,7 @@
  			 *
  			 * returns int
  			 */
- 			getEnd(end) {
+ 			endDate(end) {
  				if(end == "*") {
  					return this.entries.length;
  				}
@@ -131,7 +131,8 @@
  			 */
  			getBalance(start, end) {
  				let debit = 0, credit = 0;
- 				this.entries.slice(this.getStart(start), this.getEnd(end)).forEach(entry => {
+ 				start = this.startDate(start);
+ 				this.entries.slice(start, Math.max(start, this.endDate(end))).forEach(entry => {
  					debit += entry.debit;
  					credit += entry.credit;
  				});
@@ -211,6 +212,42 @@
  				return debit == credit;
  			} 
  			/**
+ 			 * get start account 
+ 			 * @param String
+ 			 *
+ 			 * start : start account
+ 			 *
+ 			 * returns int
+ 			 */
+ 			startAcc(start) {
+ 				if(start == "*") {
+ 					return 0;
+ 				}
+ 				let index = this.accounts.findIndex(account => account.number.search(start) === 0);
+ 				return index == -1 ? this.accounts.length : index;
+ 			} 
+ 			/**
+ 			 * get end account 
+ 			 * @param String
+ 			 *
+ 			 * end : end account
+ 			 *
+ 			 * returns int
+ 			 */
+ 			endAcc(end) {
+ 				if(end == "*") {
+ 					return this.accounts.length;
+ 				}
+ 				let index = -1;
+ 				for(let i = this.accounts.length - 1; i >= 0; i--) {
+ 					if(this.accounts[i].number.search(end) === 0) {
+ 						index = i;
+ 						break;
+ 					}
+ 				}
+ 				return index == -1 ? this.accounts.length : index;
+ 			} 
+ 			/**
  			 * get balance from selected accounts 
  			 * within selected period
  			 * @param String, String, String, String
@@ -222,10 +259,35 @@
  			 *
  			 * returns array []
  			 */
- 			getAllBalance(startAcc, endAcc, startDate, endDate) {
-
+ 			getResult(startAcc, endAcc, startDate, endDate) {
+ 				let results = [];
+ 				if(!this.validateJournal()) {
+ 					return;
+ 				}
+ 				startAcc = this.startAcc(startAcc);
+ 				this.accounts.slice(startAcc, Math.max(startAcc, this.endAcc(endAcc))).forEach(account => {
+ 					results.push([account.number, account.name, ...account.getBalance(startDate, endDate)]);
+ 				});
+ 				return results;
+ 			} 
+ 			/**
+ 			 * display balance results
+ 			 * @param String, String, String, String, String
+ 			 *
+ 			 * startAcc  : start account
+ 			 * endAcc    : end account
+ 			 * startDate : start date
+ 			 * endDate   : end date
+ 			 * format : display format 
+ 			 */
+ 			displayResult(startAcc, endAcc, startDate, endDate, format) {
+ 				let result = this.getResult(startAcc, endAcc, startDate, endDate);
+ 				if(!result) {
+ 					console.log("The Journal Entry Provided is Inconsistent.");
+ 				}
  			} 
  		} 
- 		let accountManager = new AccountManager(accounts, journal);							
+ 		let accManager = new AccountManager(accounts, journal);		
+ 		accManager.displayResult("*", "*", "*", "*", "TEXT");					
   });
 })();    	  	
