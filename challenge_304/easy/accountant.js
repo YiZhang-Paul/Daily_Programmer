@@ -13,6 +13,7 @@
 										3000;Common Stock;
 										4000;Commercial Revenue;
 										4090;Unearned Revenue;
+										4120;Dividends;
 										5000;Direct Labor;
 										5100;Consultants;
 										5500;Misc Costs;
@@ -93,9 +94,6 @@
  			 * returns int
  			 */
  			startDate(start) {
- 				if(start == "*") {
- 					return 0;
- 				}
  				let index = this.entries.findIndex(entry => 
  					entry.period >= new Date(start).getTime());
  				return index == -1 ? this.entries.length : index; 
@@ -109,9 +107,6 @@
  			 * returns int
  			 */
  			endDate(end) {
- 				if(end == "*") {
- 					return this.entries.length;
- 				}
  				let index = -1;
  				for(let i = this.entries.length - 1; i >= 0; i--) {
  					if(this.entries[i].period <= new Date(end).getTime()) {
@@ -133,7 +128,7 @@
  			getBalance(start, end) {
  				let debit = 0, credit = 0;
  				start = this.startDate(start);
- 				this.entries.slice(start, Math.max(start, this.endDate(end))).forEach(entry => {
+ 				this.entries.slice(start, Math.max(start, this.endDate(end) + 1)).forEach(entry => {
  					debit += entry.debit;
  					credit += entry.credit;
  				});
@@ -291,24 +286,28 @@
  				}
  				let results = [];
  				startAcc = this.startAcc(startAcc);
- 				this.accounts.slice(startAcc, Math.max(startAcc, this.endAcc(endAcc))).forEach(account => {
+ 				startDate = startDate == "*" ? this.records[0].date : startDate;
+ 				endDate = endDate == "*" ? this.records[this.records.length - 1].date : endDate;
+ 				this.accounts.slice(startAcc, Math.max(startAcc, this.endAcc(endAcc) + 1)).forEach(account => {
  					results.push([account.number, account.name, ...account.getBalance(startDate, endDate)]);
  				});
  				let subDebit = this.totalDebit(results.map(row => {return {debit : row[2]};}));
  				let subCredit = this.totalCredit(results.map(row => {return {credit : row[3]};}));
  				results.unshift(["ACCOUNT", "DESCRIPTION", "DEBIT", "CREDIT", "BALANCE"]);
  				results.push(["TOTAL", "", subDebit, subCredit, subDebit - subCredit]);
- 				return results;
+ 				return [results, startDate, endDate];
  			} 
  			/**
  			 * display heading
- 			 * @param array []
+ 			 * @param array [], String, String
  			 *
  			 * result : result to be displayed
+ 			 * start  : start date 
+ 			 * end    : end date
  			 */
- 			displayHeading(result) {
+ 			displayHeading(result, start, end) {
  				console.log(`Total Debit: $${this.totalDebit()} Total Credit: $${this.totalCredit()}`);
- 				console.log(`Balance from account ${result[1][0]} to ${result[result.length - 2][0]} from period ${3} to ${4}`);
+ 				console.log(`Balance from account ${result[1][0]} to ${result[result.length - 2][0]} from period ${start} to ${end}`);
  				console.log("\nBalance:");
  			} 
  			/**
@@ -354,16 +353,17 @@
  			 * format : display format 
  			 */
  			displayResult(startAcc, endAcc, startDate, endDate, format) {
- 				let result = this.getResult(startAcc, endAcc, startDate, endDate);
+ 				let [result, start, end] = this.getResult(startAcc, endAcc, startDate, endDate);
  				if(!result) {
  					console.log("The Journal Entry Provided is Inconsistent.");
  					return;
  				}
- 				this.displayHeading(result);
+ 				this.displayHeading(result, start, end);
  				if(format == "CSV") this.displayCSV(result);
  				else this.displayText(result);
  			} 
  		} 
+ 		//challenge input
  		let accManager = new AccountManager(accounts, journal);		
  		console.log("Input 1:");
  		accManager.displayResult("*", "2", "*", "FEB-16", "TEXT");										
