@@ -65,6 +65,7 @@
  		class Record {
  			constructor(acc, period, debit, credit) {
  				this.acc = acc;
+ 				this.date = period;
  				this.period = new Date(period).getTime();
  				this.debit = Number(debit);
  				this.credit = Number(credit);
@@ -196,6 +197,36 @@
  				});
  			} 
  			/**
+ 			 * calculate total debit
+ 			 * @param array []
+ 			 *
+ 			 * journal : journal records 
+ 			 *
+ 			 * returns float
+ 			 */
+ 			totalDebit(journal = this.records) {
+ 				let debit = 0;
+ 				journal.forEach(entry => {
+ 					debit += entry.debit;
+ 				});
+ 				return debit;
+ 			} 
+ 			/**
+ 			 * calculate total credit
+ 			 * @param array []
+ 			 *
+ 			 * journal : journal records 
+ 			 *
+ 			 * returns float
+ 			 */
+ 			totalCredit(journal = this.records) {
+ 				let credit = 0;
+ 				journal.forEach(entry => {
+ 					credit += entry.credit;
+ 				});
+ 				return credit;
+ 			}  
+ 			/**
  			 * validate journal entry
  			 * @param array []
  			 *
@@ -204,12 +235,7 @@
  			 * returns boolean
  			 */ 
  			validateJournal(journal = this.records) {
- 				let debit = 0, credit = 0;
- 				journal.forEach(entry => {
- 					debit += entry.debit;
- 					credit += entry.credit;
- 				});
- 				return debit == credit;
+ 				return this.totalDebit() == this.totalCredit();
  			} 
  			/**
  			 * get start account 
@@ -260,15 +286,62 @@
  			 * returns array []
  			 */
  			getResult(startAcc, endAcc, startDate, endDate) {
- 				let results = [];
  				if(!this.validateJournal()) {
- 					return;
+ 					return null;
  				}
+ 				let results = [];
  				startAcc = this.startAcc(startAcc);
  				this.accounts.slice(startAcc, Math.max(startAcc, this.endAcc(endAcc))).forEach(account => {
  					results.push([account.number, account.name, ...account.getBalance(startDate, endDate)]);
  				});
+ 				let subDebit = this.totalDebit(results.map(row => {return {debit : row[2]};}));
+ 				let subCredit = this.totalCredit(results.map(row => {return {credit : row[3]};}));
+ 				results.unshift(["ACCOUNT", "DESCRIPTION", "DEBIT", "CREDIT", "BALANCE"]);
+ 				results.push(["TOTAL", "", subDebit, subCredit, subDebit - subCredit]);
  				return results;
+ 			} 
+ 			/**
+ 			 * display heading
+ 			 * @param array []
+ 			 *
+ 			 * result : result to be displayed
+ 			 */
+ 			displayHeading(result) {
+ 				console.log(`Total Debit: $${this.totalDebit()} Total Credit: $${this.totalCredit()}`);
+ 				console.log(`Balance from account ${result[1][0]} to ${result[result.length - 2][0]} from period ${3} to ${4}`);
+ 				console.log("\nBalance:");
+ 			} 
+ 			/**
+ 			 * display CSV format
+ 			 * @param array []
+ 			 *
+ 			 * result : result to be displayed
+ 			 */
+ 			displayCSV(result) {
+ 				result.forEach(row => {
+					console.log(`${row.join(";")};`);
+				});
+ 			} 
+ 			/**
+ 			 * display Text format
+ 			 * @param array []
+ 			 *
+ 			 * result : result to be displayed
+ 			 */
+ 			displayText(result) {
+ 				let displayRow = (row, colLength) => {
+ 					row = row.map((item, index) => {
+ 						let pad = " ".repeat(colLength - item.toString().length);
+ 						return index < 2 ? item + pad : pad + item;
+ 					});
+ 					console.log(`${row.join("|")}|`);
+ 				};
+ 				let colLength = result.slice().sort((a, b) => b[1].length - a[1].length)[0][1].length;
+				displayRow(result[0], colLength);
+				console.log("-".repeat((colLength + 1) * result[0].length));
+				result.slice(1).forEach(row => {
+					displayRow(row, colLength);
+				});
  			} 
  			/**
  			 * display balance results
@@ -284,10 +357,17 @@
  				let result = this.getResult(startAcc, endAcc, startDate, endDate);
  				if(!result) {
  					console.log("The Journal Entry Provided is Inconsistent.");
+ 					return;
  				}
+ 				this.displayHeading(result);
+ 				if(format == "CSV") this.displayCSV(result);
+ 				else this.displayText(result);
  			} 
  		} 
  		let accManager = new AccountManager(accounts, journal);		
- 		accManager.displayResult("*", "*", "*", "*", "TEXT");					
+ 		console.log("Input 1:");
+ 		accManager.displayResult("*", "2", "*", "FEB-16", "TEXT");										
+ 		console.log("\nInput 2:");
+ 		accManager.displayResult("40", "*", "MAR-16", "*", "CSV");					
   });
-})();    	  	
+})();
