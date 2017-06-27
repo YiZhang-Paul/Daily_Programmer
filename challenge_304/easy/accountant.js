@@ -55,7 +55,7 @@
 										9090;Dividends;`;	
  		/**
  		 * journal record class
- 		 * @param String, obj {}, float, float
+ 		 * @param String, String, float, float
  		 * 
  		 * acc    : account number
  		 * period : record period
@@ -76,7 +76,7 @@
  		 *
  		 * journal : journal entries
  		 */
- 		class BalanceCalculator {
+ 		class AccountManager {
  			constructor(journal) {
  				this.records = this.makeEntryTable(journal);
  			}
@@ -96,6 +96,6 @@
  				return entries;
  			} 
  		} 
- 		let balanceCalculator = new BalanceCalculator(journal);							
+ 		let accountManager = new AccountManager(journal);							
   });
 })();    	  	
