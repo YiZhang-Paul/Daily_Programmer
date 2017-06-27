@@ -66,8 +66,8 @@
  			constructor(acc, period, debit, credit) {
  				this.acc = acc;
  				this.period = new Date(period);
- 				this.debit = debit;
- 				this.credit = credit;
+ 				this.debit = Number(debit);
+ 				this.credit = Number(credit);
  			}
  		} 
  		/**
@@ -96,6 +96,7 @@
  				this.accounts = this.makeAccounts(account);
  				this.records = this.makeRecords(journal);
  				this.fillAccount();
+ 				console.log(this.accounts);
  			}
  			/**
  			 * make accounts
@@ -139,6 +140,22 @@
  					let result = accounts.find(account => account.number == record.acc);
  					if(result) result.entries.push(record);
  				});
+ 			} 
+ 			/**
+ 			 * validate journal entry
+ 			 * @param array []
+ 			 *
+ 			 * journal : journal records
+ 			 *
+ 			 * returns boolean
+ 			 */ 
+ 			validateJournal(journal = this.records) {
+ 				let debit = 0, credit = 0;
+ 				journal.forEach(entry => {
+ 					debit += entry.debit;
+ 					credit += entry.credit;
+ 				});
+ 				return debit == credit;
  			} 
  		} 
  		let accountManager = new AccountManager(accounts, journal);							
