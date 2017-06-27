@@ -23,13 +23,14 @@
   		//find value
   		let value = "", low = 1, high = Math.pow(base, length);
   		for(let i = 0; i < length; i++) {
-  			let leftBranch = subIndex < (high - low + 1) * 0.5 + low;
-  			low += leftBranch ? 0 : (high - low + 1) * 0.5; 
-  			high -= leftBranch ? (high - low + 1) * 0.5 : 0;
-  			value += leftBranch ? 0 : 1;
+  			let groupSize = (high - low + 1) / base;
+  			let digit = Math.floor((subIndex - low) / groupSize);
+  			value += digit;
+  			low += digit * groupSize; 
+  			high = low + groupSize - 1;
   		}
   		return value;
-  	} 
+  	}
     /**
   	 * convert value to index
   	 * @param String, int
@@ -48,8 +49,9 @@
   		//find sub index
   		let low = 1, high = Math.pow(base, value.length);
   		for(let i = 0; i < value.length; i++) {
-  			low += Number(value[i]) ? (high - low + 1) * 0.5 : 0;
-  			high -= Number(value[i]) ? 0 : (high - low + 1) * 0.5;
+  			let leftBranch = Number(value[i]) < base * 0.5;
+  			low += leftBranch ? 0 : (high - low + 1) * 0.5;
+  			high -= leftBranch ? (high - low + 1) * 0.5 : 0;
   		}
   		return baseIndex + low - 1;
   	} 
