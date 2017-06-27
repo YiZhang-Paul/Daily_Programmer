@@ -1,6 +1,24 @@
 /* jslint esversion: 6 */
 (() => {
   document.addEventListener("DOMContentLoaded", () => {
+  	//account information
+		let accounts = `ACCOUNT;LABEL;
+										1000;Cash;
+										1020;Account Receivables;
+										1100;Lab Equipement;
+										1110;Office Supplies;
+										2000;Notes Payables;
+										2010;Account Payables;
+										2110;Utilities Payables;
+										3000;Common Stock;
+										4000;Commercial Revenue;
+										4090;Unearned Revenue;
+										5000;Direct Labor;
+										5100;Consultants;
+										5500;Misc Costs;
+										7140;Rent;
+										7160;Telephone;
+										9090;Dividends;`;	
   	//journal entries
  		let journal = `ACCOUNT;PERIOD;DEBIT;CREDIT;
 									 1000;JAN-16;100000;0;
@@ -35,24 +53,6 @@
 									 2010;JUL-16;0;2470;
 									 5500;JUL-16;3470;0;
 									 1000;JUL-16;0;3470;`;
-		//account information
-		let accounts = `ACCOUNT;LABEL;
-										1000;Cash;
-										1020;Account Receivables;
-										1100;Lab Equipement;
-										1110;Office Supplies;
-										2000;Notes Payables;
-										2010;Account Payables;
-										2110;Utilities Payables;
-										3000;Common Stock;
-										4000;Commercial Revenue;
-										4090;Unearned Revenue;
-										5000;Direct Labor;
-										5100;Consultants;
-										5500;Misc Costs;
-										7140;Rent;
-										7160;Telephone;
-										9090;Dividends;`;	
  		/**
  		 * journal record class
  		 * @param String, String, float, float
@@ -71,31 +71,76 @@
  			}
  		} 
  		/**
- 		 * balance calculator class
- 		 * @param String
+ 		 * account class
+ 		 * @param String, String
  		 *
+ 		 * number : account number
+ 		 * name   : account name
+ 		 */
+ 		class Account {
+ 			constructor(number, name) {
+ 				this.number = number;
+ 				this.name = name;
+ 				this.entries = [];
+ 			}
+ 		} 
+ 		/**
+ 		 * balance calculator class
+ 		 * @param String, String
+ 		 *
+ 		 * account : account information
  		 * journal : journal entries
  		 */
  		class AccountManager {
- 			constructor(journal) {
- 				this.records = this.makeEntryTable(journal);
+ 			constructor(account, journal) {
+ 				this.accounts = this.makeAccounts(account);
+ 				this.records = this.makeRecords(journal);
+ 				this.fillAccount();
  			}
  			/**
- 			 * construct entry table
+ 			 * make accounts
+ 			 * @param String
+ 			 *
+ 			 * account : account information
+ 			 * 
+ 			 * returns array []
+ 			 */
+ 			makeAccounts(account) {
+ 				let accounts = [];
+ 				account.split("\n").slice(1).forEach(acc => {
+ 					accounts.push(new Account(...acc.trim().split(";").slice(0, -1))); 					
+ 				});
+ 				return accounts;
+ 			} 
+ 			/**
+ 			 * construct records table
  			 * @param String
  			 *
  			 * journal : journal entries
  			 *
  			 * returns array []
  			 */
- 			makeEntryTable(journal) {
+ 			makeRecords(journal) {
  				let entries = [];
  				journal.split("\n").slice(1).forEach(entry => {
  					entries.push(new Record(...entry.trim().split(";").slice(0, -1)));
  				});
  				return entries;
  			} 
+ 			/**
+ 			 * populate accounts with entries
+ 			 * @param obj {}, obj {}
+ 			 * 
+ 			 * accounts : all accounts
+ 			 * records  : all journal entries
+ 			 */
+ 			fillAccount(accounts = this.accounts, records = this.records) {
+ 				records.forEach(record => {
+ 					let result = accounts.find(account => account.number == record.acc);
+ 					if(result) result.entries.push(record);
+ 				});
+ 			} 
  		} 
- 		let accountManager = new AccountManager(journal);							
+ 		let accountManager = new AccountManager(accounts, journal);							
   });
 })();    	  	
