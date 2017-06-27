@@ -65,7 +65,7 @@
  		class Record {
  			constructor(acc, period, debit, credit) {
  				this.acc = acc;
- 				this.period = new Date(period);
+ 				this.period = new Date(period).getTime();
  				this.debit = Number(debit);
  				this.credit = Number(credit);
  			}
@@ -83,6 +83,27 @@
  				this.name = name;
  				this.entries = [];
  			}
+ 			/**
+ 			 * get balance
+ 			 * @param String, String
+ 			 *
+ 			 * start : start date
+ 			 * end   : end date
+ 			 *
+ 			 * returns array []
+ 			 */
+ 			getBalance(start, end) {
+ 				let startEntry = start == "*" ? 
+ 					0 : this.entries.findIndex(entry => entry.period >= new Date(start).getTime());
+ 				let endEntry = end == "*" ? 
+ 					this.entries.length : this.entries.findIndex(entry => entry.period >= new Date(end).getTime());
+ 				let debit = 0, credit = 0;
+ 				this.entries.slice(startEntry, endEntry).forEach(entry => {
+ 					debit += entry.debit;
+ 					credit += entry.credit;
+ 				});
+ 				return [debit, credit, debit - credit];
+ 			} 
  		} 
  		/**
  		 * balance calculator class
@@ -96,7 +117,6 @@
  				this.accounts = this.makeAccounts(account);
  				this.records = this.makeRecords(journal);
  				this.fillAccount();
- 				console.log(this.accounts);
  			}
  			/**
  			 * make accounts
