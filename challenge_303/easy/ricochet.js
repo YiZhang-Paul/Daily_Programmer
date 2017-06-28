@@ -34,6 +34,16 @@
   			this.xCord += this.hVelocity;
   			this.yCord += this.vVelocity;
   		} 
+  		/**
+  		 * check stop
+  		 * 
+  		 * returns boolean
+  		 */
+  		checkStop() {
+  			let leftOrRight = this.xCord === 0 || this.xCord == this.maxX;
+  			let topOrBottom = this.yCord === 0 || this.yCord == this.maxY;
+  			return leftOrRight && topOrBottom;
+  		} 
   	} 
   	/**
   	 * grid class
