@@ -10,7 +10,7 @@
   	 */
   	class Particle {
   		constructor(grid, velocity) {
-  			this.started = false;
+  			this.moving = false;
   			this.xCord = 0;
   			this.yCord = 0;
   			this.hVelocity = velocity;
@@ -26,20 +26,20 @@
   		 * bounce particle
   		 */
   		bounce() {
-  			let leftOrRight = this.xCord === 0 || this.xCord == this.maxX;
-  			let topOrBottom = this.yCord === 0 || this.yCord == this.maxY;
-  			this.hVelocity *= leftOrRight ? -1 : 1;
-  			this.vVelocity *= topOrBottom ? -1 : 1;
-  			this.totalBounce += leftOrRight || topOrBottom ? 1 : 0;
+  			let atLeftRight = this.xCord === 0 || this.xCord == this.maxX;
+  			let atTopBottom = this.yCord === 0 || this.yCord == this.maxY;
+  			this.hVelocity *= atLeftRight ? -1 : 1;
+  			this.vVelocity *= atTopBottom ? -1 : 1;
+  			this.totalBounce += atLeftRight || atTopBottom ? 1 : 0;
   		} 
   		/**
   		 * move particle
   		 */
   		move() {
-  			this.started = true;
-  			let toLeftOrRight = this.hVelocity > 0 ? this.maxX - this.xCord : this.xCord - this.minX; 
-  			let toTopOrBottom = this.vVelocity > 0 ? this.maxY - this.yCord : this.yCord - this.minY;
-				let travelDist = Math.min(Math.abs(this.hVelocity), toLeftOrRight, toTopOrBottom);   			
+  			this.moving = true;
+  			let toLeftRight = this.hVelocity > 0 ? this.maxX - this.xCord : this.xCord - this.minX; 
+  			let toTopBottom = this.vVelocity > 0 ? this.maxY - this.yCord : this.yCord - this.minY;
+				let travelDist = Math.min(Math.abs(this.hVelocity), toLeftRight, toTopBottom);   			
   			this.xCord += (this.hVelocity > 0 ? 1 : -1) * travelDist;
   			this.yCord += (this.vVelocity > 0 ? 1 : -1) * travelDist;
   			this.totalDist += travelDist;
@@ -50,10 +50,10 @@
   		 * 
   		 * returns boolean
   		 */
-  		checkCorner() {
-  			let leftOrRight = this.xCord === 0 || this.xCord == this.maxX;
-  			let topOrBottom = this.yCord === 0 || this.yCord == this.maxY;
-  			return leftOrRight && topOrBottom;
+  		hitCorner() {
+  			let atLeftRight = this.xCord === 0 || this.xCord == this.maxX;
+  			let atTopBottom = this.yCord === 0 || this.yCord == this.maxY;
+  			return atLeftRight && atTopBottom;
   		} 
   	} 
   	/**
@@ -79,9 +79,10 @@
   		 */
   		getCorner(xCord, yCord) {
   			let corner;
-  			if(xCord === 0 && (yCord === 0 || yCord == this.height)) {
+  			let atTopBottom = yCord === 0 || yCord == this.height;
+  			if(xCord === 0 && atTopBottom) {
   				corner = yCord === 0 ? "UL" : "LL";
-  			} else if(xCord == this.width && (yCord === 0 || yCord == this.height)) {
+  			} else if(xCord == this.width && atTopBottom) {
   				corner = yCord === 0 ? "UR" : "LR";
   			}	
   			return corner;
@@ -101,18 +102,20 @@
   	function ricochet(height, width, velocity) {
   		let grid = new Grid(width, height);
   		let particle = new Particle(grid, velocity);
-  		while(!particle.checkCorner() || !particle.started) {
+  		while(!particle.hitCorner() || !particle.moving) {
   			particle.move();
   		}
   		let corner = grid.getCorner(particle.xCord, particle.yCord);
   		return [corner, particle.totalBounce - 1, particle.totalDist / velocity];
   	} 
   	//default input
+  	console.log("Default Input 1:");
   	let input = [8, 3, 1];
   	let result = ricochet(...input);
-  	console.log(result[0], result[1], result[2]);
+  	console.log(result.join(" "));
+  	console.log("Default Input 2:");
     input = [15, 4, 2];
   	result = ricochet(...input);
-  	console.log(result[0], result[1], result[2]);
+  	console.log(result.join(" "));
   });
 })();  	
