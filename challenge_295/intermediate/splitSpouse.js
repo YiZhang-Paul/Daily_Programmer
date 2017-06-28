@@ -43,6 +43,32 @@
 			}
 			return permutation;
 		} 
-		console.log(permuteGuest(getSpouseList(3), 6));
+		/**
+		 * remove arrangements where spouses 
+		 * sit next to each other
+		 * @param array []
+		 *
+		 * arrangements : list of all arrangements
+		 *
+		 * returns array []
+		 */
+		function filterAdjacent(arrangements) {
+			arrangements = arrangements.filter(arrangement => {
+				arrangement = arrangement.toLowerCase();
+				if(arrangement[0] == arrangement[arrangement.length - 1]) {
+					return false;
+				}
+				for(let i = 0; i < arrangement.length - 1; i++) {
+					if(arrangement[i] == arrangement[i + 1]) {
+						return false;
+					}
+				}
+				return true;
+			});
+			return arrangements;
+		}
+		let guestList = getSpouseList(3);
+		let arrangements = permuteGuest(guestList, guestList.length); 
+		console.log(filterAdjacent(arrangements));
 	});
 })();				
