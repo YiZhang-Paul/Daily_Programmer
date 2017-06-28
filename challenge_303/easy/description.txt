@@ -1,5 +1,7 @@
 #303[Easy] Ricochet
 
+All Done
+
 url: https://www.reddit.com/r/dailyprogrammer/comments/5vb1wf/20170221_challenge_303_easy_ricochet/
 
 Start with a grid h units high by w units wide. Set a point particle in motion from the upper-left corner of the grid, 45 degrees from the horizontal, so that it crosses from one corner of each unit square to the other. When the particle reaches the bounds of the grid, it ricochets and continues until it reaches another corner.

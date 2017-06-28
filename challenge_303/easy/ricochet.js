@@ -3,22 +3,26 @@
   document.addEventListener("DOMContentLoaded", () => {
   	/**
   	 * particle class
-  	 * @param obj {}, int
+  	 * @param obj {}, int, int, int
   	 * 
   	 * grid     : grid containing particle
   	 * velocity : movement speed
+  	 * width    : width of particle
+  	 * height   : height of particle
   	 */
   	class Particle {
-  		constructor(grid, velocity) {
+  		constructor(grid, velocity, width = 0, height = 0) {
   			this.moving = false;
-  			this.xCord = 0;
-  			this.yCord = 0;
+  			this.width = width;
+  			this.height = height;
+  			this.xCord = this.width * 0.5;
+  			this.yCord = this.height * 0.5;
   			this.hVelocity = velocity;
   			this.vVelocity = velocity;
-  			this.minX = 0;
-  			this.maxX = grid.width;
-  			this.minY = 0;
-  			this.maxY = grid.height;
+  			this.minX = this.width * 0.5;
+  			this.maxX = grid.width - this.width * 0.5;
+  			this.minY = this.height * 0.5;
+  			this.maxY = grid.height - this.height * 0.5;
   			this.totalBounce = 0;
   			this.totalDist = 0;
   		}
@@ -26,8 +30,8 @@
   		 * bounce particle
   		 */
   		bounce() {
-  			let atLeftRight = this.xCord === 0 || this.xCord == this.maxX;
-  			let atTopBottom = this.yCord === 0 || this.yCord == this.maxY;
+  			let atLeftRight = this.xCord == this.minX || this.xCord == this.maxX;
+  			let atTopBottom = this.yCord == this.minY || this.yCord == this.maxY;
   			this.hVelocity *= atLeftRight ? -1 : 1;
   			this.vVelocity *= atTopBottom ? -1 : 1;
   			this.totalBounce += atLeftRight || atTopBottom ? 1 : 0;
@@ -51,39 +55,22 @@
   		 * returns boolean
   		 */
   		hitCorner() {
-  			let atLeftRight = this.xCord === 0 || this.xCord == this.maxX;
-  			let atTopBottom = this.yCord === 0 || this.yCord == this.maxY;
+  			let atLeftRight = this.xCord == this.minX || this.xCord == this.maxX;
+  			let atTopBottom = this.yCord == this.minY || this.yCord == this.maxY;
   			return atLeftRight && atTopBottom;
   		} 
-  	} 
-  	/**
-  	 * grid class
-  	 * @param int, int
-  	 *
-  	 * width  : width of grid
-  	 * height : height of grid
-  	 */
-  	class Grid {
-  		constructor(width, height) {
-  			this.width = width;
-  			this.height = height;
-  		}
   		/**
   		 * determine corner
-  		 * @param int, int
-  		 * 
-  		 * xCord : X-Coordinate
-  		 * yCord : Y-Coordinate
   		 *
   		 * returns String
   		 */
-  		getCorner(xCord, yCord) {
+  		getCorner() {
   			let corner;
-  			let atTopBottom = yCord === 0 || yCord == this.height;
-  			if(xCord === 0 && atTopBottom) {
-  				corner = yCord === 0 ? "UL" : "LL";
-  			} else if(xCord == this.width && atTopBottom) {
-  				corner = yCord === 0 ? "UR" : "LR";
+  			let atTopBottom = this.yCord == this.minY || this.yCord == this.maxY;
+  			if(this.xCord == this.minX && atTopBottom) {
+  				corner = this.yCord == this.minY ? "UL" : "LL";
+  			} else if(this.xCord == this.maxX && atTopBottom) {
+  				corner = this.yCord == this.minY ? "UR" : "LR";
   			}	
   			return corner;
   		} 
@@ -91,30 +78,35 @@
   	/**
   	 * calculate ending corner, bounce time
   	 * and total time traveld for a particle
-  	 * @param int, int, int
+  	 * @param int, int, int, int, int
   	 *
-  	 * height   : height of grid
-  	 * width    : width of grid
+  	 * gHeight  : height of grid
+  	 * gWidth   : width of grid
+  	 * pHeight  : height of particle
+  	 * pWidth   : width of particle
   	 * velocity : particle movement speed
   	 *
   	 * returns array []
   	 */
-  	function ricochet(height, width, velocity) {
-  		let grid = new Grid(width, height);
-  		let particle = new Particle(grid, velocity);
+  	function ricochet(gHeight, gWidth, pHeight, pWidth, velocity) {
+  		let particle = new Particle({width : gWidth, height : gHeight}, velocity, pWidth, pHeight);
   		while(!particle.hitCorner() || !particle.moving) {
   			particle.move();
   		}
-  		let corner = grid.getCorner(particle.xCord, particle.yCord);
-  		return [corner, particle.totalBounce - 1, particle.totalDist / velocity];
+  		return [particle.getCorner(), particle.totalBounce - 1, particle.totalDist / velocity];
   	} 
   	//default input
   	console.log("Default Input 1:");
-  	let input = [8, 3, 1];
+  	let input = [8, 3, 0, 0, 1];
   	let result = ricochet(...input);
   	console.log(result.join(" "));
   	console.log("Default Input 2:");
-    input = [15, 4, 2];
+    input = [15, 4, 0, 0, 2];
+  	result = ricochet(...input);
+  	console.log(result.join(" "));
+  	//bonus input
+  	console.log("Bonus Input:");
+  	input = [10, 7, 3, 2, 1];
   	result = ricochet(...input);
   	console.log(result.join(" "));
   });
