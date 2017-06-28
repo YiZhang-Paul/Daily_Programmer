@@ -1,5 +1,7 @@
 #304[Easy] Little Accountant
 
+All Done
+
 url: https://www.reddit.com/r/dailyprogrammer/comments/5wnbsi/20170228_challenge_304_easy_little_accountant/
 
 Your task is to design a program to help an accountant to get balances from accounting journals.

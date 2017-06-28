@@ -267,6 +267,28 @@
  					}
  				}
  				return index == -1 ? this.accounts.length : index;
+ 			}
+ 			/**
+ 			 * get start date
+ 			 * @param String
+ 			 *
+ 			 * start : start date
+ 			 * 
+ 			 * returns String
+ 			 */
+ 			startDate(start) {
+ 				return start == "*" ? this.records[0].date : start;
+ 			} 
+ 			/**
+ 			 * get end date
+ 			 * @param String
+ 			 *
+ 			 * end : end date
+ 			 *
+ 			 * returns String
+ 			 */
+ 			endDate(end) {
+ 				return end == "*" ? this.records[this.records.length - 1].date : end;
  			} 
  			/**
  			 * get balance from selected accounts 
@@ -286,29 +308,32 @@
  				}
  				let results = [];
  				startAcc = this.startAcc(startAcc);
- 				startDate = startDate == "*" ? this.records[0].date : startDate;
- 				endDate = endDate == "*" ? this.records[this.records.length - 1].date : endDate;
- 				this.accounts.slice(startAcc, Math.max(startAcc, this.endAcc(endAcc) + 1)).forEach(account => {
- 					results.push([account.number, account.name, ...account.getBalance(startDate, endDate)]);
+ 				this.accounts.slice(startAcc, Math.max(startAcc, this.endAcc(endAcc) + 1)).forEach(acc => {
+ 					results.push([acc.number, acc.name, ...acc.getBalance(this.startDate(startDate), this.endDate(endDate))]);
  				});
+ 				//calculate sub total
  				let subDebit = this.totalDebit(results.map(row => {return {debit : row[2]};}));
  				let subCredit = this.totalCredit(results.map(row => {return {credit : row[3]};}));
  				results.unshift(["ACCOUNT", "DESCRIPTION", "DEBIT", "CREDIT", "BALANCE"]);
  				results.push(["TOTAL", "", subDebit, subCredit, subDebit - subCredit]);
- 				return [results, startDate, endDate];
+ 				return results;
  			} 
  			/**
- 			 * display heading
- 			 * @param array [], String, String
+ 			 * display a row of result
+ 			 * @param array [], int, String
  			 *
- 			 * result : result to be displayed
- 			 * start  : start date 
- 			 * end    : end date
+ 			 * row       : row to be displayed
+ 			 * colLength : column length (width)
+ 			 * separator : separator of each column
  			 */
- 			displayHeading(result, start, end) {
- 				console.log(`Total Debit: $${this.totalDebit()} Total Credit: $${this.totalCredit()}`);
- 				console.log(`Balance from account ${result[1][0]} to ${result[result.length - 2][0]} from period ${start} to ${end}`);
- 				console.log("\nBalance:");
+ 			displayRow(row, colLength, separator) {
+ 				if(colLength) {
+ 					row = row.map((item, index) => {
+ 						let pad = " ".repeat(colLength - item.toString().length);
+ 						return index < 2 ? item + pad : pad + item;
+ 					});
+ 				}
+ 				console.log(`${row.join(separator)}${separator}`);
  			} 
  			/**
  			 * display CSV format
@@ -318,7 +343,7 @@
  			 */
  			displayCSV(result) {
  				result.forEach(row => {
-					console.log(`${row.join(";")};`);
+					this.displayRow(row, 0, ";");
 				});
  			} 
  			/**
@@ -328,18 +353,11 @@
  			 * result : result to be displayed
  			 */
  			displayText(result) {
- 				let displayRow = (row, colLength) => {
- 					row = row.map((item, index) => {
- 						let pad = " ".repeat(colLength - item.toString().length);
- 						return index < 2 ? item + pad : pad + item;
- 					});
- 					console.log(`${row.join("|")}|`);
- 				};
  				let colLength = result.slice().sort((a, b) => b[1].length - a[1].length)[0][1].length;
-				displayRow(result[0], colLength);
+				this.displayRow(result[0], colLength, "|");
 				console.log("-".repeat((colLength + 1) * result[0].length));
 				result.slice(1).forEach(row => {
-					displayRow(row, colLength);
+					this.displayRow(row, colLength, "|");
 				});
  			} 
  			/**
@@ -353,12 +371,14 @@
  			 * format : display format 
  			 */
  			displayResult(startAcc, endAcc, startDate, endDate, format) {
- 				let [result, start, end] = this.getResult(startAcc, endAcc, startDate, endDate);
+ 				let result = this.getResult(startAcc, endAcc, startDate, endDate);
  				if(!result) {
  					console.log("The Journal Entry Provided is Inconsistent.");
  					return;
  				}
- 				this.displayHeading(result, start, end);
+ 				console.log(`Total Debit: $${this.totalDebit()} Total Credit: $${this.totalCredit()}`);
+ 				console.log(`Balance from account ${result[1][0]} to ${result[result.length - 2][0]} from period ${this.startDate(startDate)} to ${this.endDate(endDate)}`);
+ 				console.log("\nBalance:");
  				if(format == "CSV") this.displayCSV(result);
  				else this.displayText(result);
  			} 
