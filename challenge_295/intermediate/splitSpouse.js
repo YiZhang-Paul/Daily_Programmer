@@ -53,7 +53,7 @@
 		 * returns array []
 		 */
 		function filterAdjacent(arrangements) {
-			arrangements = arrangements.filter(arrangement => {
+			return arrangements.filter(arrangement => {
 				arrangement = arrangement.toLowerCase();
 				if(arrangement[0] == arrangement[arrangement.length - 1]) {
 					return false;
@@ -65,10 +65,99 @@
 				}
 				return true;
 			});
-			return arrangements;
 		}
-		let guestList = getSpouseList(3);
-		let arrangements = permuteGuest(guestList, guestList.length); 
-		console.log(filterAdjacent(arrangements));
+		/**
+		 * remove duplicate arragements
+		 * @param array []
+		 *
+		 * arrangements : list of all arrangments
+		 *
+		 * returns array []
+		 */
+		function removeDuplicate(arrangements) {
+			let flags = new Array(arrangements.length).fill(0);
+			return arrangements.filter((arrangement, index, array) => {
+				for(let i = 1; i < arrangement.length; i++) {
+					let duplicate = array.indexOf(arrangement.slice(i) + arrangement.slice(0, i));
+					if(duplicate != -1 && !flags[duplicate]) {
+						flags[index] = 1;
+						return false;
+					}
+				}
+				return true;
+			});
+		} 
+		/**
+		 * find spouses that have yet taken seats
+		 * @param String, array []
+		 *
+		 * seated : guests already taken seat
+		 * list   : list of all guests
+		 *
+		 * returns array []
+		 */
+		function filterSeated(seated, list) {
+			seated = new Set(seated.split("").filter(guest => guest != "_"));
+			return list.filter(guest => !seated.has(guest));
+		} 
+		/**
+		 * insert unseated guests
+		 * @param String, array []
+		 *
+		 * seated       : guests already taken seat
+		 * arrangements : arrangements for unseated guests
+		 *
+		 * returns array []
+		 */
+		function insertUnseated(seated, arrangements) {
+			return seated === "" ? arrangements : arrangements.map(arrangement => {
+				let emptySeat = 0, newArrangement = seated.split("");
+				for(let i = 0; i < newArrangement.length; i++) {
+					if(newArrangement[i] == "_") {
+						newArrangement[i] = arrangement[emptySeat++];
+					}
+				}
+				return newArrangement.join("");
+			});
+		}
+		/**
+		 * get acceptable arrangements
+		 * @param int, String
+		 *
+		 * pair : total pair of spouses
+		 * seated : guests already taken seat
+		 *
+		 * returns int
+		 */ 
+		function minArrangment(pair, seated = "") {
+			//get unseated spouse list
+			let list = filterSeated(seated, getSpouseList(pair));
+			//get all arrangements
+			let arrangements = insertUnseated(seated, permuteGuest(list, list.length));
+			//filter adjacent seating and duplicates
+			return removeDuplicate(filterAdjacent(arrangements)).length;
+		} 
+		//default input
+		console.log("Default Input: ");
+		let input = 1;
+		let result = minArrangment(input);
+		console.log(`Couples: ${input} -> Permutations: ${result}`);
+		input = 2;
+		result = minArrangment(input);
+		console.log(`Couples: ${input} -> Permutations: ${result}`);
+		input = 3;
+		result = minArrangment(input);
+		console.log(`Couples: ${input} -> Permutations: ${result}`);
+		input = 4;
+		result = minArrangment(input);
+		console.log(`Couples: ${input} -> Permutations: ${result}`);
+		//bonus input
+		console.log("Bonus Input: ");
+		input = [1, "ab_B"];
+		result = minArrangment(...input);
+		console.log(`Couples: ${input[0]}, Layout: ${input[1]} -> Permutations: ${result}`);
+		input = [4, "a_b__B__"];
+		result = minArrangment(...input);
+		console.log(`Couples: ${input[0]}, Layout: ${input[1]} -> Permutations: ${result}`);
 	});
-})();				
+})();			

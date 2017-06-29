@@ -1,5 +1,7 @@
 #295[Intermediate] Seperated Spouses
 
+All Done
+
 url: https://www.reddit.com/r/dailyprogrammer/comments/5ijb4z/20161215_challenge_295_intermediate_seperated/
 
 I'm organising a dinner party with the help of my partner. We've invited some other couples to come and we want to get everyone talking with someone new and so we don't want partners to sit next to each other at our circular table. For example, given three couples (one person being denoted as a and the other as A), we would be able to position them like so:
