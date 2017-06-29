@@ -14,9 +14,10 @@
 		 */
 		class Chart {
 			constructor(x1, x2, y1, y2, recordNum, ...records) {
-				this.records = records;
 				this.board = this.makeBoard(x1, x2, y1, y2, recordNum);
-				this.displayChart(this.board);
+				records.forEach(record => {
+					this.addRecord(record, this.board);
+				});
 			}
 			/**
 			 * make chart board
@@ -67,6 +68,20 @@
 				}
 			} 
 			/**
+			 * add record
+			 * @param String
+			 *
+			 * record : record to be added
+			 * board  : chart to hold the record
+			 */	
+			addRecord(record, board) {
+				record = record.split(" ");
+				let col = board[board.length - 1].indexOf(Number(record[0])) + 1;
+				for(let i = board.length - 2; i > board.length - 2 - record[2]; i--) {
+					board[i][col] = "*";
+				}
+			}
+			/**
 			 * display chart
 			 * @param obj {}
 			 *
@@ -74,12 +89,11 @@
 			 */
 			displayChart(chart = this.board) {
 				chart.forEach(row => {
-					console.log(row.join(" "));
+					console.log(row.join(""));
 				});
 			} 
 		} 
 		let chart = new Chart(...[140, 190, 1, 8, 5, "140 150 1", "150 160 0", "160 170 7", "170 180 6", "180 190 2"]);
-
-		
+		chart.displayChart();	
 	});
 })();				
