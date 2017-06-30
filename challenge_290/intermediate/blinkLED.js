@@ -6,7 +6,10 @@
 		 */
 		class LED {
 			constructor() {
-				this.registerA = 0;
+				this.registers = {
+					A : 0,
+					B : 0
+				};
 			}
 			/**
 			 * convert number to binary
@@ -27,16 +30,16 @@
 			 * number   : new value for register
 			 */
 			setRegister(register, number) {
-				this["register" + register.toUpperCase()] = Number(number);
+				this.registers[register.toUpperCase()] = Number(number);
 			} 
 			/**
-			 * display LED pattern
+			 * display LEDs
 			 * @param String
 			 *
-			 * pattern : pattern to be displayed
+			 * register : register handling display pattern
 			 */
-			displayLED(pattern = this.toBinary(this.registerA)) {
-				console.log(pattern.split("").map(bit => Number(bit) === 0 ? "." : "*").join(""));
+			displayLED(register) {
+				console.log(this.toBinary(register).split("").map(bit => Number(bit) === 0 ? "." : "*").join(""));
 			} 
 			/**
 			 * process instructions
@@ -50,7 +53,7 @@
 					if(instruction[0] == "ld") {
 						this.setRegister(instruction[1], instruction[2]);
 					} else if(instruction[0] == "out") {
-						this.displayLED();
+						this.displayLED(this.registers[instruction[2].toUpperCase()]);
 					}
 				});
 			} 
