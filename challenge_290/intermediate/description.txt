@@ -1,5 +1,7 @@
 #290[Intermediate] Blinking LEDs
 
+All Done
+
 url: https://www.reddit.com/r/dailyprogrammer/comments/5as91q/20161102_challenge_290_intermediate_blinking_leds/
 
 Mark saw someone doing experiments with blinking LEDs (imagine something like this ) and became fascinated by it. He wants to know more about it. He knows you are good with computers, so he comes to you asking if you can teach him how it works. You agree, but as you don't have any LEDs with you at the moment, you suggest: "Let's build an emulator with which we can see what's happening inside". And that's today's challenge.

@@ -45,15 +45,6 @@
 				return instructions.findIndex(instruction => instruction.search(loop) === 0);
 			} 
 			/**
-			 * display LEDs
-			 * @param String
-			 *
-			 * register : register handling display pattern
-			 */
-			displayLED(register) {
-				console.log(this.toBinary(register).split("").map(bit => Number(bit) === 0 ? "." : "*").join(""));
-			} 
-			/**
 			 * rotate left
 			 */
 			rotateLeft() {
@@ -68,6 +59,15 @@
 				this.registers.A = parseInt(registerA.slice(-1) + registerA.slice(0, -1), 2);
 			} 
 			/**
+			 * display LEDs
+			 * @param String
+			 *
+			 * register : register handling display pattern
+			 */
+			displayLED(register) {
+				console.log(this.toBinary(register).split("").map(bit => Number(bit) === 0 ? "." : "*").join(""));
+			} 
+			/**
 			 * process instructions
 			 * @param String
 			 *
@@ -77,18 +77,24 @@
 				instructions = instructions.split("\n").map(instruction => instruction.trim());
 				for(let i = 0; i < instructions.length; i++) {
 					let instruction = instructions[i].split(/[, ]/);
-					if(instruction[0] == "ld") {
-						this.setRegister(instruction[1], instruction[2]);
-					} else if(instruction[0] == "out") {
-						this.displayLED(this.registers[instruction[2].toUpperCase()]);
-					} else if(instruction[0] == "djnz") {
-						if(--this.registers.B) {
-							i = this.enterLoop(instructions, instruction[1]) - 1;
-						}
-					} else if(instruction[0] == "rlca") {
-						this.rotateLeft();
-					} else if(instruction[0] == "rrca") {
-						this.rotateRight();
+					switch(instruction[0]) {
+						case "ld" : 
+							this.setRegister(instruction[1], instruction[2]);
+							break;
+						case "djnz" :
+							if(--this.registers.B) {
+								i = this.enterLoop(instructions, instruction[1]) - 1;
+							}
+							break;
+						case "rlca" :
+							this.rotateLeft();
+							break;
+						case "rrca" :
+							this.rotateRight();
+							break;
+						case "out" :
+							this.displayLED(this.registers[instruction[2].toUpperCase()]);
+							break;
 					}
 				}
 			} 
