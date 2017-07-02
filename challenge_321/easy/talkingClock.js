@@ -11,7 +11,10 @@
  		 */
  		function timeInWords(time) {
  			time = time.split(":");	
- 			console.log(time);
+ 			let hour = time[0] <= 20 ? numToWord(Number(time[0])) : numToWord(Math.floor(Number(time[0]) / 10) * 10) + numToWord(Number(time[0]) % 10);
+ 			let minute = time[1] <= 20 ? numToWord(Number(time[1])) : numToWord(Math.floor(Number(time[1]) / 10) * 10) + numToWord(Number(time[1]) % 10);
+ 			let dayNight = time[0] / 12 >= 0 ? "PM" : "AM";
+ 			return `It's ${hour} ${minute} ${dayNight}`;
  		} 
  		/**
  		 * traslate number to words
@@ -24,6 +27,9 @@
  		function numToWord(number) {
  			let word;
  			switch(number) {
+ 				case 0 :
+ 					word = "";
+ 					break;
  				case 1 : 
  					word = "one";
  					break;
@@ -98,11 +104,16 @@
  		}
  		//default inputs
  		let input = "00:00";
- 		timeInWords(input);
+ 		console.log(timeInWords(input));
     input = "01:30";
+ 		console.log(timeInWords(input));
     input = "12:05";
+ 		console.log(timeInWords(input));
     input = "14:01";
+ 		console.log(timeInWords(input));
     input = "20:29";
+ 		console.log(timeInWords(input));
     input = "21:00";
+ 		console.log(timeInWords(input));
 	});
 })();			
