@@ -9,12 +9,62 @@
 		 *
 		 * returns String
  		 */
- 		function timeInWords(time) {
+ 		function timeToWord(time) {
  			time = time.split(":");	
- 			let hour = time[0] <= 20 ? numToWord(Number(time[0])) : numToWord(Math.floor(Number(time[0]) / 10) * 10) + numToWord(Number(time[0]) % 10);
+ 			let hour = hourToWord(Number(time[0]));
  			let minute = time[1] <= 20 ? numToWord(Number(time[1])) : numToWord(Math.floor(Number(time[1]) / 10) * 10) + numToWord(Number(time[1]) % 10);
  			let dayNight = time[0] / 12 >= 0 ? "PM" : "AM";
  			return `It's ${hour} ${minute} ${dayNight}`;
+ 		} 
+ 		/**
+ 		 * translate hour to word
+ 		 * @param String
+ 		 *
+ 		 * hour : hour to be translated 
+ 		 *
+ 		 * returns String
+ 		 */
+ 		function hourToWord(hour) {
+ 			let word;
+ 			switch(hour % 12) {
+ 				case 0 : case 12 : 
+ 					word = "twelve";
+ 					break;
+ 				case 1 : 
+ 					word = "one";
+ 					break;
+ 				case 2 : 
+ 					word = "two";
+ 					break;
+ 				case 3 : 
+ 					word = "three";
+ 					break;
+ 				case 4 : 
+ 					word = "four";
+ 					break;
+ 				case 5 : 
+ 					word = "five";
+ 					break;
+ 				case 6 : 
+ 					word = "six";
+ 					break;
+ 				case 7 : 
+ 					word = "seven";
+ 					break;
+ 				case 8 : 
+ 					word = "eight";
+ 					break;
+ 				case 9 : 
+ 					word = "nine";
+ 					break;
+ 				case 10 : 
+ 					word = "ten";
+ 					break;
+ 				case 11 : 
+ 					word = "eleven";
+ 					break;										
+ 			}
+ 			return word;
  		} 
  		/**
  		 * traslate number to words
@@ -104,16 +154,16 @@
  		}
  		//default inputs
  		let input = "00:00";
- 		console.log(timeInWords(input));
+ 		console.log(timeToWord(input));
     input = "01:30";
- 		console.log(timeInWords(input));
+ 		console.log(timeToWord(input));
     input = "12:05";
- 		console.log(timeInWords(input));
+ 		console.log(timeToWord(input));
     input = "14:01";
- 		console.log(timeInWords(input));
+ 		console.log(timeToWord(input));
     input = "20:29";
- 		console.log(timeInWords(input));
+ 		console.log(timeToWord(input));
     input = "21:00";
- 		console.log(timeInWords(input));
+ 		console.log(timeToWord(input));
 	});
 })();			
