@@ -132,8 +132,8 @@
 		 *
 		 * returns boolean 
 		 */
-		function tryDecode(list, aInverse, b, alphabet, dictionary) {
-			return list.every(word => dictionary.has(decodeText(word, aInverse, b, alphabet)));
+		function canDecode(list, aInverse, b, alphabet, dictionary) {
+			return list.every(word => dictionary.has(decodeText(word, aInverse, b, alphabet)) || word === "");
 		} 
 		/**
 		 * crack cipher
@@ -146,17 +146,17 @@
 		 */
 		function solveCipher(text, dictionary) {
 			//remove non-alphabetical characters
-			let words = text.split(" ").map(word => word.split("").filter(char => isLetter(char)).join(""));
+			let words = text.split("").map(word => isLetter(word) || word == " " ? word : " ").join("").split(" ");
 			//crack encoding data
-			let prime = [3, 5, 7, 11, 15, 17, 19, 21, 23, 25];
+			let prime = [1, 3, 5, 7, 9, 11, 15, 17, 19, 21, 23, 25];
 			let alphabet = makeAlphabet();
 			let a, b, aInverse;
 			for(let i = 0; i < prime.length; i++) {
 				//find modular multiplicative inverse
 				aInverse = findMMI(prime[i], alphabet.size / 3);
-				for(let j = 1; j < alphabet.size / 3; j++) {
+				for(let j = 0; j < alphabet.size / 3; j++) {
 					//crack multiplier and shift magnitude
-					if(tryDecode(words, aInverse, j, alphabet, dictionary)) {
+					if(canDecode(words, aInverse, j, alphabet, dictionary)) {
 						return decodeText(text, aInverse, j, alphabet);
 					}
 				}
@@ -164,14 +164,19 @@
 		} 
 		//decode inputs
 		getDictionary("dictionary.txt").then(dictionary => {
+			let time = new Date().getTime();
 			//default input
 			let input = "NLWC WC M NECN";
-			console.log(solveCipher(input, dictionary));
+			console.log(solveCipher(input, dictionary), new Date().getTime() - time);
 			input = "YEQ LKCV BDK XCGK EZ BDK UEXLVM QPLQGWSKMB";
+			console.log(solveCipher(input, dictionary), new Date().getTime() - time);
 			input = "NH WRTEQ TFWRX TGY T YEZVXH GJNMGRXX STPGX NH XRGXR TX QWZJDW ZK WRNUZFB P WTY YEJGB ZE RNSQPRY XZNR YJUU ZSPTQR QZ QWR YETPGX ZGR NPGJQR STXQ TGY URQWR VTEYX WTY XJGB";
+			console.log(solveCipher(input, dictionary), new Date().getTime() - time);
 			//bonus input
 			input = "Yeq lkcv bdk xcgk ez bdk uexlv'm qplqgwskmb.";
+			console.log(solveCipher(input, dictionary), new Date().getTime() - time);
 			input = "Nh wrteq tfwrx, tgy t yezvxh gjnmgrxx stpgx / Nh xrgxr, tx qwzjdw zk wrnuzfb p wty yejgb, / Ze rnsqpry xznr yjuu zsptqr qz qwr yetpgx / Zgr npgjqr stxq, tgy Urqwr-vteyx wty xjgb.";
+			console.log(solveCipher(input, dictionary), new Date().getTime() - time);
 		});
 	});
 })();		
