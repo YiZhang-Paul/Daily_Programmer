@@ -19,11 +19,9 @@
 		 * returns String
  		 */
  		function timeToWord(time) {
- 			time = time.split(":");	
- 			let hour = hourToWord(time[0]);
- 			let minute = minuteToWord(time[1]);
- 			let dayNight = Number(time[0]) / 12 >= 1 ? "pm" : "am";
- 			return `It's ${hour}${minute ? " " + minute : minute} ${dayNight}`;
+ 			time = time.split(":").map(num => Number(num));	
+ 			let [hour, minute] = [hourToWord(time[0]), minuteToWord(time[1])];
+ 			return `It's ${hour}${minute ? " " + minute : minute} ${time[0] / 12 >= 1 ? "pm" : "am"}`;
  		} 
  		/**
  		 * translate hour to word
@@ -34,7 +32,7 @@
  		 * returns String
  		 */
  		function hourToWord(hour) {
- 			return Number(hour) % 12 === 0 ? "twelve" : translateTable[Number(hour) % 12];
+ 			return hour % 12 === 0 ? "twelve" : translateTable[hour % 12];
  		} 
  		/**
  		 *
@@ -46,12 +44,10 @@
  		 * returns String
  		 */
  		function minuteToWord(minute) {
- 			if(Number(minute) < 10 && minute.length == 2) {
- 				return Number(minute) === 0 ? "" : "oh " + minuteToWord(minute[1]);
- 			} else if(Number(minute) > 20 && Number(minute) % 10 && minute.length == 2) {
- 				return minuteToWord(Math.floor(Number(minute) / 10) * 10) + " " + minuteToWord(Number(minute) % 10);
+ 			if(minute < 10) {
+ 				return minute === 0 ? "" : "oh " + translateTable[minute];
  			}
- 			return translateTable[Number(minute)];
+ 			return translateTable[minute] ? translateTable[minute] : translateTable[minute - (minute % 10)] + " " + translateTable[minute % 10];
  		} 
  		//default inputs
  		let input = "00:00";
