@@ -43,16 +43,16 @@
 		} 
 		/**
 		 * encode text
-		 * @param String, int, int
+		 * @param String, int, int, obj {}
 		 *
-		 * text : text to be encoded
-		 * a    : encode multiplier
-		 * b    : shift magnitude
+		 * text     : text to be encoded
+		 * a        : encode multiplier
+		 * b        : shift magnitude
+		 * alphabet : alphabet for convertion 
 		 *
 		 * returns String
 		 */
-		function encodeText(text, a, b) {
-			let alphabet = makeAlphabet();
+		function encodeText(text, a, b, alphabet) {
 			return text.split("").map(char => isLetter(char) ? encodeChar(char, a, b, alphabet) : char).join("");
 		} 
 		/**
@@ -87,17 +87,16 @@
 		}
 		/**
 		 * decode text
-		 * @param String, int, int
+		 * @param String, int, int, obj {}
 		 * 
-		 * text : text to be decoded
-		 * a    : encode multiplier
-		 * b    : shift magnitude 
+		 * text     : text to be decoded
+		 * aInverse : multiplier MMI
+		 * b        : shift magnitude 
+		 * alphabet : alphabet for convertion 
 		 *
 		 * returns String
 		 */
-		function decodeText(text, a, b) {
-			let alphabet = makeAlphabet();
-			let aInverse = findMMI(a, alphabet.size / 3);
+		function decodeText(text, aInverse, b, alphabet) {
 			return text.split("").map(char => isLetter(char) ? decodeChar(char, aInverse, b, alphabet) : char).join("");
 		} 
 		/**
@@ -120,15 +119,47 @@
 				xhttp.send();
 			});
 		} 
-		getDictionary("dictionary.txt").then(dictionary => {
+		/**
+		 * crack cipher
+		 * @param String, obj {}
+		 *
+		 * text       : text to be decoded
+		 * dictionary : dictionary for decoding
+		 *
+		 * returns String
+		 */
+		function solveCipher(text, dictionary) {
+			//remove non-alphabetical characters
+			let words = text.split(" ").map(word => word.split("").filter(char => isLetter(char)).join(""));
+			//crack encoding data
+			let prime = [3, 5, 7, 11, 15, 17, 19, 21, 23, 25];
+			let alphabet = makeAlphabet();
+			let a, b, aInverse;
+			for(let i = 0; i < prime.length; i++) {
+				//find modular multiplicative inverse
+				aInverse = findMMI(prime[i], alphabet.size / 3);
+				for(let j = 1; j < alphabet.size / 3; j++) {
+					//crack multiplier and shift magnitude
+					b = j;
+					if(j == 2) {
+						break;
+					}
+				}
+			}
+			console.log();
+			console.log(words);
 			console.log(dictionary);
+		} 
+		//decode inputs
+		getDictionary("dictionary.txt").then(dictionary => {
+			//default input
+			let input = "NLWC, WC. M, NECN@";
+			solveCipher(input, dictionary);
+			input = "YEQ LKCV BDK XCGK EZ BDK UEXLVM QPLQGWSKMB";
+			input = "NH WRTEQ TFWRX TGY T YEZVXH GJNMGRXX STPGX NH XRGXR TX QWZJDW ZK WRNUZFB P WTY YEJGB ZE RNSQPRY XZNR YJUU ZSPTQR QZ QWR YETPGX ZGR NPGJQR STXQ TGY URQWR VTEYX WTY XJGB";
+			//bonus input
+			input = "Yeq lkcv bdk xcgk ez bdk uexlv'm qplqgwskmb.";
+			input = "Nh wrteq tfwrx, tgy t yezvxh gjnmgrxx stpgx / Nh xrgxr, tx qwzjdw zk wrnuzfb p wty yejgb, / Ze rnsqpry xznr yjuu zsptqr qz qwr yetpgx / Zgr npgjqr stxq, tgy Urqwr-vteyx wty xjgb.";
 		});
-		//default input
-		let input = "NLWC WC M NECN";
-		input = "YEQ LKCV BDK XCGK EZ BDK UEXLVM QPLQGWSKMB";
-		input = "NH WRTEQ TFWRX TGY T YEZVXH GJNMGRXX STPGX NH XRGXR TX QWZJDW ZK WRNUZFB P WTY YEJGB ZE RNSQPRY XZNR YJUU ZSPTQR QZ QWR YETPGX ZGR NPGJQR STXQ TGY URQWR VTEYX WTY XJGB";
-		//bonus input
-		input = "Yeq lkcv bdk xcgk ez bdk uexlv'm qplqgwskmb.";
-		input = "Nh wrteq tfwrx, tgy t yezvxh gjnmgrxx stpgx / Nh xrgxr, tx qwzjdw zk wrnuzfb p wty yejgb, / Ze rnsqpry xznr yjuu zsptqr qz qwr yetpgx / Zgr npgjqr stxq, tgy Urqwr-vteyx wty xjgb.";
 	});
 })();		
