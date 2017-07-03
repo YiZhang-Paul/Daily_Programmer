@@ -16,6 +16,17 @@
 			return alphabet;
 		} 
 		/**
+		 * check if a character is upper case
+		 * @param char
+		 *
+		 * char : character to be tested
+		 *
+		 * returns boolean
+		 */
+		function isUpperCase(char) {
+			return char.charCodeAt() >= 65 && char.charCodeAt() <= 90;
+		} 
+		/**
 		 * check if a character is letter
 		 * @param char
 		 *
@@ -73,31 +84,34 @@
 		} 
 		/**
 		 * decode character
-		 * @param char, int, int, obj {} 
+		 * @param char, int, int, obj {}, boolean 
 		 *
-		 * char     : character to be decoded
-		 * aInverse : multiplier MMI
-		 * b        : shift magnitude
-		 * alphabet : alphabet for convertion 
+		 * char          : character to be decoded
+		 * aInverse      : multiplier MMI
+		 * b             : shift magnitude
+		 * alphabet      : alphabet for convertion 
+		 * caseSensitive : keep the original case of text
 		 *
 		 * returns char
 		 */
-		function decodeChar(char, aInverse, b, alphabet) {
-			return alphabet.get((alphabet.get(char) - b) * aInverse % (alphabet.size / 3));
+		function decodeChar(char, aInverse, b, alphabet, caseSensitive) {
+			let decoded = alphabet.get((alphabet.get(char) - b) * aInverse % (alphabet.size / 3));
+			return caseSensitive && isUpperCase(char) ? decoded.toUpperCase() : decoded;
 		}
 		/**
 		 * decode text
-		 * @param String, int, int, obj {}
+		 * @param String, int, int, obj {}, boolean
 		 * 
-		 * text     : text to be decoded
-		 * aInverse : multiplier MMI
-		 * b        : shift magnitude 
-		 * alphabet : alphabet for convertion 
+		 * text          : text to be decoded
+		 * aInverse      : multiplier MMI
+		 * b             : shift magnitude 
+		 * alphabet      : alphabet for convertion 
+		 * caseSensitive : keep the original case of text
 		 *
 		 * returns String
 		 */
-		function decodeText(text, aInverse, b, alphabet) {
-			return text.split("").map(char => isLetter(char) ? decodeChar(char, aInverse, b, alphabet) : char).join("");
+		function decodeText(text, aInverse, b, alphabet, caseSensitive) {
+			return text.split("").map(char => isLetter(char) ? decodeChar(char, aInverse, b, alphabet, caseSensitive) : char).join("");
 		} 
 		/**
 		 * get dictionary
@@ -137,17 +151,18 @@
 		} 
 		/**
 		 * crack cipher
-		 * @param String, obj {}
+		 * @param String, obj {}, boolean
 		 *
-		 * text       : text to be decoded
-		 * dictionary : dictionary for decoding
+		 * text          : text to be decoded
+		 * dictionary    : dictionary for decoding
+		 * caseSensitive : keep the original case of text
 		 *
 		 * returns String
 		 */
-		function solveCipher(text, dictionary) {
+		function solveCipher(text, dictionary, caseSensitive) {
 			//remove non-alphabetical characters
 			let words = text.split("").map(word => isLetter(word) || word == " " ? word : " ").join("").split(" ");
-			//crack encoding data
+			//crack encoding data	
 			let prime = [1, 3, 5, 7, 9, 11, 15, 17, 19, 21, 23, 25];
 			let alphabet = makeAlphabet();
 			let a, b, aInverse;
@@ -157,26 +172,27 @@
 				for(let j = 0; j < alphabet.size / 3; j++) {
 					//crack multiplier and shift magnitude
 					if(canDecode(words, aInverse, j, alphabet, dictionary)) {
-						return decodeText(text, aInverse, j, alphabet);
+						return decodeText(text, aInverse, j, alphabet, caseSensitive);
 					}
 				}
 			}
 		} 
 		//decode inputs
 		getDictionary("dictionary.txt").then(dictionary => {
+			let timeSpent = start => `${new Date().getTime() - start}ms`;
 			let time = new Date().getTime();
 			//default input
 			let input = "NLWC WC M NECN";
-			console.log(solveCipher(input, dictionary), new Date().getTime() - time);
+			console.log(solveCipher(input, dictionary), timeSpent(time));
 			input = "YEQ LKCV BDK XCGK EZ BDK UEXLVM QPLQGWSKMB";
-			console.log(solveCipher(input, dictionary), new Date().getTime() - time);
+			console.log(solveCipher(input, dictionary), timeSpent(time));
 			input = "NH WRTEQ TFWRX TGY T YEZVXH GJNMGRXX STPGX NH XRGXR TX QWZJDW ZK WRNUZFB P WTY YEJGB ZE RNSQPRY XZNR YJUU ZSPTQR QZ QWR YETPGX ZGR NPGJQR STXQ TGY URQWR VTEYX WTY XJGB";
-			console.log(solveCipher(input, dictionary), new Date().getTime() - time);
+			console.log(solveCipher(input, dictionary), timeSpent(time));
 			//bonus input
 			input = "Yeq lkcv bdk xcgk ez bdk uexlv'm qplqgwskmb.";
-			console.log(solveCipher(input, dictionary), new Date().getTime() - time);
+			console.log(solveCipher(input, dictionary, true), timeSpent(time));
 			input = "Nh wrteq tfwrx, tgy t yezvxh gjnmgrxx stpgx / Nh xrgxr, tx qwzjdw zk wrnuzfb p wty yejgb, / Ze rnsqpry xznr yjuu zsptqr qz qwr yetpgx / Zgr npgjqr stxq, tgy Urqwr-vteyx wty xjgb.";
-			console.log(solveCipher(input, dictionary), new Date().getTime() - time);
+			console.log(solveCipher(input, dictionary, true), timeSpent(time));
 		});
 	});
 })();		
