@@ -56,6 +56,22 @@
 			return text.split("").map(char => isLetter(char) ? encodeChar(char, a, b, alphabet) : char).join("");
 		} 
 		/**
+		 * find modular multiplicative inverse for a given number
+		 * @param int, int
+		 *
+		 * a : multiplier of encryption
+		 * m : alphabet table size
+		 *
+		 * returns int
+		 */
+		function findMMI(a, m) {
+			let ax = m + 1;
+			while(ax % a) {
+				ax += m;
+			}
+			return ax / a;
+		} 
+		/**
 		 * decode character
 		 * @param char, int, int, obj {} 
 		 *
@@ -85,21 +101,28 @@
 			return text.split("").map(char => isLetter(char) ? decodeChar(char, aInverse, b, alphabet) : char).join("");
 		} 
 		/**
-		 * find modular multiplicative inverse for a given number
-		 * @param int, int
+		 * get dictionary
+		 * @param String
 		 *
-		 * a : multiplier of encryption
-		 * m : alphabet table size
-		 *
-		 * returns int
+		 * url : URL of dictionary
+		 * 
+		 * returns obj {}
 		 */
-		function findMMI(a, m) {
-			let ax = m + 1;
-			while(ax % a) {
-				ax += m;
-			}
-			return ax / a;
+		function getDictionary(url) {
+			return new Promise((resolve, reject) => {
+				let xhttp = window.XMLHttpRequest ? new window.XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP");
+				xhttp.onreadystatechange = function() {
+					if(this.readyState == 4 && this.status == 200) {
+						resolve(new Set(this.responseText.split("\n").map(word => word.trim())));
+					}
+				};
+				xhttp.open("GET", url, true);
+				xhttp.send();
+			});
 		} 
+		getDictionary("dictionary.txt").then(dictionary => {
+			console.log(dictionary);
+		});
 		//default input
 		let input = "NLWC WC M NECN";
 		input = "YEQ LKCV BDK XCGK EZ BDK UEXLVM QPLQGWSKMB";
