@@ -120,6 +120,22 @@
 			});
 		} 
 		/**
+		 * check if every decoded word is 
+		 * an established English vocabulary
+		 * @param array [], int, int, obj {}, obj {}
+		 *
+		 * list       : list of words to be decoded
+		 * aInverse   : multiplier MMI
+		 * b          : shift magnitude 
+		 * alphabet   : alphabet for convertion 
+		 * dictionary : dictionary for decoding
+		 *
+		 * returns boolean 
+		 */
+		function tryDecode(list, aInverse, b, alphabet, dictionary) {
+			return list.every(word => dictionary.has(decodeText(word, aInverse, b, alphabet)));
+		} 
+		/**
 		 * crack cipher
 		 * @param String, obj {}
 		 *
@@ -140,21 +156,17 @@
 				aInverse = findMMI(prime[i], alphabet.size / 3);
 				for(let j = 1; j < alphabet.size / 3; j++) {
 					//crack multiplier and shift magnitude
-					b = j;
-					if(j == 2) {
-						break;
+					if(tryDecode(words, aInverse, j, alphabet, dictionary)) {
+						return decodeText(text, aInverse, j, alphabet);
 					}
 				}
 			}
-			console.log();
-			console.log(words);
-			console.log(dictionary);
 		} 
 		//decode inputs
 		getDictionary("dictionary.txt").then(dictionary => {
 			//default input
-			let input = "NLWC, WC. M, NECN@";
-			solveCipher(input, dictionary);
+			let input = "NLWC WC M NECN";
+			console.log(solveCipher(input, dictionary));
 			input = "YEQ LKCV BDK XCGK EZ BDK UEXLVM QPLQGWSKMB";
 			input = "NH WRTEQ TFWRX TGY T YEZVXH GJNMGRXX STPGX NH XRGXR TX QWZJDW ZK WRNUZFB P WTY YEJGB ZE RNSQPRY XZNR YJUU ZSPTQR QZ QWR YETPGX ZGR NPGJQR STXQ TGY URQWR VTEYX WTY XJGB";
 			//bonus input
