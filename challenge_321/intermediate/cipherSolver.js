@@ -132,6 +132,22 @@
 				xhttp.open("GET", url, true);
 				xhttp.send();
 			});
+		}
+		/**
+		 * check if every encoded word is 
+		 * an established English vocabulary
+		 * @param array [], int, int, obj {}, obj {}
+		 *
+		 * list       : list of words to be encoded
+		 * a          : encode multiplier
+		 * b          : shift magnitude
+		 * alphabet   : alphabet for convertion 
+		 * dictionary : dictionary for decoding
+		 *
+		 * returns boolean
+		 */ 
+		function canEncode(list, a, b, alphabet, dictionary) {
+			return list.every(word => dictionary.has(encodeText(word, a, b, alphabet)));
 		} 
 		/**
 		 * check if every decoded word is 
@@ -147,7 +163,7 @@
 		 * returns boolean 
 		 */
 		function canDecode(list, aInverse, b, alphabet, dictionary) {
-			return list.every(word => dictionary.has(decodeText(word, aInverse, b, alphabet)) || word === "");
+			return list.every(word => dictionary.has(decodeText(word, aInverse, b, alphabet)));
 		} 
 		/**
 		 * crack cipher
@@ -161,7 +177,8 @@
 		 */
 		function solveCipher(text, dictionary, caseSensitive) {
 			//remove non-alphabetical characters
-			let words = text.split("").map(word => isLetter(word) || word == " " ? word : " ").join("").split(" ");
+			let words = text.split("").map(word => isLetter(word) || word == " " ? word : " ")
+				.join("").split(" ").filter(word => word !== "");
 			//crack encoding data	
 			let prime = [1, 3, 5, 7, 9, 11, 15, 17, 19, 21, 23, 25];
 			let alphabet = makeAlphabet();
@@ -174,14 +191,19 @@
 					if(canDecode(words, aInverse, j, alphabet, dictionary)) {
 						return decodeText(text, aInverse, j, alphabet, caseSensitive);
 					}
+					if(canEncode(words, prime[i], j, alphabet, dictionary)) {
+						return encodeText(text, prime[i], j, alphabet, caseSensitive);
+					}
 				}
 			}
+			return "<--No Match Found-->";
 		} 
 		//decode inputs
 		getDictionary("dictionary.txt").then(dictionary => {
-			let timeSpent = start => `${new Date().getTime() - start}ms`;
+			let timeSpent = start => `(${(new Date().getTime() - start) / 1000} seconds)`;
 			let time = new Date().getTime();
 			//default input
+			console.log("Default Input: ");
 			let input = "NLWC WC M NECN";
 			console.log(solveCipher(input, dictionary), timeSpent(time));
 			input = "YEQ LKCV BDK XCGK EZ BDK UEXLVM QPLQGWSKMB";
@@ -189,6 +211,7 @@
 			input = "NH WRTEQ TFWRX TGY T YEZVXH GJNMGRXX STPGX NH XRGXR TX QWZJDW ZK WRNUZFB P WTY YEJGB ZE RNSQPRY XZNR YJUU ZSPTQR QZ QWR YETPGX ZGR NPGJQR STXQ TGY URQWR VTEYX WTY XJGB";
 			console.log(solveCipher(input, dictionary), timeSpent(time));
 			//bonus input
+			console.log("Bonus Input: ");
 			input = "Yeq lkcv bdk xcgk ez bdk uexlv'm qplqgwskmb.";
 			console.log(solveCipher(input, dictionary, true), timeSpent(time));
 			input = "Nh wrteq tfwrx, tgy t yezvxh gjnmgrxx stpgx / Nh xrgxr, tx qwzjdw zk wrnuzfb p wty yejgb, / Ze rnsqpry xznr yjuu zsptqr qz qwr yetpgx / Zgr npgjqr stxq, tgy Urqwr-vteyx wty xjgb.";
