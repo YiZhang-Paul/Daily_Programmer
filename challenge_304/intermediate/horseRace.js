@@ -20,9 +20,15 @@
 					let curGroup = stacks.splice(0, 5);
 					let groupResult = [];
 					while(curGroup.some(row => row.length)) {
-						curGroup = curGroup.sort((a, b) => b.length - a.length).sort((a, b) => a[0] - b[0]);
-						console.log(`Race ${++totalRaces} -> Compared: ${curGroup.filter(row => row.length).map(row => row[0])}`);
-						groupResult.push(curGroup[0].splice(0, 1)[0]);
+						if(curGroup.reduce((acc, val) => acc + val.length, 0) > 5) {
+							curGroup.sort((a, b) => b.length - a.length).sort((a, b) => a[0] - b[0]);
+							console.log(`Race ${++totalRaces} -> Compared: ${curGroup.filter(row => row.length).map(row => row[0])}`);
+							groupResult.push(curGroup[0].splice(0, 1)[0]);
+						} else {
+							curGroup = [curGroup.reduce((acc, val) => [...acc, ...val], []).sort((a, b) => a - b)];
+							console.log(`Race ${++totalRaces} -> Compared: ${curGroup[0]}`);
+							groupResult.push(...curGroup[0].splice(0));
+						}
 					}
 					stacks.push(groupResult);
 				}
