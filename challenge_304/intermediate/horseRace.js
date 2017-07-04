@@ -13,7 +13,7 @@
 			let stacks = [], totalRaces = 0, start = new Date().getTime();
 			for(let i = 0, groups = results.length / 5; i < groups; i++) {
 				stacks.push(results.splice(0, 5).sort((a, b) => a - b));
-				totalRaces++;
+				console.log(`Race ${++totalRaces} -> Compared: ${stacks[stacks.length - 1]}`);
 			}
 			while(stacks.length != 1) {
 				for(let i = 0, groups = stacks.length / 5; i < groups; i++) {
@@ -21,8 +21,8 @@
 					let groupResult = [];
 					while(curGroup.some(row => row.length)) {
 						curGroup = curGroup.sort((a, b) => b.length - a.length).sort((a, b) => a[0] - b[0]);
+						console.log(`Race ${++totalRaces} -> Compared: ${curGroup.filter(row => row.length).map(row => row[0])}`);
 						groupResult.push(curGroup[0].splice(0, 1)[0]);
-						totalRaces++;
 					}
 					stacks.push(groupResult);
 				}
