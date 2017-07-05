@@ -85,19 +85,6 @@
 			return table[getKey(num1, num2, table)] == num2;
 		} 
 		/**
-		 * fill in relation table
-		 * @param int, int
-		 * 
-		 * num1  : number 1
-		 * num2  : number 2
-		 * table : relation table to be filled in
-		 */
-		function fillTable(num1, num2, table) {
-			table[getKey(num1, num2, table)] = Math.min(num1, num2);
-			fillMutual(num1, num2, table);
-			fillMutual(num2, num1, table);
-		} 
-		/**
 		 * check mutual relationship between three numbers
 		 * @param int, int, int, table
 		 * 
@@ -130,6 +117,19 @@
 			}
 		} 
 		/**
+		 * fill in relation table
+		 * @param int, int
+		 * 
+		 * num1  : number 1
+		 * num2  : number 2
+		 * table : relation table to be filled in
+		 */
+		function fillRelation(num1, num2, table) {
+			table[getKey(num1, num2, table)] = Math.min(num1, num2);
+			fillMutual(num1, num2, table);
+			fillMutual(num2, num1, table);
+		} 
+		/**
 		 * compare numbers 5 at a time
 		 * @param array [], obj {}
 		 *
@@ -140,17 +140,49 @@
 			numbers.sort((a, b) => a - b);
 			for(let i = 0; i < numbers.length - 1; i++) {
 				for(let j = i + 1; j < numbers.length; j++) {
-					fillTable(numbers[i], numbers[j], table);
+					fillRelation(numbers[i], numbers[j], table);
 				}
 			}
+		} 
+		/**
+		 * fill relation table
+		 * @param array [], obj {}
+		 *
+		 * numList : list of all numbers
+		 * table   : table to be filled in
+		 */
+		function fillTable(numList, table) {
+			let totalNum = numList.length;
+			let totalRelation = totalNum * (totalNum - 1) / 2;
+			let stacks = [], totalRace = 0;			
+			for(let i = 0, groups = numList.length / 5; i < groups; i++) {
+				stacks.push(numList.splice(0, 5).sort((a, b) => a - b));
+				totalRace++;
+			}
+			while(stacks[4].length != totalNum / 5) {
+				for(let i = 0, groups = stacks.length / 5; i < groups; i++) {
+					let curGroup = stacks.splice(0, 5), result = [];
+					while(curGroup.some(row => row.length)) {
+						if(curGroup.reduce((acc, val) => acc + val.length, 0) > 5) {
+							curGroup.sort((a, b) => b.length - a.length).sort((a, b) => a[0] - b[0]);
+							result.push(curGroup[0].splice(0, 1)[0]);
+						} else {
+							curGroup = [curGroup.reduce((acc, val) => [...acc, ...val], []).sort((a, b) => a - b)];
+							result.push(...curGroup[0].splice(0));
+						}
+						totalRace++;
+					}
+					stacks.push(result);
+				}
+			}
+
+			console.log(totalRace);
+			console.log(stacks);
 		} 
 		//challenge input
 		let input = [107, 47, 102, 64, 50, 100, 28, 91, 27, 5, 22, 114, 23, 42, 13, 3, 93, 8, 92, 79, 53, 83, 63, 7, 15, 66, 105, 57, 14, 65, 58, 113, 112, 1, 62, 103, 120, 72, 111, 51, 9, 36, 119, 99, 30, 20, 25, 84, 16, 116, 98, 18, 37, 108, 10, 80, 101, 35, 75, 39, 109, 17, 38, 117, 60, 46, 85, 31, 41, 12, 29, 26, 74, 77, 21, 4, 70, 61, 88, 44, 49, 94, 122, 2, 97, 73, 69, 71, 86, 45, 96, 104, 89, 68, 40, 6, 87, 115, 54, 123, 125, 90, 32, 118, 52, 11, 33, 106, 95, 76, 19, 82, 56, 121, 55, 34, 24, 43, 124, 81, 48, 110, 78, 67, 59];
 		let table = makeTable(input);
-		compareNumber(input.slice(0, 5), table);
-		compareNumber(input.slice(4, 9), table);
-		fillTable(102, 100, table);
-		console.log(table);
+		fillTable(input, table);
 		console.log(Object.keys(table).filter(key => table[key]));
 	});
 })();		
