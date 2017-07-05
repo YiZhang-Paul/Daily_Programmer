@@ -49,6 +49,34 @@
 				}
 			}
 			return permutation;
+		}
+		/**
+		 * check if current test pair
+		 * already exists in an input set
+		 * @param String, String
+		 *
+		 * pair : test pair to be checked
+		 * set  : input set to be checked against
+		 *
+		 * returns boolean
+		 */ 
+		function hasPair(pair, set) {
+			let options = new Set(set);
+			return pair.split("").every(option => options.has(option));
+		} 
+		/**
+		 * check if current input set is 
+		 * already covered by other sets
+		 * @param String, array []
+		 *
+		 * set    : input set to be checked
+		 * others : other input sets
+		 *
+		 * returns boolean
+		 */
+		function isCovered(set, others) {
+			others = others.filter(other => other != set);
+			return permutePairs(set).every(pair => others.some(other => hasPair(pair, other)));
 		} 
 		/**
 		 * generate all testing pairs
