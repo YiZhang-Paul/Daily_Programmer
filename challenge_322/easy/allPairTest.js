@@ -75,7 +75,6 @@
 		 * returns boolean
 		 */
 		function isCovered(set, others) {
-			others = others.filter(other => other != set);
 			return permutePairs(set).every(pair => others.some(other => hasPair(pair, other)));
 		} 
 		/**
@@ -88,14 +87,28 @@
 		 */
 		function getTestPairs(input) {
 			let allInput = permuteInput(input);
-			console.log(allInput);
+			for(let i = allInput.length - 1; i >= 0; i--) {
+				if(isCovered(allInput[i], [...allInput.slice(0, i), ...allInput.slice(i + 1)])) {
+					allInput.splice(i, 1);
+				}
+			}
+			return allInput;
 		} 
 		//challenge input
 		let input = [['0', '1'], ['A', 'B', 'C'], ['D', 'E', 'F', 'G']];
-		console.log(getTestPairs(input));
+		let result = getTestPairs(input);
+		console.log("Result: ");
+		console.log(result);
+		console.log(`%cLength: %c${result.length}`, "color : red;", "");
 		input = [['0', '1', '2', '3'], ['A', 'B', 'C', 'D'], ['E', 'F', 'G', 'H', 'I']];
-		console.log(getTestPairs(input));
+		result = getTestPairs(input);
+		console.log("Result: ");
+		console.log(result);
+		console.log(`%cLength: %c${result.length}`, "color : red;", "");
 		input = [['0', '1', '2', '3', '4'], ['A', 'B', 'C', 'D', 'E'], ['F', 'G', 'H', 'I'], ['J', 'K', 'L']];
-		console.log(getTestPairs(input));
-	});
+		result = getTestPairs(input);
+		console.log("Result: ");
+		console.log(result);
+		console.log(`%cLength: %c${result.length}`, "color : red;", "");
+		});
 })();			
