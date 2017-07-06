@@ -24,8 +24,8 @@
 		 * returns boolean 
 		 */ 
 		function canMatchEnd(word1, word2) {
-			let toCompare = Math.max(word1.lastIndexOf("*"), word2.lastIndexOf("*"));
-			return word1.slice(toCompare + 1) == word2.slice(toCompare + 1);
+			let toCompare = Math.min((word1.length - word1.lastIndexOf("*") - 1), (word2.length - word2.lastIndexOf("*") - 1));
+			return word1.slice(-toCompare) == word2.slice(-toCompare);
 		}
 		/**
 		 * get total number of wild cards
@@ -55,5 +55,21 @@
 			let longer = shorter == word1 ? word2 : word1;
 			return shorter.length + totalWildCard(shorter) * 3 >= longer.length - totalWildCard(longer);
 		} 
+		/**
+		 * check if words can match with each other
+		 * @param String, String 
+		 * 
+		 * word1 : word 1
+		 * word2 : word 2
+		 *
+		 * returns boolean 
+		 */
+		function canMatch(word1, word2) {
+			if(!canMatchBegin(word1, word2) || !canMatchEnd(word1, word2) || !canMatchLength(word1, word2)) {
+				return false;
+			}
+
+		} 
+		console.log(canMatchLength("ac*ccaa", "accs*caaaaaa"));
 	});
 })();			
