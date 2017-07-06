@@ -127,6 +127,7 @@
 								 4 6`;
 		let chart = new HistogramChart(input);				 
 		chart.displayChart();	
+		//challenge input
 		input = `0 40 0 100
 						 8
 						 40

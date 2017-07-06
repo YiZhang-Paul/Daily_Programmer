@@ -1,5 +1,7 @@
 #302[Hard] ASCII Histogram Maker: Part 2 - The Proper Histogram
 
+All Done
+
 url: https://www.reddit.com/r/dailyprogrammer/comments/5t7l07/20170210_challenge_302_hard_ascii_histogram_maker/
 
 Most of us are familiar with the histogram chart - a representation of a frequency distribution by means of rectangles whose widths represent class intervals and whose areas are proportional to the corresponding frequencies. It is similar to a bar chart, but a histogram groups numbers into ranges. The area of the bar is the total frequency of all of the covered values in the range.
