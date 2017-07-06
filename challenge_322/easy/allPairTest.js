@@ -67,6 +67,60 @@
 			return inputPairs;
 		} 
 		/**
+		 * check if current test pair 
+		 * already exists in an input set
+		 * @param String, String
+		 *
+		 * pair : test pair to be checked 
+		 * set  : input set to be checked against
+		 *
+		 * returns boolean   
+		 */
+		function hasPair(pair, set) {
+			let options = new Set(set);
+			return pair.split("").every(option => options.has(option));
+		} 
+		/**
+		 * check test pairs covered 
+		 * by a given input set
+		 * @param array [], String
+		 *
+		 * pairs : all test pairs
+		 * set   : input set
+		 *
+		 * returns array []
+		 */
+		function pairsCovered(pairs, set) {
+			return pairs.filter(pair => hasPair(pair, set));
+		} 
+		/**
+		 * check if any input set contains 
+		 * a given number of test pairs
+		 * @param array [], array [], int
+		 *
+		 * pairs  : all test pairs
+		 * sets   : all input sets
+		 * metric : number of test pairs to be covered
+		 *
+		 * returns boolean
+		 */
+		function containPairs(pairs, sets, metric) {
+			return sets.some(set => pairsCovered(pairs, set).length == metric);
+		} 
+		/**
+		 * remove test pairs 
+		 * @param array [], array []
+		 * 
+		 * pairs  : all test pairs
+		 * remove : test pairs to be removed
+		 *
+		 * returns array []
+		 */
+		function removePair(pairs, remove) {
+			remove = new Set(remove);
+			return pairs.filter(pair => !remove.has(pair));
+		} 
+		/**
 		 * generate all testing pairs
 		 * @param array []
 		 *
@@ -75,9 +129,22 @@
 		 * returns array [] 
 		 */
 		function getTestPairs(input) {
-			let sets = getAllInput(input);
-			let pairs = getAllPair(input);
-			return pairs;
+			let sets = getAllInput(input), pairs = getAllPair(input);
+			let metric = sets[0].length * (sets[0].length - 1) / 2;
+			let result = [];
+			while(pairs.length) {
+				if(!containPairs(pairs, sets, metric)) {
+					metric--;
+				}
+				for(let i = sets.length - 1; i >= 0; i--) {
+					let covered = pairsCovered(pairs, sets[i]); 
+					if(covered.length == metric) {
+						result.push(sets.splice(i, 1)[0]);
+						pairs = removePair(pairs, covered);
+					}
+				}
+			}
+			return result;
 		} 
 		//challenge input
 		let input = [['0', '1'], ['A', 'B', 'C'], ['D', 'E', 'F', 'G']];
@@ -95,5 +162,5 @@
 		console.log("Result: ");
 		console.log(result);
 		console.log(`%cLength: %c${result.length}`, "color : red;", "");
-		});
+	});
 })();			

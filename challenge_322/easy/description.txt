@@ -1,5 +1,7 @@
 #322[Easy] All Pairs Test Generator
 
+All Done
+
 url: https://www.reddit.com/r/dailyprogrammer/comments/6l3hd8/20170703_challenge_322_easy_all_pairs_test/
 
 In the world of software testing there is a combinatorial shortcut to exhaustive testing called "All Pairs" or "Pairwise Testing". The gist of this kind of testing is based on some old research that found for a given scenario1 -- a web form, for example -- most errors were caused either by 1 element, or the interaction of a pair of elements. So, rather than test every single combination of possible inputs, if you carefully chose your test cases so that each possible combination of 2 elements appeared at least once in the test cases, then you'd encounter the majority of the problems. This is helpful because for a form with many inputs, the exhaustive list of combinations can be quite large, but doing all-pairs testing can reduce the list quite drastically.
