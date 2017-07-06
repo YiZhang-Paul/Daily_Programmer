@@ -2,80 +2,69 @@
 (() => {
 	document.addEventListener("DOMContentLoaded", () => {
 		/**
-		 * get permutation of all inputs
+		 * get all permutation of inputs
 		 * @param array [], String
 		 *
-		 * input      : input sets
-		 * curPattern : current pattern
+		 * input  : all available inputs
+		 * curSet : current set of inputs
 		 *
-		 * returns array [] 
-		 */	
-		function permuteInput(input, curPattern = "") {
-			if(curPattern.length == input.length) {
-				return curPattern;
+		 * returns array []
+		 */
+		function getAllInput(input, curSet = "") {
+			if(curSet.length == input.length) {
+				return curSet;
 			}
-			let permutation = [];
-			for(let i = 0; i < input[curPattern.length].length; i++) {
-				let result = permuteInput(input, curPattern + input[curPattern.length][i]);
+			let allInputs = [];
+			for(let i = 0; i < input[curSet.length].length; i++) {
+				let result = getAllInput(input, curSet + input[curSet.length][i]);
 				if(Array.isArray(result)) {
-					permutation.push(...result);
+					allInputs.push(...result);
 				} else {
-					permutation.push(result);
+					allInputs.push(result);
 				}
 			}
-			return permutation;
-		}
+			return allInputs;	
+		} 
 		/**
-		 * get permutation of testing pairs 
-		 * for every input set
-		 * @param String 
+		 * get all test pairs for all available inputs
+		 * @param array []
+		 *
+		 * input : all available inputs
+		 *
+		 * returns array []
+		 */ 
+		function getAllPair(input) {
+			let allPairs = []; 
+			for(let i = 0; i < input.length - 1; i++) {
+				for(j = i + 1; j < input.length; j++) {
+					allPairs.push(...getAllInput([input[i], input[j]]));
+				}
+			}
+			return allPairs;
+		} 
+		/**
+		 * get all test pairs for a given input set
+		 * @param String, String
 		 *
 		 * set     : input set
 		 * curPair : current pair
-		 * 
-		 * returns array [] 
+		 *
+		 * returns array []
 		 */
-		function permutePairs(set, curPair = "") {
+		function getInputPair(set, curPair = "") {
 			if(curPair.length == 2) {
 				return curPair;
 			}
-			let permutation = [];
+			let inputPairs = [];
 			for(let i = 0; i < set.length; i++) {
-				let result = permutePairs(set.slice(i + 1), curPair + set[i]);
+				let result = getInputPair(set.slice(i + 1), curPair + set[i]);
 				if(Array.isArray(result)) {
-					permutation.push(...result);
+					inputPairs.push(...result);
 				} else {
-					permutation.push(result);
+					inputPairs.push(result);
 				}
 			}
-			return permutation;
-		}
-		/**
-		 * check if current test pair
-		 * already exists in an input set
-		 * @param String, String
-		 *
-		 * pair : test pair to be checked
-		 * set  : input set to be checked against
-		 *
-		 * returns boolean
-		 */ 
-		function hasPair(pair, set) {
-			let options = new Set(set);
-			return pair.split("").every(option => options.has(option));
-		} 
-		/**
-		 * check if current input set is 
-		 * already covered by other sets
-		 * @param String, array []
-		 *
-		 * set    : input set to be checked
-		 * others : other input sets
-		 *
-		 * returns boolean
-		 */
-		function isCovered(set, others) {
-			return permutePairs(set).every(pair => others.some(other => hasPair(pair, other)));
+			return inputPairs;
 		} 
 		/**
 		 * generate all testing pairs
@@ -86,13 +75,9 @@
 		 * returns array [] 
 		 */
 		function getTestPairs(input) {
-			let allInput = permuteInput(input);
-			for(let i = allInput.length - 1; i >= 0; i--) {
-				if(isCovered(allInput[i], [...allInput.slice(0, i), ...allInput.slice(i + 1)])) {
-					allInput.splice(i, 1);
-				}
-			}
-			return allInput;
+			let sets = getAllInput(input);
+			let pairs = getAllPair(input);
+			return pairs;
 		} 
 		//challenge input
 		let input = [['0', '1'], ['A', 'B', 'C'], ['D', 'E', 'F', 'G']];
