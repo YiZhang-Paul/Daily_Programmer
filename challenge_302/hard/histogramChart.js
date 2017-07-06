@@ -30,11 +30,12 @@
 				});
 				this.addXLabel(ranges[0], ranges[1], chart);
 				this.addYLabel(ranges[3], chart);
+				this.addAllData(chart);
 				return chart;
 			} 
 			/**
 			 * add X-axis labels
-			 * @param int, int, obj {}
+			 * @param int, int, array []
 			 *
 			 * start    : starting label
 			 * end      : ending label
@@ -72,15 +73,39 @@
 				});
 			} 
 			/**
-			 * add data
-			 * @param int, int
+			 * add a group of data
+			 * @param int, int, array []
 			 *
-			 * row : row of data 
-			 * col : column of data
+			 * row   : row of data 
+			 * col   : column of data
+			 * chart : chart to be populated
 			 */
-			addData(row, col) {
-				for(let i = this.board.length - 1 - row; i < this.board.length - 1; i++) {
-					this.board[i][col] = "*".repeat(this.board[i][col].length); 
+			addGroup(row, col, chart) {
+				for(let i = chart.length - 1 - row; i < chart.length - 1; i++) {
+					chart[i][col] = "*".repeat(chart[i][col].length); 
+				}
+			} 
+			/**
+			 * calculate number of data occurrence
+			 * @param array []
+			 *
+			 * records : records for a group
+			 *
+			 * returns int
+			 */
+      totalRecord(records) {
+      	return records.reduce((acc, val) => acc + Number(val.split(" ")[1]), 0);
+      }
+			/**
+			 * add all data groups
+			 * @param array []
+			 *
+			 * chart : chart to be populated
+			 */
+			addAllData(chart) {
+				for(let i = 0; i < this.records.length; i += this.interval) {
+					let totalRecord = this.totalRecord(this.records.slice(i, i + this.interval));
+					this.addGroup(Math.floor(totalRecord / this.interval), i / this.interval + 1, chart);
 				}
 			} 
 			/**
@@ -102,5 +127,50 @@
 								 4 6`;
 		let chart = new HistogramChart(input);				 
 		chart.displayChart();	
+		input = `0 40 0 100
+						 8
+						 40
+						 1 56
+						 2 40
+						 3 4
+						 4 67
+						 5 34
+						 6 48
+						 7 7
+						 8 45
+						 9 50
+						 10 54
+						 11 20
+						 12 24
+						 13 44
+						 14 44
+						 15 49
+						 16 28
+						 17 94
+						 18 37
+						 19 46
+						 20 64
+						 21 100
+						 22 43
+						 23 23
+						 24 100
+						 25 15
+						 26 81
+						 27 19
+						 28 92
+						 29 9
+						 30 21
+						 31 88
+						 32 31
+						 33 55
+						 34 87
+						 35 63
+						 36 88
+						 37 76
+						 38 41
+						 39 100
+						 40 6`;
+		//chart = new HistogramChart(input);				 
+		//chart.displayChart();	
 	});
 })();				
