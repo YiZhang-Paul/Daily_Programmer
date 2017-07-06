@@ -16,46 +16,44 @@
 			}
 			/**
 			 * make chart board
-			 * @param String, int
+			 * @param String
 			 *
-			 * ranges   : X and Y-axis ranges 
-			 * interval : range intervals on X-axis
+			 * ranges : X and Y-axis ranges 
 			 *
 			 * returns array []
 			 */
-			makeChart(ranges, interval) {
+			makeChart(ranges) {
 				ranges = ranges.split(" ").map(range => Number(range));
 				let chart = new Array(ranges[3] - ranges[2] + 2).fill(0);
 				chart.forEach((row, index) => {
-					chart[index] = new Array((ranges[1] + 1 - ranges[0]) / interval + 1).fill(0);
+					chart[index] = new Array((ranges[1] + 1 - ranges[0]) / this.interval + 1).fill(0);
 				});
-				this.addXLabel(ranges[0], ranges[1], interval, chart);
+				this.addXLabel(ranges[0], ranges[1], chart);
 				this.addYLabel(ranges[3], chart);
 				return chart;
 			} 
 			/**
 			 * add X-axis labels
-			 * @param int, int, int, obj {}
+			 * @param int, int, obj {}
 			 *
 			 * start    : starting label
 			 * end      : ending label
-			 * interval : label interval
 			 * chart    : chart to be populated
 			 */
-			addXLabel(start, end, interval, chart) {
-				let colWidth = interval - 1;
-				for(let i = 0; i < interval; i++) {
+			addXLabel(start, end, chart) {
+				let colWidth = this.interval - 1;
+				for(let i = 0; i < this.interval; i++) {
 					colWidth += (end - i).toString().length;   
 				}
 				for(let i = 1; i < chart[0].length; i++) {
 					for(let j = 0; j < chart.length; j++) {
 						let label = "";
 						if(j == chart.length - 1) {
-							for(let k = 0; k < interval; k++) {
-								label += start++ + (k == interval - 1 ? "" : " ");
+							for(let k = 0; k < this.interval; k++) {
+								label += start++ + (k == this.interval - 1 ? "" : " ");
 							}
 						}
-						chart[j][i] = "-".repeat(colWidth - label.length) + label;
+						chart[j][i] = " ".repeat(colWidth - label.length) + label;
 					}
 				}
 			} 
@@ -74,9 +72,21 @@
 				});
 			} 
 			/**
+			 * add data
+			 * @param int, int
+			 *
+			 * row : row of data 
+			 * col : column of data
+			 */
+			addData(row, col) {
+				for(let i = this.board.length - 1 - row; i < this.board.length - 1; i++) {
+					this.board[i][col] = "*".repeat(this.board[i][col].length); 
+				}
+			} 
+			/**
 			 * display chart
 			 */  
-			displayChart(chart = this.board) {
+			displayChart() {
 				this.board.forEach(row => {
 					console.log(row.join(" "));
 				});
@@ -90,7 +100,7 @@
 								 2 3
 								 3 2
 								 4 6`;
-		let chart = new HistogramChart(input);	
-		chart.displayChart();					 
+		let chart = new HistogramChart(input);				 
+		chart.displayChart();	
 	});
 })();				
