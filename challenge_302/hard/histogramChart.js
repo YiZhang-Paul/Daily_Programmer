@@ -24,12 +24,12 @@
 			 */
 			makeChart(ranges) {
 				ranges = ranges.split(" ").map(range => Number(range));
-				let chart = new Array(ranges[3] - ranges[2] + 2).fill(0);
+				let chart = new Array(ranges[3] - (ranges[2] === 0 ? 1 : ranges[2]) + 2).fill(0);
 				chart.forEach((row, index) => {
-					chart[index] = new Array((ranges[1] + 1 - ranges[0]) / this.interval + 1).fill(0);
+					chart[index] = new Array((ranges[1] + 1 - (ranges[0] === 0 ? 1 : ranges[0])) / this.interval + 1).fill(0);
 				});
 				this.addXLabel(ranges[0], ranges[1], chart);
-				this.addYLabel(ranges[3], chart);
+				this.addYLabel(ranges[2], ranges[3], chart);
 				this.addAllData(chart);
 				return chart;
 			} 
@@ -42,34 +42,34 @@
 			 * chart    : chart to be populated
 			 */
 			addXLabel(start, end, chart) {
-				let colWidth = this.interval - 1;
-				for(let i = 0; i < this.interval; i++) {
-					colWidth += (end - i).toString().length;   
-				}
+				start = start === 0 ? 1 : start;
 				for(let i = 1; i < chart[0].length; i++) {
+					let label = "";
+					for(let k = 0; k < this.interval; k++) {
+						label += start++ + (k == this.interval - 1 ? "" : " ");
+					}
 					for(let j = 0; j < chart.length; j++) {
-						let label = "";
-						if(j == chart.length - 1) {
-							for(let k = 0; k < this.interval; k++) {
-								label += start++ + (k == this.interval - 1 ? "" : " ");
-							}
-						}
-						chart[j][i] = " ".repeat(colWidth - label.length) + label;
+						chart[j][i] = j == chart.length - 1 ? label : " ".repeat(label.length);
 					}
 				}
 			} 
 			/**
 			 * add Y-axis labels
-			 * @param int, array []
+			 * @param int, int, array []
 			 *
-			 * end   : ending label
-			 * chart : chart to be populated
+			 * start    : starting label
+			 * end      : ending label
+			 * chart    : chart to be populated
 			 */
-			addYLabel(end, chart) {
+			addYLabel(start, end, chart) {
 				let colWidth = end.toString().length;
+				let origin = "";
 				chart.forEach((row, index) => {
 					let pad = " ".repeat(colWidth - end.toString().length);
-					chart[index][0] = pad + (index == chart.length - 1 ? "/" : end--);
+					if(index == chart.length - 1) {
+						origin = start === 0 ? "0" : "/"; 
+					}
+					chart[index][0] = pad + (index == chart.length - 1 ? origin : end--);
 				});
 			} 
 			/**
@@ -105,7 +105,7 @@
 			addAllData(chart) {
 				for(let i = 0; i < this.records.length; i += this.interval) {
 					let totalRecord = this.totalRecord(this.records.slice(i, i + this.interval));
-					this.addGroup(Math.floor(totalRecord / this.interval), i / this.interval + 1, chart);
+					this.addGroup(Math.round(totalRecord / this.interval), i / this.interval + 1, chart);
 				}
 			} 
 			/**
@@ -170,7 +170,7 @@
 						 38 41
 						 39 100
 						 40 6`;
-		//chart = new HistogramChart(input);				 
-		//chart.displayChart();	
+		chart = new HistogramChart(input);				 
+		chart.displayChart();	
 	});
 })();				
