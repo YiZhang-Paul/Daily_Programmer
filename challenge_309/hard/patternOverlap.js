@@ -69,5 +69,36 @@
 				return chars.join("");
 			});
 		} 
+		/**
+		 * check if two word patterns overlaps
+		 * @param String, String
+		 *
+		 * pattern1 : word pattern 1
+		 * pattern2 : word pattern 2
+		 * 
+		 * returns boolean
+		 */
+		function patternOverlap(pattern1, pattern2) {
+			if(pattern1 == pattern2) {
+				return true;
+			}
+			return pattern1.split("").every((char, index) => 
+				char == "*" || pattern2[index] == "*" || char == pattern2[index]);
+		} 
+		/**
+		 * check pattern overlap
+		 * @param String, String
+		 *
+		 * word1 : word 1  
+		 * word2 : word 2
+		 *
+		 * returns boolean
+		 */
+		function checkOverlap(word1, word2) {
+			let word1Pattern = wordPattern(word1); 
+			let word2Pattern = wordPattern(word2);
+			console.log(word1Pattern, word2Pattern); 
+		}
+		console.log(checkOverlap("a*baa**ba**aa", "*ca*b**a*baaa"));
 	});
 })();			
