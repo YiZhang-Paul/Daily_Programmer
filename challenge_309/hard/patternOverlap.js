@@ -70,6 +70,55 @@
 			});
 		} 
 		/**
+ 		 * check if words can match beginning
+ 		 * @param String, String
+ 		 * 
+ 		 * word1 : word 1
+ 		 * word2 : word 2
+ 		 *
+ 		 * returns boolean 
+ 		 */
+ 		function canMatchBegin(word1, word2) {
+ 			if(word1[0] == "*" || word2[0] == "*") {
+ 				return true;
+ 			}
+ 			let toCompare = Math.min(word1.indexOf("*"), word2.indexOf("*"));
+ 			return word1.slice(0, toCompare) == word2.slice(0, toCompare);
+ 		} 
+ 		/**
+ 		 * check if words can match ends
+ 		 * @param String, String 
+ 		 * 
+ 		 * word1 : word 1
+ 		 * word2 : word 2
+ 		 *
+ 		 * returns boolean 
+ 		 */ 
+ 		function canMatchEnd(word1, word2) {
+ 			if(word1[word1.length - 1] == "*" || word2[word2.length - 1] == "*") {
+ 				return true;
+ 			}
+ 			let toCompare = Math.min((word1.length - 1 - word1.lastIndexOf("*")), (word2.length - 1 - word2.lastIndexOf("*")));
+ 			return word1.slice(-toCompare) == word2.slice(-toCompare);
+ 		}
+ 		/**
+ 		 * check if words can match length
+ 		 * @param String, String 
+ 		 * 
+ 		 * word1 : word 1
+ 		 * word2 : word 2
+ 		 *
+ 		 * returns boolean 
+ 		 */
+ 		function canMatchLength(word1, word2) {
+ 			if(word1.length == word2.length) {
+ 				return true;
+ 			}
+ 			let shorter = word1.length > word2.length ? word2 : word1;
+ 			let longer = shorter == word1 ? word2 : word1;
+ 			return shorter.length + totalWC(shorter) * 3 >= longer.length - totalWC(longer);
+ 		} 
+ 		/**
 		 * check if two word patterns overlap
 		 * @param String, String
 		 *
@@ -86,7 +135,7 @@
 				char == "*" || pattern2[index] == "*" || char == pattern2[index]);
 		} 
 		/**
-		 * check pattern overlap
+		 * check word overlap
 		 * @param String, String
 		 *
 		 * word1 : word 1  
@@ -95,6 +144,9 @@
 		 * returns boolean
 		 */
 		function checkOverlap(word1, word2) {
+			if(!canMatchBegin(word1, word2) || !canMatchEnd(word1, word2) || !canMatchLength(word1, word2)) {
+				return false;
+			}
 			let word1Pattern = wordPattern(word1); 
 			let word2Pattern = wordPattern(word2);
 			return word1Pattern.some(pattern1 => {
@@ -103,6 +155,7 @@
 			});
 		}
 		//default input
+		let time = new Date().getTime();
 		console.log("%cDefault Input: ", "color : yellow;");
 		let input = ["Shakes*e", "S*speare"];
 		console.log(`${input.join(", ")} -> %c${checkOverlap(...input)}`, "color : red;");
@@ -120,5 +173,6 @@
 		console.log(`${input.join(", ")} -> %c${checkOverlap(...input)}`, "color : red;");
 		input = ["jEAmXdDUtthXNLbIZFeWdiQPGEvyCEeLI**EyficABUH*YiSZRREvniDexKJSjLXMYfsw*YlbTSZBlYSecorJsWidfALQYzOdrKNrJZRdrQEDoyhPMYAfTiHZIuqGtEkKqYBzxtCOJhRYfZNSYNxRWFrfahlSLvdBTebrXDgGlZEqxRIvGhN*mfhLLSExNHaHLAZI", "jEAmXdDUtthXNLbIZFeWdiQPGEvyCEeL**BUHYiSZRREvniDexKJSjLXMYfswlaYlbTSZBlYSecorJsWidfALQYzOdrKNrJZ*EDoyhPMYAfTiHZIuqGtEkKqYBzxtC*YfZNSYNxRWFrfahlSLvdBT*ebrXDgGlZEqxRIvGhNcmfhLLSExNHaHLAZI"];
 		console.log(`${input.join(", ")} -> %c${checkOverlap(...input)}`, "color : red;");
+		console.log(new Date().getTime() - time);
 	});
 })();			
