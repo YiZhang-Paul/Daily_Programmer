@@ -70,7 +70,7 @@
 			});
 		} 
 		/**
-		 * check if two word patterns overlaps
+		 * check if two word patterns overlap
 		 * @param String, String
 		 *
 		 * pattern1 : word pattern 1
@@ -97,8 +97,28 @@
 		function checkOverlap(word1, word2) {
 			let word1Pattern = wordPattern(word1); 
 			let word2Pattern = wordPattern(word2);
-			console.log(word1Pattern, word2Pattern); 
+			return word1Pattern.some(pattern1 => {
+				let checkList = word2Pattern.filter(pattern2 => pattern2.length == pattern1.length);
+				return checkList.some(item => patternOverlap(pattern1, item));
+			});
 		}
-		console.log(checkOverlap("a*baa**ba**aa", "*ca*b**a*baaa"));
+		//default input
+		console.log("%cDefault Input: ", "color : yellow;");
+		let input = ["Shakes*e", "S*speare"];
+		console.log(`${input.join(", ")} -> %c${checkOverlap(...input)}`, "color : red;");
+		input = ["a*baa**ba**aa", "*ca*b**a*baac"];
+		console.log(`${input.join(", ")} -> %c${checkOverlap(...input)}`, "color : red;");
+		input = ["a*baa**ba**aa", "*ca*b**a*baaa"];
+		console.log(`${input.join(", ")} -> %c${checkOverlap(...input)}`, "color : red;");
+		//challenge input
+		console.log("%cChallenge Input: ", "color : yellow;");
+		input = ["bb*aaaaa*ba**", "*baabb*b*aaaa"];
+		console.log(`${input.join(", ")} -> %c${checkOverlap(...input)}`, "color : red;");
+		input = ["dnKeeuCCyHOnobnDYMGoXDdNWhTsaoedbPifJ*ki*wWfXjIUwqItTmGqtAItoNWpDeUnNCWgZsKWbuQxKaqemXuFXDylQubuZWhMyDsXvDSwYjui*LviGAEkyQbtR*cELfxiAbbYyJRGtcsoJZppINgJGYeZKGeWLbenBEKaoCgheYwOxLeFZJPGhTFRAjNn*", "d*eeuCCyHOnobnDYMGoXDdNWhTsaoedbP*ijrwWfXjIUwqItTmGqtAItoNWpDeUnNCWgZs*WbuQxKaqemXuFXDylQubuZWhMyDsXvDSwYjuijkLviGAEkyQbtRUsncELfxiAbbYyJRG*soJZppINgJGYeZKGeWLbenBEKaoCghe*YwOxLeFZJPGhTFRAjNn"];
+		console.log(`${input.join(", ")} -> %c${checkOverlap(...input)}`, "color : red;");
+		input = ["THAkZYrkUWgcTpZ*SsNQKsEnvdUveZxssEtCEQuoMqToJjMdCatMs*v*GyMlROpiIDUZyJjhwmjxFWpEwDgRLlLsJYebMSkwxEUvoDcLPLIwHY*GvoRhgcfkdsenObSjWGNYRDJAzRzavAGRoZZ*fDXIRlJkufqHDjLMJKEjLAkRRyQqTrUaWRIndSX", "*THAkZYrkUWgcTpZSsNQKsEnvdUveZxssEtCEQuoMqToJjMdCatMsYa*nBvIFuGyMlROpiIDUZyJjh*FWpEwDgRLlLsJYebMSkw*oDcLPLIwHYbeBGvoRhgcfkdsenObSjWGNYRDJAzRzavAGRoZZvbEfDXIRlJkufqHDjLMJKEjLAkRRyQqTrU*aWRIndSX"];
+		console.log(`${input.join(", ")} -> %c${checkOverlap(...input)}`, "color : red;");
+		input = ["jEAmXdDUtthXNLbIZFeWdiQPGEvyCEeLI**EyficABUH*YiSZRREvniDexKJSjLXMYfsw*YlbTSZBlYSecorJsWidfALQYzOdrKNrJZRdrQEDoyhPMYAfTiHZIuqGtEkKqYBzxtCOJhRYfZNSYNxRWFrfahlSLvdBTebrXDgGlZEqxRIvGhN*mfhLLSExNHaHLAZI", "jEAmXdDUtthXNLbIZFeWdiQPGEvyCEeL**BUHYiSZRREvniDexKJSjLXMYfswlaYlbTSZBlYSecorJsWidfALQYzOdrKNrJZ*EDoyhPMYAfTiHZIuqGtEkKqYBzxtC*YfZNSYNxRWFrfahlSLvdBT*ebrXDgGlZEqxRIvGhNcmfhLLSExNHaHLAZI"];
+		console.log(`${input.join(", ")} -> %c${checkOverlap(...input)}`, "color : red;");
 	});
 })();			
