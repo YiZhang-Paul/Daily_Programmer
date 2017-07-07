@@ -2,6 +2,17 @@
 (() => {
 	document.addEventListener("DOMContentLoaded", () => {	
 		/**
+		 * get total number of wild cards in a word
+		 * @param String
+		 *
+		 * word : word to be checked
+		 *
+		 * returns int
+		 */ 
+		function totalWC(word) {
+			return word.split("").filter(char => char == "*").length;
+		} 
+		/**
 		 * get all possible patterns for a single wild card
 		 * @param int
 		 *
@@ -9,7 +20,7 @@
 		 *
 		 * returns array []
 		 */
-		function wildCardPattern(maxLength) {
+		function wcPattern(maxLength) {
 			let patterns = [];
 			for(let i = 0; i <= maxLength; i++) {
 				patterns.push("*".repeat(i));
@@ -25,13 +36,13 @@
 		 * 
 		 * returns array []
 		 */
-		function wildCardCombine(patterns, curCombine = []) {
+		function wcCombine(patterns, curCombine = []) {
 			if(curCombine.length == patterns.length) {
 				return curCombine;
 			}
 			let permutation = [];
 			for(let i = 0; i < patterns[curCombine.length].length; i++) {
-				let result = wildCardCombine(patterns, [...curCombine, patterns[curCombine.length][i]]);
+				let result = wcCombine(patterns, [...curCombine, patterns[curCombine.length][i]]);
 				if(Array.isArray(result) && curCombine.length != patterns.length - 1) {
 					permutation.push(...result);
 				} else {
@@ -39,6 +50,24 @@
 				}
 			}
 			return permutation;
+		} 
+		/**
+		 * get all possible patterns for a word
+		 * @param String
+		 *
+		 * word : word to be checked
+		 *
+		 * returns array []
+		 */
+		function wordPattern(word) {
+			let wcCombined = wcCombine(new Array(totalWC(word)).fill(wcPattern(4)));
+			return wcCombined.map(combine => {
+				let chars = word.split("*");
+				for(let i = 1, j = 0; i < chars.length; i += 2) {
+					chars.splice(i, 0, combine[j++]);
+				}
+				return chars.join("");
+			});
 		} 
 	});
 })();			
