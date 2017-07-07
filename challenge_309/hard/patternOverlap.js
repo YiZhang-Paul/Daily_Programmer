@@ -170,6 +170,19 @@
 			return null;
 		} 
 		/**
+		 * combine overlap patterns to a word
+		 * @param String, String
+		 *
+		 * pattern1 : mathcing word pattern 1
+		 * pattern2 : mathcing word pattern 2
+		 *
+		 * returns String
+		 */
+		function combinePattern(pattern1, pattern2) {
+			return pattern1.split("").reduce((acc, val, index) => 
+				acc + (pattern1[index] == "*" ? pattern2[index] : pattern1[index]), "");
+		} 
+		/**
 		 * check word overlap
 		 * @param String, String
 		 *
@@ -182,11 +195,10 @@
 			let overlap = findOverlap(word1, word2);
 			console.log(`${word1}, ${word2} -> %c${overlap ? true : false}`, "color : red;");
 			if(overlap) {
-				console.log(`Can be changed into: ${overlap.join(", ")}`);
+				console.log(`Can be changed into: %c${combinePattern(...overlap)}`, "color : red;");
 			}
 		}
 		//default input
-		let time = new Date().getTime();
 		console.log("%cDefault Input: ", "color : yellow;");
 		let input = ["Shakes*e", "S*speare"];
 		checkOverlap(...input);
@@ -204,6 +216,5 @@
 		checkOverlap(...input);
 		input = ["jEAmXdDUtthXNLbIZFeWdiQPGEvyCEeLI**EyficABUH*YiSZRREvniDexKJSjLXMYfsw*YlbTSZBlYSecorJsWidfALQYzOdrKNrJZRdrQEDoyhPMYAfTiHZIuqGtEkKqYBzxtCOJhRYfZNSYNxRWFrfahlSLvdBTebrXDgGlZEqxRIvGhN*mfhLLSExNHaHLAZI", "jEAmXdDUtthXNLbIZFeWdiQPGEvyCEeL**BUHYiSZRREvniDexKJSjLXMYfswlaYlbTSZBlYSecorJsWidfALQYzOdrKNrJZ*EDoyhPMYAfTiHZIuqGtEkKqYBzxtC*YfZNSYNxRWFrfahlSLvdBT*ebrXDgGlZEqxRIvGhNcmfhLLSExNHaHLAZI"];
 		checkOverlap(...input);
-		console.log(new Date().getTime() - time);
 	});
 })();			
