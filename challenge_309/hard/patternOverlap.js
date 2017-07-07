@@ -135,6 +135,41 @@
 				char == "*" || pattern2[index] == "*" || char == pattern2[index]);
 		} 
 		/**
+		 * pick overlap word pattern from a list
+		 * @param String, array []
+		 * 
+		 * word : word to be checked
+		 * list : list to be checked
+		 *
+		 * returns String
+		 */
+		function pickOverlap(word, list) {
+			return list.filter(pattern => pattern.length == word.length)
+				         .find(pattern => patternOverlap(word, pattern));
+		} 
+		/**
+		 * find overlap word pattern between two words
+		 * @param String, String
+		 *
+		 * word1 : word 1  
+		 * word2 : word 2
+		 *
+		 * returns array []
+		 */
+		function findOverlap(word1, word2) {
+			if(!canMatchBegin(word1, word2) || !canMatchEnd(word1, word2) || !canMatchLength(word1, word2)) {
+				return null;
+			}
+			let [word1Pattern, word2Pattern] = [wordPattern(word1), wordPattern(word2)]; 
+			for(let i = 0, wordMatch; i < word1Pattern.length; i++) {
+				wordMatch = pickOverlap(word1Pattern[i], word2Pattern);
+				if(wordMatch) {
+					return [word1Pattern[i], wordMatch];
+				}
+			}
+			return null;
+		} 
+		/**
 		 * check word overlap
 		 * @param String, String
 		 *
@@ -144,35 +179,31 @@
 		 * returns boolean
 		 */
 		function checkOverlap(word1, word2) {
-			if(!canMatchBegin(word1, word2) || !canMatchEnd(word1, word2) || !canMatchLength(word1, word2)) {
-				return false;
+			let overlap = findOverlap(word1, word2);
+			console.log(`${word1}, ${word2} -> %c${overlap ? true : false}`, "color : red;");
+			if(overlap) {
+				console.log(`Can be changed into: ${overlap.join(", ")}`);
 			}
-			let word1Pattern = wordPattern(word1); 
-			let word2Pattern = wordPattern(word2);
-			return word1Pattern.some(pattern1 => {
-				let checkList = word2Pattern.filter(pattern2 => pattern2.length == pattern1.length);
-				return checkList.some(item => patternOverlap(pattern1, item));
-			});
 		}
 		//default input
 		let time = new Date().getTime();
 		console.log("%cDefault Input: ", "color : yellow;");
 		let input = ["Shakes*e", "S*speare"];
-		console.log(`${input.join(", ")} -> %c${checkOverlap(...input)}`, "color : red;");
+		checkOverlap(...input);
 		input = ["a*baa**ba**aa", "*ca*b**a*baac"];
-		console.log(`${input.join(", ")} -> %c${checkOverlap(...input)}`, "color : red;");
+		checkOverlap(...input);
 		input = ["a*baa**ba**aa", "*ca*b**a*baaa"];
-		console.log(`${input.join(", ")} -> %c${checkOverlap(...input)}`, "color : red;");
+		checkOverlap(...input);
 		//challenge input
 		console.log("%cChallenge Input: ", "color : yellow;");
 		input = ["bb*aaaaa*ba**", "*baabb*b*aaaa"];
-		console.log(`${input.join(", ")} -> %c${checkOverlap(...input)}`, "color : red;");
+		checkOverlap(...input);
 		input = ["dnKeeuCCyHOnobnDYMGoXDdNWhTsaoedbPifJ*ki*wWfXjIUwqItTmGqtAItoNWpDeUnNCWgZsKWbuQxKaqemXuFXDylQubuZWhMyDsXvDSwYjui*LviGAEkyQbtR*cELfxiAbbYyJRGtcsoJZppINgJGYeZKGeWLbenBEKaoCgheYwOxLeFZJPGhTFRAjNn*", "d*eeuCCyHOnobnDYMGoXDdNWhTsaoedbP*ijrwWfXjIUwqItTmGqtAItoNWpDeUnNCWgZs*WbuQxKaqemXuFXDylQubuZWhMyDsXvDSwYjuijkLviGAEkyQbtRUsncELfxiAbbYyJRG*soJZppINgJGYeZKGeWLbenBEKaoCghe*YwOxLeFZJPGhTFRAjNn"];
-		console.log(`${input.join(", ")} -> %c${checkOverlap(...input)}`, "color : red;");
+		checkOverlap(...input);
 		input = ["THAkZYrkUWgcTpZ*SsNQKsEnvdUveZxssEtCEQuoMqToJjMdCatMs*v*GyMlROpiIDUZyJjhwmjxFWpEwDgRLlLsJYebMSkwxEUvoDcLPLIwHY*GvoRhgcfkdsenObSjWGNYRDJAzRzavAGRoZZ*fDXIRlJkufqHDjLMJKEjLAkRRyQqTrUaWRIndSX", "*THAkZYrkUWgcTpZSsNQKsEnvdUveZxssEtCEQuoMqToJjMdCatMsYa*nBvIFuGyMlROpiIDUZyJjh*FWpEwDgRLlLsJYebMSkw*oDcLPLIwHYbeBGvoRhgcfkdsenObSjWGNYRDJAzRzavAGRoZZvbEfDXIRlJkufqHDjLMJKEjLAkRRyQqTrU*aWRIndSX"];
-		console.log(`${input.join(", ")} -> %c${checkOverlap(...input)}`, "color : red;");
+		checkOverlap(...input);
 		input = ["jEAmXdDUtthXNLbIZFeWdiQPGEvyCEeLI**EyficABUH*YiSZRREvniDexKJSjLXMYfsw*YlbTSZBlYSecorJsWidfALQYzOdrKNrJZRdrQEDoyhPMYAfTiHZIuqGtEkKqYBzxtCOJhRYfZNSYNxRWFrfahlSLvdBTebrXDgGlZEqxRIvGhN*mfhLLSExNHaHLAZI", "jEAmXdDUtthXNLbIZFeWdiQPGEvyCEeL**BUHYiSZRREvniDexKJSjLXMYfswlaYlbTSZBlYSecorJsWidfALQYzOdrKNrJZ*EDoyhPMYAfTiHZIuqGtEkKqYBzxtC*YfZNSYNxRWFrfahlSLvdBT*ebrXDgGlZEqxRIvGhNcmfhLLSExNHaHLAZI"];
-		console.log(`${input.join(", ")} -> %c${checkOverlap(...input)}`, "color : red;");
+		checkOverlap(...input);
 		console.log(new Date().getTime() - time);
 	});
 })();			
