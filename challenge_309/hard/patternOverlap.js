@@ -180,7 +180,7 @@
 		 */
 		function combinePattern(pattern1, pattern2) {
 			return pattern1.split("").reduce((acc, val, index) => 
-				acc + (pattern1[index] == "*" ? pattern2[index] : pattern1[index]), "");
+				acc + (val == "*" ? pattern2[index] : val), "");
 		} 
 		/**
 		 * check word overlap
