@@ -19,5 +19,35 @@
 			}
 			return allNums;
 		} 
+		/**
+		 * find every number that is a palindrome
+		 * @param array []
+		 *
+		 * numList : list of all numbers
+		 *
+		 * returns array []
+		 */
+		function allPalindrome(numList) {
+			return numList.filter(number => 
+				number.toString() == number.toString().split("").reverse().join(""));
+		}
+		/**
+		 * find largest palindromes who has factors 
+		 * each with string length of the input
+		 * @param int
+		 *
+		 * integer : input integer
+		 * 
+		 * returns int
+		 */
+		function largestPalindrome(integer) {
+			let allNums = allNumber(integer);
+			let palindromes = allPalindrome(allNums);
+			console.log(allNums);
+			console.log(palindromes);
+		}
+		//console.log(largestPalindrome(1)); 
+		//console.log(largestPalindrome(2)); 
+		//console.log(largestPalindrome(3)); 
 	});
 })();		
