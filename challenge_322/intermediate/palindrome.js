@@ -43,13 +43,13 @@
 		 * returns int
 		 */
 		function largestPalindrome(integer) {
-			let allNums = allNumber(integer);
-			let palindromes = allPalindrome(allNums);
-			console.log(allNums);
-			console.log(palindromes);
+			return allPalindrome(allNumber(integer)).sort((a, b) => b - a)[0];
 		}
-		//console.log(largestPalindrome(1)); 
-		//console.log(largestPalindrome(2)); 
-		//console.log(largestPalindrome(3)); 
+		console.log(largestPalindrome(1)); 
+		console.log(largestPalindrome(2)); 
+		console.log(largestPalindrome(3)); 
+		//console.log(largestPalindrome(4)); 
+		//console.log(largestPalindrome(5)); 
+		//console.log(largestPalindrome(6)); 
 	});
 })();		
