@@ -13,11 +13,13 @@
 		function allNumber(length) {
 			let lowest = length == 1 ? 0 : Math.pow(10, length - 1);
 			let highest = Number("9".repeat(length));
-			let allNums = [];
-			for(let i = Math.pow(lowest, 2), j = Math.pow(highest, 2); i <= j; i++) {
-				allNums.push(i);
+			let allNums = new Set();
+			for(let i = lowest; i <= highest; i++) {
+				for(let j = lowest; j <= highest; j++) {
+					allNums.add(i * j);
+				}
 			}
-			return allNums;
+			return Array.from(allNums);
 		} 
 		/**
 		 * find every number that is a palindrome
