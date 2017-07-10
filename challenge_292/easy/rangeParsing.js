@@ -18,17 +18,18 @@
 		} 
 		/**
 		 * find all numbers within a range
-		 * @param int, int
+		 * @param int, int, int
 		 *
 		 * num1 : starting number
 		 * num2 : ending number
+		 * step : step between each number
 		 *
 		 * returns array []
 		 */
-		function numInRange(num1, num2) {
+		function numInRange(num1, num2, step = 1) {
 			num2 = nextNum(num1, num2); 
 			let nums = [];
-			for(let i = num1 + 1; i <= num2; i++) {
+			for(let i = num1 + step; i <= num2; i += step) {
 				nums.push(i);
 			}
 			return nums;
@@ -54,6 +55,10 @@
 	  				list = [...list, ...numInRange(lastNum, curNum)];
 	  				break;
 	  			case ":" :
+	  				let step = notation[i + 2] == ":" ? Number(notation[i + 3]) : 1;
+	  				i += notation[i + 2] == ":" ? 3 : 0;
+	  				list = [...list, ...numInRange(lastNum, curNum, step)];
+	  				break;
 	  			case "." :
 	  		}
 	  	}
@@ -65,6 +70,7 @@
 		input = "1-3,1-2";
 	  console.log(`${input} => ${expandList(input)}`);
 		input = "1:5:2";
+	  console.log(`${input} => ${expandList(input)}`);
 		input = "104-2";
 		input = "104..02";
 		input = "545,64:11";
