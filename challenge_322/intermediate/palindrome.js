@@ -21,41 +21,51 @@
 		} 
 		/**
 		 * find largest palindromes who has factors 
-		 * each with string length of the input
+		 * each with string length of the input and 
+		 * its factors
 		 * @param int
 		 *
 		 * integer : input integer
 		 * 
-		 * returns int
+		 * returns array []
 		 */
 		function largestPalindrome(integer) {
 			let lowest = integer == 1 ? 0 : Math.pow(10, integer - 1);
 			let highest = Number("9".repeat(integer));
-			let curPalindrome = 0;
+			let curPalindrome = 0, factor1, factor2;
 			for(let i = highest; i >= lowest; i--) {
 				for(let j = i; j >= lowest; j--) {
 					let number = i * j;
 					if(number <= curPalindrome) {	
 						break;
 					}
-					curPalindrome = isPalindrome(number) ? number : curPalindrome;
+					if(isPalindrome(number)) {
+						[curPalindrome, factor1, factor2] = [number, i, j];
+					}
 				}
 			}
-			return curPalindrome;
+			return [curPalindrome, factor1, factor2];
 		}
 		let time = new Date().getTime();
-		console.log(`1 => ${largestPalindrome(1)}; %c${new Date().getTime() - time}ms`, "color : red;"); 
+		let result = largestPalindrome(1);
+		console.log(`1 => ${result[0]}, factors: ${result[1]} * ${result[2]}; %c${new Date().getTime() - time}ms`, "color : red;"); 
 		time = new Date().getTime();
-		console.log(`2 => ${largestPalindrome(2)}; %c${new Date().getTime() - time}ms`, "color : red;");
+		result = largestPalindrome(2);
+		console.log(`2 => ${result[0]}, factors: ${result[1]} * ${result[2]}; %c${new Date().getTime() - time}ms`, "color : red;");
 		time = new Date().getTime();
-		console.log(`3 => ${largestPalindrome(3)}; %c${new Date().getTime() - time}ms`, "color : red;");
+		result = largestPalindrome(3);
+		console.log(`3 => ${result[0]}, factors: ${result[1]} * ${result[2]}; %c${new Date().getTime() - time}ms`, "color : red;");
 		time = new Date().getTime();
-		console.log(`4 => ${largestPalindrome(4)}; %c${new Date().getTime() - time}ms`, "color : red;");
+		result = largestPalindrome(4);
+		console.log(`4 => ${result[0]}, factors: ${result[1]} * ${result[2]}; %c${new Date().getTime() - time}ms`, "color : red;");
 		time = new Date().getTime();
-		console.log(`5 => ${largestPalindrome(5)}; %c${new Date().getTime() - time}ms`, "color : red;");
+		result = largestPalindrome(5);
+		console.log(`5 => ${result[0]}, factors: ${result[1]} * ${result[2]}; %c${new Date().getTime() - time}ms`, "color : red;");
 		time = new Date().getTime();
-		console.log(`6 => ${largestPalindrome(6)}; %c${new Date().getTime() - time}ms`, "color : red;");
+		result = largestPalindrome(6);
+		console.log(`6 => ${result[0]}, factors: ${result[1]} * ${result[2]}; %c${new Date().getTime() - time}ms`, "color : red;");
 		time = new Date().getTime();
-		console.log(`7 => ${largestPalindrome(7)}; %c${new Date().getTime() - time}ms`, "color : red;");
+		result = largestPalindrome(7);
+		console.log(`7 => ${result[0]}, factors: ${result[1]} * ${result[2]}; %c${new Date().getTime() - time}ms`, "color : red;");
 	});
 })();		
