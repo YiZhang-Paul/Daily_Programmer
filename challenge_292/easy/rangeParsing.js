@@ -11,11 +11,12 @@
 		 * returns int 
 		 */
 		function nextNum(num1, num2) {
-			let tail = num2.toString();
+			let tail = num2;
+			[num1, num2] = [Number(num1), Number(num2)];
 			while(num2 < num1 || num2.toString().slice(-tail.length) != tail) {
 				num2 += 10;
 			}
-			return num2;
+			return num2.toString();
 		} 
 		/**
 		 * find all numbers within a range
@@ -28,10 +29,10 @@
 		 * returns array []
 		 */
 		function numInRange(num1, num2, step = 1) {
-			num2 = nextNum(num1, num2); 
+			num2 = Number(nextNum(num1, num2)); 
 			let nums = [];
-			for(let i = num1 + step; i <= num2; i += step) {
-				nums.push(i);
+			for(let i = Number(num1) + step; i <= num2; i += step) {
+				nums.push(i.toString());
 			}
 			return nums;
 		}
@@ -45,9 +46,9 @@
 	   */
 	  function expandList(notation) {
 	  	notation = notation.match(/\d+|[,.:-]/g);
-	  	let list = [Number(notation[0])];
+	  	let list = [notation[0]];
 	  	for(let i = 1; i < notation.length; i++) {
-	  		let [lastNum, curNum] = [list[list.length - 1], Number(notation[i + 1])];
+	  		let [lastNum, curNum] = [list[list.length - 1], notation[i + 1]];
 	  		switch(notation[i]) {
 	  			case "," :
 	  				list.push(nextNum(lastNum, curNum));
@@ -61,6 +62,8 @@
 	  				list = [...list, ...numInRange(lastNum, curNum, step)];
 	  				break;
 	  			case "." :
+	  				list = [...list, ...numInRange(lastNum, notation[i++ + 2])];
+	  				break;
 	  		}
 	  	}
 	  	return list.join(" ");
@@ -75,6 +78,7 @@
 		input = "104-2";
 	  console.log(`${input} => ${expandList(input)}`);
 		input = "104..02";
+	  console.log(`${input} => ${expandList(input)}`);
 		input = "545,64:11";
 	  console.log(`${input} => ${expandList(input)}`);
 	});
