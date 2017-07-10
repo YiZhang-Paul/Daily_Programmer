@@ -43,7 +43,7 @@
 	   * returns String
 	   */
 	  function expandList(notation) {
-	  	notation = notation.split("");
+	  	notation = notation.match(/(\d+|[,.:-])/g);
 	  	let list = [Number(notation[0])];
 	  	for(let i = 1; i < notation.length; i++) {
 	  		let [lastNum, curNum] = [list[list.length - 1], Number(notation[i + 1])];
@@ -72,6 +72,7 @@
 		input = "1:5:2";
 	  console.log(`${input} => ${expandList(input)}`);
 		input = "104-2";
+	  console.log(`${input} => ${expandList(input)}`);
 		input = "104..02";
 		input = "545,64:11";
 	});
