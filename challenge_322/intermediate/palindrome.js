@@ -2,37 +2,23 @@
 (() => {
 	document.addEventListener("DOMContentLoaded", () => {
 		/**
-		 * generate all possible values that 
-		 * have factors of a given string length
+		 * check if a number is palindrome
 		 * @param int
+		 * 
+		 * number : number to be checked
 		 *
-		 * length : string length of given number
-		 *
-		 * returns array []
+		 * returns boolean
 		 */
-		function allNumber(length) {
-			let lowest = length == 1 ? 0 : Math.pow(10, length - 1);
-			let highest = Number("9".repeat(length));
-			let allNums = new Set();
-			for(let i = lowest; i <= highest; i++) {
-				for(let j = lowest; j <= highest; j++) {
-					allNums.add(i * j);
+		function isPalindrome(number) {
+			number = number.toString();
+			let center = number.length % 2 ? (number.length + 1) / 2 : number.length / 2 + 1;
+			for(let i = 0; i < center - 1; i++) {
+				if(number[i] != number[number.length - 1 - i]) {
+					return false;
 				}
 			}
-			return Array.from(allNums);
+			return true;
 		} 
-		/**
-		 * find every number that is a palindrome
-		 * @param array []
-		 *
-		 * numList : list of all numbers
-		 *
-		 * returns array []
-		 */
-		function allPalindrome(numList) {
-			return numList.filter(number => 
-				number.toString() == number.toString().split("").reverse().join(""));
-		}
 		/**
 		 * find largest palindromes who has factors 
 		 * each with string length of the input
@@ -43,13 +29,33 @@
 		 * returns int
 		 */
 		function largestPalindrome(integer) {
-			return allPalindrome(allNumber(integer)).sort((a, b) => b - a)[0];
+			let lowest = integer == 1 ? 0 : Math.pow(10, integer - 1);
+			let highest = Number("9".repeat(integer));
+			let curPalindrome = 0;
+			for(let i = highest; i >= lowest; i--) {
+				for(let j = i; j >= lowest; j--) {
+					let number = i * j;
+					if(number <= curPalindrome) {	
+						break;
+					}
+					curPalindrome = isPalindrome(number) ? number : curPalindrome;
+				}
+			}
+			return curPalindrome;
 		}
-		console.log(largestPalindrome(1)); 
-		console.log(largestPalindrome(2)); 
-		console.log(largestPalindrome(3)); 
-		//console.log(largestPalindrome(4)); 
-		//console.log(largestPalindrome(5)); 
-		//console.log(largestPalindrome(6)); 
+		let time = new Date().getTime();
+		console.log(`1 => ${largestPalindrome(1)}; %c${new Date().getTime() - time}ms`, "color : red;"); 
+		time = new Date().getTime();
+		console.log(`2 => ${largestPalindrome(2)}; %c${new Date().getTime() - time}ms`, "color : red;");
+		time = new Date().getTime();
+		console.log(`3 => ${largestPalindrome(3)}; %c${new Date().getTime() - time}ms`, "color : red;");
+		time = new Date().getTime();
+		console.log(`4 => ${largestPalindrome(4)}; %c${new Date().getTime() - time}ms`, "color : red;");
+		time = new Date().getTime();
+		console.log(`5 => ${largestPalindrome(5)}; %c${new Date().getTime() - time}ms`, "color : red;");
+		time = new Date().getTime();
+		console.log(`6 => ${largestPalindrome(6)}; %c${new Date().getTime() - time}ms`, "color : red;");
+		time = new Date().getTime();
+		console.log(`7 => ${largestPalindrome(7)}; %c${new Date().getTime() - time}ms`, "color : red;");
 	});
 })();		
