@@ -31,13 +31,4 @@ You should output a string of all the numbers separated by a space
 "104 105 106...200 201 202" # truncated for simplicity
 "545 564 565 566...609 610 611" # truncated for simplicity
 
-Finally
-
-Have a good challenge idea, like /u/izxle did?
-
-Consider submitting it to /r/dailyprogrammer_ideas
-Update
-
-As /u/SeverianLies pointed out, it is unclear if the - is a seperator or a sign.
-
 For this challenge we work with only positive natural numbers.
