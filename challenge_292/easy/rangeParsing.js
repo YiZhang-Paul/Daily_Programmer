@@ -11,7 +11,8 @@
 		 * returns int 
 		 */
 		function nextNum(num1, num2) {
-			while(num2 < num1) {
+			let tail = num2.toString();
+			while(num2 < num1 || num2.toString().slice(-tail.length) != tail) {
 				num2 += 10;
 			}
 			return num2;
@@ -43,7 +44,7 @@
 	   * returns String
 	   */
 	  function expandList(notation) {
-	  	notation = notation.match(/(\d+|[,.:-])/g);
+	  	notation = notation.match(/\d+|[,.:-]/g);
 	  	let list = [Number(notation[0])];
 	  	for(let i = 1; i < notation.length; i++) {
 	  		let [lastNum, curNum] = [list[list.length - 1], Number(notation[i + 1])];
@@ -75,5 +76,6 @@
 	  console.log(`${input} => ${expandList(input)}`);
 		input = "104..02";
 		input = "545,64:11";
+	  console.log(`${input} => ${expandList(input)}`);
 	});
 })();		
