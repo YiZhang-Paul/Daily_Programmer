@@ -22,6 +22,17 @@
 			return true;
 		}
 		/**
+		 * count with right hand
+		 * @param array []
+		 *
+		 * pattern : right hand counting pattern
+		 *
+		 * returns int
+		 */
+		function rightHandCount(pattern) {
+			return pattern.slice(1).filter(digit => digit).length + (pattern[0] ? 5 : 0);
+		} 
+		/**
 		 * count with hand
 		 * @param String
 		 *
@@ -31,12 +42,12 @@
 		 */
 		function countWithHand(pattern) {
 			pattern = pattern.split("").map(digit => Number(digit));
-			let leftHand = pattern.slice(0, pattern.length / 2).reverse();
-			let rightHand = pattern.slice(pattern.length / 2);
+			let leftHand = pattern.slice(0, pattern.length * 0.5).reverse();
+			let rightHand = pattern.slice(pattern.length * 0.5);
 			if(!rightHandValid(leftHand) || !rightHandValid(rightHand)) {
 				return "Invalid";
 			}
-
+			console.log(rightHandCount(rightHand));
 		} 	
 		//challenge input
 		let input = "0111011100";
