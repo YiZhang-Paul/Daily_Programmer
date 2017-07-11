@@ -15,16 +15,16 @@
 		} 
 	  /**
 	   * check if a set of word is 
-	   * a anagram of another
+	   * an anagram of another
 	   * @param array [], array []
 	   *
-	   * set1 : character set 1
-	   * set2 : character set 2
+	   * charSet1 : character set 1
+	   * charSet2 : character set 2
 	   *
 	   * returns boolean 
 	   */	
-	  function isAnagram(set1, set2) {
-	  	return ascString(set1) == ascString(set2);
+	  function isAnagram(charSet1, charSet2) {
+	  	return ascString(charSet1) == ascString(charSet2);
 	  } 
 		/**
 		 * detect anagram 
