@@ -1,5 +1,7 @@
 #287[Easy] Kaprekar's Routine
 
+All Done
+
 url: https://www.reddit.com/r/dailyprogrammer/comments/56tbds/20161010_challenge_287_easy_kaprekars_routine/
 
 Write a function that, given a 4-digit number, returns the largest digit in that number. Numbers between 0 and 999 are counted as 4-digit numbers with leading 0's.
