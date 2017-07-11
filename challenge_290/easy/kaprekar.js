@@ -11,9 +11,9 @@
 		 */
 		function isKaprekar(number) {
 			let square = Math.pow(number, 2).toString();
-			for(let i = 1; i < square.length; i++) {
+			for(let i = 0; i < square.length; i++) {
 				let [num1, num2] = [Number(square.slice(0, i)), Number(square.slice(i))];
-				if((num1 && num2) && num1 + num2 == number) {
+				if(num2 && num1 + num2 == number) {
 					return true;
 				}
 			}
