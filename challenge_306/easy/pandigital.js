@@ -1,59 +1,44 @@
 /* jslint esversion: 6 */
 (() => {
 	document.addEventListener("DOMContentLoaded", () => {
-		//roman numeral table
-		let table = {"M" : 1000, "CD" : 400, "DC" : 600, "XL" : 40, "LX" : 60, "IV" : 4, "VI" : 6};
+		//roman numerals
+		let numerals = {"I" : 1, "V" : 5, "X" : 10, "L" : 50, "C" : 100, "D" : 500, "M" : 1000};
 		/**
-		 * find combination of all inputs from all groups
-		 * @param array [], array []
-		 * 
-		 * inputs : all groups of inputs
+		 * construct conversion table between 
+		 * roman numerals and decimal numbers
+		 * @param obj {}
 		 *
-		 * returns array []
-		 */
-		function allCombination(inputs, curCombine = []) {
-			if(curCombine.length == inputs.length) {
-				return curCombine;
+		 * numerals : symbols for conversion
+		 *
+		 * returns obj {}
+		 */		
+		function constructTable(numerals) {
+			let table = new Map();
+			for(let numeral in numerals) {
+				table.set(numeral, numerals[numeral]);
+				table.set(numerals[numeral], numeral);
 			}
-			let combination = [];
-			for(let i = 0; i < inputs[curCombine.length].length; i++) {
-				let result = allCombination(inputs, [...curCombine, inputs[curCombine.length][i]]);
-				if(curCombine.length == inputs.length - 1) {
-					combination.push(result);
-				} else {
-					combination.push(...result);
-				}
+			return table;
+		}
+		/**
+		 * convert digits to roman numerals
+		 * @param int, int, obj {}
+		 *
+		 * digit    : digit to be converted
+		 * position : position of digit
+		 * table    : table for conversion
+		 *
+		 * returns String
+		 */
+		function digitToNumeral(digit, position, table) {
+			let zeros = Math.pow(10, position - 1);
+			if(digit == 4 || digit == 5) {
+				return digit == 4 ? table.get(zeros) + table.get(5 * zeros) : table.get(5 * zeros);
 			}
-			return combination;
+			if(digit == 9) {
+				return table.get(zeros) + table.get(10 * zeros);
+			}
+			return digit > 5 ? table.get(5 * zeros) + table.get(zeros).repeat(digit - 5) : table.get(zeros).repeat(digit);
 		} 
-		/**
-		 * convert roman numeral into decimal numbers
-		 * @param array [], obj {}
-		 *
-		 * numerals : roman numerals
-		 * table    : convertion table for roman numerals
-		 *
-		 * returns int
-		 */
-		function numeralToDecimal(numerals, table) {
-			return numerals.map(numeral => table[numeral]).reduce((acc, val) => acc + val);
-		} 
-		/**
-		 * find all pandigital numbers which uses each symbol exactly once
-		 * @param int, obj {}
-		 *
-		 * limit : upper limit of numbers to be checked
-		 * table : convertion table for roman numerals
-		 *
-		 * returns array []
-		 */
-		function findPandigital(limit, table) {
-			let numerals = [["M"], ["CD", "DC"], ["XL", "LX"], ["IV", "VI"]];
-			return allCombination(numerals).map(combine => `${numeralToDecimal(combine, table)} -> ${combine.join("")}`);
-		} 
-		//challenge input
-		findPandigital(2000, table).forEach(number => {
-			console.log(number);
-		});
 	});
 })();		
