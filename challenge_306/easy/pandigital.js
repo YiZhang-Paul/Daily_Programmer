@@ -2,7 +2,7 @@
 (() => {
 	document.addEventListener("DOMContentLoaded", () => {
 		//roman numerals
-		let numerals = {"I" : 1, "V" : 5, "X" : 10, "L" : 50, "C" : 100, "D" : 500, "M" : 1000};
+		let numerals1 = {"I" : 1, "V" : 5, "X" : 10, "L" : 50, "C" : 100, "D" : 500, "M" : 1000};
 		/**
 		 * construct conversion table between 
 		 * roman numerals and decimal numbers
@@ -55,15 +55,25 @@
 		} 
 		/**
 		 * check if a number is pandigital
-		 * @param int, obj {}
+		 * @param String
 		 *
-		 * number : number to be examined
-		 * table  : table for conversion
+		 * numeral : number in roman numeral representation
 		 *
 		 * returns boolean
 		 */
-		function isPandigital(number, table) {
-			return new Set(decimalToNumeral(number, table)).size == 7;
+		function isPandigital(numeral) {
+			return new Set(numeral).size == 7;
+		} 
+		/**
+		 * check if a number is a special pandigital number
+		 * @param String
+		 *
+		 * numeral : number in roman numeral representation
+		 *
+		 * returns boolean
+		 */
+		function isSpecialNum(numeral) {
+			return numeral.length == 7 && new Set(numeral).size == 7;
 		} 
 		/**
 		 * find pandigital numbers with a given range
@@ -74,17 +84,82 @@
 		 *
 		 * returns array []
 		 */
-		function findPandigital(limit, table) {
-			let pandigitals = [];
+		function findPandigital1(limit, table) {
+			let pandigitals = [], specialNums = [];
 			for(let i = 1000; i <= limit; i++) {
-				if(isPandigital(i, table)) {
-					pandigitals.push(`${i} (${decimalToNumeral(i, table)})`);
+				let numeral = decimalToNumeral(i, table);
+				if(isPandigital(numeral)) {
+					pandigitals.push(`${i} (${numeral})`);
+				}
+				if(isSpecialNum(numeral)) {
+					specialNums.push(`${i} (${numeral})`);
 				}
 			}
-			return pandigitals;
+			return [pandigitals, specialNums];
+		} 
+		/**
+		 * solution 2 to bonus question
+		 */
+		//roman numeral table
+		let numerals2 = {"M"  : 1000, "CD" : 400, "DC" : 600, "XL" : 40, "LX" : 60, "IV" : 4, "VI" : 6};
+		/**
+		 * find combination of all inputs from all groups
+		 * @param array [], array []
+		 * 
+		 * inputs : all groups of inputs
+		 *
+		 * returns array []
+		 */
+		function allCombination(inputs, curCombine = []) {
+			if(curCombine.length == inputs.length) {
+				return curCombine;
+			}
+			let combination = [];
+			for(let i = 0; i < inputs[curCombine.length].length; i++) {
+				let result = allCombination(inputs, [...curCombine, inputs[curCombine.length][i]]);
+				if(curCombine.length == inputs.length - 1) {
+					combination.push(result);
+				} else {
+					combination.push(...result);
+				}
+			}
+			return combination;
+		} 
+		/**
+		 * convert roman numeral into decimal numbers
+		 * @param array [], obj {}
+		 *
+		 * numerals : roman numerals
+		 * table    : convertion table for roman numerals
+		 *
+		 * returns int
+		 */
+		function numeralToDecimal(numerals, table) {
+			return numerals.map(numeral => table[numeral]).reduce((acc, val) => acc + val);
+		} 
+		/**
+		 * find all pandigital numbers which uses each symbol exactly once
+		 * @param int, obj {}
+		 *
+		 * limit : upper limit of numbers to be checked
+		 * table : convertion table for roman numerals
+		 *
+		 * returns array []
+		 */
+		function findPandigital2(limit, table) {
+			let numerals = [["M"], ["CD", "DC"], ["XL", "LX"], ["IV", "VI"]];
+			return allCombination(numerals).filter(combine => numeralToDecimal(combine, table) <= limit)
+			                               .map(combine => `${numeralToDecimal(combine, table)} (${combine.join("")})`);
 		} 
 		//default input
+		let result = findPandigital1(2000, constructTable(numerals1));
 		console.log(`%cDefault Input: `, "color : red;");
-		console.log(findPandigital(2000, constructTable(numerals)).join(", "));
+		console.log(result[0].join(", "));
+		//bonus input solution 1
+		console.log(`%cChallenge Input Solution 1: `, "color : red;");
+		console.log(result[1].join(", "));
+		//bonus input solution 2
+		console.log(`%cChallenge Input Solution 2: `, "color : red;");
+		console.log(findPandigital2(2000, numerals2).join(", "));
 	});
 })();		
