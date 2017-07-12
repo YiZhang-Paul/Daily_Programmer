@@ -40,5 +40,18 @@
 			}
 			return digit > 5 ? table.get(5 * zeros) + table.get(zeros).repeat(digit - 5) : table.get(zeros).repeat(digit);
 		} 
+		/**
+		 * convert decimal number to roman numerals
+		 * @param int, obj {}
+		 *
+		 * number : number to be converted
+		 * table  : table for conversion
+		 *
+		 * returns String
+		 */
+		function decimalToNumeral(number, table) {
+			return number.toString().split("").map((digit, index, array) => 
+				digitToNumeral(Number(digit), array.length - index, table)).join("");
+		} 
 	});
 })();		
