@@ -165,6 +165,24 @@
 			}
 			return slices;
 		} 
+		/**
+		 * slice a word in all possible ways
+		 * @param String
+		 *
+		 * word : word to be sliced
+		 *
+		 * returns array []
+		 */ 
+		function sliceWord(word) {
+			return allSlices(word.length).map(slice => {
+				let curIndex = 0;
+				return slice.split("").map(digit => {
+					let segment = word.slice(curIndex, curIndex + Number(digit));
+					curIndex += Number(digit);
+					return segment;
+				});
+			});
+		} 
 		//element table
 		let elements = constructTable(elementTable);
   });
