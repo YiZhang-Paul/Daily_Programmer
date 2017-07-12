@@ -140,8 +140,32 @@
 			    });
 			return table;
 		} 
+		/**
+		 * determine all possible ways to slice a word
+		 * @param int, int, String
+		 *
+		 * length    : length of word
+		 * curLength : current length of slices
+		 * curSlices : current slice patterns
+		 *
+		 * returns array []
+		 */
+		function allSlices(length, curLength = 0, curSlices = "") {
+			if(curLength >= length) {
+				return length == curLength ? curSlices : null;
+			}
+			let slices = [];
+			for(let i = 1; i <= 2; i++) {
+				let result = allSlices(length, curLength + i, curSlices + i);
+				if(Array.isArray(result)) {
+					slices.push(...result);
+				} else if(result) {
+					slices.push(result);
+				}
+			}
+			return slices;
+		} 
 		//element table
 		let elements = constructTable(elementTable);
-		console.log(elements);
   });
 })();  	
