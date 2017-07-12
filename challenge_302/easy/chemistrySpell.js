@@ -116,7 +116,7 @@
 		 */		
 		class Element {
 			constructor(name, symbol, number, weight) {
-				this.name = name;
+				this.name = name.toLowerCase();
 				this.symbol = symbol;
 				this.number = number;
 				this.weight = weight;
@@ -135,8 +135,8 @@
 			info.split("\n")
 			    .map(row => row.split(" ").map(item => item.trim()))
 			    .forEach(row => {
-			    	row[3] = row[3].match(/\d+\.*\d*/g)[0];
-			    	table.set(row[1], new Element(...row.slice(0, -1)));
+			    	row[3] = Number(row[3].match(/\d+\.*\d*/g)[0]);
+			    	table.set(row[1].toLowerCase(), new Element(...row.slice(0, -1)));
 			    });
 			return table;
 		} 
@@ -183,7 +183,117 @@
 				});
 			});
 		} 
+		/**
+		 * check if given word slices all 
+		 * represent chemistry elements
+		 * @param array [], obj {}
+		 *
+		 * slices : word slices 
+		 * table  : element table
+		 * 
+		 * returns boolean
+		 */
+		function isElements(slices, table) {
+			return slices.every(slice => table.has(slice));
+		}
+		/**
+		 * find all valid spellings of word with
+		 * chemistry elements and output elements matched
+		 * @param String, obj {}
+		 *
+		 * word  : word to be sliced
+		 * table : element table
+		 *
+		 * returns array []
+		 */
+		function spellWithChemistry(word, table) {
+			let matches = [];
+			sliceWord(word).filter(slice => isElements(slice, table))
+			               .forEach(result => {
+			               	 let wordMatch = result.map(segment => table.get(segment).symbol);
+			               	 let elementMatch = result.map(segment => table.get(segment).name);
+			               	 matches.push(`${wordMatch.join("")} (${elementMatch.join(", ")})`);
+			               }); 
+			return matches;
+		} 
+		/**
+		 * find total atomic weight
+		 * @param String, obj {}
+		 *
+		 * spelling : words spelling using chemistry elements
+		 * table    : element table
+		 *
+		 * returns float  
+		 */
+		function totalWeight(spelling, table) {
+			return spelling.match(/[A-Z][a-z]*/g)
+			               .map(segment => segment.toLowerCase())
+			               .reduce((acc, val) => acc + table.get(val).weight, 0);
+		}
+		/**
+		 * find heaviest atomic weight 
+		 * from all word slices
+		 * @param array [], obj {}
+		 *
+		 * slices : all word slices 
+		 * table  : element table
+		 *
+		 * returns array []
+		 */
+		function findHeaviest(slices, table) {
+			return slices.reduce((acc, val) => {
+				let segment = val.split("(")[0].trim();
+				let curWeight = totalWeight(segment, table);
+				return curWeight > (acc.weight || 0) ? {weight : curWeight, seg : segment} : acc;
+			}, {});
+		} 
 		//element table
 		let elements = constructTable(elementTable);
+		//default input
+		console.log(`%cDefault Input: `, "color : red;");
+		console.log(`%cgenius`, "color : yellow;");
+		let spellings = spellWithChemistry("genius", elements);
+		spellings.forEach(result => {
+			console.log(result);
+		});
+		let heaviest = findHeaviest(spellings, elements);
+		console.log(`Heaviest Atomic Weight: %c${heaviest.weight} (${heaviest.seg})`, "color : red;");
+		//challenge input
+		console.log(`%cChallenge Input: `, "color : red;");
+		console.log(`%cfunctions`, "color : yellow;");
+		spellings = spellWithChemistry("functions", elements);
+		spellings.forEach(result => {
+			console.log(result);
+		});
+		heaviest = findHeaviest(spellings, elements);
+		console.log(`Heaviest Atomic Weight: %c${heaviest.weight} (${heaviest.seg})`, "color : red;");
+		console.log(`%cbacon`, "color : yellow;");
+		spellings = spellWithChemistry("bacon", elements);
+		spellings.forEach(result => {
+			console.log(result);
+		});
+		heaviest = findHeaviest(spellings, elements);
+		console.log(`Heaviest Atomic Weight: %c${heaviest.weight} (${heaviest.seg})`, "color : red;");
+		console.log(`%cpoison`, "color : yellow;");
+		spellings = spellWithChemistry("poison", elements);
+		spellings.forEach(result => {
+			console.log(result);
+		});
+		heaviest = findHeaviest(spellings, elements);
+		console.log(`Heaviest Atomic Weight: %c${heaviest.weight} (${heaviest.seg})`, "color : red;");
+		console.log(`%csickness`, "color : yellow;");
+		spellings = spellWithChemistry("sickness", elements);
+		spellings.forEach(result => {
+			console.log(result);
+		});
+		heaviest = findHeaviest(spellings, elements);
+		console.log(`Heaviest Atomic Weight: %c${heaviest.weight} (${heaviest.seg})`, "color : red;");
+		console.log(`%cticklish`, "color : yellow;");
+		spellings = spellWithChemistry("ticklish", elements);
+		spellings.forEach(result => {
+			console.log(result);
+		});
+		heaviest = findHeaviest(spellings, elements);
+		console.log(`Heaviest Atomic Weight: %c${heaviest.weight} (${heaviest.seg})`, "color : red;");
   });
 })();  	
