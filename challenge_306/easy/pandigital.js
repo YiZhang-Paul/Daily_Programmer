@@ -53,5 +53,38 @@
 			return number.toString().split("").map((digit, index, array) => 
 				digitToNumeral(Number(digit), array.length - index, table)).join("");
 		} 
+		/**
+		 * check if a number is pandigital
+		 * @param int, obj {}
+		 *
+		 * number : number to be examined
+		 * table  : table for conversion
+		 *
+		 * returns boolean
+		 */
+		function isPandigital(number, table) {
+			return new Set(decimalToNumeral(number, table)).size == 7;
+		} 
+		/**
+		 * find pandigital numbers with a given range
+		 * @param int, obj {}
+		 *
+		 * limit : upper limit of numbers
+		 * table : table for conversion
+		 *
+		 * returns array []
+		 */
+		function findPandigital(limit, table) {
+			let pandigitals = [];
+			for(let i = 1000; i <= limit; i++) {
+				if(isPandigital(i, table)) {
+					pandigitals.push(`${i} (${decimalToNumeral(i, table)})`);
+				}
+			}
+			return pandigitals;
+		} 
+		//default input
+		console.log(`%cDefault Input: `, "color : red;");
+		console.log(findPandigital(2000, constructTable(numerals)).join(", "));
 	});
 })();		
