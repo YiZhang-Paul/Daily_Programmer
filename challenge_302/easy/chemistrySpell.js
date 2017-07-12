@@ -176,9 +176,9 @@
 		function sliceWord(word) {
 			return allSlices(word.length).map(slice => {
 				let curIndex = 0;
-				return slice.split("").map(digit => {
-					let segment = word.slice(curIndex, curIndex + Number(digit));
-					curIndex += Number(digit);
+				return slice.split("").map(length => {
+					let segment = word.slice(curIndex, curIndex + Number(length));
+					curIndex += Number(length);
 					return segment;
 				});
 			});
@@ -238,7 +238,7 @@
 		 * slices : all word slices 
 		 * table  : element table
 		 *
-		 * returns array []
+		 * returns obj {}
 		 */
 		function findHeaviest(slices, table) {
 			return slices.reduce((acc, val) => {
