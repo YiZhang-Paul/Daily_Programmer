@@ -56,12 +56,127 @@
 			} 
 			/**
 			 * run current state
+			 * @param args []
+			 *
+			 * args : arguments for specified state
 			 */
-			run() {
+			run(...args) {
 				if(this.activeState()) {
-					this.owner[this.activeState()]();
+					this.owner[this.activeState()](...args);
 				}
 			}
 		} 
+		/**
+		 * garage door class
+		 */
+		class GarageDoor {
+			constructor() {
+				this.state = new StateMachine(this, "closed");
+			}
+			/**
+			 * process single input
+			 * @param String
+			 *
+			 * input : input to be processed
+			 */
+			processInput(input) {
+				console.log(`> ${input[0].toUpperCase() + input.slice(1)}.`);
+				this.state.run(input);
+				console.log(`Door: ${this.state.activeState().toUpperCase()}`);
+			} 
+			/**
+			 * process a series of inputs
+			 * @param array []
+			 *
+			 * inputs : all inputs to be processed
+			 */
+			processAllInput(inputs) {
+				console.log(`Door: ${this.state.activeState().toUpperCase()}`);
+				inputs.split("\n").forEach(input => {
+					this.processInput(input.trim().replace("_", " "));
+			  });
+			} 
+			/**
+       * closed state
+       * @param String
+			 *
+			 * input : input to be processed
+       */
+      closed(input) {
+      	if(input == "button clicked") {
+      		this.state.swapState("opening");
+      	}
+      } 
+      /**
+       * closing state
+       * @param String
+			 *
+			 * input : input to be processed
+       */
+      closing(input) {
+      	if(input == "cycle complete") {
+      		this.state.swapState("closed");
+      	} else if(input == "button clicked") {
+      		this.state.swapState("stopped_while_closing");
+      	}
+      } 
+      /**
+       * open state
+       * @param String
+			 *
+			 * input : input to be processed
+       */
+      open(input) {
+      	if(input == "button clicked") {
+      		this.state.swapState("closing");
+      	}
+      } 
+      /**
+       * opening state
+       * @param String
+			 *
+			 * input : input to be processed
+       */
+      opening(input) {
+      	if(input == "cycle complete") {
+      		this.state.swapState("open");
+      	} else if(input == "button clicked") {
+      		this.state.swapState("stopped_while_opening");
+      	}
+      } 
+      /**
+       * stopped while closing state
+       * @param String
+       *
+       * input : input to be processed
+       */
+      stopped_while_closing(input) {
+      	if(input == "button clicked") {
+      		this.state.swapState("opening");
+      	}
+      } 
+      /**
+       * stopped while opening state
+       * @param String
+       *
+       * input : input to be processed
+       */
+      stopped_while_opening(input) {
+      	if(input == "button clicked") {
+      		this.state.swapState("closing");
+      	}
+      } 
+		} 
+		//challenge input
+		let input = `button_clicked
+								 cycle_complete
+								 button_clicked
+								 button_clicked
+								 button_clicked
+								 button_clicked
+								 button_clicked
+								 cycle_complete`;
+		let door = new GarageDoor();
+		door.processAllInput(input);
 	});
 })();
