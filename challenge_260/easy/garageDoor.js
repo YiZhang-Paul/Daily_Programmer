@@ -80,7 +80,7 @@
 			 * input : input to be processed
 			 */
 			processInput(input) {
-				console.log(`> ${input[0].toUpperCase() + input.slice(1)}.`);
+				console.log(`> ${input[0].toUpperCase() + input.slice(1)}${input == "block detected" ? "!" : "."}`);
 				this.state.run(input);
 				console.log(`Door: ${this.state.activeState().toUpperCase()}`);
 			} 
@@ -118,6 +118,8 @@
       		this.state.swapState("closed");
       	} else if(input == "button clicked") {
       		this.state.swapState("stopped_while_closing");
+      	} else if(input == "block detected") {
+      		this.state.swapState("emergency_opening");
       	}
       } 
       /**
@@ -129,6 +131,19 @@
       open(input) {
       	if(input == "button clicked") {
       		this.state.swapState("closing");
+      	} else if(input == "block detected") {
+      		this.state.swapState("open_blocked");
+      	}
+      } 
+      /**
+       * open blocked state
+       * @param String
+       *
+       * input : input to be processed
+       */
+      open_blocked(input) {
+      	if(input == "block cleared") {
+      		this.state.swapState("open");
       	}
       } 
       /**
@@ -142,6 +157,17 @@
       		this.state.swapState("open");
       	} else if(input == "button clicked") {
       		this.state.swapState("stopped_while_opening");
+      	}
+      } 
+      /**
+       * emergency opening state
+       * @param String
+       *
+       * input : input to be processed
+       */
+      emergency_opening(input) {
+      	if(input == "cycle complete") {
+      		this.state.swapState("open_blocked");
       	}
       } 
       /**
@@ -168,6 +194,7 @@
       } 
 		} 
 		//challenge input
+		console.log(`%cChallenge Input: `, "color : red;");
 		let input = `button_clicked
 								 cycle_complete
 								 button_clicked
@@ -178,5 +205,19 @@
 								 cycle_complete`;
 		let door = new GarageDoor();
 		door.processAllInput(input);
+		//bonus input
+		console.log(`%cBonus Input: `, "color : red;");
+		input = `button_clicked
+						 cycle_complete
+						 button_clicked
+						 block_detected
+						 button_clicked
+						 cycle_complete
+						 button_clicked
+						 block_cleared
+						 button_clicked
+						 cycle_complete`;
+		door = new GarageDoor();
+		door.processAllInput(input);				 
 	});
 })();
