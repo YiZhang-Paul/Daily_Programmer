@@ -5,46 +5,63 @@
 		 * check if a given string represents numeric value
 		 * @param String
 		 *
-		 * test : string to be tested
+		 * testStr : string to be tested
 		 *
-		 * returns String
+		 * returns boolean
 		 */
-		function maybeNumeric(test) {
-			let strings = test.trim().split(" ");
+		function isNumber(testStr) {
 			let regex = /(^(\d+\.?\d+|\.\d+)(e|e[-+])?\d+$)|(^\d+$)|(^\d*\.?\d+$)/;
-			let result = strings.every(string => regex.test(string)) ? "Number" : "String";
-			return `${test.trim()} (${result}${result == "Number" ? isSpecial(test) : ""})`;
+			return testStr.trim().split(" ").every(string => regex.test(string));
 		}
 		/**
-		 * check special numbers
+		 * check number type
 		 * @param String
 		 *
-		 * test : number to be tested
+		 * test : number string to be checked
 		 *
 		 * returns String
 		 */
-		function isSpecial(test) {
-			let result = "";
+		function numType(test) {
+			let type = "Number";
 			if(test.trim().split(" ").length > 1) {
-				result = " -> Array";
+				type += " -> Array";
 			} else if(test.indexOf("e") != -1) {
-				result = " -> Exponent Notation";
+				type += " -> Exponent Notation";
 			} else if(test.length >= 10) {
-				result = " -> Big Number";
+				type += " -> Big Number";
 			}
-			return result;
-		}  
+			return type;
+		} 
 		/**
-		 * parse separated values
+		 * check if a given string can be parsed into 
+		 * a numeric value and its type
+		 * @param String
+		 *
+		 * testStr : string to be tested
+		 *
+		 * returns String
+		 */
+		function maybeNumeric(testStr) {
+			return `${testStr} (${isNumber(testStr) ? numType(testStr) : "String"})`;
+		} 
+		/**
+		 * make parse table
 		 * @param String
 		 *
 		 * values : string containing separated values
 		 *
 		 * returns String
 		 */
-		function parseSeparate(values) {
-			return values.split("\n").map(row => 
-				row.trim().split("`").map(col => maybeNumeric(col)));
+		function makeParseTable(values) {
+			let parsed = values.split("\n").map(row => row.trim().split("`"));
+			let colLen = parsed[0].map((col, index) => Math.max(col.length, parsed[1][index].length));
+			let rowLen = colLen.reduce((acc, val) => acc + val) + parsed[0].length - 1;
+			let table = `|${"-".repeat(rowLen)}|` + "\n";
+			parsed.forEach(row => {
+				row = row.map((col, index) => col + " ".repeat(colLen[index] - col.length)).join("|");
+				table += `|${row}|` + "\n" + `|${"-".repeat(rowLen)}|` + "\n";
+			});
+			return table;
 		} 
 		//default input
 		console.log(`%cDefault Input: `, "color : red;");
@@ -68,8 +85,6 @@
 		console.log(`%cBonus 2 Input: `, "color : red;");
 		input = `2015 4 4\`Challenge #\`261\`Easy
              234.2\`234ggf 45\`00\`number string number (0)`;
-    parseSeparate(input).forEach(row => {
-    	console.log(row.join(" | "));
-    });
+    console.log(makeParseTable(input));
 	});
 })();		
