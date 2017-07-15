@@ -10,8 +10,16 @@
 		 * returns String
 		 */
 		function maybeNumeric(test) {
-			let matches = test.match(/^(\d+\.?\d+|\.\d+)(e|e[-+])?(\d+\s|\d)+$/g);
-			return matches;
+			let strings = test.trim().split(" ");
+			let result = strings.every(string => /^(\d+\.?\d+|\.\d+)(e|e[-+])?\d+$/g.test(string)) ? "Number" : "String";
+			if(strings.length > 1) {
+				result += " -> Array";
+			} else if(strings[0].indexOf("e") != -1) {
+				result += " -> Exponent Notation";
+			} else if(strings[0].length >= 10) {
+				result += " -> Big Number";
+			}
+			return `${test.trim()} (${result})`;
 		}
 		//default input
 		console.log(`%cDefault Input: `, "color : red;");
