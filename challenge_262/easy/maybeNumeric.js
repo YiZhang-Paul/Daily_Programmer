@@ -109,11 +109,11 @@
 		function combineRow(parsed) {
 			parsed[0].forEach((col, index) => {
 				let colItems = getColumn(parsed, index);
-				if(!colItems.every(item => isNumber(item)) &&
-					 !colItems.every(item => !isNumber(item))) {
+				if(colItems.some(item => isNumber(item)) &&
+					 colItems.some(item => !isNumber(item))) {
 					parsed[0][index] = colItems.join(" ");
 					for(let i = 1; i < parsed.length; i++) {
-						parsed[i][index] = "";
+						parsed[i][index] = "#".repeat(parsed[0][index].length);
 					}
 				}
 			});
@@ -161,7 +161,7 @@
     console.log(makeParseTable(input));
     //bonus 3 input
 		console.log(`%cBonus 3 Input: `, "color : red;");
-		//console.log(makeInvertedTable(input));
+		console.log(makeInvertedTable(input));
 		input = `2015 4 4\`Challenge #\`261\`Easy
  						 234.2\`234ggf 45\`0\`8`;
 		console.log(makeInvertedTable(input));
