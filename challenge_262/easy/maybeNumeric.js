@@ -11,7 +11,8 @@
 		 */
 		function maybeNumeric(test) {
 			let strings = test.trim().split(" ");
-			let result = strings.every(string => /^(\d+\.?\d+|\.\d+)(e|e[-+])?\d+$/g.test(string)) ? "Number" : "String";
+			let regex = /(^(\d+\.?\d+|\.\d+)(e|e[-+])?\d+$)|(^\d+$)|(^\d*\.?\d+$)/;
+			let result = strings.every(string => regex.test(string)) ? "Number" : "String";
 			return `${test.trim()} (${result}${result == "Number" ? isSpecial(test) : ""})`;
 		}
 		/**
@@ -33,6 +34,18 @@
 			}
 			return result;
 		}  
+		/**
+		 * parse separated values
+		 * @param String
+		 *
+		 * values : string containing separated values
+		 *
+		 * returns String
+		 */
+		function parseSeparate(values) {
+			return values.split("\n").map(row => 
+				row.trim().split("`").map(col => maybeNumeric(col)));
+		} 
 		//default input
 		console.log(`%cDefault Input: `, "color : red;");
 		let input = "123";
@@ -55,6 +68,8 @@
 		console.log(`%cBonus 2 Input: `, "color : red;");
 		input = `2015 4 4\`Challenge #\`261\`Easy
              234.2\`234ggf 45\`00\`number string number (0)`;
-             console.log(input);
+    parseSeparate(input).forEach(row => {
+    	console.log(row.join(" | "));
+    });
 	});
 })();		
