@@ -1,5 +1,7 @@
 #222[Easy] Balancing Words
 
+All Done
+
 url: https://www.reddit.com/r/dailyprogrammer/comments/3c9a9h/20150706_challenge_222_easy_balancing_words/
 
 Today we're going to balance words on one of the letters in them. We'll use the position and letter itself to calculate the weight around the balance point. A word can be balanced if the weight on either side of the balance point is equal. Not all words can be balanced, but those that can are interesting for this challenge.
@@ -30,8 +32,6 @@ UNINTELLIGIBILITY
 SUPERGLUE
 
 Challenge Output
-
-Updated - the weights and answers I had originally were wrong. My apologies.
 
 CONSUBST A NTIATION - 456
 WRO N GHEADED - 120
