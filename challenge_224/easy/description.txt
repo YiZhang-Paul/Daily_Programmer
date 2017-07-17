@@ -1,5 +1,7 @@
 #224[Easy] Shuffling a List
 
+All Done
+
 url: https://www.reddit.com/r/dailyprogrammer/comments/3e0hmh/20150720_challenge_224_easy_shuffling_a_list/
 
 We've had our fair share of sorting algorithms, now let's do a shuffling challenge. In this challenge, your challenge is to take a list of inputs and change around the order in random ways. Think about shuffling cards - can your program shuffle cards?
