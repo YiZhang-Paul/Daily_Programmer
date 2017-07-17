@@ -155,6 +155,8 @@
 						point = (corners[0] + brCorner) * 0.5 - (cord[1] - center[1]);
 						break;
 					case "T" :
+						console.log(corners[0] + corners[1]);
+						console.log((corners[0] + corners[1]) / 2);
 						point = (corners[0] + corners[1]) * 0.5 - (cord[0] - center[0]);
 						break;
 					case "L" :
@@ -183,6 +185,7 @@
 			} 
 			//challenge input
 			console.log(`%cSolution 1: `, "color : red;");
+			let time = new Date().getTime();
 			let input = `3
 									 8`;
 			console.log(`3 - 8 => %c${convertSpiral(input)}`, "color : yellow;");
@@ -201,6 +204,7 @@
 			input = `234653477
 	             11777272 289722`;
 			console.log(`234653477 - (11777272, 289722) => %c${convertSpiral(input)}`, "color : yellow;");
+			console.log(`Total Time: %c${new Date().getTime() - time}ms`, "color : red;");
 		})();	
 		(() => {
 			/**
@@ -276,10 +280,8 @@
 				let start = getEndPoint(layer - 1);
 				let curCord = [center[0] + layer - 1, center[1] + layer - 1];
 				let travelDist = point - start, sideLen = layer * 2;
-				if(travelDist == 1) {
-					curCord[0] += 1;
-				} else if(travelDist <= sideLen) {
-					[curCord[0], curCord[1]] = [curCord[0] + 1, curCord[1] - (point - 1 - start)];
+				if(travelDist <= sideLen) {
+					[curCord[0], curCord[1]] = [curCord[0] + 1, travelDist == 1 ? curCord[1] : curCord[1] - (point - 1 - start)];
 				} else if(travelDist <= sideLen * 2) {
 					[curCord[0], curCord[1]] = [curCord[0] + 1 - (point - sideLen - start), curCord[1] - (sideLen - 1)];
 				} else if(travelDist <= sideLen * 3) {
@@ -288,6 +290,34 @@
 					[curCord[0], curCord[1]] = [curCord[0] + 1 - sideLen * 4 + (point - start), curCord[1] + 1];
 				}
 				return curCord;
+			} 
+			/**
+			 * convert coordinate to number
+			 * @param int, array
+			 *
+			 * dimension : grid dimension
+			 * cord      : coordinate of point
+			 *
+			 * returns int
+			 */
+			function cordToNum(dimension, cord) {
+				let center = getCenter(dimension);
+				if(center.every((num, index) => num == cord[index])) {
+					return 1;
+				}
+				let layer = Math.max(Math.abs(cord[0] - center[0]), Math.abs(cord[1] - center[1]));
+				let curCord = [center[0] + layer - 1, center[1] + layer - 1]; 
+				let travelDist = 0, sideLen = layer * 2;
+				if(cord[0] - center[0] == layer) {
+					travelDist = 1 + (curCord[1] - cord[1]);
+				} else if(center[1] - cord[1] == layer) {
+					travelDist = sideLen + (curCord[0] + 1 - cord[0]);
+				} else if(center[0] - cord[0] == layer) {
+					travelDist = sideLen * 3 + (cord[1] - curCord[1] - 1);
+				} else if(cord[1] - center[1] == layer) {
+					travelDist = sideLen * 4 + (cord[0] - curCord[0] - 1);
+				}
+				return getEndPoint(layer - 1) + travelDist;
 			} 
 			/**
 			 * convert between point number and coordinate
@@ -300,12 +330,13 @@
 			function convertSpiral(args) {
 				args = args.split("\n").map(argument => argument.trim());
 				if(/\s/.test(args[1])) {
-					return;
+					return cordToNum(Number(args[0]), args[1].split(" ").map(cord => Number(cord)));
 				}
 				return `(${numToCord(Number(args[0]), Number(args[1])).join(", ")})`;
 			}	
-			console.log(`%cSolution 2: `, "color : red;"); 
 			//challenge input
+			console.log(`%cSolution 2: `, "color : red;"); 
+			let time = new Date().getTime();
 			let input = `3
 									 8`;
 			console.log(`3 - 8 => %c${convertSpiral(input)}`, "color : yellow;");
@@ -324,6 +355,7 @@
 			input = `234653477
 	             11777272 289722`;
 			console.log(`234653477 - (11777272, 289722) => %c${convertSpiral(input)}`, "color : yellow;");
+			console.log(`Total Time: %c${new Date().getTime() - time}ms`, "color : red;");
 		})();	
 	});
 })();		
