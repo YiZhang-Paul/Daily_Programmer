@@ -107,5 +107,94 @@
 			}
 			return cord;
 		}
+		/**
+		 * determine side of the square
+		 * on which the coordinate is located
+		 * @param array [], array [], int
+		 *
+		 * cord    : coordinate of the point
+		 * center  : center of the grid
+		 * halfLen : half length of the square
+		 *
+		 * returns String
+		 */ 
+		function getCordSide(cord, center, halfLen) {
+			let side;
+			if(cord[0] - center[0] == halfLen) side = "R"; 
+			else if(center[1] - cord[1] == halfLen) side = "T";
+			else if(center[0] - cord[0] == halfLen) side = "L";
+			else if(cord[1] - center[1] == halfLen) side = "B";
+			return side;
+		}
+		/**
+		 * convert coordinate to point number
+		 * @param int, array []
+		 *
+		 * dimension  : grid dimension
+		 * cord       : point coordinate
+		 *
+		 * returns int
+		 */
+		function cordToPoint(dimension, cord) {
+			let center = getCenter(dimension);
+			if(center.every((num, index) => num == cord[index])) {
+				return 1;
+			}
+			let halfSide = Math.max(Math.abs(cord[0] - center[0]), Math.abs(cord[1] - center[1]));
+			let sideLen = halfSide * 2 + 1;
+			let layer = (sideLen * 4 - 4) / 8;
+			let corners = getSquareCorner(layer);
+			let point = 0, side = getCordSide(cord, center, halfSide);
+			switch(side) {
+				case "R" :
+					let brCorner = getSquareCorner(layer - 1)[3];
+					point = (corners[0] + brCorner) * 0.5 - (cord[1] - center[1]);
+					break;
+				case "T" :
+					point = (corners[0] + corners[1]) * 0.5 - (cord[0] - center[0]);
+					break;
+				case "L" :
+					point = (corners[1] + corners[2]) * 0.5 + (cord[1] - center[1]);
+					break;
+				case "B" :
+					point = (corners[2] + corners[3]) * 0.5 + (cord[0] - center[0]);
+					break;
+			}
+			return point;
+		} 
+		/**
+		 * convert between point number and coordinate
+		 * @param String
+		 *
+		 * args : arguments containing point information
+		 *
+		 * returns String
+		 */
+		function convertSpiral(args) {
+			args = args.split("\n").map(argument => argument.trim());
+			if(/\s/.test(args[1])) {
+				return cordToPoint(Number(args[0]), args[1].split(" ").map(cord => Number(cord)));
+			}
+			return `(${pointToCord(Number(args[0]), Number(args[1])).join(", ")})`;
+		} 
+		//challenge input
+		let input = `3
+								 8`;
+		console.log(`3 - 8 => %c${convertSpiral(input)}`, "color : yellow;");
+		input = `7
+             1 1`;
+		console.log(`7 - (1, 1) => %c${convertSpiral(input)}`, "color : yellow;");
+		input = `11
+             50`;
+		console.log(`11 - 50 => %c${convertSpiral(input)}`, "color : yellow;");
+		input = `9
+             6 8`;
+		console.log(`9 - (6, 8) => %c${convertSpiral(input)}`, "color : yellow;");
+		input = `1024716039
+             557614022`;
+		console.log(`1024716039 - 557614022 => %c${convertSpiral(input)}`, "color : yellow;");
+		input = `234653477
+             11777272 289722`;
+		console.log(`234653477 - (11777272, 289722) => %c${convertSpiral(input)}`, "color : yellow;");
 	});
 })();		
