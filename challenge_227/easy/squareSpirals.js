@@ -155,8 +155,6 @@
 						point = (corners[0] + brCorner) * 0.5 - (cord[1] - center[1]);
 						break;
 					case "T" :
-						console.log(corners[0] + corners[1]);
-						console.log((corners[0] + corners[1]) / 2);
 						point = (corners[0] + corners[1]) * 0.5 - (cord[0] - center[0]);
 						break;
 					case "L" :
@@ -305,7 +303,7 @@
 				if(center.every((num, index) => num == cord[index])) {
 					return 1;
 				}
-				let layer = Math.max(Math.abs(cord[0] - center[0]), Math.abs(cord[1] - center[1]));
+				let layer = getCordLayer(dimension, cord);
 				let curCord = [center[0] + layer - 1, center[1] + layer - 1]; 
 				let travelDist = 0, sideLen = layer * 2;
 				if(cord[0] - center[0] == layer) {
