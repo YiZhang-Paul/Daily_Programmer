@@ -94,14 +94,15 @@
 				let makeWorker = index => {
 					let worker = new Worker("worker.js");
 					worker.postMessage([categoryA[index], categoryB]);
-					worker.addEventListener("message", e => {
+					worker.addEventListener("message", function(e) {
 						palindrome.push(...e.data);
 						worker.terminate();
-						if(++checked == 100) {
+						if(++checked == 10) {
 							resolve(palindrome);
-						} else if(totalWorker++ < 100) {
+						} else if(totalWorker++ < 10) {
 							makeWorker(++index);
 						}
+						this.removeEventListener("message", arguments.callee);
 					});
 				};
 				for(let i = 0; i < totalWorker; i++) {
