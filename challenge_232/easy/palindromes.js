@@ -2,6 +2,26 @@
 (() => {
 	document.addEventListener("DOMContentLoaded", () => {
 		/**
+		 * get word list
+		 * @param String
+		 *
+		 * url : URL of text file
+		 *
+		 * returns obj {}
+		 */
+		function getWordList(url) {
+			return new Promise((resolve, reject) => {
+				let xhttp = window.XMLHttpRequest ? new window.XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP");
+				xhttp.onreadystatechange = function() {
+					if(this.readyState == 4 && this.status == 200) {
+						resolve(this.responseText.split("\n").map(word => word.trim()));
+					}
+				}; 
+				xhttp.open("GET", url, true);
+				xhttp.send();
+			});
+		}
+		/**
 		 * combine words together
 		 * @param String
 		 *
@@ -13,18 +33,6 @@
 			return sentence.match(/\w/g).join("").toLowerCase();
 		} 
 		/**
-		 * slice string into two equal halves
-		 * @parma String
-		 *
-		 * string : string to be sliced
-		 *
-		 * returns array []
-		 */
-		function sliceString(string) {
-			let half = string.length % 2 ? (string.length - 1) * 0.5 : string.length * 0.5;
-			return [string.slice(0, half), string.slice(-half)];
-		} 
-		/**
 		 * check if a word or sentence is palindrome
 		 * @param String
 		 *
@@ -33,8 +41,94 @@
 		 * returns String
 		 */
 		function isPalindrome(sentence) {
-			let slices = sliceString(combineWord(sentence));
-			return slices[0] == slices[1].split("").reverse().join("") ? "Palindrome" : "Not a palindrome";
+			sentence = /\W/.test(sentence) ? combineWord(sentence) : sentence;
+			for(let i = 0, j = sentence.length - 1; i < sentence.length; i++) {
+				if(sentence[i] != sentence[j--]) return "Not a palindrome";
+				if(i + 1 == j || i + 1 > j) return "Palindrome";
+			}
+		} 
+		/**
+		 * reverse a word 
+		 * @param String
+		 *
+		 * word : word to be reversed
+		 * 
+		 * returns String
+		 */ 
+		function reverseWord(word) {
+			return word.split("").reverse().join("");
+		} 
+		/**
+		 * construct word table 
+		 * categorized by initial letter
+		 * @param array []
+		 *
+		 * list : list of all words
+		 *
+		 * returns obj {}
+		 */
+		function categorizeWord(list) {
+			let category = new Map();
+			for(let i = 0; i < list.length; i++) {
+				if(category.get(list[i][0])) {
+					category.get(list[i][0]).push(list[i]);
+				} else {
+					category.set(list[i][0], [list[i]]);
+				}
+			}
+			return category;
+		} 
+		/**
+		 * find palindromes from groups of words 
+		 * with same initial letter
+		 * @param array [], array []
+		 *
+		 * categoryA : word category A
+		 * categoryB : word category B
+		 *
+		 * returns obj {}
+		 */
+		function sameInitialPalindrome(categoryA, categoryB) {
+			return new Promise((resolve, reject) => {
+				let palindrome = [], checked = 0, totalWorker = Math.min(8, categoryA.length);
+				let makeWorker = index => {
+					let worker = new Worker("worker.js");
+					worker.postMessage([categoryA[index], categoryB]);
+					worker.addEventListener("message", e => {
+						palindrome.push(...e.data);
+						worker.terminate();
+						if(++checked == 100) {
+							resolve(palindrome);
+						} else if(totalWorker++ < 100) {
+							makeWorker(++index);
+						}
+					});
+				};
+				for(let i = 0; i < totalWorker; i++) {
+					makeWorker(i);
+				}
+			});
+		} 
+		/**
+		 * find two-word palindrome from all words
+		 * @param array []
+		 *
+		 * list : list of all words
+		 *
+		 * returns array []
+		 */ 
+		function getTwoWordPalindrome(list) {
+			let ordered = list.slice();
+			let reversed = list.slice()
+			                   .map(word => reverseWord(word))
+			                   .sort((a, b) => a[0].charCodeAt() - b[0].charCodeAt());
+			[ordered, reversed] = [categorizeWord(ordered), categorizeWord(reversed)];
+			let palindrome = [];
+			for(let i = "a".charCodeAt(); i < "a".charCodeAt() + 26; i++) {
+				let initial = String.fromCharCode(i);
+				palindrome.push(sameInitialPalindrome(ordered.get(initial), reversed.get(initial)));
+			}
+			return palindrome;                          
 		} 
 		//default input
 		console.log(`%cDefault Input: `, "color : red;");
@@ -82,5 +176,16 @@
 					   Evil is a deed as I live.
 					   Dammit I'm mad.`;         
 		console.log(`${input.split("\n").map(line => line.trim()).join(" ")} %c-> ${isPalindrome(input)}`, "color : yellow;");						 
+		//bonus input
+		console.log(`%cBonus Input: `, "color : red;");
+		getWordList("wordList.txt").then(result => {
+			let time = new Date().getTime();
+			Promise.all(getTwoWordPalindrome(result)).then(values => {
+				console.log(`Time Spent: %c${new Date().getTime() - time}ms`, "color : red;");
+				values = values.reduce((acc, val) => [...acc, ...val], []);
+				console.log(values);
+				console.log(`Palindromes Found: %c${values.length}`, "color : red;");
+			});
+		});
 	});
 })();		
