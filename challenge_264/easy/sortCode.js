@@ -131,6 +131,28 @@
 			return statements;
 		} 
 		/**
+		 * group statements by function
+		 * @param array [], int
+		 *
+		 * lines   : lines of statements to be checked
+		 * funcNum : total number of functions
+		 *
+		 * returns array []
+		 */
+		function groupStatement(lines, funcNum) {
+			let statements = alignStatement(findStatement(lines));
+			let temp = statements[1], curFunc = 0;
+			statements[1] = new Array(funcNum);
+			for(let i = 0; i < statements[1].length; i++) {
+				statements[1][i] = [];
+			}
+			temp.forEach(stmt => {
+				statements[1][curFunc].push(stmt);
+				curFunc = /return/.test(stmt) ? curFunc + 1 : curFunc;
+			});
+			return statements;
+		} 
+		/**
 		 * group functions
 		 * @param array []
 		 *
@@ -141,9 +163,9 @@
 		function groupFunction(lines) {
 			let functions = findFunction(lines).sort((a, b) => a.match(/\w+\d*\(/)[0][0].charCodeAt() - b.match(/\w+\d*\(/)[0][0].charCodeAt());
 			let bracket = alignStatement(findBracket(lines)).map(indent => indent.sort((a, b) => a.trim() == "}"));
-			let statements = alignStatement(findStatement(lines));
+			let statements = groupStatement(lines, functions.length);
 			functions = functions.map(func => [func, bracket[0].shift(), bracket[0].pop() + "\n"]);
-			functions = functions.map(func => [...func.slice(0, -1), ...statements[1], func[func.length - 1]]);
+			functions = functions.map((func, index) => [...func.slice(0, -1), ...statements[1][index], func[func.length - 1]]);
 			functions = functions.map(func => {
 				let forLoop = func.findIndex(stmt => isForLoop(stmt));
 				if(forLoop != -1) {
@@ -210,8 +232,8 @@ int main()`;
 #include <iostream>
 double f(double y)
 int main()`;	
-		//unsortCode(input).forEach(line => {
-		//	console.log(line);	
-		//});				 
+		unsortCode(input).forEach(line => {
+			console.log(line);	
+		});				 
 	});
 })();		
