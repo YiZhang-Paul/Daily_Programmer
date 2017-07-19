@@ -45,12 +45,16 @@
 		 * returns boolean
 		 */
 		function isEmbed(word, string) {
-			for(let i = 0, j = 0; i < word.length; i++) {
+			for(let i = 0, j = 0, repeat = false; i < word.length; i++) {
 				let index = string.indexOf(word[i], j);
-				if(index == -1) {
+				if(index == -1 && word[i] == word[i - 1] && !repeat) {
+					repeat = true;
+				} else {
+					j = index + 1;
+				}
+				if(j === 0) {
 					return false;
 				}
-				j = index;
 			}
 			return true;
 		} 
@@ -66,9 +70,9 @@
 		function findOutput(input, dictionary) {
 			return filterDictionary(input, dictionary).filter(word => isEmbed(word, input));
 		} 
-		//challenge input
-		console.log(`%cChallenge Input: `, "color : red;");
+		//challenge and bonus input
 		getWordList("wordList.txt").then(result => {
+			console.log(`%cChallenge & Bonus Input: `, "color : red;");
 			let time = new Date().getTime();
 			let input = "qwertyuytresdftyuioknn";
 			console.log(`${input} -> %c${findOutput(input, result).join(" ")}`, "color : yellow;");
