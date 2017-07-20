@@ -14,7 +14,7 @@
   			let xhttp = window.XMLHttpRequest ? new window.XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP");
   			xhttp.onreadystatechange = function() {
   				if(this.readyState == 4 && this.status == 200) {
-  					resolve(this.responseText.split("\n").map(word => word.trim()).filter(word => !/\W/.test(word)));
+  					resolve(this.responseText.split("\n").map(word => word.trim()).filter(word => word && !/\W/.test(word)));
   				}
   			};
   			xhttp.open("GET", url, true);
@@ -32,9 +32,9 @@
   	 * returns array []
   	 */
   	function filterList(list, minLen, input) {
-  		let letters = new Set(input.split(""));
+  		let letters = input ? new Set(input.split("")) : null;
   		return list.filter(word =>
-  			letters.has(word[0]) && word.length >= minLen && word.length <= input.length);
+  			word.length >= minLen && (input ? (word.length <= input.length && letters.has(word[0])) : true));
   	} 
   	/**
   	 * get all possible slice patterns for a string
@@ -94,28 +94,54 @@
   		return !slices.some(slice => list.indexOf(slice) == -1);
   	} 
   	/**
-  	 * find best conjunction
-  	 * @param int, String, array []
+  	 * find best conjunction for a given word
+  	 * @param int, String, array [], array []
+  	 *
+  	 * minLen   : minimum length of sub-words
+  	 * string   : string to be checked
+  	 * allSlice : slice patterns
+  	 * list     : list of all words
+  	 *
+  	 * returns array []
+  	 */
+  	function maxWordConjunction(minLen, string, allSlice, list) {
+  		list = filterList(list, minLen, string);
+  		let bestSlice = allSlice.find(slice => isValidSlice(sliceString(string, slice), list));
+  		return bestSlice ? sliceString(string, bestSlice) : [];
+  	} 
+  	/**
+  	 * find best conjunction from a dictionary
+  	 * @param int, array []
   	 *
   	 * minLen : minimum length of sub-words
-  	 * string : string to be checked
   	 * list   : list of all words
   	 *
   	 * returns array []
   	 */
-  	function maxWordConjunction(minLen, string, list) {
-  		list = filterList(list, minLen, string).sort((a, b) => a.length - b.length);
-  		let allSlice = slicePattern(minLen, string.length).sort((a, b) => b.length - a.length);
-  		let bestSlice = allSlice.find(slice => isValidSlice(sliceString(string, slice), list));
-  		return sliceString(string, bestSlice);
+  	function bestConjunction(minLen, list) {
+  		let ascList = filterList(list.slice().sort((a, b) => a.length - b.length), minLen);
+  		let descList = ascList.slice().reverse();
+  		let best = [];
+  		for(let i = 0; i < descList.length; i++) {
+  			let allSlice = slicePattern(minLen, descList[i].length).sort((a, b) => b.length - a.length);
+  			if(allSlice[0].length > best.length) {
+  				let curConjunction = maxWordConjunction(minLen, descList[i], allSlice, ascList);
+  				best = curConjunction.length > best.length ? curConjunction : best;
+  			}
+  		}
+  		return best;
   	} 
   	//challenge input
   	getWordList("wordList.txt").then(result => {
-  		let time = new Date().getTime();
-  		let input = "disproportionateness";
-  		let best = maxWordConjunction(3, input, result);
-	  	console.log(`minSize 3: ${input} %c(${best.length}: ${best.join(", ")})`, "color : yellow;");
-  		console.log(`Time Spent: %c${new Date().getTime() - time}ms`, "color : red;");
+  		let displayOutput = minSize => {
+  			let time = new Date().getTime();
+  			let best = bestConjunction(minSize, result);
+		  	console.log(`minSize %c${minSize}%c: ${best.join("")} %c(${best.length}: ${best.join(", ")})`, "color : red;", "", "color : yellow;");
+  			console.log(`Time Spent: %c${new Date().getTime() - time}ms`, "color : red;");
+  		};
+  		for(let i = 2; i <= 10; i++) {
+  			displayOutput(i);
+  		}
   	});
   });
 })();  	
