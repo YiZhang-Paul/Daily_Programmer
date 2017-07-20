@@ -34,23 +34,23 @@
   		return list.filter(word => word.length >= minLen);
   	} 
   	/**
-  	 * get all possible slice patterns for a string
-  	 * @param int, int, int, array []
+  	 * slices a string in all possible ways
+  	 * @param int, String, int, array []
   	 *
   	 * minLen   : minimum length of word slice
-  	 * length   : total length of string
+  	 * string   : string to be sliced
   	 * curLen   : current total length of slices
   	 * curSlice : current slice pattern
   	 * 
   	 * returns array []
   	 */
-  	function slicePattern(minLen, length, curLen = 0, curSlice = []) {
-  		if(length - curLen < minLen) {
-  			return curLen == length ? curSlice : null;
+  	function sliceString(minLen, string, curLen = 0, curSlice = []) {
+  		if(string.length - curLen < minLen) {
+  			return curLen == string.length ? curSlice : null;
   		}
   		let slices = [];
-  		for(let i = minLen; i <= length - curLen; i++) {
-  			let result = slicePattern(minLen, length, curLen + i, [...curSlice, i]);
+  		for(let i = minLen; i <= string.length - curLen; i++) {
+  			let result = sliceString(minLen, string, curLen + i, [...curSlice, string.slice(curLen, curLen + i)]);
   			if(result) {
   				if(Array.isArray(result[0])) {
   					slices.push(...result);
@@ -60,22 +60,6 @@
   			}
   		}
   		return slices;
-  	} 
-  	/**
-  	 * slice string using a slice pattern
-  	 * @param String, array []
-  	 *
-  	 * string  : string to be sliced
-  	 * pattern : slice pattern
-  	 *
-  	 * returns array []
-  	 */
-  	function sliceString(string, pattern) {
-  		let curPosition = 0;
-  		return pattern.map(sliceLen => {
-  			curPosition += sliceLen;
-  			return string.slice(curPosition - sliceLen, curPosition);
-  		});
   	} 
   	/**
   	 * check if all slices of a word
@@ -92,18 +76,17 @@
   	} 
   	/**
   	 * find best conjunction for a given word
-  	 * @param int, String, array [], obj {}
+  	 * @param int, String, obj {}
   	 *
   	 * minLen     : minimum length of sub-words
-  	 * string     : string to be checked
-  	 * allSlice   : slice patterns
+  	 * word       : word to be sliced
   	 * dictionary : dictionary of all words
   	 *
   	 * returns array []
   	 */
-  	function maxWordConjunction(minLen, string, allSlice, dictionary) {
-  		let bestSlice = allSlice.find(slice => isValidSlice(sliceString(string, slice), dictionary));
-  		return bestSlice ? sliceString(string, bestSlice) : [];
+  	function maxWordConjunction(minLen, word, dictionary) {
+  		return sliceString(minLen, word).sort((a, b) => b.length - a.length)
+  		                                .find(slices => isValidSlice(slices, dictionary)) || [];
   	} 
   	/**
   	 * find best conjunction from a dictionary
@@ -119,9 +102,8 @@
   		let dictionary = new Set(descList);
   		let best = [];
   		for(let i = 0; i < descList.length; i++) {
-  			let allSlice = slicePattern(minLen, descList[i].length).sort((a, b) => b.length - a.length);
-  			if(allSlice[0].length > best.length) {
-  				let curConjunction = maxWordConjunction(minLen, descList[i], allSlice, dictionary);
+  			if(Math.floor(descList[i].length / minLen) > best.length) {
+  				let curConjunction = maxWordConjunction(minLen, descList[i], dictionary);
   				best = curConjunction.length > best.length ? curConjunction : best;
   			}
   		}
