@@ -23,18 +23,15 @@
   	} 
   	/**
   	 * filter word list to narrow down search area
-  	 * @param array []
+  	 * @param array [], int
   	 *
   	 * list   : list of all words
   	 * minLen : minimum length of word
-  	 * input  : input string to be checked
   	 *
   	 * returns array []
   	 */
-  	function filterList(list, minLen, input) {
-  		let letters = input ? new Set(input.split("")) : null;
-  		return list.filter(word =>
-  			word.length >= minLen && (input ? (word.length <= input.length && letters.has(word[0])) : true));
+  	function filterList(list, minLen) {
+  		return list.filter(word => word.length >= minLen);
   	} 
   	/**
   	 * get all possible slice patterns for a string
@@ -83,30 +80,29 @@
   	/**
   	 * check if all slices of a word
   	 * can be found in the dictionary
-  	 * @param array [], array []
+  	 * @param array [], obj {}
   	 *
-  	 * slices : word slices
-  	 * list   : list of all words
+  	 * slices     : word slices
+  	 * dictionary : dictionary of all words
   	 *
   	 * returns boolean 
   	 */
-  	function isValidSlice(slices, list) {
-  		return !slices.some(slice => list.indexOf(slice) == -1);
+  	function isValidSlice(slices, dictionary) {
+  		return !slices.some(slice => !dictionary.has(slice));
   	} 
   	/**
   	 * find best conjunction for a given word
-  	 * @param int, String, array [], array []
+  	 * @param int, String, array [], obj {}
   	 *
-  	 * minLen   : minimum length of sub-words
-  	 * string   : string to be checked
-  	 * allSlice : slice patterns
-  	 * list     : list of all words
+  	 * minLen     : minimum length of sub-words
+  	 * string     : string to be checked
+  	 * allSlice   : slice patterns
+  	 * dictionary : dictionary of all words
   	 *
   	 * returns array []
   	 */
-  	function maxWordConjunction(minLen, string, allSlice, list) {
-  		list = filterList(list, minLen, string);
-  		let bestSlice = allSlice.find(slice => isValidSlice(sliceString(string, slice), list));
+  	function maxWordConjunction(minLen, string, allSlice, dictionary) {
+  		let bestSlice = allSlice.find(slice => isValidSlice(sliceString(string, slice), dictionary));
   		return bestSlice ? sliceString(string, bestSlice) : [];
   	} 
   	/**
@@ -119,13 +115,13 @@
   	 * returns array []
   	 */
   	function bestConjunction(minLen, list) {
-  		let ascList = filterList(list.slice().sort((a, b) => a.length - b.length), minLen);
-  		let descList = ascList.slice().reverse();
+  		let descList = filterList(list.slice().sort((b, a) => a.length - b.length), minLen);
+  		let dictionary = new Set(descList);
   		let best = [];
   		for(let i = 0; i < descList.length; i++) {
   			let allSlice = slicePattern(minLen, descList[i].length).sort((a, b) => b.length - a.length);
   			if(allSlice[0].length > best.length) {
-  				let curConjunction = maxWordConjunction(minLen, descList[i], allSlice, ascList);
+  				let curConjunction = maxWordConjunction(minLen, descList[i], allSlice, dictionary);
   				best = curConjunction.length > best.length ? curConjunction : best;
   			}
   		}
