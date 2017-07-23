@@ -1,5 +1,7 @@
 #237[Easy] Broken Keyboard
 
+All Done
+
 url: https://www.reddit.com/r/dailyprogrammer/comments/3pcb3i/20151019_challenge_237_easy_broken_keyboard/
 
 Help! My keyboard is broken, only a few keys work any more. If I tell you what keys work, can you tell me what words I can write?
