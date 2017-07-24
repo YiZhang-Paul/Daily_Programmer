@@ -1,5 +1,7 @@
 #273[Easy] Getting a degree
 
+All Done
+
 url: https://www.reddit.com/r/dailyprogrammer/comments/4q35ip/20160627_challenge_273_easy_getting_a_degree/
 
 Welcome to DailyProgrammer University. Today you will be earning a degree in converting degrees. This includes Fahrenheit, Celsius, Kelvin, Degrees (angle), and Radians.
