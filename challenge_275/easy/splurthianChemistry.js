@@ -39,25 +39,44 @@
 			let startIndex = chars.indexOf(minCharCodeLetter(chars.slice(0, -1)));
 			return chars[startIndex].toUpperCase() + minCharCodeLetter(chars.slice(startIndex + 1));               
 		}
+		/**
+		 * find total number of unique symbols for a given element name
+		 * @param {String} [element] - element name
+		 *
+		 * @return {int} [total number of vaild symbols]
+		 */
+		function totalUniqueSymbol(element) {
+			let chars = element.toLowerCase().split("")
+												 .reduce((acc, val) => {
+			                     acc[val] = acc[val] ? acc[val] + 1 : 1; 
+			                     return acc;
+			                   }, {});
+      let charKeys = Object.keys(chars);			                   
+      return charKeys.length * (charKeys.length - 1) * 0.5 + charKeys.filter(key => chars[key] > 1).length;
+		}
 		//challenge input
 		console.log(`%cChallenge Input: `, "color : red;");
 		let input = ["Spenglerium", "Ee"]; 
-		console.log(`${input.join(", ")} -> %c${isValidSymbol(...input)}`, "color : red;");
+		console.log(`${input.join(", ")} -> %c${isValidSymbol(...input)}`, "color : yellow;");
 		input = ["Zeddemorium", "Zr"]; 
-		console.log(`${input.join(", ")} -> %c${isValidSymbol(...input)}`, "color : red;");
+		console.log(`${input.join(", ")} -> %c${isValidSymbol(...input)}`, "color : yellow;");
 		input = ["Venkmine", "Kn"]; 
-		console.log(`${input.join(", ")} -> %c${isValidSymbol(...input)}`, "color : red;");
+		console.log(`${input.join(", ")} -> %c${isValidSymbol(...input)}`, "color : yellow;");
 		input = ["Stantzon", "Zt"]; 
-		console.log(`${input.join(", ")} -> %c${isValidSymbol(...input)}`, "color : red;");
+		console.log(`${input.join(", ")} -> %c${isValidSymbol(...input)}`, "color : yellow;");
 		input = ["Melintzum", "Nn"]; 
-		console.log(`${input.join(", ")} -> %c${isValidSymbol(...input)}`, "color : red;");
+		console.log(`${input.join(", ")} -> %c${isValidSymbol(...input)}`, "color : yellow;");
 		input = ["Tullium", "Ty"]; 
-		console.log(`${input.join(", ")} -> %c${isValidSymbol(...input)}`, "color : red;");
-		//bonus input
-		console.log(`%cBonus Input: `, "color : red;");
+		console.log(`${input.join(", ")} -> %c${isValidSymbol(...input)}`, "color : yellow;");
+		//bonus 1 input
+		console.log(`%cBonus 1 Input: `, "color : red;");
 		input = "Gozerium";
-		console.log(`${input} -> %c${validOrderedSymbol(input)}`, "color : red;");
+		console.log(`${input} -> %c${validOrderedSymbol(input)}`, "color : yellow;");
 		input = "Slimyrine";
-		console.log(`${input} -> %c${validOrderedSymbol(input)}`, "color : red;");
+		console.log(`${input} -> %c${validOrderedSymbol(input)}`, "color : yellow;");
+		//bonus 2 input
+		console.log(`%cBonus 2 Input: `, "color : red;");
+		input = "Zuulon";
+		console.log(`${input} -> %c${totalUniqueSymbol(input)}`, "color : yellow;");
 	});
 })();		
