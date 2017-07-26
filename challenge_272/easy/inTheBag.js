@@ -59,47 +59,88 @@
 			let groups = [];
 			remain.forEach((num, letter) => {
 				let curLetter = letter == "Blank" ? "_" : letter;
-				groups[num] = groups[num] ? groups[num] + letter : letter; 
+				groups[num] = groups[num] ? groups[num] + curLetter : curLetter; 
 			});
 			return groups;
+		}
+		/**
+		 * show remain tiles in alphabetical order
+		 * @param {Object} [remain] - remaining tiles
+		 */
+		function showRemainTile(remain) {
+			for(let i = remain.length - 1; i >= 0; i--) {
+				if(remain[i]) {
+					console.log(`${i}: ${remain[i].split("").sort((a, b) => a.charCodeAt() - b.charCodeAt()).join(", ")}`);
+				}
+			}
+		}
+		/**
+		 * display tiles on play
+		 * @param {Object} [onPlay] - tiles on play
+		 */
+		function showOnPlay(onPlay) {
+			showRemainTile(countRemain(tileOnPlay(onPlay)));
 		}
 		/**
 		 * display remaining tiles in bag
 		 * @param {Object} [table] - table of all tiles
 		 * @param {String} [onPlay] - all tiles on play
 		 */
-		function showRemainTile(table, onPlay) {
+		function showInBag(table, onPlay) {
 			let remain = tileInBag(table, onPlay);
 			if(Array.isArray(remain)) {
-				return `Invalid input. More ${remain[0]}'s have been taken from the bag than possible.`;
+				console.log(`Invalid input. More ${remain[0]}'s have been taken from the bag than possible.`);
 			}
-			let groups = countRemain(remain);
-			for(let i = groups.length - 1; i >= 0; i--) {
-				if(groups[i]) {
-					console.log(`${i}: ${groups[i].split("").sort((a, b) => a.charCodeAt() - b.charCodeAt()).join(", ")}`);
-				}
-			}
+			showRemainTile(countRemain(remain));
+		}
+		/**
+		 * calculate total score for a set of tiles
+		 * @param {Object} [table] - tile table
+		 * @param {Object} [tiles] - current word tiles
+		 *
+		 * @return {int} [total score]
+		 */
+		function totalScore(table, tiles) {
+			let total = 0;
+			tiles.forEach((num, tile) => {
+				total += table[tile][1] * num;
+			});
+			return total;
+		}
+		/**
+		 * display final result
+		 * @param {Object} [table] - table of all tiles
+		 * @param {String} [onPlay] - all tiles on play
+		 */
+		function displayResult(table, onPlay) {
+			let inBag = tileInBag(table, onPlay);
+			console.log(`%cRemain: (Total Score -> %c${Array.isArray(inBag) ? 0 : totalScore(table, inBag)}%c)`, "color : orange;", "color : red;", "color : orange;");
+			showInBag(table, onPlay);
+			console.log(`%cOn Play: (Total Score -> %c${totalScore(table, tileOnPlay(onPlay))}%c)`, "color : orange;", "color : red;", "color : orange;");
+			showOnPlay(onPlay);		
 		}
 		//scrabble table
 		const table = {
-			E :	[12, 1], A :	[9,	1], I :	[9,	1], O :	[8,	1], N :	[6,	1], R :	[6,	1], T :	[6,	1], 
+			E :	[12, 1], A : [9,	1], I :	[9,	1], O :	[8,	1], N :	[6,	1], R :	[6,	1], T :	[6,	1], 
 			L :	[4,	1], S :	[4,	1], U :	[4,	1], D :	[4,	2], G :	[3,	2], Blank :	[2,	0], B :	[2,	3], 
 			C :	[2,	3], M :	[2,	3], P :	[2,	3], F :	[2,	4], H :	[2,	4], V :	[2,	4], W :	[2,	4], 
-			Y :	[2,	4], K :	[1,	5], J :	[1,	8], X :	[1,	8], Q :	[1,	10], Z :	[1,	10]
+			Y :	[2,	4], K :	[1,	5], J :	[1,	8], X :	[1,	8], Q :	[1,	10], Z : [1,	10]
 		};
-		//default input
+		//default input & bonus
 		console.log(`%cDefault Input: `, "color : red;");
 		let input = "AEERTYOXMCNB_S";
-		console.log(`%c${input} -> `, "color : orange;");
-		showRemainTile(table, "input");
+		console.log(`%c${input}: `, "color : yellow;");
+		displayResult(table, input);
+		//challenge input & bonus
+		console.log(`%cChallenge Input: `, "color : red;");
 		input = "PQAREIOURSTHGWIOAE_";
-		console.log(`%c${input} -> `, "color : orange;");
-		showRemainTile(table, "PQAREIOURSTHGWIOAE_");
+		console.log(`%c${input}: `, "color : yellow;");
+		displayResult(table, input);
 		input = "LQTOONOEFFJZT";
-		console.log(`%c${input} -> `, "color : orange;");
-		showRemainTile(table, "LQTOONOEFFJZT");
+		console.log(`%c${input}: `, "color : yellow;");
+		displayResult(table, input);
 		input = "AXHDRUIOR_XHJZUQEE";
-		console.log(`%c${input} -> `, "color : orange;");
-		showRemainTile(table, "AXHDRUIOR_XHJZUQEE");
+		console.log(`%c${input}: `, "color : yellow;");
+		displayResult(table, input);
 	});
 })();		
