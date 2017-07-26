@@ -49,6 +49,21 @@
 			return allTile;
 		}
 		/**
+		 * count remaining tiles and group tiles 
+		 * with same amount remaining together
+		 * @param {Object} [remain] - remaining tiles
+		 *
+		 * @return {Array} [grouped tiles by remaining amount]
+		 */
+		function countRemain(remain) {
+			let groups = [];
+			remain.forEach((num, letter) => {
+				let curLetter = letter == "Blank" ? "_" : letter;
+				groups[num] = groups[num] ? groups[num] + letter : letter; 
+			});
+			return groups;
+		}
+		/**
 		 * display remaining tiles in bag
 		 * @param {Object} [table] - table of all tiles
 		 * @param {String} [onPlay] - all tiles on play
@@ -58,14 +73,12 @@
 			if(Array.isArray(remain)) {
 				return `Invalid input. More ${remain[0]}'s have been taken from the bag than possible.`;
 			}
-			let groups = new Map();
-			remain.forEach((num, letter) => {
-				let curLetter = letter == "Blank" ? "_" : letter;
-				groups.set(num, groups.has(num) ? groups.get(num) + curLetter : curLetter);
-			});
-			groups.forEach((letters, group) => {
-				console.log(`${group}: ${letters.split("").sort((a, b) => a.charCodeAt() - b.charCodeAt()).join(", ")}`);
-			});
+			let groups = countRemain(remain);
+			for(let i = groups.length - 1; i >= 0; i--) {
+				if(groups[i]) {
+					console.log(`${i}: ${groups[i].split("").sort((a, b) => a.charCodeAt() - b.charCodeAt()).join(", ")}`);
+				}
+			}
 		}
 		//scrabble table
 		const table = {
