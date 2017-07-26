@@ -1,5 +1,7 @@
 #236[Easy] Random Bag System
 
+All Done
+
 url: https://www.reddit.com/r/dailyprogrammer/comments/3ofsyb/20151012_challenge_236_easy_random_bag_system/
 
 Contrary to popular belief, the tetromino pieces you are given in a game of Tetris are not randomly selected. Instead, all seven pieces are placed into a "bag." A piece is randomly removed from the bag and presented to the player until the bag is empty. When the bag is empty, it is refilled and the process is repeated for any additional pieces that are needed.
