@@ -12,6 +12,7 @@
 			let table = new Map(), maxLen = alphabet[1].length, minLen = maxLen;
 			for(let i = 0; i < alphabet.length; i += 2) {
 				table.set(alphabet[i + 1], alphabet[i]);
+				table.set(alphabet[i], alphabet[i + 1]);
 				maxLen = Math.max(maxLen, alphabet[i + 1].length);
 				minLen = Math.min(minLen, alphabet[i + 1].length);
 			}
@@ -55,65 +56,78 @@
 				/[a-zA-Z]+/.test(segment) ? decodeSegment(segment, maxLen, minLen, table) : segment).join("");
 		}
 		/**
-		 * create letter patterns
-		 * @param {int} [len] - total length of pattern
-		 * @param {String} [curPattern] - current pattern
+		 * count occurrences of all characters
+		 * @param {Array} [chars] - all characters
 		 *
-		 * @return {Array} [patterns]
+		 * @return {Array} [character nodes]
 		 */
-		function makePattern(len, curPattern = "") {
-			if(curPattern.length == len) {
-				return curPattern;
+		function countChars(chars) {
+			let frequency = chars.reduce((acc, val) => {
+				acc[val] = acc[val] ? acc[val] + 1 : 1;  
+				return acc;
+			}, {});
+			let nodes = [];
+			for(let char in frequency) {
+				nodes.push({type : "char", letter : char, total : frequency[char]});
 			}
-			let patterns = [];
+			return nodes;													 
+		}
+		/**
+		 * sort nodes by number of occurrence
+		 * @param {Array} [nodes] - nodes to be sorted
+		 *
+		 * @return {Array} [sorted nodes]
+		 */
+		function sortNode(nodes) {
+			return nodes.slice().sort((a, b) => a.total == b.total ? (a.type == "char" ? 1 : -1) : a.total - b.total);
+		}
+		/**
+		 * construct Huffman tree
+		 * @param {Array} [chars] - all characters
+		 *
+		 * @return {Object} [tree root node]
+		 */
+		function makeHuffmanTree(chars) {
+			let nodes = sortNode(countChars(chars));
+			while(nodes.length != 1) {
+				let lowest = nodes.splice(0, 2);
+				nodes.unshift({type : "heap", total : lowest[0].total + lowest[1].total, "0" : lowest[0], "1" : lowest[1]});
+				nodes = sortNode(nodes);
+			}
+			return nodes[0];
+		}
+		/**
+		 * traverse Huffman tree
+		 * @param {Object} [node] - root node of tree
+		 * @param {String} [curRoute] - current traverse route
+		 *
+		 * @return {Array} [Huffman's code]
+		 */
+		function traverseTree(node, curRoute = "") {
+			if(node.type == "char") {
+				return node.letter + " " + curRoute.split("").map(branch => branch == "0" ? "G" : "g").join("");
+			}
+			let routes = [];
 			for(let i = 0; i < 2; i++) {
-				let result = makePattern(len, curPattern + (i ? "g" : "G"));
-				if(Array.isArray(result)) {
-					patterns.push(...result);
-				} else {
-					patterns.push(result);
+				if(node[String(i)]) {
+					let result = traverseTree(node[String(i)], curRoute + i);
+					if(Array.isArray(result)) {
+						routes.push(...result);
+					} else {
+						routes.push(result);
+					}
 				}
 			}
-			return patterns;
-		}
-		/**
-		 * check if a pattern is a prefix of another
-		 * @param {String} [pattern1] - pattern 1
-		 * @param {String} [pattern2] - pattern 2
-		 *
-		 * @return {boolean} [test result]
-		 */
-		function isPrefix(pattern1, pattern2) {
-			return pattern1 == pattern2.slice(0, pattern1.length);
-		}
-		/**
-		 * filter out all patterns that are prefix of others
-		 * @param {Array} [patterns] - all patterns
-		 *
-		 * @return {Array} [filtered patterns]
-		 */
-		function filterPattern(patterns) {
-			return patterns.filter((pattern, index) => 
-				!patterns.slice(index + 1).some(other => isPrefix(pattern, other)));
-		}
+			return routes;
+		} 
 		/**
 		 * generate letters
-		 * @param {Array} [original] - original letters to be transformed
+		 * @param {Array} [chars] - original letters to be transformed
 		 *
 		 * @return {Array} [list of original letters and generated letters]
 		 */
-		function makeLetter(original) {
-			let maxLen = 1, curTotal = Math.pow(2, maxLen);
-			while(curTotal < original.length) {
-				curTotal += Math.pow(2, ++maxLen);
-			}
-			let patterns = [];
-			for(let i = 1; i <= maxLen + 1; i++) {
-				patterns.push(...makePattern(i));
-			}
-			patterns = filterPattern(patterns);
-			return [original.map((char, index) => `${patterns[index]} ${char}`).join(" "),
-			        original.map((char, index) => `${char} ${patterns[index]}`).sort((a, b) => a[0].charCodeAt() - b[0].charCodeAt()).join(" ")];
+		function makeLetter(chars) {
+			return traverseTree(makeHuffmanTree(chars));
 		}
 		/**
 		 * encode segment of words
@@ -132,17 +146,12 @@
 		 * @return {String} [encoded output]
 		 */
 		function encodeAll(input) {
-			let allChars = input.match(/[a-zA-Z]/g);
-			let frequency = allChars.reduce((acc, val) => {
-				acc[val] = acc[val] ? acc[val] + 1 : 1;
-				return acc;
-			}, {});
-			let letters = makeLetter(Array.from(new Set(allChars)).sort((a, b) => frequency[b] - frequency[a]));
-			let table = makeTranslateTable(letters[0])[0];
+			let letters = makeLetter(input.match(/[a-zA-Z]/g));
+			let table = makeTranslateTable(letters.sort((a, b) => a[0].charCodeAt() - b[0].charCodeAt()).join(" "))[0];
 			let encoded = input.match(/[a-zA-Z]+|[/,!.'"?\s]*/g)
 			                   .map(segment => /[a-zA-Z]+/.test(segment) ? encodeSegment(segment, table) : segment).join("");
-			return letters[1] + "\n" + encoded;
-		}			                
+			return letters.join(" ") + "\n" + encoded;
+		}			               
 		//part 1 input
 		console.log(`%cPart 1 Input: `, "color : red;");						 
 		let input = `H GgG d gGg e ggG l GGg o gGG r Ggg w ggg
@@ -167,14 +176,15 @@
 		console.log(`%cPart 2 Bonus Input: `, "color : red;");
 		console.log(`${input.split("\n").map(line => line.trim()).join("\n")} ->`);
 		console.log(`%c${encodeAll(input.split("\n").map(line => line.trim()).join("\n"))}`, "color : orange;");					 	
-		input = `A GgGggg B gGGGGg C GgggGg H GgggGG I GgGgGg L gGGGGG N GggggG S Gggggg T GggGgG W gGGGgG Y GggGGG a GGGGGg b GgGGgg c GGgGGG d GGgggG e GGGGgG f GgGGgG g GgGGGG h GGgGGg i GGGgGg j GgGgGG k GgGGGg l GGgGgG m GGgggg n GGGggG o GGGGGG p GgGggG r GGGggg s GGGGgg t GGGgGG u GGgGgg v GggGGg w GGggGG x GggGgg y GGggGg
-						 GgggGGGGGGgGGGGgggGGGGgG'GGGGgg GGGgGGGGgGGgGGGGgG GGGgGGGGgGGgGGGgGgGGGggGGgGGGG. GggGGGGGGGGGGGgGgg GGGGggGGGGGgGGGgGgGGgggG GGGGGg "GgGgGGGGGGGgGGgGGGGgGGGgGGgggGGGGGGgGGggGG GGGgGgGGGGgg GGGGGg GGgGGGGGGgggGGGGGGGGggGG."
-						 GgGgGgGGGGgg GGGgGgGGGgGG GGGgGgGGGggG GGGgGGGGgGGgGGGGgG GGGGggGGGGGgGGggggGGGGgG GgGGgGGGGGGgGGggggGGGgGgGGgGgGGGggGg? GggGGGGGGGgGGGGGgg. GggggGGGGGGG GGGGGGGGGggGGGGGgG'GGGGgg GGGGGgGGGgggGgGGGGGGgGggGGGgGgGGGggGGgGGGG GGGgGGGGgGGgGGGGGgGGGgGG.
-						 GgGgggGGGGgg GGGGggGGGGGGGGggggGGGGgGGGGGGGGGGggGGGGGgG GGggGGGGgGGgGGGGGG GGGgGgGGGGgg GGGGGg GGGGggGGgGGGGGGgGgGGGGgGGGGggGGGGgGGGGGgGgGGGGggGGGgGG GGggGGGGgGGgGGGGGG GGGGggGGGgGGGGgGggGGgggGGGGgGgGGGGgGGGGGgg GGgGGGGGGgggGGGGGGGGggGGGGGGgg, GgGgGg GGGGGgGGgggg GGGgGGGGGGgGGGgGgGGGgGgGGGGgGgGGGggGGgGGGG GGggGgGGGGGGGGgGgg, GGGGggGgGggGGGGGgGGGgGGGGGGgGgGgGGgGGGGgGgGGgGGGGGGGGgGGgGgGGGgGgGGGggGg, GGGgGgGGGggG GGGGggGGgGGGGGGgGgGGGGgGGGGggGGGgGGGGGGGgG, GGGggGGGGGGG GGGGGGGGGggGGGGGgG GGgGGGGGGGGgGGgGgGGGgGgGGGGGgg GgGgGGGGGGGgGGgGGGGgGGGgGGgggGGGGGGgGGggGGGGGGgg GGgGGGGGGgggGGGGGGGGggGGGGGGgg. GgGgGgGgGGgG GGggGgGGGGGGGGgGgg GGggGGGGGGGgGGGggGGGGgGG GGGgGGGGGGGG GgGGggGGGGgG "GGGGggGgGggGGGGGgGGGgGGGGGGgGgGgGGgGGGGgGgGGgGGG" GGgGgGGGGgGgGgGGGgGGGGgG GGggGgGGGGGGGGgGgg GGGGggGGGGGgGGGgGgGGgggG, GGGgGGGGgGGgGGGGgGGGGggG GGggGgGGGGGGGGgGgg GGGGggGGgGGgGGGGGGGGgGggGGgGgGGGgggGGGGggG'GGGgGG GGGGgGGGGgGgGGGgGGGGgGGgGGGGgGGGGggg. GggGgGGGgGGgGGGGgGGGggGg'GGGgggGGGGgG GGGggGGGGGGGGGGgGG GGGgGGGGgGGgGGGGgG GGGGggGGGGGgGGggggGGGGgG GGGgGGGGgGGgGGGgGgGGGggGGgGGGG.
-						 GgGgGgGgGGgG GGggGgGGGGGGGGgGgg'GGGgggGGGGgG GGGGggGGGGGgGGggGgGGGgGgGGGggGGgGGGG "GGgGGGGGGgggGGGGGGGGggGG GgGGgGGGGGGgGGggggGGGgGgGGgGgGGGggGg" GGggGgGGGGGGGGgGgg'GGGgggGGGGgG GGGgggGGGGgGGgGGgGGGGGgGGGGgggGGGgggGGGgGgGGGggGGgGGGG GGGgGGGGGGGG GGGgGGGGgGGgGGGGgG GGGgGGGGGGGgGggGggGGGGGGGGGggGGGGGGGGGggggGGGgGgGGgGGG GgGGGGGGGgggGGGGGGGGgGggGgGggGGGGgGgGGGggGGgGGGG GGGGGGGgGGgG GgggGgGGGGGGGGGgggGggGGgGGGgGgGGgggGGGGGGgGGGGgG, GGggGGGGgGGgGGGgGgGGgGGGGGgGGg GGGgGgGGGggGGGgGGGGGgGgGGGgGggGGgggGGGGGgGGGGGgg GGGgGGGGgGGgGGGgGgGGGggGGgGGGGGGGGgg GgGGgGGGGgggGGGGGGGGgggg GGGggGGGgGggGGGgGGGGgGGGGGGgggGGGGGgGGgGGGGgGGGgGGGGgGGGGgggGGGGgg GGGgGGGGGGGG GgGGggGGgGgGGGgGggGGGGgG GgGgGGGGGGGgGGggGgGGGGgg GGGgGGGGGGGG GGGgggGGGGGgGggGGgGGGGgGGGGggGGGGGgg.
-						 GgggggGGGGGG GGggGgGGGGGGGGgGggGGGggg GGGgggGGGGgGGGGGGgGGGGggGGGGGGGGGggGGGGgGgGGGggGGgGGGG GgGGgGGGGGGGGGGggg GGgGGGGGGGGgGGgGgGGGgGgGGGGgGgGGGggGGgGGGG GGGGGg GgGgGGGGGGGgGGgGGGGgGGGgGGgggGGGGGGgGGggGG GGGGGg GGgGGGGGGgggGGGGGGGGggGG GGGgGgGGGGgg GgGGggGGGGgGGGgGGGGGGGGgGGgGggGGGGggGGGGgG GGGgggGGGGGgGGGggGGGgggGGGGGGGGGgggg GgGggGGGGGgGGGGGGGGgGggGGGgGgGGGGGgG "GGgGGGGGGGGgGGgGgGGGgGgG GGGgGGGGgGGgGGGGgG GgGGggGGgGgGGGGGGgGGgGGGGgGGGg GGGGGGGGGggGGGGGgGGGGGgg GGgGGGGGGgggGGGGGGGGggGGGGGGgg?" gGGGGGGGGGgGGGGgGG'GGGGgg GgGGGGGGGGgGGGGgGG GgGGGGGGGgggGGGGGgGGgGGGGgGGGgGGgGgGGGGGgGGGGGgg GGGGGgGGGggGGGgggG GgGGggGGgGgGGGGGGgGGgGGGGgGGGgGgGGggGGGgGgGGGgggGGgggGGGGGgg GGGgGgGGGggG GGGgGGGGgGGgGGGGgGGGGgggGGGGgG, GGGgGGGGgGGgGGGGgGGGGggG, GGGgGGGGGGGGGGGGGG.
-						 GgGgggGGgGgGGGGGggGGGGGG, GGgGGGGGGGGgGGgGgGGGgGgGGGGgGgGGGggGGgGGGG GGGGggGGGGGGGGggggGGGGgGGGGGGGGGGggGGGGGgG GGGGGg GGgGGgGGgGggGGggggGGGGGgGGGggG GGGGGGGGGggg GGGGGgGGGggG GGGGGgGgGggGGGGGgG? GgGgGgGGGgGG'GGGGgg GGGggGGGGGGGGGGgGG GGGGGGGGGggGGGGGgG GGGGGGGGGggg GGGgGGGGgGGgGGGGgG GGGGGGGGGgGGGGgGGgGGGGgGGGGggg, GGGgGGGGgGGgGGGGGgGGGgGG'GGGGgg GGGggGGGGGGGGGGgGG GGgGGgGGGGGGGGggGG GGGgGGGGGGGgGggGggGGGGGGGGGggGGGGGGGGGggggGGggGg GGggGGGGGGGGGGGgggGgGGGgGGGGgg. GggGgGGGgGGgGGGGgGGGggGg'GGGgggGGGGgG GgGGggGGGGGGGGGgGGGGgGGg. GgGggg GgGgGGGGGGGgGGgGGGGgGGGgGGgggGGGGGGgGGggGG GGGgGgGGGGgg GGGGGg GgGgGGGGGGGgGGgGGGGgGGGgGGgggGGGGGGgGGggGG GGGGGgGGGggGGGgggG GGGGGg GGggggGGGGgGGGggggGgGGggGGGGgGGGGggg GGGGGGGgGGgG GGGgGGGGgGGgGGGGgG GGgGGGGGGgggGGGGGGGGggGG GgGGgGGGGGGgGGggggGGGgGgGGgGgGGGggGg. gGGGGgGGgGggGGGgGG GGGgGGGGgGGgGGGGGgGGGgGG'GGGGgg GGGggGGGGGGGGGGgGG GGggGGGGgGGgGGGGGgGGGgGG GGggGgGGGGGGGGgGgg GGGGggGGGGGgGGGgGgGGgggG. GggGGGGGGGGGGGgGgg GGGGggGGGGGgGGGgGgGGgggG GGGGGg GgGgGGGGGGGgGGgGGGGgGGGgGGgggGGGGGGgGGggGG GGGgGgGGGGgg GGGGGg GGgGGGGGGgggGGGGGGGGggGG, GGggGGGGgGGgGGGgGgGGgGGGGGgGGg GGGgGgGGGGgg GGGggGGGGGGGGGGgGG GGGgGGGGGgggGGgGggGGGGgG GGgGggGGGggGGGgGgGGGGGgGGGGGggGGGGgg GGggGgGGGGGGGGgGgg'GGGgggGGGGgG GGGGGGGgGGGgGGGGGgGGggGg GGggGGGGGgGgGGGgGGGGgGGg GGgGGGGGGGGgGGgGgGGGgGgGGGGgGgGGGggGGgGGGG GGGGGgGGgGgGGGgGgG GGggggGGGGgGGGggggGgGGggGGGGgGGGGgggGGGGgg GGGGGGGgGGgG GGGgGGGGgGGgGGGGgG GGgGGGGGGgggGGGGGGGGggGG GgGGgGGGGGGgGGggggGGGgGgGGgGgGGGggGg GGgGGGGGGgggGGGGGGGGggGGGGGGgg, GGggGGGGgGGgGGGgGgGGgGGGGGgGGg GGggggGGGGgGGGGGGgGGGggGGGGGgg GGggGgGGGGGGGGgGgg'GGgggG GGgGGGGGGGGgGGgGgGGGgGgG GgGGggGGgGgGGGgGggGGGGgG GgGgGGGGGGGgGGggGgGGGGgg, GGGgggGGGGGgGggGGgGGGGgGGGGggGGGGGgg, GGGGGgGGGggGGGgggG GGGGGGGGGgGGGGgGGgGGGGgGGGGggg GgGGggGGGgGgGGGgggGGgggGGGGGgg GGgGGGGGGgggGGGGGGGGggGGGGGGgg, GGGgGGGGGGGGGGGGGG. gGGGgGGGgGGgGGGgGgGGgGGGGGgGGg GGggGgGGGGGGGGgGgg GGGGggGGGGGgGGGgGgGGgggG GGggGgGGGGGGGGgGgg GGgggGGGGGGGGGGggG'GGGgGG.
-						 GgGgGgGGGgGG'GGGGgg GGGGGGGgGGGgGGGGGgGGggGg GGGgGGGGGGGG GgGgGGGGgGggGGGGggGGGgGG GGGGGgGGgggGGGggggGGGgGgGGGgGG GGggGgGGGGGGGGgGgg'GGGgggGGGGgG GGggGGGGGgggGGGGGGGGGggGGgGGGG, GGggGgGGGGGGGGgGgg GgGGGgGGGggGGGGGGGGGggGG?`;
+		input = `A gGGgGGgg B ggGgGgGGgg C gGGgGGGGG H ggGgGgGGGg I GgGgGgg L ggGgGgGGgG N gGGgGGGGgG S gGGgGGGGgg T ggGgGgGgG W ggGgGgGGGG Y gGGgGGgG a gggg b GgGgGG c GgGG d GgGgg e gggG f gGGgGg g GGGGG h GGGg i gGGG j ggGgGgg k ggGgGG l ggGgg m GGGGg n Gggg o GGg p GgGgGgG r GggG s ggGG t gGgG u gGggg v gGGgGGGg w gGggG x ggGgGgGgg y gGGgg
+             ggGgGgGGGggggGGggGgggG'ggGG gGgGGGGggggG gGgGGGGggGGGGgggGGGGG. gGGgGGgGGGggGggg ggGGgggggGGGGgGgg gggg "ggGgGggggggGgGGggGgGGGgGgggggggGggG gGGGggGG gggg GgGGGggGGGggGggG."
+             GgGgGggggGG gGGGgGgG gGGGGggg gGgGGGGggggG ggGGggggGGGGggggG gGGgGgggggGGGGggGGGggGgggGGgg? gGGgGGgGgggGggGG. gGGgGGGGgGGGg GGgGggggggG'ggGG ggggGggGGGGGGgGggggGGGGgggGGGGG gGgGGGGggggggGgG.
+             gGGgGGggggGG ggGGGGgGGGGggggGGGgGggggggG gGggGGGGgGGg gGGGggGG gggg ggGGGgGGgGGGgggGGggggGgGgGGGggGGgGgG gGggGGGGgGGg ggGGgGgGgGgggGgGgggGGGgggGggGG GgGGGggGGGggGggGggGG, GgGgGgg ggggGGGGg gGgGgggGggGggggGgggGGGGgggGGGGG gGGggGGggGggg, ggGGGgGgGgGgggGGgGGgGGGgGGgGggGGGGgGGggggggGggggGgggGGgg, gGGGGggg ggGGGgGGgGGGgggGGgggGgGGgggG, GgggGGg GGgGggggggG GgGGggggggGggggGggggGG ggGgGggggggGgGGggGgGGGgGgggggggGggGggGG GgGGGggGGGggGggGggGG. GgGgGgggGGgGg gGGggGGggGggg gGggGggggGggggGgG gGgGGGg GgGgGGgggG "ggGGGgGgGgGgggGGgGGgGGGgGGgGggGGGGgGG" ggGgggGGGggGgGGgggG gGGggGGggGggg ggGGgggggGGGGgGgg, gGgGGGGggggGGggg gGGggGGggGggg ggGGGGGgGGggGgggggGggGgGggGggg'gGgG gggGgGGGgGgGGGGggggGGggG. ggGgGgGgGGGGggggGgGGgg'GggGgggG GgggGGggGgG gGgGGGGggggG ggGGggggGGGGggggG gGgGGGGggGGGGgggGGGGG.
+             GgGgGgggGGgGg gGGggGGggGggg'GggGgggG ggGGgggggGGgggGGGGgggGGGGG "GgGGGggGGGggGggG gGGgGgggggGGGGggGGGggGgggGGgg" gGGggGGggGggg'GggGgggG GggGgggGgGGgGggggGGggGGggGgGGGGgggGGGGG gGgGGGg gGgGGGGggggG gGgGggggggGgGgGggGGgGgggGGgGGGGggGGGGgGG GGGGGGggGGGggGgggGgGgGgGgGGGGgggGGGGG GGggGGgGg gGGgGGGGGGGgGggGgGGgGGGggGGGGgGgggggggggG, gGggGGGGggGGGGgGGGGGg gGGGGgggGgGGggGgggGgggGgGgggggGggGG gGgGGGGggGGGGgggGGGGGggGG gGGgGgGggGGGgGGGGg GggggGggggGgGGgGGGggGggggGgGGggGgGGgggGGggGggGG gGgGGGg GgGgGGggGgggGggggggG ggGgGgggggggGGggggGG gGgGGGg GggGgggggGGgGGGggggGGgggggGG.
+             gGGgGGGGggGGg gGGggGGggGgggGggG GggGgggGggggggGGGGgGggggGGGGgggGGGGG gGGgGgGGgGggG GgGGggggggGggggGgggGGGGgggGGGGG gggg ggGgGggggggGgGGggGgGGGgGgggggggGggG gggg GgGGGggGGGggGggG gGGGggGG GgGgGGgggGGgGGgggggGgggggGGgggG GggGggggGgggGgGggGGgGGGGg GgGgGgGgggGGGgGgGgGgGggGgggggG "GgGGggggggGggggGgg gGgGGGGggggG GgGgGGggGggggggGgGGggGgGG GGgGggggggGggGG GgGGGggGGGggGggGggGG?" ggGgGgGGgGgggGgGgG'ggGG GGGGGgggGgGgG GGGGGGggGggggGgGGggGgGGggGgggggGggGG ggggGgggGgGgg GgGgGGggGggggggGgGGggGgGGGgGgGGgGGGGggGGgGggggGG gGGGGggg gGgGGGGggggGGggGgggG, gGgGGGGggggGGggg, gGgGGGgGGg.
+             gGGgGGggggGggggGGGGg, GgGGggggggGggggGgggGGGGgggGGGGG ggGGGGgGGGGggggGGGgGggggggG gggg GGGggGgggGGGGgggggGggg GGgGggG ggggGggg ggggGgGgGgGgggG? GgGgGgggGgG'ggGG GgggGGggGgG GGgGggggggG GGgGggG gGgGGGGggggG GGggGgGGGGggggGGggG, gGgGGGGggggggGgG'ggGG GgggGGggGgG GGGgGGggGggG gGgGggggggGgGgGggGGgGgggGGgGGGGggGGgg gGggGGGgGggGggGgGGggGG. ggGgGgGgGGGGggggGgGGgg'GggGgggG GgGgGGGGggGgGGGGg. gGGgGGgg ggGgGggggggGgGGggGgGGGgGgggggggGggG gGGGggGG gggg ggGgGggggggGgGGggGgGGGgGgggggggGggG ggggGgggGgGgg gggg GGGGggggGGGGGgGgGgGGgggGGggG GGggGGgGg gGgGGGGggggG GgGGGggGGGggGggG gGGgGgggggGGGGggGGGggGgggGGgg. ggGgGgGGgggGggggGgG gGgGGGGggggggGgG'ggGG GgggGGggGgG gGggGGGGggggggGgG gGGggGGggGggg ggGGgggggGGGGgGgg. gGGgGGgGGGggGggg ggGGgggggGGGGgGgg gggg ggGgGggggggGgGGggGgGGGgGgggggggGggG gGGGggGG gggg GgGGGggGGGggGggG, gGggGGGGggGGGGgGGGGGg gGGGggGG GgggGGggGgG gGgGGggGgGggggggG gGgggGgggggGgggggGggGGggGG gGGggGGggGggg'GggGgggG GGgggGgGGgggggGGgg gGggGgGGGgGgGGGGg GgGGggggggGggggGgggGGGGgggGGGGG ggggggGggggGgg GGGGggggGGGGGgGgGgGGgggGGggGggGG GGggGGgGg gGgGGGGggggG GgGGGggGGGggGggG gGGgGgggggGGGGggGGGggGgggGGgg GgGGGggGGGggGggGggGG, gGggGGGGggGGGGgGGGGGg GGGGggggGggggGgggggGG gGGggGGggGggg'GgGgg GgGGggggggGggggGgg GgGgGGggGgggGggggggG ggGgGgggggggGGggggGG, GggGgggggGGgGGGggggGGgggggGG, ggggGgggGgGgg GGggGgGGGGggggGGggG GgGgGGgGGGGggGGgGggggGG GgGGGggGGGggGggGggGG, gGgGGGgGGg. ggGgGgGGGGGGGggGGGGgGGGGGg gGGggGGggGggg ggGGgggggGGGGgGgg gGGggGGggGggg GgGggGGgGggg'gGgG.
+             GgGgGgggGgG'ggGG GGgggGgGGgggggGGgg gGgGGGg ggGgGgggGgggggGGgGgG ggggGgGggGGGGggGGGgGgG gGGggGGggGggg'GggGgggG gGggGGggGGGgGgggGGGGG, gGGggGGggGggg ggGgGGGgggGGggGggG?`;
+		console.log(`%cDecode Back Into: -> `, "color : red;");
 		console.log(decodeAll(input));
 	});
 })();		
