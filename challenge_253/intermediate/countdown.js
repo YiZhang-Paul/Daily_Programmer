@@ -101,6 +101,36 @@
 			}
 			return countdowns;
 		}
+		/**
+		 * check if a target total can be achieved with given numbers
+		 * @param {Array} [nums] - numbers available for countdown
+		 * @param {int} [goal] - target result to be tested
+		 *
+		 * @return {boolean} [test result]
+		 */
+		function canCountDown(nums, goal) {
+			let numPattern = permuteNumber(nums);
+			let opPattern = combineOperator(nums.length - 1);
+			return numPattern.some(pattern => opPattern.some(other => isValidExp(other, pattern, goal)));
+		}
+		/**
+		 * check which target result within a given range 
+		 * cannot be obtained by given numbers for countdown
+		 * @param {Array} [nums] - numbers available for countdown
+		 * @param {int} [start] - starting number 
+		 * @param {int} [end] - ending number
+		 *
+		 * @return {Array} [all invalid numbers] 
+		 */
+		function findInvalidTarget(nums, start = 0, end = 1000) {
+			let invalidNums = [];
+			for(let i = start; i <= end; i++) {
+				if(!canCountDown(nums, i)) {
+					invalidNums.push(i);
+				}
+			}
+			return invalidNums;
+		}
 		//challenge 1 input
 		console.log(`%cChallenge 1 Input: `, "color : red;");
 		let input = "50 8 3 7 2 10 makes 556";
@@ -113,5 +143,11 @@
 		countDown(input).forEach(result => {
 			console.log(result);
 		});
+		//challenge 3 solution
+		console.log(`%cChallenge 3 Solution: `, "color : red;");
+		console.log(`%cNumbers from 0 to 1000 that Cannot be Obtained -> `, "color : orange;");
+		let time = new Date().getTime();
+		//console.log(findInvalidTarget([25, 50, 75, 100, 3, 6]).join(" "));
+		console.log(`Time Spent: %c${new Date().getTime() - time}ms`, "color : orange");
 	});
 })();		
