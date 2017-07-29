@@ -57,7 +57,30 @@
 			return numPattern.reduce((acc, val, index) => `${acc} ${opPattern[index - 1]} ${val}`);
 		}
 		/**
-		 * evaluate expression and check if results equals target
+		 * evaluate short arithmetic operations
+		 * @param {float} [operand1] - operand 1
+		 * @param {float} [operand2] - operand 2
+		 * @param {String} [operator] - operator
+		 *
+		 * @return {float} [result]
+		 */
+		function evalExp(operand1, operand2, operator) {
+			let result = 0;
+			switch(operator) {
+				case "+" : case "-" :
+					result = operand1 + Number(operator + operand2);
+					break;
+				case "*" :
+					result = operand1 * operand2;
+					break;
+				case "/" :
+					result = operand1 / operand2;
+					break;		
+			}
+			return result;
+		}
+		/**
+		 * evaluate expression and check if result equals target
 		 * @param {String} [opPattern] - operator pattern
 		 * @param {Array} [numPattern] - number pattern
 		 * @param {int} [goal] - target result
@@ -66,20 +89,8 @@
 		 */
 		function isValidExp(opPattern, numPattern, goal) {
 			opPattern = opPattern.split("");
-			return numPattern.reduce((acc, val, index) => {
-				switch(opPattern[index - 1]) {
-					case "+" : case "-" :
-						acc += +(opPattern[index - 1] + val); 
-						break;
-					case "*" :
-						acc *= val;
-						break;
-					case "/" :
-						acc /= val;
-						break;
-				}
-				return acc;
-			}) == goal;
+			return numPattern.reduce((acc, val, index) => 
+				evalExp(acc, val, opPattern[index - 1])) == goal;
 		}
 		/**
 		 * solve countdown
@@ -100,6 +111,34 @@
 				}
 			}
 			return countdowns;
+		}
+		/**
+		 * check if a character is an operator
+		 * @param {char} [char] - character to be checked
+		 *
+		 * @return {boolean} [test result]
+		 */
+		function isOperator(char) {
+			return /[\+\-\*\/]/.test(char);
+		}
+		/**
+		 * evaluate RPN notation and check if result equals target
+		 * @param {String} [expression] - number pattern
+		 * @param {int} [goal] - target result
+		 *
+		 * @return {boolean} [test result]
+		 */
+		function isValidRPN(expression, goal) {
+			let findOpIndex = arr => arr.findIndex(item => isOperator(item));
+			expression = expression.split(" ").map(item => /\d/.test(item) ? Number(item) : item);
+			while(expression.length != 1) {
+				let opIndex = findOpIndex(expression);
+				if(isNaN(expression[opIndex - 1]) || isNaN(expression[opIndex - 2])) {
+					return false;
+				}
+				expression.splice(opIndex - 2, 0, evalExp(...expression.splice(opIndex - 2, 3)));
+			}
+			return expression[0] == goal;
 		}
 		/**
 		 * check if a target total can be achieved with given numbers
@@ -149,5 +188,6 @@
 		let time = new Date().getTime();
 		//console.log(findInvalidTarget([25, 50, 75, 100, 3, 6]).join(" "));
 		console.log(`Time Spent: %c${new Date().getTime() - time}ms`, "color : orange");
+		console.log(isValidRPN("1 5 100 5 - * 9 - 10 + +", 477));
 	});
 })();		
