@@ -96,7 +96,7 @@
 		 * solve countdown
 		 * @param {String} [objective] - countdown objective
 		 *
-		 * @return {Array} [all valid countdowns]
+		 * @return {String} [valid countdown]
 		 */
 		function countDown(objective) {
 			let [nums, goal] = objective.split("makes").map(part => part.trim());
@@ -106,11 +106,11 @@
 			for(let i = 0; i < numPattern.length; i++) {
 				for(let j = 0; j < opPattern.length; j++) {
 					if(isValidExp(opPattern[j], numPattern[i], Number(goal))) {
-						countdowns.push(combinePattern(opPattern[j], numPattern[i]) + " = " + goal);
+						return combinePattern(opPattern[j], numPattern[i]) + " = " + goal;
 					}
 				}
 			}
-			return countdowns;
+			return null;
 		}
 		/**
 		 * check if a character is an operator
@@ -139,6 +139,51 @@
 				expression.splice(opIndex - 2, 0, evalExp(...expression.splice(opIndex - 2, 3)));
 			}
 			return expression[0] == goal;
+		}
+		/**
+		 * create RPN notations 
+		 * @param {String} [opPattern] - operator pattern
+		 * @param {Array} [numPattern] - number pattern
+		 * @param {int} [curPos] - current insertion position
+		 *
+		 * @return {Array} [combined expression]
+		 */
+		function createRPN(opPattern, numPattern, curPos = 2) {
+			if(!opPattern.length) {
+				return numPattern.join(" ");
+			}
+			let rpns = [];
+			for(let i = curPos; i <= numPattern.length; i++) {
+				let result = createRPN(opPattern.slice(1), [...numPattern.slice(0, i), opPattern[0], ...numPattern.slice(i)], i + 1);
+				if(Array.isArray(result)) {
+					rpns.push(...result);
+				} else {
+					rpns.push(result);
+				}
+			}
+			return rpns;
+		}
+		/**
+		 * solve count down with RPN rules applied
+		 * @param {String} [objective] - countdown objective
+		 *
+		 * @return {String} [valid countdown]
+		 */
+		function countDownRPN(objective) {
+			let [nums, goal] = objective.split("makes").map(part => part.trim());
+			let numPattern = permuteNumber(nums.split(" ").map(number => Number(number)));
+			let opPattern = combineOperator(nums.split(" ").length - 1);
+			for(let i = 0; i < numPattern.length; i++) {
+				for(let j = 0; j < opPattern.length; j++) {
+					let rpns = createRPN(opPattern[j], numPattern[i]);
+					for(let k = 0; k < rpns.length; k++) {
+						if(isValidRPN(rpns[k], Number(goal))) {
+							return rpns[k] + " = " + goal;
+						}
+					}
+				}
+			}
+			return null;
 		}
 		/**
 		 * check if a target total can be achieved with given numbers
@@ -172,22 +217,23 @@
 		}
 		//challenge 1 input
 		console.log(`%cChallenge 1 Input: `, "color : red;");
+		let time = new Date().getTime();
 		let input = "50 8 3 7 2 10 makes 556";
-		console.log(`%c${input} -> `, "color : orange;");
-		countDown(input).forEach(result => {
-			console.log(result);
-		});
+		console.log(`${input} -> %c${countDown(input)}`, "color : orange;");
 		input = "25 50 75 100 3 6 makes 952";
-		console.log(`%c${input} -> `, "color : orange;");
-		countDown(input).forEach(result => {
-			console.log(result);
-		});
+		console.log(`${input} -> %c${countDown(input)}`, "color : orange;");
+		console.log(`Time Spent: %c${new Date().getTime() - time}ms`, "color : orange");
+		//challenge 2 solution
+		console.log(`%cChallenge 2 Solution: `, "color : red;");
+		time = new Date().getTime();
+		input = "1 5 100 5 9 10 makes 477";
+		console.log(`${input} -> %c${countDownRPN(input)}`, "color : orange;");
+		console.log(`Time Spent: %c${new Date().getTime() - time}ms`, "color : orange");
 		//challenge 3 solution
 		console.log(`%cChallenge 3 Solution: `, "color : red;");
 		console.log(`%cNumbers from 0 to 1000 that Cannot be Obtained -> `, "color : orange;");
-		let time = new Date().getTime();
-		//console.log(findInvalidTarget([25, 50, 75, 100, 3, 6]).join(" "));
+		time = new Date().getTime();
+		console.log(findInvalidTarget([25, 50, 75, 100, 3, 6]).join(" "));
 		console.log(`Time Spent: %c${new Date().getTime() - time}ms`, "color : orange");
-		console.log(isValidRPN("1 5 100 5 - * 9 - 10 + +", 477));
 	});
 })();		
