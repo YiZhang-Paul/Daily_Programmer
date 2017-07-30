@@ -18,7 +18,7 @@
 				return acc;
 			}, {});
 			for(let digit in targetCount) {
-				if(targetCount[digit] && targetCount[digit] != realCount[digit]) {
+				if(targetCount[digit] != (realCount[digit] || 0)) {
 					return false;
 				}
 			}
@@ -38,9 +38,30 @@
 					describes.push(i);
 				}
 			}
-			return describes.length ? describes : "No Self-descriptive Number Found.";
+			return describes.length ? describes : ["No Self-descriptive Number Found."];
 		}
-		console.log(findSelfDescribe(3));
-		console.log(findSelfDescribe(4));
+		//default inpu
+		console.log(`%cDefault Input: `, "color : red;");
+		let input = 3;
+		let time = new Date().getTime();
+		console.log(`${input} -> `);
+		findSelfDescribe(input).forEach(row => {
+			console.log(`%c${row}`, "color : orange;");
+		});
+		console.log(`Time Spent: %c${new Date().getTime() - time}ms`, "color : orange;");
+		input = 4;
+		time = new Date().getTime();
+		console.log(`${input} -> `);
+		findSelfDescribe(input).forEach(row => {
+			console.log(`%c${row}`, "color : orange;");
+		});
+		console.log(`Time Spent: %c${new Date().getTime() - time}ms`, "color : orange;");
+		input = 5;
+		time = new Date().getTime();
+		console.log(`${input} -> `);
+		findSelfDescribe(input).forEach(row => {
+			console.log(`%c${row}`, "color : orange;");
+		});
+		console.log(`Time Spent: %c${new Date().getTime() - time}ms`, "color : orange;");
 	});
 })();		
