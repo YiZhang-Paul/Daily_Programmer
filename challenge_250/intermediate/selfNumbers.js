@@ -2,66 +2,38 @@
 (() => {
 	document.addEventListener("DOMContentLoaded", () => {
 		/**
-		 * check if a number is self-descriptive
-		 * @param {int} [number] - number to be checked
+		 * get all number combinations that add up to a given value
+		 * @param {int} [len] - total number of digits in combination
+		 * @param {int} [all0s] - total number of zeros seen so far
+		 * @param {int} [all1s] - total number of ones seen so far
+		 * @param {int} [curSum] - current total of selected numbers
+		 * @param {Array} [curNum] - current number selection
 		 *
-		 * @return {boolean} [test result]
+		 * @return {Array} [all number combinations]
 		 */
-		function isSelfDescribe(number) {
-			let digits = String(number).split("").map(num => Number(num));
-			let targetCount = digits.reduce((acc, val, index) => {
-				acc[index] = val;
-				return acc;
-			}, {}); 
-			let realCount = digits.reduce((acc, val) => {
-				acc[val] = acc[val] ? acc[val] + 1 : 1;
-				return acc;
-			}, {});
-			for(let digit in targetCount) {
-				if(targetCount[digit] != (realCount[digit] || 0)) {
-					return false;
+		function getNumCombine(len, all0s = 0, all1s = 0, curSum = 0, curNum = []) {
+			if(curNum.length == len && curSum == len) {
+				console.log(all0s, all1s, curNum);
+				return curNum.find(num => num == all0s) && curNum.find(num => num == all1s) ? curNum : null;
+			}
+			if(curSum > len || curSum + (len - curNum.length) * 9 < len) {
+				return null;
+			}
+			let selection = [];
+			for(let i = curNum[curNum.length - 1] || 0; i <= 9; i++) {
+				let result = getNumCombine(len, all0s + (i === 0 ? 1 : 0), all1s + (i == 1 ? 1 : 0), curSum + i, [...curNum, i]);
+				if(result && result.length) {
+					if(Array.isArray(result[0])) {
+						selection.push(...result);
+					} else {
+						selection.push(result);
+					}
 				}
 			}
-			return true;
+			return selection;
 		}
-		/**
-		 * find all self-descriptive numbers with a given range
-		 * @param {int} [len] - total number of digits
-		 *
-		 * @return {Array} [all self-descriptive numbers]
-		 */
-		function findSelfDescribe(len) {
-			let [start, end] = [Math.pow(10, len - 1), Math.pow(10, len) - 1];
-			let describes = [];
-			for(let i = start; i <= end; i++) {
-				if(isSelfDescribe(i)) {
-					describes.push(i);
-				}
-			}
-			return describes.length ? describes : ["No Self-descriptive Number Found."];
-		}
-		//default inpu
-		console.log(`%cDefault Input: `, "color : red;");
-		let input = 3;
 		let time = new Date().getTime();
-		console.log(`${input} -> `);
-		findSelfDescribe(input).forEach(row => {
-			console.log(`%c${row}`, "color : orange;");
-		});
-		console.log(`Time Spent: %c${new Date().getTime() - time}ms`, "color : orange;");
-		input = 4;
-		time = new Date().getTime();
-		console.log(`${input} -> `);
-		findSelfDescribe(input).forEach(row => {
-			console.log(`%c${row}`, "color : orange;");
-		});
-		console.log(`Time Spent: %c${new Date().getTime() - time}ms`, "color : orange;");
-		input = 5;
-		time = new Date().getTime();
-		console.log(`${input} -> `);
-		findSelfDescribe(input).forEach(row => {
-			console.log(`%c${row}`, "color : orange;");
-		});
-		console.log(`Time Spent: %c${new Date().getTime() - time}ms`, "color : orange;");
+		console.log(getNumCombine(10));
+		console.log(new Date().getTime() - time + "ms");
 	});
 })();		
