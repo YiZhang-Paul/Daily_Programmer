@@ -2,38 +2,56 @@
 (() => {
 	document.addEventListener("DOMContentLoaded", () => {
 		/**
-		 * get all number combinations that add up to a given value
-		 * @param {int} [len] - total number of digits in combination
-		 * @param {int} [all0s] - total number of zeros seen so far
-		 * @param {int} [all1s] - total number of ones seen so far
-		 * @param {int} [curSum] - current total of selected numbers
-		 * @param {Array} [curNum] - current number selection
+		 * check if a number exists inside of an array from backward
+		 * @param {int} [number] - number to be checked
+		 * @param {Array} [arr] - array to be checked against
+		 *
+		 * @return {boolean} [test result]
+		 */
+		function hasNum(number, arr) {
+			return arr.lastIndexOf(number) != -1;
+		}
+		/**
+		 * count total number of a given digit in an array
+		 * @param {int} [digit] - digit to be checked
+		 * @param {Array} [allNum] - all numbers 
+		 *
+		 * @return {int} [total number of digits]
+		 */
+		function countDigit(digit, allNum) {
+			return allNum.filter(number => number == digit).length;
+		}
+		/**
+		 * find all combination of numbers that add up to a given value
+		 * @param {int} [digits] - total number of digits
+		 * @param {int} [curSum] - current sum of all digits
+		 * @param {Array} [curNum] - current number selections
 		 *
 		 * @return {Array} [all number combinations]
 		 */
-		function getNumCombine(len, all0s = 0, all1s = 0, curSum = 0, curNum = []) {
-			if(curNum.length == len && curSum == len) {
-				console.log(all0s, all1s, curNum);
-				return curNum.find(num => num == all0s) && curNum.find(num => num == all1s) ? curNum : null;
+		function getNumCombine(digits, curSum = 0, curNum = []) {
+			if(curNum.length == digits && curSum == digits) {
+				let [zeros, ones] = [countDigit(0, curNum), countDigit(1, curNum)];
+				return hasNum(zeros, curNum) && hasNum(ones, curNum) ? curNum.reverse() : null;
 			}
-			if(curSum > len || curSum + (len - curNum.length) * 9 < len) {
+			if(curSum > digits || curSum + (digits - curNum.length) * 9 < digits) {
 				return null;
 			}
-			let selection = [];
-			for(let i = curNum[curNum.length - 1] || 0; i <= 9; i++) {
-				let result = getNumCombine(len, all0s + (i === 0 ? 1 : 0), all1s + (i == 1 ? 1 : 0), curSum + i, [...curNum, i]);
+			let selections = [], lastNum = curNum[curNum.length - 1];
+			for(let i = lastNum === undefined ? 0 : lastNum; i <= 9; i++) {
+				let result = getNumCombine(digits, curSum + i, [...curNum, i]);
 				if(result && result.length) {
 					if(Array.isArray(result[0])) {
-						selection.push(...result);
+						selections.push(...result);
 					} else {
-						selection.push(result);
+						selections.push(result);
 					}
 				}
 			}
-			return selection;
+			return selections;
 		}
-		let time = new Date().getTime();
+		console.log(getNumCombine(4));
 		console.log(getNumCombine(10));
-		console.log(new Date().getTime() - time + "ms");
+		console.log(getNumCombine(15));
 	});
 })();		
