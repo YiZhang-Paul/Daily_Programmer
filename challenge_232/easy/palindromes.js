@@ -2,12 +2,21 @@
 (() => {
 	document.addEventListener("DOMContentLoaded", () => {
 		/**
-		 * get word list
-		 * @param String
+		 * check if a word or sentence is a palindrome
+		 * @param {String} [sentence] - word or sentence to be checked
 		 *
-		 * url : URL of text file
+		 * @return {boolean} [test result]
+		 */
+		function isPalindrome(sentence) {
+			let chars = sentence.toLowerCase().match(/\w/g);
+			let center = chars.length % 2 ? (chars.length - 1) * 0.5 + 1 : chars.length * 0.5;
+			return chars.slice(0, center).join("") == chars.slice(-center).reverse().join("") ? "Palindrome." : "Not a Palindrome.";
+		} 
+		/**
+		 * retrieve word list
+		 * @param {String} [url] - word list file URL
 		 *
-		 * returns obj {}
+		 * @return {Array} [word list]
 		 */
 		function getWordList(url) {
 			return new Promise((resolve, reject) => {
@@ -16,177 +25,76 @@
 					if(this.readyState == 4 && this.status == 200) {
 						resolve(this.responseText.split("\n").map(word => word.trim()));
 					}
-				}; 
+				};
 				xhttp.open("GET", url, true);
 				xhttp.send();
 			});
 		}
 		/**
-		 * combine words together
-		 * @param String
+		 * construct dictionary
+		 * @param {Array} [list] - list of all words
 		 *
-		 * sentence : sentence to be combined
-		 *
-		 * returns String
+		 * @return {Object} [dictionary]
 		 */
-		function combineWord(sentence) {
-			return sentence.match(/\w/g).join("").toLowerCase();
-		} 
+		function makeDictionary(list) {
+			return new Set(list);
+		}
 		/**
-		 * check if a word or sentence is palindrome
-		 * @param String
+		 * reverse a word
+		 * @param {String} [word] - word to be reversed
 		 *
-		 * sentence : word or sentence to be examined
-		 * 
-		 * returns String
+		 * @return {String} [reversed word]
 		 */
-		function isPalindrome(sentence) {
-			sentence = /\W/.test(sentence) ? combineWord(sentence) : sentence;
-			for(let i = 0, j = sentence.length - 1; i < sentence.length; i++) {
-				if(sentence[i] != sentence[j--]) return "Not a palindrome";
-				if(i + 1 == j || i + 1 > j) return "Palindrome";
-			}
-		} 
-		/**
-		 * reverse a word 
-		 * @param String
-		 *
-		 * word : word to be reversed
-		 * 
-		 * returns String
-		 */ 
 		function reverseWord(word) {
 			return word.split("").reverse().join("");
-		} 
+		}
 		/**
-		 * construct word table 
-		 * categorized by initial letter
-		 * @param array []
+		 * find possible reverses of words that can form palindrome
+		 * @param {String} [word] - word to be examined
+		 * @param {int} [minLen] - minimum length of the other word to form palindrome 
 		 *
-		 * list : list of all words
-		 *
-		 * returns obj {}
+		 * @return {Array} [all possible reverses]
 		 */
-		function categorizeWord(list) {
-			let category = new Map();
-			for(let i = 0; i < list.length; i++) {
-				if(category.get(list[i][0])) {
-					category.get(list[i][0]).push(list[i]);
-				} else {
-					category.set(list[i][0], [list[i]]);
+		function findReflection(word, minLen = 2) {
+			let minTotalLen = word.length + minLen;
+			let center = (minTotalLen) % 2 ? (minTotalLen - 1) * 0.5 : minTotalLen * 0.5;
+			let reflections = [reverseWord(word), reverseWord(word.slice(0, -1))];
+			for(let i = center; i < word.length - 1; i++) {
+				let tail = reverseWord(word.slice(i));
+				let [reverse1, reverse2] = [word.slice(i - tail.length, i), word.slice(i - tail.length + 1, i + 1)];
+				if(tail == reverse1 || tail == reverse2) {
+					reflections.push(reverseWord(word.slice(0, tail == reverse1 ? i : i + 1)).slice(tail.length));
 				}
 			}
-			return category;
-		} 
-		/**
-		 * find palindromes from groups of words 
-		 * with same initial letter
-		 * @param array [], array []
-		 *
-		 * categoryA : word category A
-		 * categoryB : word category B
-		 *
-		 * returns obj {}
-		 */
-		function sameInitialPalindrome(categoryA, categoryB) {
-			return new Promise((resolve, reject) => {
-				let palindrome = [], checked = 0, totalWorker = Math.min(8, categoryA.length);
-				let makeWorker = index => {
-					let worker = new Worker("worker.js");
-					worker.postMessage([categoryA[index], categoryB]);
-					worker.addEventListener("message", function(e) {
-						palindrome.push(...e.data);
-						worker.terminate();
-						if(++checked == 10) {
-							resolve(palindrome);
-						} else if(totalWorker++ < 10) {
-							makeWorker(++index);
-						}
-						this.removeEventListener("message", arguments.callee);
-					});
-				};
-				for(let i = 0; i < totalWorker; i++) {
-					makeWorker(i);
-				}
-			});
-		} 
-		/**
-		 * find two-word palindrome from all words
-		 * @param array []
-		 *
-		 * list : list of all words
-		 *
-		 * returns array []
-		 */ 
-		function getTwoWordPalindrome(list) {
-			let ordered = list.slice();
-			let reversed = list.slice()
-			                   .map(word => reverseWord(word))
-			                   .sort((a, b) => a[0].charCodeAt() - b[0].charCodeAt());
-			[ordered, reversed] = [categorizeWord(ordered), categorizeWord(reversed)];
-			let palindrome = [];
-			for(let i = "a".charCodeAt(); i < "a".charCodeAt() + 26; i++) {
-				let initial = String.fromCharCode(i);
-				palindrome.push(sameInitialPalindrome(ordered.get(initial), reversed.get(initial)));
-			}
-			return palindrome;                          
-		} 
-		//default input
-		console.log(`%cDefault Input: `, "color : red;");
-		let input = `Was it a car
-								 or a cat
-								 I saw?`;
-		console.log(`${input.split("\n").map(line => line.trim()).join(" ")} %c-> ${isPalindrome(input)}`, "color : yellow;");						 
-		input = `A man, a plan, 
-						 a canal, a hedgehog, 
-						 a podiatrist, 
-						 Panama!`;						 
-		console.log(`${input.split("\n").map(line => line.trim()).join(" ")} %c-> ${isPalindrome(input)}`, "color : yellow;");						 
-		//challenge input
-		console.log(`%cChallenge Input: `, "color : red;");
-		input = `Are we not drawn onward, 
-             we few, drawn onward to new area?`;
-		console.log(`${input.split("\n").map(line => line.trim()).join(" ")} %c-> ${isPalindrome(input)}`, "color : yellow;");						 
-    input = `Dammit I'm mad.
-					   Evil is a deed as I live.
-					   God, am I reviled? I rise, my bed on a sun, I melt.
-					   To be not one man emanating is sad. I piss.
-					   Alas, it is so late. Who stops to help?
-					   Man, it is hot. I'm in it. I tell.
-					   I am not a devil. I level "Mad Dog".
-					   Ah, say burning is, as a deified gulp,
-					   In my halo of a mired rum tin.
-					   I erase many men. Oh, to be man, a sin.
-					   Is evil in a clam? In a trap?
-					   No. It is open. On it I was stuck.
-					   Rats peed on hope. Elsewhere dips a web.
-					   Be still if I fill its ebb.
-					   Ew, a spider… eh?
-					   We sleep. Oh no!
-					   Deep, stark cuts saw it in one position.
-					   Part animal, can I live? Sin is a name.
-					   Both, one… my names are in it.
-					   Murder? I'm a fool.
-					   A hymn I plug, deified as a sign in ruby ash,
-					   A Goddam level I lived at.
-					   On mail let it in. I'm it.
-					   Oh, sit in ample hot spots. Oh wet!
-					   A loss it is alas (sip). I'd assign it a name.
-					   Name not one bottle minus an ode by me:
-					   "Sir, I deliver. I'm a dog"
-					   Evil is a deed as I live.
-					   Dammit I'm mad.`;         
-		console.log(`${input.split("\n").map(line => line.trim()).join(" ")} %c-> ${isPalindrome(input)}`, "color : yellow;");						 
-		//bonus input
-		console.log(`%cBonus Input: `, "color : red;");
+			return reflections;
+		}
+		// //default input
+		// console.log(`%cDefault Input: `, "color : red;");
+		// let input = `Was it a car
+		// 						 or a cat
+		// 						 I saw?`;
+		// console.log(`${input.split("\n").map(line => line.trim()).join("\n")}`);
+		// console.log(`%c-> ${isPalindrome(input)}`, "color : orange;");		
+		// input = `A man, a plan, 
+  //            a canal, a hedgehog, 
+  //            a podiatrist, 
+  //            Panama!`;
+		// console.log(`${input.split("\n").map(line => line.trim()).join("\n")}`);
+		// console.log(`%c-> ${isPalindrome(input)}`, "color : orange;");	
+		// //challenge input
+		// console.log(`%cChallenge Input: `, "color : red;");
+		// input = `Are we not drawn onward, 
+  //            we few, drawn onward to new area?`;
+		// console.log(`${input.split("\n").map(line => line.trim()).join("\n")}`);
+		// console.log(`%c-> ${isPalindrome(input)}`, "color : orange;");					
+		// getWordList("poem.txt").then(result => {
+		// 	console.log(`${result.join("\n")}`);
+		// 	console.log(`%c-> ${isPalindrome(result.join(""))}`, "color : orange;");	
+		// });		 
 		getWordList("wordList.txt").then(result => {
 			let time = new Date().getTime();
-			Promise.all(getTwoWordPalindrome(result)).then(values => {
-				console.log(`Time Spent: %c${new Date().getTime() - time}ms`, "color : red;");
-				values = values.reduce((acc, val) => [...acc, ...val], []);
-				console.log(values);
-				console.log(`Palindromes Found: %c${values.length}`, "color : red;");
-			});
+			console.log(makeDictionary(result));
+			console.log(`Time Spent : %c${new Date().getTime() - time}ms`, "color : orange;");
 		});
 	});
 })();		
