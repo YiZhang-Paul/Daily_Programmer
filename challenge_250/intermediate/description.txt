@@ -1,5 +1,7 @@
 #250[Intermediate] Self-descriptive numbers
 
+All Done
+
 url: https://www.reddit.com/r/dailyprogrammer/comments/41tdzy/20160120_challenge_250_intermediate/
 
 A descriptive number tells us how many digits we have depending on its index.
