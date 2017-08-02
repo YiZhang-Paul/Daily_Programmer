@@ -2,76 +2,136 @@
 (() => {
 	document.addEventListener("DOMContentLoaded", () => {
 		/**
-		 * find open bracket
-		 * @param {Array} [brackets] - all brackets
+		 * check if a bracket is open bracket
+		 * @param {char} [bracket] - bracket to be checked
 		 *
-		 * @return {int} [index of deepest open bracket]
+		 * @return {boolean} [test result]
 		 */
-		function findOpenBracket(brackets) {
-			return Math.max(brackets.lastIndexOf("("), brackets.lastIndexOf("{"), brackets.lastIndexOf("["));
+		function isOpen(bracket) {
+			return new Set("({[").has(bracket);
 		}
 		/**
-		 * find close bracket
-		 * @param {Array} [brackets] - all brackets
-		 * @param {int} [open] - index of open bracket
+		 * check if a bracket is close bracket
+		 * @param {char} [bracket] - bracket to be checked
 		 *
-		 * @return {int} [index of deepest close bracket]
+		 * @return {boolean} [test result]
 		 */
-		function findCloseBracket(brackets, open) {
-			let indexes = [brackets.indexOf(")", open + 1), brackets.indexOf("}", open + 1), brackets.indexOf("]", open + 1)].filter(index => index != -1);
-			return indexes.length ? Math.min(...indexes) : -1;
+		function isClose(bracket) {
+			return new Set(")}]").has(bracket);
 		}
 		/**
-		 * match open bracket
+		 * find deepest nested open bracket
+		 * @param {Array} [brackets] - all brackets
+		 *
+		 * @return {int} [index of open bracket]
+		 */
+		function openIndex(brackets) {
+			return brackets.length - 1 - brackets.slice().reverse().findIndex(bracket => isOpen(bracket));
+		}
+		/**
+		 * find deepest nested close bracket
+		 * @param {Array} [brackets] - all brackets
+		 * @param {int} [open] - index of matching open bracket
+		 *
+		 * @return {int} [index of close bracket]
+		 */
+		function closeIndex(brackets, open) {
+			return brackets.slice(open + 1).findIndex(bracket => isClose(bracket)) + open + 1;
+		}
+		/**
+		 * get total number of open brackets
+		 * @param {Array} [brackets] - all brackets
+		 *
+		 * @return {int} [total number of open brackets]
+		 */
+		function totalOpen(brackets) {
+			return brackets.filter(bracket => isOpen(bracket)).length;
+		}
+		/**
+		 * get total number of close brackets
+		 * @param {Array} [brackets] - all brackets
+		 *
+		 * @return {int} [total number of close brackets]
+		 */
+		function totalClose(brackets) {
+			return brackets.filter(bracket => isClose(bracket)).length;
+		}
+		/**
+		 * generate matching close bracket for a given open bracket
 		 * @param {char} [open] - open bracket
 		 *
 		 * @return {char} [matching close bracket]
 		 */
-		function matchBracket(open) {
+		function generateClose(open) {
 			return open == "(" ? ")" : (open == "{" ? "}" : "]");
 		}
 		/**
-		 * check if brackets dismatch or missing
-		 * @param {String} [string] - string to be checked
+		 * check if brackets matches up or are missing
+		 * @param {String} [string] - string to be validated
 		 *
-		 * @return {int} [test result]
+		 * @return {Array} [test result]
 		 */
-		function vaildateBracket(string) {
+		function validateBracket(string) {
 			let brackets = string.match(/\{|\}|\(|\)|\[|\]/g);
+			let [opens, closes] = [totalOpen(brackets), totalClose(brackets)];
+			if(opens != closes) {
+				return ["Error", `Missing ${opens > closes ? "Closing" : "Opening"} Bracket.`];
+			}
 			let checked = 0;
 			while(checked != brackets.length) {
-				let open = findOpenBracket(brackets);
-				if(open == -1) {
-					return "Missing Opening Bracket.";
+				let oIndex = openIndex(brackets);
+				let cIndex = closeIndex(brackets, oIndex);
+				if(generateClose(brackets[oIndex]) != brackets[cIndex]) {
+					return ["Error", `Mismatched Bracket ${brackets[cIndex]} Instead of ${generateClose(brackets[oIndex])} Found.`];
 				}
-				let close = findCloseBracket(brackets, open);
-				if(close == -1) {
-					return "Missing Closing Bracket.";					
-				}
-				if(matchBracket(brackets[open]) != brackets[close]) {
-					return `Mismatched Bracket ${brackets[close]} Instead of ${matchBracket(brackets[open])} Found.`;
-				}
-				[brackets[open], brackets[close], checked] = [0, 0, checked + 2];
+				[brackets[oIndex], brackets[cIndex], checked] = [0, 0, checked + 2];
 			}
-			return brackets;
+		}
+		/**
+		 * find deepest nested brackets and its contents
+		 * @param {String} [string] - string to be tested
+		 *
+		 * @return {Array} [search result]
+		 */
+		function deepestBracket(string) {
+			return /\((\w|\s)*\)|\{(\w|\s)*\}|\[(\w|\s)*\]/g.exec(string); 
+		}
+		/**
+		 * decode brackets
+		 * @param {String} [string] - string to be decoded
+		 *
+		 * @return {String} [decoded string]
+		 */
+		function decode(string) {
+			let validateError = validateBracket(string);
+			if(validateError) {
+				return validateError[1];
+			}
+			let decoded = "", deepest = deepestBracket(string);
+			while(deepest) {
+				decoded += " " + deepest[0].slice(1, -1);
+				string = string.slice(0, deepest.index) + string.slice(deepest.index + deepest[0].length);
+				deepest = deepestBracket(string);
+			}
+			return decoded.split(" ").filter(word => word).map(word => word.trim()).join(" ");
 		}
 		//challenge input
 		console.log(`%cChallenge Input: `, "color : red;");
 		let input = "((your[drink {remember to}]) ovaltine)";
-		console.log(`${input} -> %c${vaildateBracket(input)}`, "color : orange;");
+		console.log(`${input} -> %c${decode(input)}`, "color : orange;");
 		input = "[racket for {brackets (matching) is a} computers]";
-		console.log(`${input} -> %c${vaildateBracket(input)}`, "color : orange;");
+		console.log(`${input} -> %c${decode(input)}`, "color : orange;");
 		input = "[can {and it(it (mix) up ) } look silly]";
-		console.log(`${input} -> %c${vaildateBracket(input)}`, "color : orange;");
+		console.log(`${input} -> %c${decode(input)}`, "color : orange;");
 		//bonus input
 		console.log(`%cChallenge Input: `, "color : red;");
 		input = "((your[drink {remember to))) ovaltine)";
-		console.log(`${input} -> %c${vaildateBracket(input)}`, "color : orange;");
+		console.log(`${input} -> %c${decode(input)}`, "color : orange;");
 		input = "[can {and it(it (mix) up ) look silly]";
-		console.log(`${input} -> %c${vaildateBracket(input)}`, "color : orange;");
+		console.log(`${input} -> %c${decode(input)}`, "color : orange;");
 		input = "[racket for brackets (matching) is a} computers]";
-		console.log(`${input} -> %c${vaildateBracket(input)}`, "color : orange;");
+		console.log(`${input} -> %c${decode(input)}`, "color : orange;");
 		input = "{years [four score] ago (and seven) our fathers}";
-		console.log(`${input} -> %c${vaildateBracket(input)}`, "color : orange;");
+		console.log(`${input} -> %c${decode(input)}`, "color : orange;");
 	});
 })();			
