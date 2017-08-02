@@ -1,5 +1,7 @@
 #175[Intermediate] Largest Word from Characters
 
+All Done
+
 url: https://www.reddit.com/r/dailyprogrammer/comments/2dgd5v/8132014_challenge_175_intermediate_largest_word/
 
 Given a string of words and a string of letters. Find the largest string(s) that are in the 1st string of words that can be formed from the letters in the 2nd string.
