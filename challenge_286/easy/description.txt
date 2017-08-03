@@ -1,5 +1,7 @@
 #286[Easy] Reverse Factorial
 
+All Done
+
 url: https://www.reddit.com/r/dailyprogrammer/comments/55nior/20161003_challenge_286_easy_reverse_factorial/
 
 Nearly everyone is familiar with the factorial operator in math. 5! yields 120 because factorial means "multiply successive terms where each are one less than the previous":
