@@ -59,7 +59,7 @@
 			let grids = getSurroundGrids(cords);
 			for(let i = 0; i < grids.length; i++) {
 				let testGrid = getGrid(maze, grids[i][1]);
-				if(testGrid && !testGrid[1].has(grids[i][0]) && testGrid[0] == nextMove) {
+				if(testGrid && testGrid[0] == nextMove) {
 					availableDirs.push(grids[i]);
 				}
 			}             
@@ -80,37 +80,28 @@
 			}
 		}
 		/**
-		 * move onto a grid
-		 * @param {Array} [maze] - maze to be traversed
-		 * @param {Array} [target] - target direction and grid coordinate 
-		 * @param {Array} [paths] - current path
-		 *
-		 * @return {Array} [updated path]
-		 */
-		function moveToGrid(maze, target, paths = []) {
-			let [direction, targetCord] = target;
-			getGrid(maze, targetCord)[1].add(oppositeDir(direction));
-			paths.push(targetCord);
-			return paths;
-		}
-		/**
 		 * find path to move out of maze
-		 * @param {[type]} [varname] [description]
+		 * @param {Array} [maze] - maze to be traversed
+		 * @param {Array} [moves] - all moves to be followed
+		 * @param {Array} [paths] - current paths
+		 * @param {int} [curStep] - current step
+		 * @param {int} [revisited] - total time of revisiting a grid
+		 *
+		 * @return {Array} [path to get out of maze]
 		 */
-		function findPath(maze, moves, paths, curStep = 0) {
+		function findPath(maze, moves, paths, curStep = 0, revisited = 0) {
 			let curCord = paths[paths.length - 1];
 			if(curCord.y === 0) {
-				return paths;
+				return paths.map(grid => [maze[grid.y][grid.x][0], grid]);
 			}
 			let validDirs = canMoveTo(maze, curCord, moves[(curStep + 1) % moves.length]);
-			if(!validDirs.length) {
-				return [];
-			}
 			for(let i = 0; i < validDirs.length; i++) {
 				let [direction, nextCord] = validDirs[i];
-				if(!getGrid(maze, nextCord)[1].has(direction)) {
-					maze[curCord.y][curCord.x][1].add(oppositeDir(direction));
-					let result = findPath(maze, moves, [...paths, nextCord], curStep + 1);
+				//record visited grid and set revisiting limit to 1
+				getGrid(maze, curCord)[1].add(oppositeDir(direction));
+				let revisiting = getGrid(maze, nextCord)[1].has(direction);
+				if(!revisiting || !revisited) {
+					let result = findPath(maze, moves, [...paths, nextCord], curStep + 1, revisiting ? 1 : 0);
 					if(result.length) {
 						return result;
 					}
@@ -120,35 +111,47 @@
 		}
 		/**
 		 * find path to get out of maze
-		 * @param {Array} [layout] - maze layout
-		 * @param {Arary} [moves] - moves to be followed
+		 * @param {Array} [maze] - maze to be traversed
+		 * @param {Array} [moves] - moves to be followed
 		 *
 		 * @return {Array} [coordinates of each move]
 		 */
-		function moveOutMaze(layout, moves) {
-			let maze = makeMaze(layout);
+		function moveOutMaze(maze, moves) {
 			let startY = maze.length - 1;
 			let startX = getStartIndex(maze[startY], moves[0], 0);
-			let paths = findPath(maze, moves, [{x : startX, y : startY}]), curStart = startX + 1;
+			let paths = findPath(maze, moves, [{x : startX, y : startY}]);
 			while(!paths.length) {
-				startX = getStartIndex(maze[startY], moves[0], curStart);
+				startX = getStartIndex(maze[startY], moves[0], startX + 1);
 				if(startX == -1) {
 					break;
 				}
-				curStart = startX + 1;
 				paths = findPath(maze, moves, [{x : startX, y : startY}]);
 			}
 			return paths;
 		}
+		/**
+		 * display route 
+		 * @param {Array} [layout] - maze layout
+		 * @param {Array} [moves] - moves to be followed
+		 */
+		function displayPath(layout, moves) {
+			let maze = makeMaze(layout);
+			moveOutMaze(maze, moves).forEach(grid => {
+				 maze[grid[1].y][grid[1].x] = grid[0];
+			});
+			maze.forEach(row => {
+				console.log(row.map(grid => Array.isArray(grid) ? "/" : grid).join(" "));
+			});
+		}
 		//default input
 		console.log(`%cDefault Input: `, "color : red;");
 		let layout = `B O R O Y
-                 O R B G R
-                 B O G O Y 
-                 Y G B Y G 
-                 R O R B R`;
+                  O R B G R
+                  B O G O Y 
+                  Y G B Y G 
+                  R O R B R`;
     let moves = ["O", "G"];             
-    console.log(moveOutMaze(layout, moves));   
+    displayPath(layout, moves);     
     //challenge input
 		console.log(`%cChallenge Input: `, "color : red;");  
 		layout = `R R B R R R B P Y G P B B B G P B P P R
@@ -172,6 +175,6 @@
 							P O O O P Y G G Y P O G P O B G P R P B
 							R B B R R R R B B B Y O B G P G G O O Y`;
 		moves = ["R", "O", "Y", "P", "O"];        
-    console.log(moveOutMaze(layout, moves));  
+    displayPath(layout, moves);  
 	});
 })();			
