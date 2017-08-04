@@ -7,20 +7,19 @@
 		 *
 		 * @return {Array} [maze]
 		 */
-		function makeMaze(layout) {
-			return layout.split("\n")
-			             .map(line => line.trim().split(" ").map(grid => [grid, new Set()]));
+		function createMaze(layout) {
+			return layout.split("\n").map(line => line.trim().split(" ").map(grid => [grid, new Set()]));
 		}
 		/**
 		 * determine starting point index
-		 * @param {Array} [startRow] - starting row
+		 * @param {Array} [row] - starting row
 		 * @param {char} [move] - starting move
-		 * @param {int} [lastIndex] - index of last invalid start point
+		 * @param {int} [lastIndex] - index of last invalid starting point
 		 *
 		 * @return {int} [index of starting point]
 		 */
-		function getStartIndex(startRow, move, lastIndex = 0) {
-			let index = startRow.slice(lastIndex).findIndex(grid => grid[0] == move);
+		function getStartIndex(row, move, lastIndex) {
+			let index = row.slice(lastIndex).findIndex(grid => grid[0] == move);
 			return index == -1 ? -1 : index + lastIndex;
 		}
 		/**
@@ -35,40 +34,39 @@
 		}
 		/**
 		 * get grid direction and coordinates on all four directions
-		 * @param {Object} [cords] - current coordinates
+		 * @param {Object} [cords] - current coordinate
 		 *
 		 * @return {Array} [direction and coordinates on all four directions]
 		 */
-		function getSurroundGrids(cords) {
+		function getSurroundGrid(cords) {
 			return [["up", {x : cords.x, y : cords.y - 1}],
 			        ["down", {x : cords.x, y : cords.y + 1}],
-			        ["left", {x : cords.x - 1 , y : cords.y}],
+			        ["left", {x : cords.x - 1, y : cords.y}],
 			        ["right", {x : cords.x + 1, y : cords.y}]];
 		}
 		/**
-		 * check all four directions and determine 
-		 * all grids can be moved onto
+		 * check valid directions can move to 
 		 * @param {Array} [maze] - maze to be traversed
 		 * @param {Object} [cords] - current coordinate
-		 * @param {char} [nextMove] - next available move
-		 * 
-		 * @return {Array} [all directions available]
+		 * @param {char} [nextMove] - next move
+		 *
+		 * @return {Array} [all valid directions]
 		 */
 		function canMoveTo(maze, cords, nextMove) {
-			let availableDirs = [];
-			let grids = getSurroundGrids(cords);
+			let validDirs = [];
+			let grids = getSurroundGrid(cords);
 			for(let i = 0; i < grids.length; i++) {
 				let testGrid = getGrid(maze, grids[i][1]);
 				if(testGrid && testGrid[0] == nextMove) {
-					availableDirs.push(grids[i]);
+					validDirs.push(grids[i]);
 				}
-			}             
-			return availableDirs;
+			}
+			return validDirs;
 		}
 		/**
 		 * find opposite direction
 		 * @param {String} [curDir] - current direction
-		 * 
+		 *
 		 * @return {String} [opposite direction]
 		 */
 		function oppositeDir(curDir) {
@@ -76,18 +74,18 @@
 				case "up" : case "down" :
 					return curDir == "up" ? "down" : "up";
 				case "left" : case "right" :
-					return curDir == "left" ? "right" : "left";
+					return curDir == "left" ? "right" : "left";	
 			}
 		}
 		/**
 		 * find path to move out of maze
 		 * @param {Array} [maze] - maze to be traversed
-		 * @param {Array} [moves] - all moves to be followed
-		 * @param {Array} [paths] - current paths
+		 * @param {Array} [moves] - all moves 
+		 * @param {Array} [paths] - current path
 		 * @param {int} [curStep] - current step
-		 * @param {int} [revisited] - total time of revisiting a grid
+		 * @param {int} [revisited] - current number of revisits
 		 *
-		 * @return {Array} [path to get out of maze]
+		 * @return {Array} [path to move out of maze]
 		 */
 		function findPath(maze, moves, paths, curStep = 0, revisited = 0) {
 			let curCord = paths[paths.length - 1];
@@ -97,7 +95,7 @@
 			let validDirs = canMoveTo(maze, curCord, moves[(curStep + 1) % moves.length]);
 			for(let i = 0; i < validDirs.length; i++) {
 				let [direction, nextCord] = validDirs[i];
-				//record visited grid and set revisiting limit to 1
+				//record visited grid and set revisiting limit
 				getGrid(maze, curCord)[1].add(oppositeDir(direction));
 				let revisiting = getGrid(maze, nextCord)[1].has(direction);
 				if(!revisiting || !revisited) {
@@ -112,9 +110,9 @@
 		/**
 		 * find path to get out of maze
 		 * @param {Array} [maze] - maze to be traversed
-		 * @param {Array} [moves] - moves to be followed
+		 * @param {Array} [moves] - all moves
 		 *
-		 * @return {Array} [coordinates of each move]
+		 * @return {Array} [coordinates along the path]
 		 */
 		function moveOutMaze(maze, moves) {
 			let startY = maze.length - 1;
@@ -130,14 +128,14 @@
 			return paths;
 		}
 		/**
-		 * display route 
-		 * @param {Array} [layout] - maze layout
-		 * @param {Array} [moves] - moves to be followed
+		 * display route
+		 * @param {String} [layout] - maze layout
+		 * @param {Array} [moves] - all moves
 		 */
-		function displayPath(layout, moves) {
-			let maze = makeMaze(layout);
+		function displayRoute(layour, moves) {
+			let maze = createMaze(layout);
 			moveOutMaze(maze, moves).forEach(grid => {
-				 maze[grid[1].y][grid[1].x] = grid[0];
+				maze[grid[1].y][grid[1].x] = grid[0];
 			});
 			maze.forEach(row => {
 				console.log(row.map(grid => Array.isArray(grid) ? "/" : grid).join(" "));
@@ -150,8 +148,8 @@
                   B O G O Y 
                   Y G B Y G 
                   R O R B R`;
-    let moves = ["O", "G"];             
-    displayPath(layout, moves);     
+    let moves = ["O", "G"];   
+    displayRoute(layout, moves);
     //challenge input
 		console.log(`%cChallenge Input: `, "color : red;");  
 		layout = `R R B R R R B P Y G P B B B G P B P P R
@@ -174,7 +172,7 @@
 							Y B Y Y G B R R O B O P P O B O R R R P
 							P O O O P Y G G Y P O G P O B G P R P B
 							R B B R R R R B B B Y O B G P G G O O Y`;
-		moves = ["R", "O", "Y", "P", "O"];        
-    displayPath(layout, moves);  
+		moves = ["R", "O", "Y", "P", "O"]; 
+		displayRoute(layout, moves);
 	});
 })();			
