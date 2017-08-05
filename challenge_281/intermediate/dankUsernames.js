@@ -58,14 +58,36 @@
 			list = list.filter(word => word.length <= name.length).sort((a, b) => b.length - a.length);
 			let firstMatch = list.find(word => isEmbed(word, name));
 			if(!firstMatch) {
-				return "No Dank Name Found.";
+				return null;
 			}
 			return list.filter(word => word.length == firstMatch.length && isEmbed(word, name))
 			           .map(word => word[0].toUpperCase() + word.slice(1));
 		}
-
-		//default input
+		/**
+		 * find dank name pair that scores highest
+		 * @param {String} [name] - user name
+		 * @param {Array} [list] - list of all words
+		 *
+		 * @return {String} [highest scored dank name pair]
+		 */
+		function maxDankNamePair(name, list) {
+			name = name.split(" ").join("").toLowerCase();
+			let dankPairs = [];
+			for(let i = 1; i < name.length; i++) {
+				let [leftDank, rightDank] = [longestDankName(name.slice(0, i), list), longestDankName(name.slice(i), list)];
+				if(leftDank && rightDank) {
+					dankPairs.push([leftDank[0], rightDank[0]]);
+				}
+			}
+			return !dankPairs.length ? "No Dank Pairs Found." : dankPairs.reduce((acc, val) => {
+				let score1 = Math.pow(acc[0].length, 2) + Math.pow(acc[1].length, 2);
+				let score2 = Math.pow(val[0].length, 2) + Math.pow(val[1].length, 2);
+				return score1 < score2 ? val : acc;
+			}).join(" ");
+		}
+		//default & challenge input & bonus input
 		getWordList("wordList.txt").then(list => {
+			//default input
 			console.log(`%cDefault Input: `, "color : red;");
 			let input = "Donald Knuth";
 			let time = new Date().getTime();
@@ -87,6 +109,55 @@
 			longestDankName(input, list).forEach(name => {
 				console.log(`%c${name}`, "color : orange;");
 			});
+			console.log(`Time Spent: %c${new Date().getTime() - time}ms`, "color : orange;");
+			//challenge input
+			console.log(`%cChallenge Input: `, "color : red;");
+			input = "Ada Lovelace";
+			time = new Date().getTime();
+      console.log(`${input} -> `);
+			longestDankName(input, list).forEach(name => {
+				console.log(`%c${name}`, "color : orange;");
+			});
+			console.log(`Time Spent: %c${new Date().getTime() - time}ms`, "color : orange;");
+      input = "Haskell Curry";
+      time = new Date().getTime();
+      console.log(`${input} -> `);
+			longestDankName(input, list).forEach(name => {
+				console.log(`%c${name}`, "color : orange;");
+			});
+			console.log(`Time Spent: %c${new Date().getTime() - time}ms`, "color : orange;");
+      input = "Yi Zhang";
+      time = new Date().getTime();
+      console.log(`${input} -> `);
+			longestDankName(input, list).forEach(name => {
+				console.log(`%c${name}`, "color : orange;");
+			});
+			console.log(`Time Spent: %c${new Date().getTime() - time}ms`, "color : orange;");
+			//bonus input
+			console.log(`%cBonus Input: `, "color : red;");
+			input = "Donald Knuth";
+			time = new Date().getTime();
+			console.log(`${input} -> %c${maxDankNamePair(input, list)}`, "color : orange;");
+			console.log(`Time Spent: %c${new Date().getTime() - time}ms`, "color : orange;");
+      input = "Alan Turing";
+      time = new Date().getTime();
+			console.log(`${input} -> %c${maxDankNamePair(input, list)}`, "color : orange;");
+			console.log(`Time Spent: %c${new Date().getTime() - time}ms`, "color : orange;");
+      input = "Claude Shannon";
+      time = new Date().getTime();
+			console.log(`${input} -> %c${maxDankNamePair(input, list)}`, "color : orange;");
+			console.log(`Time Spent: %c${new Date().getTime() - time}ms`, "color : orange;");
+      input = "Ada Lovelace";
+      time = new Date().getTime();
+			console.log(`${input} -> %c${maxDankNamePair(input, list)}`, "color : orange;");
+			console.log(`Time Spent: %c${new Date().getTime() - time}ms`, "color : orange;");
+      input = "Haskell Curry";
+      time = new Date().getTime();
+			console.log(`${input} -> %c${maxDankNamePair(input, list)}`, "color : orange;");
+			console.log(`Time Spent: %c${new Date().getTime() - time}ms`, "color : orange;");
+      input = "Yi Zhang";
+      time = new Date().getTime();
+			console.log(`${input} -> %c${maxDankNamePair(input, list)}`, "color : orange;");
 			console.log(`Time Spent: %c${new Date().getTime() - time}ms`, "color : orange;");
 		});
 	});
