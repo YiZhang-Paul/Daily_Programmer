@@ -132,7 +132,7 @@
 		 * @param {String} [layout] - maze layout
 		 * @param {Array} [moves] - all moves
 		 */
-		function displayRoute(layour, moves) {
+		function displayRoute(layout, moves) {
 			let maze = createMaze(layout);
 			moveOutMaze(maze, moves).forEach(grid => {
 				maze[grid[1].y][grid[1].x] = grid[0];
@@ -140,6 +140,78 @@
 			maze.forEach(row => {
 				console.log(row.map(grid => Array.isArray(grid) ? "/" : grid).join(" "));
 			});
+		}
+		/**
+		 * retrieve image
+		 * @param {String} [url] - image URL
+		 *
+		 * @return {Object} [Promise object]
+		 */
+		function getImg(url) {
+			return new Promise((resolve, reject) => {
+				let image = new Image();
+				image.src = url;
+				image.addEventListener("load", () => {
+					resolve(image);
+				});
+			});
+		}
+		/**
+		 * get color of a grid
+		 * @param {Object} [ctx] - canvas 2D drawing context
+		 * @param {int} [col] - column number
+		 * @param {int} [row] - row number
+		 * @param {int} [gridWidth] - dimension of each grid
+		 *
+		 * @return {char} [grid color initial] 
+		 */
+		function getColor(ctx, col, row, gridWidth = 100) {
+			let colorData = ctx.getImageData((col + 0.2) * gridWidth, (row + 0.2) * gridWidth, 1, 1).data.slice(0, 3).join("");
+			let color;
+			switch(colorData) {
+				case "25500" :
+				  color = "R";
+				  break;
+				case "01280" :
+					color = "G";
+					break;
+				case "00255" :
+					color = "B";
+					break;
+				case "2551650" :
+					color = "O";
+					break;
+				case "2552550" :
+					color = "Y";
+					break;
+				case "255192203" :
+					color = "P";
+					break;				
+			}
+			return color;
+		}
+		/**
+		 * convert image to grid
+		 * @param {Object} [image] - image to be converted
+		 * @param {int} [gridWidth] - dimension of each grid
+		 *
+		 * @return {Array} [converted grid]
+		 */
+		function imgToGrid(image, gridWidth = 100) {
+			//place image on canvas
+			let canvas = document.createElement("canvas");
+			[canvas.width, canvas.height] = [image.width, image.height];
+			let ctx = canvas.getContext("2d");
+			ctx.drawImage(image, 0, 0);
+			let [grid, row, col] = [[], image.width / gridWidth, image.height / gridWidth];
+			for(let i = 0; i < row; i++) {
+				let newRow = [];
+				for(let j = 0; j < col; j++) {
+					newRow[j] = getColor(ctx, j, i, gridWidth);
+				}
+				grid.push(newRow.join(" "));
+			}
+			return grid.join("\n");
 		}
 		//default input
 		console.log(`%cDefault Input: `, "color : red;");
@@ -174,5 +246,17 @@
 							R B B R R R R B B B Y O B G P G G O O Y`;
 		moves = ["R", "O", "Y", "P", "O"]; 
 		displayRoute(layout, moves);
+		//bonus input
+		console.log(`%cBonus Input: `, "color : red;"); 
+		getImg("default.png").then(img => {
+    	let grid = imgToGrid(img);
+    	moves = ["O", "G"];
+    	displayRoute(grid, moves);
+    });
+		getImg("challenge.png").then(img => {
+			let grid = imgToGrid(img);
+    	moves = ["R", "O", "Y", "P", "O"];  
+    	displayRoute(grid, moves);
+    });
 	});
 })();			
