@@ -3,11 +3,12 @@
 	document.addEventListener("DOMContentLoaded", () => {
 		/**
 		 * trie class
-		 * 
+		 * @param {Array} [list] - list of all words
 		 */
 		class Trie {
-			constructor() {
-				this.root = {level : 0};
+			constructor(list) {
+				this.root = {};
+				this.addList(list);
 			}
 			/**
 			 * add word into the trie
@@ -17,7 +18,7 @@
 				let curNode = this.root;
 				for(let i = 0; i < word.length; i++) {
 					if(!curNode[word[i]]) {
-						curNode[word[i]] = {level : curNode.level + 1};
+						curNode[word[i]] = {};
 					}
 					curNode = curNode[word[i]];
 				}
@@ -63,8 +64,23 @@
 			 * @return {boolean} [test result]
 			 */
 			isPrefix(word) {
-				return Object.keys(this.getNode(word)).length > 1;
+				return Object.keys(this.getNode(word)).length > 0;
 			}
+		}
+		/**
+		 * spell check a word 
+		 * @param {String} [word] - word to be tested
+		 * @param {Object} [trie] - word dictionary
+		 *
+		 * @return {String} [test result]
+		 */
+		function spellCheck(word, trie) {
+			for(let i = 1; i <= word.length; i++) {
+				if(!trie.contain(word.slice(0, i))) {
+					return word.slice(0, i) + "<" + word.slice(i);
+				}
+			}
+			return "The Word is Spelled Correctly.";
 		}
 		/**
 		 * retrieve word list
@@ -87,8 +103,19 @@
 		//default input & challenge input & bonus input
 		getWordList("wordList.txt").then(list => {
 			let time = new Date().getTime();
-			let trie = new Trie();
-			trie.addList(list);
+			let trie = new Trie(list);
+			//default input
+			console.log(`%cDefault Input: `, "color : red;");
+			let input = ["foobar", "garbgae"];
+			for(let i = 0; i < input.length; i++) {
+				console.log(`${input[i]} -> %c${spellCheck(input[i], trie)}`, "color : orange;");
+			}
+			//challenge input
+			console.log(`%cChallenge Input: `, "color : red;");
+			input = ["accomodate", "acknowlegement", "arguemint" , "comitmment" , "deductabel", "depindant", "existanse", "forworde", "herrass", "inadvartent", "judgemant" , "ocurrance", "parogative", "suparseed"];
+			for(let i = 0; i < input.length; i++) {
+				console.log(`${input[i]} -> %c${spellCheck(input[i], trie)}`, "color : orange;");
+			}
 			console.log(`Time Spent On Trie Construction: %c${new Date().getTime() - time}ms`, "color : orange;");
 		});
 	});
