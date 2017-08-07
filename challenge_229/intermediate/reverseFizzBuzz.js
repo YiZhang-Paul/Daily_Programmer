@@ -132,6 +132,46 @@
 			return nums;
 		}
 		/**
+		 * check if a number can be divided by at least one number from a number set
+		 * @param {int} [number] - number to be checked
+		 * @param {Array} [numSet] - number set to be checked against
+		 *
+		 * @return {boolean} [test result]
+		 */
+		function hasDivider(number, numSet) {
+			return numSet.some(num => number % num === 0);
+		}
+		/**
+		 * get a line of fizz-buzz
+		 * @param {int} [number] - current number 
+		 * @param {nums} [dividers] - all dividers
+		 *
+		 * @return {String} [fizz-buzz line]
+		 */
+		function getFizzBuzzLine(number, dividers) {
+			return dividers.reduce((acc, val, index) => acc + (number % val === 0 ? indexToChar(index) : ""), "");
+		}
+		/**
+		 * check if a number set can generate expected fizz-buzz
+		 * @param {Array} [nums] - number set to be checked
+		 * @param {Array} [expected] - expected fizz-buzz
+		 *
+		 * @return {boolean} [test result]
+		 */
+		function isValidFizzBuzz(nums, expected) {
+			let linesPrint = 0, curNum = 1; 
+			while(linesPrint != expected.length) {
+				if(hasDivider(curNum, nums)) {
+					linesPrint++;
+					if(getFizzBuzzLine(curNum, nums) != expected[linesPrint - 1]) {
+						return false;
+					}
+				}
+				curNum++;
+			}
+			return true;
+		}
+		/**
 		 * find reverse fizz-buzz
 		 * @param {String} [input] - fizz-buzz input
 		 *
@@ -147,7 +187,9 @@
 				unsatisfied = unsatisfyRule(nums, rules);
 			}
 			let notOnLine = charNotOnLine(nums, input);
-			return notOnLine.length ? fixMissingChar(nums, notOnLine, lines) : nums;
+			nums = notOnLine.length ? fixMissingChar(nums, notOnLine, lines) : nums;
+			console.log(isValidFizzBuzz(nums, lines));
+			return nums;
 		}
 		//default input
 		console.log(`%cDefault Input: `, "color : red;");
@@ -164,7 +206,9 @@
                  a
                  abc
                  a`;
-    console.log(reverseFizzBuzz(input)); 
+    let time = new Date().getTime();             
+    console.log(`${input.split("\n").map(line => line.trim()).join("\n")}`);
+    console.log(`%c-> ${reverseFizzBuzz(input)} %c(${new Date().getTime() - time}ms)`, "color : orange;", "color : red;"); 
     //challenge input
 		console.log(`%cChallenge Input: `, "color : red;");
 		input = `a
@@ -173,7 +217,9 @@
              a
              b
              a`;
-    console.log(reverseFizzBuzz(input));  
+    time = new Date().getTime();             
+    console.log(`${input.split("\n").map(line => line.trim()).join("\n")}`);
+    console.log(`%c-> ${reverseFizzBuzz(input)} %c(${new Date().getTime() - time}ms)`, "color : orange;", "color : red;");   
     input = `b
              be
              ab
@@ -181,13 +227,222 @@
              b
              abe
              b`;
-    console.log(reverseFizzBuzz(input)); 
+    time = new Date().getTime();             
+    console.log(`${input.split("\n").map(line => line.trim()).join("\n")}`);
+    console.log(`%c-> ${reverseFizzBuzz(input)} %c(${new Date().getTime() - time}ms)`, "color : orange;", "color : red;"); 
     input = `a
              b
              c
              d
              a
              ab`;
-    console.log(reverseFizzBuzz(input));     
+    time = new Date().getTime();             
+    console.log(`${input.split("\n").map(line => line.trim()).join("\n")}`);
+    console.log(`%c-> ${reverseFizzBuzz(input)} %c(${new Date().getTime() - time}ms)`, "color : orange;", "color : red;");     
+		//bonus input
+		console.log(`%cBonus Input: `, "color : red;");
+		input = `i
+             b
+             d
+             i
+             f
+             b
+             j
+             i
+             d
+             b
+             i
+             a
+             f
+             e
+             d
+             i
+             b
+             j
+             i
+             d
+             b
+             f
+             i
+             d
+             b
+             i
+             a
+             j
+             f
+             i
+             e
+             b
+             d
+             i
+             b
+             d
+             j
+             f
+             i
+             h
+             b
+             i
+             a
+             d
+             i
+             c
+             b
+             f
+             e
+             j
+             d
+             i
+             b
+             i
+             f
+             d
+             b
+             i
+             a
+             j
+             i
+             d
+             b
+             f
+             i
+             e
+             b
+             d
+             i
+             j
+             b
+             f
+             i
+             a
+             d
+             i
+             b
+             d
+             j
+             f
+             i
+             b
+             e
+             i
+             h
+             d
+             b
+             i
+             a
+             f
+             j
+             d
+             b
+             i
+             i
+             c
+             b
+             f
+             d
+             i
+             e
+             j
+             b
+             d
+             i
+             a
+             f
+             b
+             i
+             d
+             i
+             j
+             b
+             f
+             i
+             d
+             b
+             e
+             g
+             i
+             a
+             d
+             b
+             j
+             f
+             i
+             i
+             d
+             b
+             h
+             i
+             f
+             b
+             j
+             d
+             i
+             a
+             e
+             b
+             i
+             d
+             f
+             i
+             b
+             j
+             d
+             i
+             c
+             b
+             f
+             i
+             a
+             d
+             e
+             b
+             i
+             j
+             f
+             d
+             i
+             b
+             i
+             b
+             d
+             j
+             f
+             i
+             a
+             b
+             d
+             i
+             e
+             b
+             i
+             f
+             h
+             d
+             j
+             i
+             b
+             i
+             d
+             a
+             f
+             b
+             i
+             j
+             d
+             e
+             b
+             i
+             f
+             i
+             d
+             b
+             i
+             j
+             a
+             c
+             b`;
+    time = new Date().getTime();             
+    console.log(`${input.split("\n").map(line => line.trim()).join("\n")}`);
+    console.log(`%c-> ${reverseFizzBuzz(input)} %c(${new Date().getTime() - time}ms)`, "color : orange;", "color : red;");
 	});
 })();		
