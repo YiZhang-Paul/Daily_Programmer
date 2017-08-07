@@ -65,6 +65,15 @@
 			return letter.charCodeAt() - 97;
 		}
 		/**
+		 * convert index into letter
+		 * @param {int} [index] - index of letter
+		 *
+		 * @return {char} [letter for given index]
+		 */
+		function indexToChar(index) {
+			return String.fromCharCode(index + 97);
+		}
+		/**
 		 * evaluate an expression
 		 * @param {String} [expression] - expression to be evaluated
 		 * @param {Array} [nums] - all numbers
@@ -96,6 +105,33 @@
 			return rules.find(rule => !satisfyRule(nums, rule));
 		}
 		/**
+		 * find all characters that are not on the lines
+		 * @param {Array} [nums] - all numbers
+		 * @param {String} [input] - fizz-buzz input
+		 *
+		 * @return {Array} [all characters that are not on the lines]
+		 */
+		function charNotOnLine(nums, input) {
+			let chars = new Set(input.match(/\w/g));
+			return nums.map((num, index) => indexToChar(index)).filter(char => !chars.has(char));
+		}
+		/**
+		 * fix number of missing characters
+		 * @param {Array} [nums] - all numbers
+		 * @param {Array} [notOnLine] - characters not on the line
+		 * @param {Array} [lines] - all fizz-buzz lines
+		 *
+		 * @return {Array} [fixed numbers]
+		 */
+		function fixMissingChar(nums, notOnLine, lines) {
+			let onLine = nums.map((num, index) => indexToChar(index)).filter(char => notOnLine.indexOf(char) == -1);
+			let minValue = Math.max(...onLine.map(char => getOccurrence(lines, char) * nums[charToIndex(char)])) + 1;
+			notOnLine.forEach(char => {
+				nums[charToIndex(char)] = minValue;
+			});
+			return nums;
+		}
+		/**
 		 * find reverse fizz-buzz
 		 * @param {String} [input] - fizz-buzz input
 		 *
@@ -103,13 +139,15 @@
 		 */
 		function reverseFizzBuzz(input) {
 			let nums = new Array(maxCharCode(input) - 96).fill(1);
-			let rules = getRules(input.match(/\w+/g));
+			let lines = input.match(/\w+/g);
+			let rules = getRules(lines);
 			let unsatisfied = unsatisfyRule(nums, rules);
 			while(unsatisfied) {
 				nums[charToIndex(unsatisfied[1].match(/[a-z]/)[0])]++;
 				unsatisfied = unsatisfyRule(nums, rules);
 			}
-			return nums;
+			let notOnLine = charNotOnLine(nums, input);
+			return notOnLine.length ? fixMissingChar(nums, notOnLine, lines) : nums;
 		}
 		//default input
 		console.log(`%cDefault Input: `, "color : red;");
