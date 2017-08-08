@@ -172,6 +172,14 @@
 			return true;
 		}
 		/**
+		 * re-adjust number set for next round of iteration
+		 * @param {Array} [numSet] - number set to be modified
+		 */
+		function adjustNumSet(numSet) {
+			let target = numSet.sort((a, b) => a - b)[1];
+			numSet[numSet.findIndex(num => num == target)]++;
+		}
+		/**
 		 * find reverse fizz-buzz
 		 * @param {String} [input] - fizz-buzz input
 		 *
@@ -181,14 +189,18 @@
 			let nums = new Array(maxCharCode(input) - 96).fill(1);
 			let lines = input.match(/\w+/g);
 			let rules = getRules(lines);
-			let unsatisfied = unsatisfyRule(nums, rules);
-			while(unsatisfied) {
-				nums[charToIndex(unsatisfied[1].match(/[a-z]/)[0])]++;
-				unsatisfied = unsatisfyRule(nums, rules);
+			while(!isValidFizzBuzz(nums, lines)) {
+				let unsatisfied = unsatisfyRule(nums, rules);
+				while(unsatisfied) {
+					nums[charToIndex(unsatisfied[1].match(/[a-z]/)[0])]++;
+					unsatisfied = unsatisfyRule(nums, rules);
+				}
+				let notOnLine = charNotOnLine(nums, input);
+				nums = notOnLine.length ? fixMissingChar(nums, notOnLine, lines) : nums;
+				if(!isValidFizzBuzz(nums, lines)) {
+					adjustNumSet(nums);
+				}
 			}
-			let notOnLine = charNotOnLine(nums, input);
-			nums = notOnLine.length ? fixMissingChar(nums, notOnLine, lines) : nums;
-			console.log(isValidFizzBuzz(nums, lines));
 			return nums;
 		}
 		//default input
