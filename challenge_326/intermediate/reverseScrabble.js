@@ -90,21 +90,39 @@
 		 * @return {boolean} [test result] 
 		 */
 		function isIntersect(horizontal, vertical) {
-			return horizontal[1].x + horizontal[0].length - 1 >= vertical[1].x &&
+			return horizontal[1].x <= vertical[1].x && 
+			       horizontal[1].x + horizontal[0].length - 1 >= vertical[1].x &&
+			       vertical[1].y <= horizontal[1].y &&
 			       vertical[1].y + vertical[0].length - 1 >= horizontal[1].y;
+		}
+		/**
+		 * pick out word that intersects with current word
+		 * @param {Array} [curWord] - current word
+		 * @param {String} [orientation] - orientation of current word
+		 * @param {Array} [others] - other words that may intersect with current word
+		 *
+		 * @return {Array} [intersect word]
+		 */
+		function pickIntersect(curWord, orientation, others) {
+			let index = others.findIndex(word => orientation == "h" ? isIntersect(curWord, word) : isIntersect(word, curWord));
+			return others.splice(index, 1)[0];
 		}
 		/**
 		 * reverse scrabble game
 		 * @param {String} [layout] - board layout
 		 * @param {Object} [list] - word dictionary
 		 *
-		 * @return {Array} [reversed scrabble words]
+		 * @return {String} [reversed scrabble words]
 		 */
 		function reverseScrabble(layout, list) {
 			let board = makeBoard(layout);
-			console.log(getStartWord(board));
-			console.log(getHorizontalWord(board, list));
-			console.log(getVerticalWord(board, list));
+			let [startWord, hWords, vWords] = [getStartWord(board), getHorizontalWord(board, list), getVerticalWord(board, list)];
+			let sequence = [startWord], restWord = hWords.length + vWords.length; 
+			for(let i = 0; i < restWord; i++) {
+				let lastWord = sequence[sequence.length - 1];
+				sequence.push(i % 2 ? pickIntersect(lastWord, "v", hWords) : pickIntersect(lastWord, "h", vWords)); 
+			}
+			return sequence.map(word => word[0]).join("\n");
 		}
 		getWordList("https://raw.githubusercontent.com/dolph/dictionary/master/enable1.txt").then(list => {
 			let time = new Date().getTime();
@@ -119,8 +137,22 @@
 	                 .......`;
 			console.log(makeBoard(input).join("\n"));
 			console.log(`%cReversed Words -> `, "color : orange;");
-			reverseScrabble(input, new Set(list));  
-			console.log(new Date().getTime() - time + "ms");               
+			console.log(`%c${reverseScrabble(input, new Set(list))}`, "color : skyblue;");  
+			//challenge input
+			console.log(`%cChallenge Input: `, "color : red;");
+			input = `.........
+               .........
+               .ferries.
+               .l.....t.
+               .o..an.a.
+               .e...e.f.
+               .short.f.
+               .......e.
+               ..called.`;
+			console.log(makeBoard(input).join("\n"));
+			console.log(`%cReversed Words -> `, "color : orange;");
+			console.log(`%c${reverseScrabble(input, new Set(list))}`, "color : skyblue;"); 
+			console.log(`Time Spent: %c${new Date().getTime() - time}ms`, "color : orange;"); 	              
 		});
 	});
 })();		
