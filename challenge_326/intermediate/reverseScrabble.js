@@ -20,92 +20,132 @@
 		}
 		/**
 		 * simulate game board
-		 * @param {String} [layout] - board layout
+		 * @param {String} [layout] - game board layout
 		 *
-		 * @return {Array} [simulated board]
+		 * @return {Array} [simulated game board and all its slots]
 		 */
 		function makeBoard(layout) {
-			return layout.split("\n").map(row => row.trim());
+			let board = layout.split("\n").map(row => row.trim());
+			return [board, board.map(row => new Array(row.length).fill(0))];
 		}
 		/**
-		 * get first word
-		 * @param {Array} [board] - game board
+		 * get first word 
+		 * @param {Array} [boad] - game board
 		 *
-		 * @return {Array} [starting word and its starting coordinate]
+		 * @return {Array} [starting word]
 		 */
 		function getStartWord(board) {
 			let midRow = board[(board.length - 1) * 0.5];
-			let rowCenter = (midRow.length - 1) * 0.5;
-			let startWord = midRow.match(/\w\w+/g).find(word => {
-				let startIndex = midRow.search(word);
-				let wordCenter = word.length % 2 ? (word.length - 1) * 0.5 : word.length * 0.5 - 1;
-				return startIndex + wordCenter == rowCenter;
-			});
-			return [startWord, {x : midRow.search(startWord), y : (board.length - 1) * 0.5}];
+			let midCol = (midRow.length - 1) * 0.5;
+			let startWord = midRow.match(/\w{2,}/g).find(word => midRow.search(word) + word.length >= midCol);
+			return [startWord, {x : midRow.search(startWord), y : (board.length - 1) * 0.5, dir : "h"}];
 		}
 		/**
-		 * find all horizontal words
+		 * find all horizontal words on game board
 		 * @param {Array} [board] - game board
 		 * @param {Object} [list] - word dictionary
 		 *
-		 * @return {Array} [horizontal words and respective starting coordinate]
+		 * @return {Array} [all horizontal words]
 		 */
 		function getHorizontalWord(board, list) {
 			let words = [], startWord = getStartWord(board)[0];
 			board.forEach((row, index) => {
-				if(/\w\w+/g.test(row)) {
-					let validWord = row.match(/\w\w+/g).filter(word => word != startWord && list.has(word));
+				if(/\w{2,}/.test(row)) {
+					let validWord = row.match(/\w{2,}/g).filter(word => word != startWord && list.has(word));
 					if(validWord.length) {
-						words.push(...validWord.map(word => [word, {x : row.search(word), y : index}]));
+						words.push(...validWord.map(word => [word, {x : row.search(word), y : index, dir : "h"}]));
 					}
 				}
 			});
 			return words;
 		}
 		/**
-		 * find all vertical words
+		 * find all vertical words on game board
 		 * @param {Array} [board] - game board
 		 * @param {Object} [list] - word dictionary
 		 *
-		 * @return {Array} [vertical words and respective starting coordinate]
+		 * @return {Array} [all vertical words]
 		 */
 		function getVerticalWord(board, list) {
 			let words = [];
 			board[0].split("").forEach((col, index) => {
 				col = board.map(row => row[index]).join("");
-				if(/\w\w+/g.test(col)) {
-					let validWord = col.match(/\w\w+/g).filter(word => list.has(word));
+				if(/\w{2,}/.test(col)) {
+					let validWord = col.match(/\w{2,}/g).filter(word => list.has(word));
 					if(validWord.length) {
-						words.push(...validWord.map(word => [word, {x : index, y : col.search(word)}]));
+						words.push(...validWord.map(word => [word, {x : index, y : col.search(word), dir : "v"}]));
 					}
 				}
 			});
 			return words;
+ 		}
+		/**
+		 * get all other words on game board except for starting word
+		 * @param {Array} [board] - game board
+		 * @param {Object} [list] - word dictionary
+		 *
+		 * @return {Array} [remaining words]
+		 */
+		function getOtherWord(board, list) {
+			return [...getHorizontalWord(board, list), ...getVerticalWord(board, list)];
 		}
 		/**
-		 * check if two words intersects
-		 * @param {Array} [horizontal] - horizontal placed word 
-		 * @param {Array} [vertical] - vertical placed word
+		 * check for empty slots to put down words
+		 * @param {Array} [slots] - current slots on game board
+		 * @param {Array} [word] - word to put down
+		 *
+		 * @return {boolean} [slot availability]
+		 */
+		function hasSlot(slots, word) {
+			return word[0].split("").some((letter, index) => 
+				word[1].dir == "h" ? !slots[word[1].y][word[1].x + index] : !slots[word[1].y + index][word[1].x]);
+		}
+		/**
+		 * check if two words intersect with each other
+		 * @param {Array} [word1] - word 1
+		 * @param {Array} [word2] - word 2
+		 *
+		 * @return {boolean} [test result]
+		 */
+		function isIntersect(word1, word2) {
+			if(word1[1].dir == word2[1].dir) {
+				return false;
+			}
+			let [hWord, vWord] = word1[1].dir == "h" ? [word1, word2] : [word2, word1];
+			return (hWord[1].x <= vWord[1].x && hWord[1].x + hWord[0].length - 1 >= vWord[1].x) &&
+			       (vWord[1].y <= hWord[1].y && vWord[1].y + vWord[0].length - 1 >= hWord[1].y);
+		}
+		/**
+		 * check if a word intersects with any words from a given set
+		 * @param {Array} [others] - other words to be checked against
+		 * @param {Array} [curWord] - word to be checked
 		 *
 		 * @return {boolean} [test result] 
 		 */
-		function isIntersect(horizontal, vertical) {
-			return horizontal[1].x <= vertical[1].x && 
-			       horizontal[1].x + horizontal[0].length - 1 >= vertical[1].x &&
-			       vertical[1].y <= horizontal[1].y &&
-			       vertical[1].y + vertical[0].length - 1 >= horizontal[1].y;
+		function hasIntersect(others, curWord) {
+			return others.some(word => isIntersect(word, curWord));
 		}
 		/**
-		 * pick out word that intersects with current word
-		 * @param {Array} [curWord] - current word
-		 * @param {String} [orientation] - orientation of current word
-		 * @param {Array} [others] - other words that may intersect with current word
-		 *
-		 * @return {Array} [intersect word]
+		 * place a word on game board
+		 * @param {Array} [slots] - current slots on game board
+		 * @param {Array} [word] - word to put down
 		 */
-		function pickIntersect(curWord, orientation, others) {
-			let index = others.findIndex(word => orientation == "h" ? isIntersect(curWord, word) : isIntersect(word, curWord));
-			return others.splice(index, 1)[0];
+		function placeWord(slots, word) {
+			word[0].split("").forEach((letter, index) => {
+				let curX = word[1].x + (word[1].dir == "h" ? index : 0);  
+				let curY = word[1].y + (word[1].dir == "h" ? 0 : index); 
+				slots[curY][curX] = 1;
+			});
+		}
+		/**
+		 * filter all words that has no available slots on game board
+		 * @param {Array} [slots] - current slots on game board
+		 * @param {Array} [words] - words to be filtered
+		 *
+		 * @return {Array} [filtered words]
+		 */
+		function filterSlotFull(slots, words) {
+			return words.filter(word => hasSlot(slots, word));
 		}
 		/**
 		 * reverse scrabble game
@@ -115,12 +155,18 @@
 		 * @return {String} [reversed scrabble words]
 		 */
 		function reverseScrabble(layout, list) {
-			let board = makeBoard(layout);
-			let [startWord, hWords, vWords] = [getStartWord(board), getHorizontalWord(board, list), getVerticalWord(board, list)];
-			let sequence = [startWord], restWord = hWords.length + vWords.length; 
-			for(let i = 0; i < restWord; i++) {
-				let lastWord = sequence[sequence.length - 1];
-				sequence.push(i % 2 ? pickIntersect(lastWord, "v", hWords) : pickIntersect(lastWord, "h", vWords)); 
+			let [board, slots] = makeBoard(layout);
+			let otherWord = getOtherWord(board, list);
+			let sequence = [getStartWord(board)];
+			while(otherWord.length) {
+				for(let i = 0; i < otherWord.length; i++) {
+					if(hasSlot(slots, otherWord[i]) && hasIntersect(sequence, otherWord[i])) {
+						placeWord(slots, otherWord[i]);
+						sequence.push(otherWord.splice(i, 1)[0]);
+						otherWord = filterSlotFull(slots, otherWord);
+						break;
+					}
+				}
 			}
 			return sequence.map(word => word[0]).join("\n");
 		}
@@ -135,7 +181,7 @@
 	                 ...n...
 	                 .......
 	                 .......`;
-			console.log(makeBoard(input).join("\n"));
+			console.log(makeBoard(input)[0].join("\n"));
 			console.log(`%cReversed Words -> `, "color : orange;");
 			console.log(`%c${reverseScrabble(input, new Set(list))}`, "color : skyblue;");  
 			//challenge input
@@ -149,7 +195,7 @@
                .short.f.
                .......e.
                ..called.`;
-			console.log(makeBoard(input).join("\n"));
+			console.log(makeBoard(input)[0].join("\n"));
 			console.log(`%cReversed Words -> `, "color : orange;");
 			console.log(`%c${reverseScrabble(input, new Set(list))}`, "color : skyblue;"); 
 			console.log(`Time Spent: %c${new Date().getTime() - time}ms`, "color : orange;"); 	              
