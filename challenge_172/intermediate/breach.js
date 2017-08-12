@@ -144,5 +144,25 @@
 		  temp = cvtHex(H0) + cvtHex(H1) + cvtHex(H2) + cvtHex(H3) + cvtHex(H4);
 		  return temp.toLowerCase();
 		}
+		/**
+		 * generate hash for password
+		 * @param {String} [password] - password for hashing
+		 *
+		 * @return {String} [hashed password]
+		 */
+		function hashPassword(password) {
+			return SHA1(password + getGUID());
+		}
+		//challenge input
+		console.log(`%cChallenge Input: `, "color : red;");
+		let input = "mySecretPassWord";
+		console.log(`%c${input} -> %c${hashPassword(input)}`, "color : skyblue;", "color : orange;");
+		console.log(`%c${input} -> %c${hashPassword(input)}`, "color : skyblue;", "color : orange;");
+		input = "helloworld123";
+		console.log(`%c${input} -> %c${hashPassword(input)}`, "color : skyblue;", "color : orange;");
+		console.log(`%c${input} -> %c${hashPassword(input)}`, "color : skyblue;", "color : orange;");
+		input = "yangzierzniuroumiansunzfridge17haha";
+		console.log(`%c${input} -> %c${hashPassword(input)}`, "color : skyblue;", "color : orange;");
+		console.log(`%c${input} -> %c${hashPassword(input)}`, "color : skyblue;", "color : orange;");
 	});
 })();			
