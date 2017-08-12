@@ -31,38 +31,67 @@
 		 * get first word
 		 * @param {Array} [board] - game board
 		 *
-		 * @return {String} [starting word]
+		 * @return {Array} [starting word and its starting coordinate]
 		 */
 		function getStartWord(board) {
 			let midRow = board[(board.length - 1) * 0.5];
 			let rowCenter = (midRow.length - 1) * 0.5;
-			return midRow.match(/\w\w+/g).find(word => {
+			let startWord = midRow.match(/\w\w+/g).find(word => {
 				let startIndex = midRow.search(word);
 				let wordCenter = word.length % 2 ? (word.length - 1) * 0.5 : word.length * 0.5 - 1;
 				return startIndex + wordCenter == rowCenter;
 			});
+			return [startWord, {x : midRow.search(startWord), y : (board.length - 1) * 0.5}];
 		}
 		/**
 		 * find all horizontal words
 		 * @param {Array} [board] - game board
 		 * @param {Object} [list] - word dictionary
 		 *
-		 * @return {Array} [horizontal words]
+		 * @return {Array} [horizontal words and respective starting coordinate]
 		 */
 		function getHorizontalWord(board, list) {
-			let startWord = getStartWord(board);
-			return board.join(" ").match(/\w\w+/g).filter(word => word != startWord && list.has(word));
+			let words = [], startWord = getStartWord(board)[0];
+			board.forEach((row, index) => {
+				if(/\w\w+/g.test(row)) {
+					let validWord = row.match(/\w\w+/g).filter(word => word != startWord && list.has(word));
+					if(validWord.length) {
+						words.push(...validWord.map(word => [word, {x : row.search(word), y : index}]));
+					}
+				}
+			});
+			return words;
 		}
 		/**
 		 * find all vertical words
 		 * @param {Array} [board] - game board
 		 * @param {Object} [list] - word dictionary
 		 *
-		 * @return {Array} [vertical words]
+		 * @return {Array} [vertical words and respective starting coordinate]
 		 */
 		function getVerticalWord(board, list) {
-			let columns = board[0].split("").map((col, index) => board.map(row => row[index]).join(""));
-			return columns.join(" ").match(/\w\w+/g).filter(word => list.has(word));
+			let words = [];
+			board[0].split("").forEach((col, index) => {
+				col = board.map(row => row[index]).join("");
+				if(/\w\w+/g.test(col)) {
+					let validWord = col.match(/\w\w+/g).filter(word => list.has(word));
+					if(validWord.length) {
+						words.push(...validWord.map(word => [word, {x : index, y : col.search(word)}]));
+					}
+				}
+			});
+			return words;
+		}
+		/**
+		 * check if two words intersects
+		 * @param {Array} [horizontal] - horizontal placed word 
+		 * @param {Array} [vertical] - vertical placed word
+		 *
+		 * @return {boolean} [test result] 
+		 */
+		function isIntersect(horizontal, vertical) {
+			return horizontal[1].x + horizontal[0].length - 1 >= vertical[1].x &&
+			       vertical[1].y + vertical[0].length - 1 >= horizontal[1].y;
 		}
 		/**
 		 * reverse scrabble game
