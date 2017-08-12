@@ -2,82 +2,81 @@
 (() => {
 	document.addEventListener("DOMContentLoaded", () => {	
 		/**
-		 * retrieve Pokémon information 
-		 * @param {String} [url] - API call url
-		 * @param {String} [info] - information to retrieve
+		 * retrieve Pokémon information
+		 * @param {String} [category] - category of information to be retrieved
+		 * @param {String} [name] - information name
 		 *
 		 * @return {Object} [Promise object]
 		 */
-		function getInfo(url, info) {
+		function getInfo(category, name) {
 			return new Promise((resolve, reject) => {
 				let xhttp = window.XMLHttpRequest ? new window.XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP");
 				xhttp.onreadystatechange = function() {
-					if(this.readyState == 4 && this.status == 200) {
-						resolve(JSON.parse(this.responseText));
-					}
+					if(this.readyState == 4 && this.status == 200) resolve(JSON.parse(this.responseText));
+					if(this.status == 404) reject("Information Not Found.");
 				};
-				xhttp.open("GET", url + info, true);
+				xhttp.open("GET", `http://pokeapi.co/api/v2/${category}/${name}/`, true);
 				xhttp.send();
 			});
 		}
 		/**
-		 * retrieve Pokémon type information
-		 * @param {String} [type] [Pokémon type]
+		 * convert damage relation description into multiplier
+		 * @param {String} [desc] - damage relation description
 		 *
-		 * @return {Object} [Promise object]
+		 * @return {int} [multiplier]
 		 */
-		function getType(type) {
-			return getInfo("http://pokeapi.co/api/v2/type/", type);
-		}
-		/**
-		 * convert damage relation description to number
-		 * @param {String} [description] [damage description]
-		 *
-		 * @return {int} [damage multiplier]
-		 */
-		function DescToMultiplier(description) {
-			switch(description) {
+		function descToMultiplier(desc) {
+			switch(desc) {
+				case "no_damage_to" :
+					return 0;
 				case "half_damage_to" :
 					return 0.5;
 				case "double_damage_to" :
-					return 2;
-				case "no_damage_to" :
-					return 0;
+					return 2;	
 				default :
-					return 1;			
+					return 1;	
 			}
 		}
 		/**
-		 * get damage multiplier between two types
-		 * @param {Object} [relations] [all damage relations for a type]
-		 * @param {String} [target] [target Pokémon type to be checked]
+		 * check if a type is in damage relation table
+		 * @param {Array} [category] - damage relation category
+		 * @param {String} [type] - type to be checked
+		 *
+		 * @return {boolean} [test result]
+		 */
+		function hasType(category, type) {
+			return category.some(item => item.name == type);
+		}
+		/**
+		 * get damage multiplier between types
+		 * @param {Array} [relations] - all damage relations for a given type
+		 * @param {String} [type] - type to be checekd against
 		 *
 		 * @return {int} [damage multiplier]
 		 */
-		function getMultiplier(relations, target) {
-			let hasType = (types, target) => types.some(type => type.name == target);
+		function getMultiplier(relations, type) {
 			for(let relation in relations) {
-				if(relation.search("damage_to") != -1 && hasType(relations[relation], target)) {
-					return DescToMultiplier(relation);
+				if(relation.search("damage_to") != -1 && hasType(relations[relation], type)) {
+					return descToMultiplier(relation);
 				}
 			}
-			return DescToMultiplier("none");
+			return descToMultiplier("normal");
 		}
 		/**
-		 * retrieve damage relation between different types
-		 * @param {String} [type1] [Pokémon type 1]
-		 * @param {String} [others] [other Pokémon types]
+		 * find damage relations between types
+		 * @param {String} [type] - type to be checked
+		 * @param {String} [others] - other types to be checked against
 		 *
 		 * @return {String} [damage relation]
 		 */
-		function getDmgRelation(type1, others) {
-			getType(type1).then(result => {
-				let totalMultiplier = 1;
-				others.split(" ").forEach(type => {
-					totalMultiplier *= getMultiplier(result.damage_relations, type);
+		function getDmgRelation(type, others) {
+			getInfo("type", type).then(result => {
+				let multiplier = 1;
+				others.split(" ").forEach(other => {
+					multiplier *= getMultiplier(result.damage_relations, other);
 				});
-				console.log(`%c${type1} -> ${others} : %c${totalMultiplier}x`, "color : skyblue;", "color : orange;");
-			});
+				console.log(`%c${type} -> ${others} : %c${multiplier}x`, "color : skyblue;", "color : orange;");
+			}).catch(error => {console.log(error);});
 		}
 		//challenge & bonus 1 input
 		console.log(`%cChallenge & Bonus 1 Input: `, "color : red;");
