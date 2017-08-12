@@ -1,5 +1,7 @@
 #289[Easy] It's super effective!
 
+All Done
+
 url: https://www.reddit.com/r/dailyprogrammer/comments/5961a5/20161024_challenge_289_easy_its_super_effective/
 
 Description

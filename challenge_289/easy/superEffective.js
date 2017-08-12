@@ -3,6 +3,7 @@
 	document.addEventListener("DOMContentLoaded", () => {	
 		/**
 		 * retrieve Pokémon information
+		 * @async
 		 * @param {String} [category] - category of information to be retrieved
 		 * @param {String} [name] - information name
 		 *
@@ -64,26 +65,44 @@
 		}
 		/**
 		 * find damage relations between types
+		 * @async
 		 * @param {String} [type] - type to be checked
 		 * @param {String} [others] - other types to be checked against
-		 *
-		 * @return {String} [damage relation]
+		 * @param {Array} [headers] - optional headers for display
 		 */
-		function getDmgRelation(type, others) {
+		function getDmgRelation(type, others, headers) {
 			getInfo("type", type).then(result => {
 				let multiplier = 1;
 				others.split(" ").forEach(other => {
 					multiplier *= getMultiplier(result.damage_relations, other);
 				});
-				console.log(`%c${type} -> ${others} : %c${multiplier}x`, "color : skyblue;", "color : orange;");
+				console.log(`%c${headers ? headers[0] + " -> " + headers[1] : type + " -> " + others} : %c${multiplier}x`, "color : skyblue;", "color : orange;");
+			}).catch(error => {console.log(error);});
+		}
+		/**
+		 * find damage relations between moves and Pokémons
+		 * @async
+		 * @param {String} [move] - move to be checked
+		 * @param {String} [pokemon] - pokemon to be checked against
+		 */
+		function moveToPokemonDmg(move, pokemon) {
+			getInfo("move", move.split(" ").join("-")).then(result => {
+				let moveType = result.type.name;
+				getInfo("pokemon", pokemon).then(result => {
+					let pokeTypes = result.types.map(type => type.type.name);
+					getDmgRelation(moveType, pokeTypes.join(" "), [move, pokemon]);
+				}).catch(error => {console.log(error);});
 			}).catch(error => {console.log(error);});
 		}
 		//challenge & bonus 1 input
-		console.log(`%cChallenge & Bonus 1 Input: `, "color : red;");
 		getDmgRelation("fire", "grass");
 		getDmgRelation("fighting", "ice rock");
 		getDmgRelation("psychic", "poison dark");
 		getDmgRelation("water", "normal");
 		getDmgRelation("fire", "rock");
+		//Bonus 2 input
+		moveToPokemonDmg("fire punch", "bulbasaur");
+		moveToPokemonDmg("wrap", "onix");
+		moveToPokemonDmg("surf", "dewgong");
 	});
 })();		
