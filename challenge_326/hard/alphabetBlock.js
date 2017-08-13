@@ -15,12 +15,16 @@
 		/**
 		 * get letter with maximum occurrence in all words
 		 * @param {Array} [words] - all words
+		 * @param {Array} [usedChar] - used letters
 		 *
 		 * @return {char} [letter with maximum occurrence]
 		 */
-		function maxOccurrence(words) {
-			let chars = Array.from(new Set(words.join("")));
-			return chars.reduce((maxChar, curChar) => 
+		function maxOccurrence(words, usedChar) {
+			let chars = words.join("").split("").reduce((count, char) => {
+				count[char] = usedChar.has(char) ? count[char] : true;
+				return count;
+			}, {});
+			return Object.keys(chars).reduce((maxChar, curChar) => 
 				getOccurrence(maxChar, words) < getOccurrence(curChar, words) ? curChar : maxChar);
 		}
 		/**
@@ -67,16 +71,34 @@
 		function makeAlphabet(words) {
 			let alphabet = "", blockSize = 1;
 			while(words.join("").length) {
-				let used = new Array(words.length).fill(0);
+				let [usedChar, usedWord] = [new Set(), new Array(words.length).fill(0)];
 				for(let i = 0; i < blockSize; i++) {
-					let maxChar = maxOccurrence(getUnused(used, words));
+					let maxChar = maxOccurrence(getUnused(usedWord, words), usedChar);
 					alphabet += maxChar;
-					used = markUsed(maxChar, words, used);
+					usedChar.add(maxChar);
+					usedWord = markUsed(maxChar, words, usedWord);
 					words = removeChar(maxChar, words);
 				}
 				[alphabet, blockSize] = [alphabet + "\n", blockSize + 1];
 			}
 			return alphabet;
+		}
+		/**
+		 * retrieve word list
+		 * @param {String} [url] - word list file URL
+		 *
+		 * @return {Object} [Promise object]
+		 */
+		function getWordList(url) {
+			return new Promise((resolve, reject) => {
+				let xhttp = window.XMLHttpRequest ? new window.XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP");
+				xhttp.onreadystatechange = function() {
+					if(this.readyState == 4 && this.status == 200) resolve(this.responseText.split("\n").map(line => line.trim()));
+					if(this.status == 404) reject("List Not Found."); 
+				};
+				xhttp.open("GET", url, true);
+				xhttp.send();
+			});
 		}
 		//default input
 		console.log(`%cDefault Input: `, "color : red;");
@@ -84,5 +106,12 @@
 		let input = ["zero", "one", "two", "three", "four", "five", "six", "seven"];
 		console.log(`%c${makeAlphabet(input)}`, "color : orange;");
 		console.log(`%cTime Spent: %c${new Date().getTime() - time}ms`, "color : skyblue;", "color : orange;");
+		//challenge input
+		getWordList("wordList.txt").then(list => {
+			console.log(`%cChallenge Input: `, "color : red;");
+			let time = new Date().getTime();
+			console.log(`%c${makeAlphabet(list)}`, "color : orange;");
+			console.log(`%cTime Spent: %c${new Date().getTime() - time}ms`, "color : skyblue;", "color : orange;");
+		}).catch(error => {console.log(error);});
 	});
 })();
