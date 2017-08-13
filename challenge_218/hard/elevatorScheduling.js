@@ -45,9 +45,12 @@
 				} else if(this.coordinator.waitList.length) {
 					let needPickUp = this.coordinator.waitList.filter(request => !this.coordinator.canPickUp(request));
 					if(needPickUp.length) {
-						let above = needPickUp.filter(request => request.floor >= this.curFloor).length;
-						let below = needPickUp.filter(request => request.floor < this.curFloor).length;
-						this.direction = above >= below ? "up" : "down";
+						let idles = this.coordinator.idleCars();
+						if(idles.length == 1 || this.coordinator.getFastest(idles).id == this.id) {
+							let above = needPickUp.filter(request => request.floor >= this.curFloor).length;
+							let below = needPickUp.filter(request => request.floor < this.curFloor).length;
+							this.direction = above >= below ? "up" : "down";
+						}
 					}
 				} else if(this.curFloor != 6) {
 					this.direction = this.curFloor < 6 ? "up" : "down"; 
@@ -85,14 +88,38 @@
 				this.waitList = [];
 			}
 			/**
+			 * get all moving elevators
+			 *
+			 * @return {Array} [all moving elevators]
+			 */
+			movingCars() {
+				return this.elevators.filter(elevator => elevator.direction);
+			}
+			/**
+			 * get all idle elevators
+			 *
+			 * @return {Array} [all idle elevators]
+			 */
+			idleCars() {
+				return this.elevators.filter(elevator => !elevator.direction);
+			}
+			/**
+			 * get fastest elevator 
+			 * @param {Array} [elevators] - available elevators
+			 *
+			 * @return {Object} [fastest elevator]
+			 */
+			getFastest(elevators = this.elevators) {
+				return elevators.reduce((acc, val) => acc.speed > val.speed ? acc : val);
+			}
+			/**
 			 * check if a request can be fulfilled by an already moving elevator
 			 * @param {Object} [request] - request to be fulfilled
-			 * @param {Array} [elevators] - all available elevators
 			 *
 			 * @return {boolean} [test result]
 			 */
-			canPickUp(request, elevators = this.elevators) {
-				let moving = elevators.filter(elevator => elevator.direction);
+			canPickUp(request) {
+				let moving = this.movingCars();
 				return !moving.length ? false : moving.some(elevator => {
 					if(elevator.direction == request.dir) {
 						return request.dir == "up" ? elevator.curFloor <= request.floor : elevator.curFloor >= request.floor;
