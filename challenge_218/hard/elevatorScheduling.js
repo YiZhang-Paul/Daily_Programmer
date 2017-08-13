@@ -19,7 +19,7 @@
 				this.targets = [];
 				this.carrying = [];
 				this.direction = null;
-				this.waitTime = 10;
+				this.waitTime = 5;
 				this.curWait = 0;
 			}	
 			/**
@@ -217,6 +217,7 @@
 				this.elevators.forEach(elevator => {
 					elevator.update();
 				});
+				this.curTime++;
 			}
 		}
 		/**
@@ -267,6 +268,9 @@
 				this.curFloor = this.curTarget;
 				this.curTarget = null;
 				this.curDir = null;
+				if(!this.allRides.length && !this.requests.length) {
+					this.coordinator.passengers.delete(this.id);
+				}
 			}
 			/**
 			 * update current state of passenger
@@ -279,9 +283,6 @@
 					this.requestElevator(this.requests.shift());
 				}
 				this.curTime++;
-				if(!this.allRides.length && !this.requests.length && !this.onWait) {
-					this.coordinator.passengers.delete(this.id);
-				}
 			}
 		}
 		/**
@@ -294,11 +295,12 @@
 		function simulateElevator(specs, schedules) {
 			let coordinator = new Coordinator(specs, schedules);
 			let test = coordinator.passengers.get("R1");
-			while(test.allRides.length || test.requests.length) {
+			while(coordinator.passengers.size == 20) {
+				coordinator.update();
 				test.update();
-			  coordinator.update();
-				console.log(test.curTime);
 			}
+			console.log(coordinator);
+			console.log(coordinator.curTime);
 		}
 		/**
 		 * retrieve schedules
