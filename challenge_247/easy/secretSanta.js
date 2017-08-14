@@ -21,7 +21,8 @@
 			 */
 			validReceiver(participants) {
 				return participants.filter(participant => 
-					!participant.gifter && participant.name != this.name && !this.family.has(participant.name));
+					!participant.gifter && participant.recipient != this.name && 
+					participant.name != this.name && !this.family.has(participant.name));
 			}
 			/**
 			 * choose receiver
