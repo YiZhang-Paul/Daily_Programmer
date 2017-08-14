@@ -29,8 +29,7 @@
 			 * @param {Object} [receiver] - receiver of the gift
 			 */
 			pickReceiver(receiver) {
-				this.recipient = receiver.name;
-				receiver.gifter = this.name;
+				[this.recipient, receiver.gifter] = [receiver.name, this.name];
 			}
 		}
 		/**
@@ -57,6 +56,15 @@
 			            .reduce((acc, val) => [...acc, ...val]);
 		}
 		/**
+		 * print assignment list
+		 * @param {Array} [participants] - all participants
+		 *
+		 * @return {String} [assignment list]
+		 */
+		function printList(participants) {
+			return participants.map(participant => `${participant.name} -> ${participant.recipient}`).join("\n");
+		}
+		/**
 		 * assign secret santas
 		 * @param {String} [names] - all participants' names
 		 *
@@ -64,7 +72,6 @@
 		 */
 		function assignSanta(names) {
 			let participants = getParticipants(names);
-			console.log(participants);
 			while(!allAssigned(participants)) {
 				for(let i = 0; i < participants.length; i++) {
 					if(!participants[i].recipient) {
@@ -77,15 +84,37 @@
 					}
 				}
 			}
-			return participants;
+			return printList(participants);
 		}
-		//default input
-		console.log(`%cDefault Input: `, "color : red;");
+		//default & bonus input
+		console.log(`%cDefault & Bonus Input: `, "color : red;");
 		let input = `Joe
                  Jeff Jerry
                  Johnson`;
 		console.log(`%c${input.split("\n").map(name => name.trim()).join("\n")}`, "color : skyblue;");
-		console.log("Assignments -> ");
-		console.log(assignSanta(input));                 
+		console.log("Assignments: ");
+		console.log(`%c${assignSanta(input)}`, "color : orange;");   
+		//challenge & bonus input
+		console.log(`%cChallenge & Bonus Input: `, "color : red;");  
+		input = `Sean
+             Winnie
+             Brian Amy
+             Samir
+             Joe Bethany
+             Bruno Anna Matthew Lucas
+             Gabriel Martha Philip
+             Andre
+             Danielle
+             Leo Cinthia
+             Paula
+             Mary Jane
+             Anderson
+             Priscilla
+             Regis Julianna Arthur
+             Mark Marina
+             Alex Andrea`;
+		console.log(`%c${input.split("\n").map(name => name.trim()).join("\n")}`, "color : skyblue;");
+		console.log("Assignments: ");
+		console.log(`%c${assignSanta(input)}`, "color : orange;");             
 	});
 })();			
