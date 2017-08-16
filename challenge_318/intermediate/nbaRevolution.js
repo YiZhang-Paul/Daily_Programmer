@@ -2,13 +2,12 @@
 (() => {
 	document.addEventListener("DOMContentLoaded", () => {
 		/**
-		 * generate all match-ups
-		 * @param {String} [names] - names of all teams
+		 * get all team match-ups
+		 * @param {Array} [teams] - names of all teams
 		 *
-		 * @return {Array} [all match ups]
+		 * @return {Array} [all match-ups]
 		 */
-		function allMatchUps(names) {
-			let teams = names.split("\n").map(name => name.trim());
+		function allMatchUps(teams) {
 			let matchUps = [];
 			for(let i = 0; i < teams.length; i++) {
 				for(let j = i + 1; j < teams.length; j++) {
@@ -18,12 +17,25 @@
 			return matchUps;
 		}
 		/**
-		 * split all match-ups for both season halves
+		 * get all team records
+		 * @param {Array} [teams] - names of all teams
+		 *
+		 * @return {Array} [all team records]
+		 */
+		function allRecords(teams) {
+			let records = new Map();
+			teams.forEach(team => {
+				records.set(team, {last: null, homeLimit : false, awayLimit : false});
+			});
+			return records;
+		}
+		/**
+		 * split match-ups for both season halves
 		 * @param {Array} [matchUps] - all match-ups
 		 *
-		 * @return {Array} [match-ups split into equal halves]
+		 * @return {Array} [match-ups splitted into equal halves]
 		 */
-		function splitSeason(matchUps) {
+		function splitMatchUp(matchUps) {
 			let pairs = [];
 			for(let i = 0; i < matchUps.length - 1; i += 2) {
 				pairs.push(matchUps.slice(i, i + 2));
@@ -33,14 +45,14 @@
 		}
 		/**
 		 * assign games for all teams
-		 * @param {String} [names] - names of all teams
+		 * @param {String} [teams] - names of all teams
 		 *
 		 * @return {String} [game schedules]
 		 */
-		function assignGames(names) {
-			let matchUps = allMatchUps(names);
-			console.log(matchUps);
-			console.log(splitSeason(matchUps));
+		function assignGames(teams) {
+			let names = teams.split("\n").map(team => team.trim());
+			let matchUps = allMatchUps(names), records = allRecords(names);
+			console.log(splitMatchUp(matchUps));
 		}
 		//default input
 		console.log(`%cDefault Input: `, "color : red;");
