@@ -44,6 +44,79 @@
 			return [picks.map((pick, index) => pairs[index][pick]), picks.map((pick, index) => pairs[index][pick == 1 ? 0 : 1])];
 		}
 		/**
+		 * check if a team is qualified for a match
+		 * @param {Object} [record] - team record
+		 * @param {String} [type] - game type
+		 *
+		 * @return {boolean} [test result]
+		 */
+		function isQualified(record, type) {
+			return type == "home" ? 
+				record.last != "home" || !record.homeLimit : record.last != "away" || !record.awayLimit;
+		}
+		/**
+		 * find all valid match-ups for current teams
+		 * @param {Array} [matchUps] - current available match-ups
+		 * @param {Array} [records] - team records
+		 * @param {Object} [candidates] - teams waiting for assignments
+		 *
+		 * @return {Array} [all valid match-ups]
+		 */
+		function validMatchUps(matchUps, records, candidates) {
+			return matchUps.filter(match => 
+				match.every(team => candidates.has(team)) && 
+				isQualified(records.get(match[0]), "home") && 
+				isQualified(records.get(match[1]), "away"));
+		}
+		/**
+		 * update records for all teams
+		 * @param {Array} [round] - match-ups for current round
+		 * @param {Array} [records] - team records
+		 *
+		 * @return {Array} [updated records]
+		 */
+		function updateRecords(round, records) {
+			round.forEach(match => {
+				match.forEach((team, index) => {
+					let record = records.get(team);
+					record.homeLimit = record.last == "home" && index === 0 ? true : record.homeLimit;
+					record.awayLimit = record.last == "away" && index == 1 ? true : record.awayLimit;
+					record.last = index === 0 ? "home" : "away";
+					records.set(team, record);
+				});
+			});
+			return records;
+		}
+		/**
+		 * pick match-ups for each round
+		 * @param {Array} [matchUps] - available match-ups
+		 * @param {Array} [teams] - names of all teams
+		 * @param {Object} [records] - team records
+		 *
+		 * @return {Array} [match-ups for one round]
+		 */
+		function pickRound(matchUps, teams, records) {
+			for(let i = 0; i < 10; i++) {
+				let [candidates, round] = [new Set(teams), []];
+				while(candidates.size) {
+					let curMatchs = validMatchUps(matchUps, records, candidates);
+					if(!curMatchs.length) {
+						break;
+					}
+					let selected = curMatchs[Math.floor(Math.random() * curMatchs.length)];
+					round.push(selected);
+					for(let j = 0; j < selected.length; j++) {
+						candidates.delete(selected[j]);
+					}
+					if(!candidates.size) {
+						updateRecords(round, records);
+						return round;
+					}
+				}
+			}
+			return null;
+		}
+		/**
 		 * assign games for all teams
 		 * @param {String} [teams] - names of all teams
 		 *
@@ -52,7 +125,7 @@
 		function assignGames(teams) {
 			let names = teams.split("\n").map(team => team.trim());
 			let matchUps = allMatchUps(names), records = allRecords(names);
-			console.log(splitMatchUp(matchUps));
+			console.log(pickRound(splitMatchUp(matchUps)[0], names, records));
 		}
 		//default input
 		console.log(`%cDefault Input: `, "color : red;");
