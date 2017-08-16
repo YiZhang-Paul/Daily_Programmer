@@ -31,12 +31,12 @@
 		}
 		/**
 		 * split match-ups for both season halves
-		 * @param {Array} [matchUps] - all match-ups
+		 * @param {Array} [teams] - names of all teams
 		 *
 		 * @return {Array} [match-ups splitted into equal halves]
 		 */
-		function splitMatchUp(matchUps) {
-			let pairs = [];
+		function splitMatchUp(teams) {
+			let pairs = [], matchUps = allMatchUps(teams);
 			for(let i = 0; i < matchUps.length - 1; i += 2) {
 				pairs.push(matchUps.slice(i, i + 2));
 			}
@@ -109,12 +109,43 @@
 						candidates.delete(selected[j]);
 					}
 					if(!candidates.size) {
-						updateRecords(round, records);
 						return round;
 					}
 				}
 			}
 			return null;
+		}
+		/**
+		 * remove match-ups from all available match-ups
+		 * @param {Array} [toRemove] - match-ups to be removed
+		 * @param {Array} [matchUps] - all match-ups
+		 *
+		 * @return {Array} [remaining match-ups]
+		 */
+		function removeMatchUps(curRound, matchUps) {
+			return matchUps.filter(match => 
+				curRound.every(curMatch => curMatch[0] != match[0] && curMatch[1] != match[1]));
+		}
+		/**
+		 * pick matches for all rounds 
+		 * @param {Array} [matchUps] - available match-ups
+		 * @param {Array} [teams] - names of all teams
+		 * @param {Array} [records] - team records
+		 *
+		 * @return {Array} [all rounds]
+		 */
+		function pickAllRounds(matchUps, teams, records) {
+			let rounds = [];
+			while(matchUps.length) {
+				let curRound = pickRound(matchUps, teams, records);
+				if(!curRound) {
+					return null;
+				}
+				rounds.push(curRound);
+				records = updateRecords(curRound, records);
+				matchUps = removeMatchUps(curRound, matchUps);
+			}
+			return rounds;
 		}
 		/**
 		 * assign games for all teams
@@ -124,8 +155,12 @@
 		 */
 		function assignGames(teams) {
 			let names = teams.split("\n").map(team => team.trim());
-			let matchUps = allMatchUps(names), records = allRecords(names);
-			console.log(pickRound(splitMatchUp(matchUps)[0], names, records));
+			let [matchUps, records] = [splitMatchUp(names), allRecords(names)];
+			let [assignments, totalMatches] = [[], matchUps[0].length + matchUps[1].length];
+			//while(assignments.length != totalMatches) {
+//
+			//}
+			return assignments.join("\n");
 		}
 		//default input
 		console.log(`%cDefault Input: `, "color : red;");
