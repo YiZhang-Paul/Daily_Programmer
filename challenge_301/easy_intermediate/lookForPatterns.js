@@ -19,28 +19,27 @@
   		});
   	}
   	/**
-  	 * record characteristics of pattern
-  	 * @param {String} [pattern] - pattern to be categorized
+  	 * check if a segment matches a pattern
+  	 * @param {String} [segment] - segment to be matched
+  	 * @param {String} [pattern] - pattern for matching
   	 *
-  	 * @return {Array} [pattern characteristics]
+  	 * @return {boolean} [match result]
   	 */
-  	function categorizePattern(pattern) {
-  		const chars = Array.from(new Set(pattern));
-  		const category = {};
-  		for(let i = 0; i < chars.length; i++) {
-  			for(let j = 0; j < pattern.length; j++) {
-  				if(pattern[j] == chars[i]) {
-  					category[chars[i]] = category[chars[i]] ? [...category[chars[i]], j] : [j];
-  				}
+  	function matchSegment(segment, pattern) {
+  		let matchTable = new Map();
+  		for(let i = 0; i < pattern.length; i++) {
+  			if(!matchTable.has(pattern[i])) {
+  				matchTable.set(pattern[i], segment[i]);
+  			} else if(matchTable.get(pattern[i]) != segment[i]) {
+  				return false;
   			}
   		}
-  		return category;
+  		return true;
   	}
-  	console.log(categorizePattern("XYYX"));
   	/**
-  	 * check if a word matches a pattern
+  	 * check if a word contains segments that match a pattern
   	 * @param {String} [word] - word to be matched
-  	 * @param {Array} [pattern] - pattern for matching
+  	 * @param {String} [pattern] - pattern for matching
   	 *
   	 * @return {boolean} [match result]
   	 */
@@ -49,8 +48,11 @@
   			return false;
   		}
   		for(let i = 0; i <= word.length - pattern.length; i++) {
-  			console.log(word[i]);
+  			if(matchSegment(word.slice(i, i + pattern.length), pattern)) {
+  				return true;
+  			}
   		}
+  		return false;
   	}
   	/**
   	 * find all words that matches a given pattern
@@ -60,27 +62,26 @@
   	 * @return {Array} [all matched words]
   	 */
   	function findMatches(list, pattern) {
-  		console.log(pattern);
   		return list.filter(word => isMatch(word, pattern));
   	}
   	getWordList("https://raw.githubusercontent.com/dolph/dictionary/master/enable1.txt").then(result => {
   		//challenge input
-  		//console.log(`%cChallenge Input: `, "color : red;");
-  		//let time = new Date().getTime();
-  		//let input = "XXYY";
-  		//console.log(`Pattern -> %c${input}`, "color : skyblue;");
-  		//console.log(`%c${findMatches(result, input).join("\n")}`, "color : orange;");
-  		//console.log(`Time Spent: %c${new Date().getTime() - time}ms`, "color : orange;");
-  		//time = new Date().getTime();
-      //input = "XXYYZZ";
-      //console.log(`Pattern -> %c${input}`, "color : skyblue;");
-  		//console.log(`%c${findMatches(result, input).join("\n")}`, "color : orange;");
-  		//console.log(`Time Spent: %c${new Date().getTime() - time}ms`, "color : orange;");
-  		//time = new Date().getTime();
-      //input = "XXYYX";
-      //console.log(`Pattern -> %c${input}`, "color : skyblue;");
-  		//console.log(`%c${findMatches(result, input).join("\n")}`, "color : orange;");
-  		//console.log(`Time Spent: %c${new Date().getTime() - time}ms`, "color : orange;");
+  		console.log(`%cChallenge Input: `, "color : red;");
+  		let time = new Date().getTime();
+  		let input = "XXYY";
+  		console.log(`Pattern -> %c${input}`, "color : skyblue;");
+  		console.log(`%c${findMatches(result, input).join("\n")}`, "color : orange;");
+  		console.log(`Time Spent: %c${new Date().getTime() - time}ms`, "color : orange;");
+  		time = new Date().getTime();
+      input = "XXYYZZ";
+      console.log(`Pattern -> %c${input}`, "color : skyblue;");
+  		console.log(`%c${findMatches(result, input).join("\n")}`, "color : orange;");
+  		console.log(`Time Spent: %c${new Date().getTime() - time}ms`, "color : orange;");
+  		time = new Date().getTime();
+      input = "XXYYX";
+      console.log(`Pattern -> %c${input}`, "color : skyblue;");
+  		console.log(`%c${findMatches(result, input).join("\n")}`, "color : orange;");
+  		console.log(`Time Spent: %c${new Date().getTime() - time}ms`, "color : orange;");
   	}).catch(error => {console.log(error);});
   });
 })();  	
