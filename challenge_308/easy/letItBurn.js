@@ -53,28 +53,24 @@
 			return adjacent;
 		}
 		/**
-		 * spread fire 
+		 * spread fire, will keep on spreading until no more fire can be spreaded
 		 * @param {Array} [house] - house being simulated
 		 */
 		function spreadFire(house) {
-			let noSpread = false;
-			while(!noSpread) {
-				let spreaded = false;
-				for(let i = 0; i < house.length; i++) {
-					for(let j = 0; j < house[i].length; j++) {
-						if(house[i][j] == "F") {
-							let adjacentTiles = getAdjacentTiles(i, j, house);
-							for(let k = 0; k < adjacentTiles.length; k++) {
-								if(getTile(...adjacentTiles[k], house) == "S") {
-									house[adjacentTiles[k][0]][adjacentTiles[k][1]] = "F";
-									spreaded = true;
-								}
+			let spreaded = false;
+			house.forEach((row, rowIndex) => {
+				row.forEach((col, colIndex) => {
+					if(getTile(rowIndex, colIndex, house) == "F") {
+						getAdjacentTiles(rowIndex, colIndex, house).forEach(tileCord => {
+							if(getTile(...tileCord, house) == "S") {
+								house[tileCord[0]][tileCord[1]] = "F";
+								spreaded = true;
 							}
-						}
+						});
 					}
-				}
-				noSpread = !spreaded;
-			}
+				});
+			});
+			return spreaded ? spreadFire(house) : undefined;
 		}
 		/**
 		 * simulate "Let It Burn" game
