@@ -8,16 +8,17 @@
 		 * @return {String} [multiplication result]
 		 */
 		function xorMultiply(operands) {
-			operands = operands.split(" ").map(num => Number(num));
-			let [binaryOp1, binaryOp2] = operands.map(num => num.toString(2));
-			let finalBits = new Array(binaryOp1.length + binaryOp2.length - 1).fill("0");
-			for(let i = binaryOp2.length - 1; i >= 0; i--) {
-				let bits = binaryOp2[i] == "0" ? "0".repeat(binaryOp1.length + binaryOp2.length - 1) : "0".repeat(binaryOp2.length - 1 - (binaryOp2.length - 1 - i)) + ((operands[0] << (binaryOp2.length - 1 - i)).toString(2)); 
-				for(let j = 0; j < finalBits.length; j++) {
-					finalBits[j] = finalBits[j] == "0" ? bits[j] : (bits[j] == "1" ? "0" : "1");
+			let [operand1, operand2] = operands.split(" ").map(operand => Number(operand).toString(2));
+			let bitsLen = operand1.length + operand2.length - 1;
+			let result = new Array(bitsLen).fill("0");
+			for(let i = operand2.length - 1; i >= 0; i--) {
+				let curBits = operand2[i] == "0" ? 
+					"0".repeat(bitsLen) : "0".repeat(i) + (Number.parseInt(operand1, 2) << (operand2.length - 1 - i)).toString(2);
+				for(let j = 0; j < result.length; j++) {
+					result[j] = result[j] == "0" ? curBits[j] : (curBits[j] == "1" ? "0" : "1");
 				}
 			}
-			return `${Number.parseInt(finalBits.join(""), 2)}(${finalBits.join("")})`;
+			return `${Number.parseInt(result.join(""), 2)} (${result.join("")})`;
 		}
 		//default input
 		console.log(`%cDefault Input: `, "color : red;");
