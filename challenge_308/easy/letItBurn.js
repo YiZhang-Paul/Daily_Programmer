@@ -62,9 +62,11 @@
 				row.forEach((col, colIndex) => {
 					if(getTile(rowIndex, colIndex, house) == "F") {
 						getAdjacentTiles(rowIndex, colIndex, house).forEach(tileCord => {
-							if(getTile(...tileCord, house) == "S") {
-								house[tileCord[0]][tileCord[1]] = "F";
-								spreaded = true;
+							let [tile, x, y] = [getTile(...tileCord, house), tileCord[1], tileCord[0]];
+							if(tile == "S") {
+								[house[y][x], spreaded] = ["F", true];
+							} else if((tile == "/" || tile == "_") && getTile(y * 2 - rowIndex, x * 2 - colIndex, house) == "S") {
+								[house[y * 2 - rowIndex][x * 2 - colIndex], spreaded] = ["F", true];
 							}
 						});
 					}
@@ -96,9 +98,9 @@
                  #######       #
                  #     _       #
                  ###############`;
-		let moves = ["1 1", "1 2", "1 3", "5 6", "4 2", "1 1", "1 2", "5 5", "5 5", "9 1", "5 7", "2 2"];                 
+		let moves = ["1 1", "1 2", "1 3", "5 6", "2 4", "1 1", "1 2", "5 5", "5 5", "9 1", "7 5", "2 2"];                 
 		console.log(`%c${input.split("\n").map(line => line.trim()).join("\n")}`, "color : skyblue;");                 
 		console.log(`Result -> `);
 		console.log(`%c${letItBurn(input, moves).map(row => row.join("")).join("\n")}`, "color : orange;");
 	});
-})();		
+})();
