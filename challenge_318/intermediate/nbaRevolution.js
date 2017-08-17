@@ -96,7 +96,7 @@
 		 * @return {Array} [match-ups for one round]
 		 */
 		function pickRound(matchUps, teams, records) {
-			for(let i = 0; i < 10; i++) {
+			for(let i = 0; i < 10000; i++) {
 				let [candidates, round] = [new Set(teams), []];
 				while(candidates.size) {
 					let curMatchs = validMatchUps(matchUps, records, candidates);
@@ -124,7 +124,7 @@
 		 */
 		function removeMatchUps(curRound, matchUps) {
 			return matchUps.filter(match => 
-				curRound.every(curMatch => curMatch[0] != match[0] && curMatch[1] != match[1]));
+				curRound.every(curMatch => curMatch[0] != match[0] || curMatch[1] != match[1]));
 		}
 		/**
 		 * pick matches for all rounds 
@@ -156,11 +156,16 @@
 		function assignGames(teams) {
 			let names = teams.split("\n").map(team => team.trim());
 			let [matchUps, records] = [splitMatchUp(names), allRecords(names)];
-			let [assignments, totalMatches] = [[], matchUps[0].length + matchUps[1].length];
-			//while(assignments.length != totalMatches) {
-//
-			//}
-			return assignments.join("\n");
+			let assignments = [];
+			while(!assignments.length) {
+				let firstHalf = pickAllRounds(matchUps[0], names, records);
+				let secondHalf = pickAllRounds(matchUps[1], names, records);
+				if(firstHalf && secondHalf) {
+					assignments = [...firstHalf, ...secondHalf];
+				}
+				[matchUps, records] = [splitMatchUp(names), allRecords(names)];
+			}
+			return assignments;
 		}
 		//default input
 		console.log(`%cDefault Input: `, "color : red;");
