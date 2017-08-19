@@ -24,18 +24,18 @@
 		/**
 		 * develop smoke at given coordinate
 		 * @param {Array} [house] - house being simulated
-		 * @param {String} [cords] - X, Y coordinates
+		 * @param {int} [row] - row in house
+		 * @param {int} [col] - column in house
 		 * @param {boolean} [explode] - allow/forbid explosion
 		 *
 		 * @return {Array} [house after applying smoke]
 		 */
-		function applySmoke(house, cords, explode = false) {
-			let [x, y] = cords.split(" ").map(cord => Number(cord));
-			let tile = getTile(y, x, house);
+		function applySmoke(house, row, col, explode = false) {
+			let tile = getTile(row, col, house);
 			if(new Set("F#|/=_").has(tile) || tile === null) {
-				return explode && tile == "F" ? applyExplosion(house, y, x) : undefined;
+				return explode && tile == "F" ? applyExplosion(house, row, col) : undefined;
 			}
-			house[y][x] = tile == "S" ? "F" : "S";
+			house[row][col] = tile == "S" ? "F" : "S";
 		}
 		/**
 		 * apply explosion
@@ -130,7 +130,8 @@
 		function letItBurn(layout, moves, explode = false) {
 			let house = makeHouse(layout);
 			moves.forEach(move => {
-				applySmoke(house, move, explode);
+				[row, col] = move.split(" ").map(cord => Number(cord)).reverse();
+				applySmoke(house, row, col, explode);
 				spreadFire(house);
 			});
 			return house;
