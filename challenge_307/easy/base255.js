@@ -17,7 +17,7 @@
 		 * @return {String} [decoded message]
 		 */
 		function decode1(encoded) {
-			return encoded.match(/(\w|\+{2})+/g).map(msg => msg.replace(/\+{2}/g, "+")).join("\n");
+			return encoded.match(/(\w|\+{2,})+/g).map(msg => msg.replace(/\+{2}/g, "+")).join("\n");
 		}
 		/**
 		 * encode message
