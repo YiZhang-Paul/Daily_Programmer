@@ -11,6 +11,16 @@
 			return letter.charCodeAt() - 87;
 		}
 		/**
+		 * get decimal value for a number
+		 * @param {int} [number] - number to be transformed
+		 * @param {int} [base] - base to be transformed into
+		 *
+		 * @return {int} [transformed number]
+		 */
+		function getDecimal(number, base) {
+			return Number.parseInt(number, base);
+		}
+		/**
 		 * find minimum base
 		 * @param {String} [number] - number to be examined
 		 *
@@ -19,14 +29,34 @@
 		function getMinBase(number) {
 			let digits = number.split("").map(digit => 
 				/[a-z]/.test(digit) ? charToDecimal(digit) : Number(digit));
-			let minBase = Math.max(...digits) + 1; 
-			return `Base ${minBase} => ${Number.parseInt(number, minBase)}`;
+			return Math.max(...digits) + 1;
+		}
+		/**
+		 * print all bases for a number starting from minimum base
+		 * @param {String} [number] - number to be examined
+		 */
+		function printAllBase(number) {
+			console.log(`%c${number} -> `, "color : skyblue;");
+			for(let i = getMinBase(number); i <= 16; i++) {
+				console.log(`%cBase ${i} => %c${getDecimal(number, i)}`, "color : skyblue;", "color : orange;");
+			}
 		}
 		//challenge input
 		console.log(`%cChallenge Input: `, "color : red;");
-		console.log(`%c${getMinBase("1")}`, "color : orange;");
-		console.log(`%c${getMinBase("21")}`, "color : orange;");
-		console.log(`%c${getMinBase("ab3")}`, "color : orange;");
-		console.log(`%c${getMinBase("ff")}`, "color : orange;");
+		let input = "1";
+		let base = getMinBase(input);
+		console.log(`${input} : %cBase ${base} => %c${getDecimal(input, base)}`, "color : skyblue;", "color : orange;");
+		input = "21";
+		base = getMinBase(input);
+		console.log(`${input} : %cBase ${base} => %c${getDecimal(input, base)}`, "color : skyblue;", "color : orange;");
+		input = "ab3";
+		base = getMinBase(input);
+		console.log(`${input} : %cBase ${base} => %c${getDecimal(input, base)}`, "color : skyblue;", "color : orange;");
+		input = "ff";
+		base = getMinBase(input);
+		console.log(`${input} : %cBase ${base} => %c${getDecimal(input, base)}`, "color : skyblue;", "color : orange;");
+		//bonus input
+		console.log(`%cBonus Input: `, "color : red;");
+		printAllBase("21");
 	});
 })();		
