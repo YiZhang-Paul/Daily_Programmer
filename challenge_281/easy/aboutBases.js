@@ -57,7 +57,10 @@
 		console.log(`${input} : %cBase ${base} => %c${getDecimal(input, base)}`, "color : skyblue;", "color : orange;");
 		//bonus 1 input
 		console.log(`%cBonus 1 Input: `, "color : red;");
+		printAllBase("1");
 		printAllBase("21");
+		printAllBase("ab3");
+		printAllBase("ff");
 		//bonus 2 input
 		console.log(`%cBonus 2 Input: `, "color : red;");
 		input = "0";
