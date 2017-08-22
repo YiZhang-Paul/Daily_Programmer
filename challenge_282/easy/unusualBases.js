@@ -12,7 +12,7 @@
 			for(let i = 0; i < len - 2; i++) {
 				list.push(list[list.length - 1] + list[list.length - 2]);
 			}
-			return list;
+			return len >= 2 ? list : list.slice(0, len);
 		}
 		/**
 		 * generate Fibonacci numbers until a given limit
@@ -21,6 +21,9 @@
 		 * @return {Array} [Fibonacci number list]
 		 */
 		function maxFibonacci(limit) {
+			if(limit < 1) {
+				return [];
+			}
 			let list = [1, 1];
 			while(list[list.length - 1] <= limit) {
 				list.push(list[list.length - 1] + list[list.length - 2]);
