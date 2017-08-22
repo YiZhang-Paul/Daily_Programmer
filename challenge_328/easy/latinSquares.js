@@ -2,7 +2,17 @@
 (() => {
 	document.addEventListener("DOMContentLoaded", () => {
 		/**
-		 * check if a square has vaild rows 
+		 * check if a square has valid numbers
+		 * @param {int} [width] - square width
+		 * @param {Array} [numbers] - numbers in square
+		 *
+		 * @return {boolean} [test result]
+		 */
+		function hasValidNum(width, numbers) {
+			return numbers.every(num => num >= 1 && num <= width);
+		}
+		/**
+		 * check if a square has valid rows 
 		 * @param {int} [rowLen] - row length
 		 * @param {Array} [numbers] - numbers in square
 		 *
@@ -11,13 +21,13 @@
 		function hasValidRow(rowLen, numbers) {
 			for(let i = 0; i < numbers.length; i += rowLen) {
 				if(new Set(numbers.slice(i, i + rowLen)).size != rowLen) {
-					return false;
+					return false;					
 				}
 			}
 			return true;
 		}
 		/**
-		 * check if a square has vaild columns 
+		 * check if a square has valid columns 
 		 * @param {int} [colLen] - column length
 		 * @param {Array} [numbers] - numbers in square
 		 *
@@ -25,11 +35,11 @@
 		 */
 		function hasValidCol(colLen, numbers) {
 			for(let i = 0; i < colLen; i++) {
-				let nums = new Set();
+				let curCol = new Set();
 				for(let j = 0; j < colLen; j++) {
-					nums.add(numbers[i + j * colLen]);
+					curCol.add(numbers[i + j * colLen]);
 				}
-				if(nums.size != colLen) {
+				if(curCol.size != colLen) {
 					return false;
 				}
 			}
@@ -42,9 +52,10 @@
 		 * @return {boolean} [test result]
 		 */
 		function isLatinSquare(arrInfo) {
-			arrInfo = arrInfo.split("\n").map(line => line.trim()).join(" ");
-			let allNums = arrInfo.split(" ").map(num => Number(num));
-			return hasValidRow(allNums[0], allNums.slice(1)) && hasValidCol(allNums[0], allNums.slice(1));
+			let allNums = arrInfo.split("\n").map(line => line.trim()).join(" ")
+													 .split(" ").map(num => Number(num));
+			let [width, numbers] = [allNums[0], allNums.slice(1)];
+			return hasValidNum(width, numbers) ? hasValidRow(width, numbers) && hasValidCol(width, numbers) : false;
 		}
 		//challenge input
 		console.log(`%cChallenge Input: `, "color : red;");
