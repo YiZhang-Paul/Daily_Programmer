@@ -18,7 +18,7 @@
 		 * @return {int} [transformed number]
 		 */
 		function getDecimal(number, base) {
-			return Number.parseInt(number, base);
+			return number == "0" ? 0 : Number.parseInt(number, base);
 		}
 		/**
 		 * find minimum base
@@ -55,8 +55,13 @@
 		input = "ff";
 		base = getMinBase(input);
 		console.log(`${input} : %cBase ${base} => %c${getDecimal(input, base)}`, "color : skyblue;", "color : orange;");
-		//bonus input
-		console.log(`%cBonus Input: `, "color : red;");
+		//bonus 1 input
+		console.log(`%cBonus 1 Input: `, "color : red;");
 		printAllBase("21");
+		//bonus 2 input
+		console.log(`%cBonus 2 Input: `, "color : red;");
+		input = "0";
+		base = getMinBase(input);
+		console.log(`${input} : %cBase ${base} => %c${getDecimal(input, base)}`, "color : skyblue;", "color : orange;");
 	});
 })();		
