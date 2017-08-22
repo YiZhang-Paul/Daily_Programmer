@@ -43,10 +43,11 @@
 		/**
 		 * convert Fibonacci base to binary number
 		 * @param {String} [number] - number to be converted
+		 * @param {boolean} [ones] - get output with most 1s
 		 *
 		 * @return {String} [converted number]
 		 */
-		function fiboToBinary(number) {
+		function fiboToBinary(number, ones = false) {
 			number = Number(number);
 			let fibonacci = maxFibonacci(number).reverse();
 			let binary = new Array(fibonacci.length).fill(0);
@@ -58,7 +59,7 @@
 					}
 				}
 			}
-			return binary.join("");
+			return ones ? mostOnesBinary(binary.join("")) : binary.join("");
 		}
 		/**
 		 * convert between binary and Fibonacci base
@@ -72,6 +73,45 @@
 				return binaryToFibo(number);
 			}
 			return fiboToBinary(number);
+		}
+		/**
+		 * check if a binary digit can be splited
+		 * @param {String} [binary] - binary number to be checked
+		 * @param {int} [index] - index of the binary digit
+		 *
+		 * @return {boolean} [test result]
+		 */
+		function canSplitBinary(binary, index) {
+			return binary[index] == "1" && binary[index + 2] !== undefined && !new Set(binary.slice(index + 1, index + 3)).has("1");
+		}
+		/**
+		 * split a binary digit
+		 * @param {String} [binary] - binary number to be splited
+		 * @param {int} [index] - index of the binary digit
+		 *
+		 * @return {String} [splited binary number]
+		 */
+		function splitBinary(binary, index) {
+			return binary.slice(0, index) + "011" + binary.slice(index + 3);
+		}
+		/**
+		 * find binary form with most 1s
+		 * @param {String} [binary] - binary number to be converted
+		 *
+		 * @return {String} [converted binary number]
+		 */
+		function mostOnesBinary(binary) {
+			let canSplit = true;
+			while(canSplit) {
+				canSplit = false;
+				for(let i = binary.length - 1; i >= 0; i--) {
+					if(canSplitBinary(binary, i)) {
+						[binary, canSplit] = [splitBinary(binary, i), true];
+						break;
+					}
+				}
+			}
+			return binary;
 		}
 		//challenge input
 		console.log(`%cChallenge Input: `, "color : red;");
@@ -91,5 +131,25 @@
 		console.log(`%c${input} -> %c${convertBase(input)}`, "color : skyblue;", "color : orange;");
     input = "F 10110110100111001";
 		console.log(`%c${input} -> %c${convertBase(input)}`, "color : skyblue;", "color : orange;");
+		//bonus 1 input
+		console.log(`%cBonus 1 Input: `, "color : red;");
+		input = "8";
+		console.log(`%c${input} -> %c${fiboToBinary(input)}`, "color : skyblue;", "color : orange;");
+		input = "16";
+		console.log(`%c${input} -> %c${fiboToBinary(input)}`, "color : skyblue;", "color : orange;");
+		input = "32";
+		console.log(`%c${input} -> %c${fiboToBinary(input)}`, "color : skyblue;", "color : orange;");
+		input = "9024720";
+		console.log(`%c${input} -> %c${fiboToBinary(input)}`, "color : skyblue;", "color : orange;");
+		//bonus 2 input
+		console.log(`%cBonus 2 Input: `, "color : red;");
+		input = "8";
+		console.log(`%c${input} -> %c${fiboToBinary(input, true)}`, "color : skyblue;", "color : orange;");
+		input = "16";
+		console.log(`%c${input} -> %c${fiboToBinary(input, true)}`, "color : skyblue;", "color : orange;");
+		input = "32";
+		console.log(`%c${input} -> %c${fiboToBinary(input, true)}`, "color : skyblue;", "color : orange;");
+		input = "9024720";
+		console.log(`%c${input} -> %c${fiboToBinary(input, true)}`, "color : skyblue;", "color : orange;");
 	});
 })();			
