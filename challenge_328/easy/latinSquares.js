@@ -47,25 +47,72 @@
 		}
 		/**
 		 * test if an array is a latin square
-		 * @param {String} [arrInfo] [square width and actual array]
+		 * @param {int} [width] - square width
+		 * @param {Array} [numbers] - numbers in square
 		 *
 		 * @return {boolean} [test result]
 		 */
-		function isLatinSquare(arrInfo) {
-			let allNums = arrInfo.split("\n").map(line => line.trim()).join(" ")
-													 .split(" ").map(num => Number(num));
-			let [width, numbers] = [allNums[0], allNums.slice(1)];
-			return hasValidNum(width, numbers) ? hasValidRow(width, numbers) && hasValidCol(width, numbers) : false;
+		function isLatinSquare(width, numbers) {
+			return hasValidNum(width, numbers) ? 
+				hasValidRow(width, numbers) && hasValidCol(width, numbers) : false;
+		}
+		/**
+		 * make empty square 
+		 * @param {int} [width] - square width
+		 *
+		 * @return {Array} [empty square]
+		 */
+		function makeSquare(width) {
+			let square = [];
+			for(let i = 0; i < width; i++) {
+				square.push(new Array(width).fill(null));
+			}
+			return square;
+		}
+		/**
+		 * transform latin square into reduced form
+		 * @param {int} [width] - square width
+		 * @param {Array} [numbers] - numbers in square
+		 *
+		 * @return {String} [reduced latin square]
+		 */
+		function reduceSquare(width, numbers) {
+			if(!isLatinSquare(width, numbers)) {
+				return "The Square is not a Latin Square.";
+			}
+			let square = makeSquare(width);
+			for(let i = 0; i < width; i++) {
+				for(let j = 0; j < width; j++) {
+					square[j][i] = numbers[i + j * width]; 
+				}
+			}
+			return square.sort((row1, row2) => row1[0] - row2[0]).map(row => row.join(" ")).join("\n");
 		}
 		//challenge input
 		console.log(`%cChallenge Input: `, "color : red;");
-		let input = `5
-								 1 2 3 4 5 5 1 2 3 4 4 5 1 2 3 3 4 5 1 2 2 3 4 5 1`;
-		console.log(isLatinSquare(input));
-		input = `4
-             1 2 3 4 1 3 2 4 2 3 4 1 4 3 2 1`;
-		console.log(isLatinSquare(input));
+		let input = [1, 2, 3, 4, 5, 
+		             5, 1, 2, 3, 4, 
+		             4, 5, 1, 2, 3, 
+		             3, 4, 5, 1, 2, 
+		             2, 3, 4, 5, 1];
+		console.log(isLatinSquare(5, input));
+		input = [1, 2, 3, 4, 
+		         1, 3, 2, 4, 
+		         2, 3, 4, 1, 
+		         4, 3, 2, 1];
+		console.log(isLatinSquare(4, input));
 		//bonus input
 		console.log(`%cBonus Input: `, "color : red;");
+		input = [1, 2, 3, 4, 5, 
+		         5, 1, 2, 3, 4, 
+		         4, 5, 1, 2, 3, 
+		         3, 4, 5, 1, 2, 
+		         2, 3, 4, 5, 1];
+		console.log(`%c${reduceSquare(5, input)}`, "color : orange;");
+		input = [1, 2, 3, 4, 
+		         1, 3, 2, 4, 
+		         2, 3, 4, 1, 
+		         4, 3, 2, 1];
+		console.log(`%c${reduceSquare(4, input)}`, "color : orange;");
 	});
 })();		
