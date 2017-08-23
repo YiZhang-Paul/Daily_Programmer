@@ -23,7 +23,21 @@
 		 * @return {Array} [array after insertion]
 		 */
 		function insertBracket(array1, array2) {
-
+			array2 = array2.reduce((acc, val, index) => 
+				index % 2 ? [...acc.slice(0, -1), [...acc[acc.length - 1], val]] : [...acc, [val]], []);
+			let inserted = [], curPair, curInsert;
+			if(array1.length > array2.length) {
+				for(let i = 0; i < array1.length; i++) {
+					[curPair, curInsert] = [array2[i % array2.length], array1[i % array1.length]];
+					inserted.push([curPair[0], curInsert, curPair[1]].join(""));
+				}
+			} else {
+				for(let i = 0; i < array2.length; i++) {
+					[curPair, curInsert] = [array2[i], array1[i % array1.length]];
+					inserted.push([curPair[0], curInsert, curPair[1]].join(""));
+				}
+			}
+			return inserted;
 		}
 		/**
 		 * weave insertion
@@ -59,20 +73,26 @@
                  +-
                  
                  234567`;
-    console.log(interleaveArray(input));
+		console.log(`%c${input.split("\n").map(line => line.trim()).join("\n")}`, "color : skyblue;");                 
+		console.log("After Insertion -> ");                 
+    console.log(`%c${interleaveArray(input).join("\n")}`, "color : orange;");
     input = `Bracket
              2+3
              4-5
              6+7
              
              ()`;
-    console.log(interleaveArray(input));
+    console.log(`%c${input.split("\n").map(line => line.trim()).join("\n")}`, "color : skyblue;");                 
+		console.log("After Insertion -> ");                 
+    console.log(`%c${interleaveArray(input).join("\n")}`, "color : orange;");
     input = `Weave
              *
              
              (2+3)
              (4-5)
              (6+7)`;
-    console.log(interleaveArray(input));
+    console.log(`%c${input.split("\n").map(line => line.trim()).join("\n")}`, "color : skyblue;");                 
+		console.log("After Insertion -> ");                 
+    console.log(`%c${interleaveArray(input).join("\n")}`, "color : orange;");
 	});
 })();		
