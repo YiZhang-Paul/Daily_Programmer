@@ -96,6 +96,9 @@
 		             3, 4, 5, 1, 2, 
 		             2, 3, 4, 5, 1];
 		console.log(isLatinSquare(5, input));
+		input = [1, 3, 
+		         3, 4];
+		console.log(isLatinSquare(2, input));
 		input = [1, 2, 3, 4, 
 		         1, 3, 2, 4, 
 		         2, 3, 4, 1, 
@@ -109,6 +112,9 @@
 		         3, 4, 5, 1, 2, 
 		         2, 3, 4, 5, 1];
 		console.log(`%c${reduceSquare(5, input)}`, "color : orange;");
+		input = [1, 3, 
+		         3, 4];
+		console.log(`%c${reduceSquare(2, input)}`, "color : orange;");         
 		input = [1, 2, 3, 4, 
 		         1, 3, 2, 4, 
 		         2, 3, 4, 1, 
