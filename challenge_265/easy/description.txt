@@ -1,5 +1,7 @@
 #265[Easy] Permutations and combinations part 1
 
+All Done
+
 url: https://www.reddit.com/r/dailyprogrammer/comments/4hhiu8/20160502_challenge_265_easy_permutations_and/
 
 Permutations
