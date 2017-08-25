@@ -1,6 +1,6 @@
 /* jslint esversion: 6 */
 (() => {
-	document.addEventListener("DOMContentLoaded", () => {
+      document.addEventListener("DOMContentLoaded", () => {
 		/**
 		 * calculate degree for each node
 		 * @param {String} [edges] - edges between nodes
