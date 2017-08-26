@@ -70,10 +70,36 @@
 		 * @return {boolean} [test result]
 		 */
 		function isMagicSquare(square, target) {
-			let grid = makeGrid(square);
+			let grid = Array.isArray(square[0]) ? square : makeGrid(square);
 			return hasValidDiagonals(grid, target) &&
 						 grid.every(row => isValidRow(row, target)) &&
 			       grid.every((col, index) => isValidColumn(getColumn(grid, index), target)); 
+		}
+		/**
+		 * calculate the possible value to fill up a column
+		 * @param {Array} [square] - square to be checked
+		 * @param {int} [index] - column index
+		 * @param {int} [target] - target sum
+		 *
+		 * @return {int} [valid number to be filled]
+		 */
+		function getNumToFill(square, index, target = 15) {
+			return target - getColumn(square, index).reduce((acc, val) => acc + val);
+		}
+		/**
+		 * check if an incomplete square can be filled up
+		 * @param {Array} [square] - square to be checked
+		 * @param {int} [target] - target sun
+		 *
+		 * @return {boolean} [description]
+		 */
+		function canFillSquare(square, target = 15) {
+			let rowLen = Math.ceil(Math.sqrt(square.length));
+			let grid = makeGrid([...square, ...new Array(rowLen).fill(0)]);
+			for(let i = 0; i < rowLen; i++) {
+				grid[grid.length - 1][i] = getNumToFill(grid, i, target);
+			}
+			return isMagicSquare(grid, target);
 		}
 		//challenge input
 		console.log(`%cChallenge Input: `, "color : red;");
@@ -85,11 +111,21 @@
 		console.log(`%c[${input.join(", ")}] => %c${isMagicSquare(input)}`, "color : skyblue;", "color : orange;");
 		input = [8, 1, 6, 7, 5, 3, 4, 9, 2];
 		console.log(`%c[${input.join(", ")}] => %c${isMagicSquare(input)}`, "color : skyblue;", "color : orange;");
-		//bonus input
-		console.log(`%cBonus Input: `, "color : red;");
+		//bonus 1 input
+		console.log(`%cBonus 1 Input: `, "color : red;");
     input = [5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5];
 		console.log(`%c[${input.join(", ")}] => %c${isMagicSquare(input, 25)}`, "color : skyblue;", "color : orange;");
     input = [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4];
 		console.log(`%c[${input.join(", ")}] => %c${isMagicSquare(input)}`, "color : skyblue;", "color : orange;");
+    //bonus 2 input
+		console.log(`%cBonus 2 Input: `, "color : red;");
+    input = [8, 1, 6, 3, 5, 7];
+		console.log(`%c[${input.join(", ")}] => %c${canFillSquare(input)}`, "color : skyblue;", "color : orange;");
+    input = [3, 5, 7, 8, 1, 6];
+		console.log(`%c[${input.join(", ")}] => %c${canFillSquare(input)}`, "color : skyblue;", "color : orange;");
+		input = [5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5];
+		console.log(`%c[${input.join(", ")}] => %c${canFillSquare(input, 25)}`, "color : skyblue;", "color : orange;");
+    input = [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4];
+		console.log(`%c[${input.join(", ")}] => %c${canFillSquare(input)}`, "color : skyblue;", "color : orange;");
 	});
 })();		
