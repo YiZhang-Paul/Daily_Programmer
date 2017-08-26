@@ -43,25 +43,53 @@
 			return col.reduce((acc, val) => acc + val) == target;
 		}
 		/**
-		 * check if a square is a magic square
-		 * @param {Array} [square] - square to be verified
+		 * check if a diagonal adds up to a given number
+		 * @param {Array} [square] - square to be examined
+		 * @param {int} [target] - target sum
 		 *
 		 * @return {boolean} [test result]
 		 */
-		function isMagicSquare(square) {
+		function isValidDiagonal(square, target = 15) {
+			return square.reduce((acc, row, index) => acc + row[index], 0) == target;
+		}
+		/**
+		 * check if major diagonals of a square adds up to a given number
+		 * @param {Array} [square] - square to be examined
+		 * @param {int} [target] - target sum
+		 *
+		 * @return {boolean} [test result]
+		 */
+		function hasValidDiagonals(square, target = 15) {
+			return isValidDiagonal(square, target) && isValidDiagonal(square.slice().reverse(), target);
+		}
+		/**
+		 * check if a square is a magic square
+		 * @param {Array} [square] - square to be verified
+		 * @param {int} [target] - target sum
+		 *
+		 * @return {boolean} [test result]
+		 */
+		function isMagicSquare(square, target) {
 			let grid = makeGrid(square);
-			return grid.every(row => isValidRow(row)) &&
-			       grid.every((col, index) => isValidColumn(getColumn(grid, index))); 
+			return hasValidDiagonals(grid, target) &&
+						 grid.every(row => isValidRow(row, target)) &&
+			       grid.every((col, index) => isValidColumn(getColumn(grid, index), target)); 
 		}
 		//challenge input
 		console.log(`%cChallenge Input: `, "color : red;");
 		let input = [8, 1, 6, 3, 5, 7, 4, 9, 2];
-		console.log(`%c[${input.join(", ")}] -> %c${isMagicSquare(input)}`, "color : skyblue;", "color : orange;");
+		console.log(`%c[${input.join(", ")}] => %c${isMagicSquare(input)}`, "color : skyblue;", "color : orange;");
 		input = [2, 7, 6, 9, 5, 1, 4, 3, 8];
-		console.log(`%c[${input.join(", ")}] -> %c${isMagicSquare(input)}`, "color : skyblue;", "color : orange;");
+		console.log(`%c[${input.join(", ")}] => %c${isMagicSquare(input)}`, "color : skyblue;", "color : orange;");
 		input = [3, 5, 7, 8, 1, 6, 4, 9, 2];
-		console.log(`%c[${input.join(", ")}] -> %c${isMagicSquare(input)}`, "color : skyblue;", "color : orange;");
+		console.log(`%c[${input.join(", ")}] => %c${isMagicSquare(input)}`, "color : skyblue;", "color : orange;");
 		input = [8, 1, 6, 7, 5, 3, 4, 9, 2];
-		console.log(`%c[${input.join(", ")}] -> %c${isMagicSquare(input)}`, "color : skyblue;", "color : orange;");
+		console.log(`%c[${input.join(", ")}] => %c${isMagicSquare(input)}`, "color : skyblue;", "color : orange;");
+		//bonus input
+		console.log(`%cBonus Input: `, "color : red;");
+    input = [5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5];
+		console.log(`%c[${input.join(", ")}] => %c${isMagicSquare(input, 25)}`, "color : skyblue;", "color : orange;");
+    input = [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4];
+		console.log(`%c[${input.join(", ")}] => %c${isMagicSquare(input)}`, "color : skyblue;", "color : orange;");
 	});
 })();		
