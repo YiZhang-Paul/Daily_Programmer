@@ -2,110 +2,97 @@
 (() => {
 	document.addEventListener("DOMContentLoaded", () => {
 		/**
-		 * find insertion index
-		 * @param {Object} [node] - node to be inserted
-		 * @param {Array} [allPoints] - list of all points
+		 * process instructions 
+		 * @param {String} [instructions] - instructions to be processed
 		 *
-		 * @return {int} [insertion index]
+		 * @return {Array} [processed instruction]
 		 */
-		function getInsertIndex(node, allPoints) {
-			let index = allPoints.findIndex(point => point.value >= node.value);
-			return index == -1 ? allPoints.length : index;
+		function readInstruction(instructions) {
+			let lines = instructions.split("\n").map(line => line.trim());
+			let operations = lines.slice(1).map(operation => 
+				operation.split(" ").map(num => Number(num)).sort((a, b) => a - b).map((num, index) => index ? num + 1 : num));
+			return [Number(lines[0]), operations.sort((a, b) => a[0] - b[0])];
 		}
 		/**
-		 * get total number of switches and all operations
-		 * @param {String} [instruction] - total number of switches as well as the operations
+		 * get all sorted break points
+		 * @param {Array} [operations] - all operations on switches
 		 *
-		 * @return {Array} [total number of switches and all operations]
+		 * @return {Array} [break points] 
 		 */
-		function getInstruction(instruction) {
-			let lines = instruction.split("\n").map(line => line.trim());
-			return [Number(lines[0]), lines.slice(1).map(operation => operation.split(" ").map(num => Number(num)).sort((a, b) => a - b))];
+		function getBreakPoints(operations) {
+			let breakPoints = [];
+			for(let i = 0; i < operations.length; i++) {
+				breakPoints.push(...operations[i]);
+			}
+			return Array.from(new Set(breakPoints.sort((a, b) => a - b))).map(num => [num, 0]);
 		}
 		/**
-		 * add starting switch to break points
-		 * @param {int} [begin] - value of begin node
-		 * @param {Array} [points] - all break points 
+		 * simulate switch on and off
+		 * @param {Array} [operations] - all operations on switches
+		 * @param {Array} [breakPoint] - all break points
+		 * @param {Array} [indexTable] - index mapping table
 		 *
-		 * @return {int} [start index]
+		 * @return {Array} [simulated break point]
 		 */
-		function addBeginNode(begin, points) {
-			let index = getInsertIndex({value : begin}, points);
-			if(points[index] && points[index].value == begin) {
-				points[index].state = points[index].state ? 0 : 1;
-				return index;
+		function simulateOperation(operations, breakPoints, indexTable) {
+			let usageTable = [1, ...new Array(breakPoints.length - 1).fill(0)];
+			for(let i = 0; i < operations.length; i++) {
+				let [begin, end] = operations[i];
+				let [beginIndex, endIndex] = [indexTable.get(begin), indexTable.get(end)];
+				usageTable[beginIndex] = 1;
+				breakPoints[beginIndex][1] = usageTable[beginIndex] ? 
+					(breakPoints[beginIndex][1] ? 0 : 1) : (breakPoints[beginIndex - 1][1] ? 0 : 1); 
+				for(let j = beginIndex + 1; j <= endIndex - 1; j++) {
+					breakPoints[j][1] = breakPoints[j][1] ? 0 : 1;
+				}	
+				breakPoints[endIndex][1] = breakPoints[endIndex - 1][1] ? 0 : 1;
 			}
-			points.splice(index, 0, {value : begin, state : points[index - 1].state ? 0 : 1});
-			return index;
+			return breakPoints;
 		}
 		/**
-		 * add ending switch to break points
-		 * @param {int} [start] - begin index
-		 * @param {int} [end] - value of end node
-		 * @param {Array} [points] - all break points
+		 * count total number of switches that are on
+		 * @param {Array} [breakPoints] - all break points
+		 *
+		 * @return {int} [total number of switches on]
 		 */
-		function addEndNode(start, end, points) {
-			let index = getInsertIndex({value : end}, points);
-			for(let i = start + 1; i < index; i++) {
-				points[i].state = points[i].state ? 0 : 1;
-			}
-			if(points[index] && points[index].value == end) {
-				points[index].value++;
-				return;
-			}
-			points.splice(index, 0, {value : end, state : points[index - 1].state ? 0 : 1});
-		}
-		/**
-		 * count total number of switches on
-		 * @param {int} [totalSwitch] - total number of switches
-		 * @param {Array} [points] - all break points to indicate switch states
-		 * 
-		 * @return {int} [total switches on]
-		 */
-		function countSwitchOn(totalSwitch, points) {
+		function countSwitchOn(breakPoints) {
 			let totalOn = 0;
-			for(let i = 0, curNode = null; i < points.length; i++) {
-				curNode = !curNode && points[i].state ? points[i] : curNode;
-				if(curNode) {
-					if(points[i].state) {
-						continue;
-					}
-					totalOn += points[i].value - curNode.value;
+			for(let i = 0, curNode = null; i < breakPoints.length; i++) {
+				curNode = !curNode && breakPoints[i][1] ? breakPoints[i++] : curNode;
+				if(curNode && !breakPoints[i][1]) {
+					totalOn += breakPoints[i][0] - curNode[0];
 					curNode = null;
 				}
 			}
-			console.log(points);
-			return totalOn + (points[points.length - 1].state ? totalSwitch - points[points.length - 1].value : 0);
+			return totalOn;
 		}
 		/**
-		 * check total number of switches on after a series of flipping
-		 * @param {String} [instruction] - total number of switches as well as the operations
+		 * check total number of switches that are on
+		 * @param {String} [instructions] - instructions to be followed
 		 *
-		 * @return {int} [total number of switches still on]
+		 * @return {int} [total number of switches on]
 		 */
-		function flipSwitch(instruction) {
-			let [totalSwitch, operations] = getInstruction(instruction);
-			let breakPoints = [{value : 0, state : 0}];
-			operations.forEach(operation => {
-				let start = addBeginNode(operation[0], breakPoints);
-				if(operation[1] + 1 < totalSwitch) {
-					addEndNode(start, operation[1] + 1, breakPoints);
-				}
-			});
-			return countSwitchOn(totalSwitch, breakPoints);
+		function flipSwitch(instructions) {
+			let [totalSwitch, operations] = readInstruction(instructions);
+			let breakPoints = getBreakPoints(operations);
+			let indexTable = new Map();
+			for(let i = 0; i < breakPoints.length; i++) {
+				indexTable.set(breakPoints[i][0], i);
+			}
+			return countSwitchOn(simulateOperation(operations, breakPoints, indexTable));
 		}
 		/**
-		 * get all switch operations
-		 * @param {String} [url] - operation URL
+		 * retrieve all instructions 
+		 * @param {String} [url] - instruction URL
 		 *
-		 * @return {Object} [Promise Object]
+		 * @return {Object} [Promise object]
 		 */
-		function getOperation(url) {
+		function getInsturction(url) {
 			return new Promise((resolve, reject) => {
 				let xhttp = window.XMLHttpRequest ? new window.XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP");
 				xhttp.onreadystatechange = function() {
-					if(this.readyState == 4 && this.status == 200) resolve(this.responseText);
-					if(this.status == 404) reject("No Operation Found.");
+					if(this.readyState == 4 && this.status == 200) resolve(this.responseText.trim());
+					if(this.status == 404) reject("No Instruction Found.");
 				};
 				xhttp.open("GET", url, true);
 				xhttp.send();
@@ -145,14 +132,14 @@
              961 885
              678 828
              441 152
-             394 453`;              
+             394 453`;                     
 		console.log(`%cSwitches On: %c${flipSwitch(input)}`, "color : skyblue;", "color : orange;");  
 		//bonus input
 		console.log(`%cBonus Input: `, "color : red;");
 		let url = "https://raw.githubusercontent.com/fsufitch/dailyprogrammer/master/ideas/switches/lots_of_switches.txt";
-		getOperation(url).then(result => {
+		getInsturction(url).then(result => {
 			let time = new Date().getTime();
-			//console.log(`%cSwitches On: %c${flipSwitch(result)}`, "color : skyblue;", "color : orange;");   
+			console.log(`%cSwitches On: %c${flipSwitch(result)}`, "color : skyblue;", "color : orange;");   
 			console.log(`%cTime Spent: %c${new Date().getTime() - time}ms`, "color : skyblue;", "color : orange;");
 		}).catch(error => {console.log(error);});
 	});
