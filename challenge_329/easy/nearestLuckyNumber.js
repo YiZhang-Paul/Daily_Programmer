@@ -3,23 +3,23 @@
 	document.addEventListener("DOMContentLoaded", () => {
 		/**
 		 * find lucky numbers
-		 * @param {int} [limit] - upper limit
+		 * @param {int} [range] - upper limit
 		 *
 		 * @return {Array} [lucky numbers in range]
 		 */
-		function getLuckyNumbers(limit) {
-			let allNums = new Array(limit).fill(0).map((num, index) => index + 1);
-			let curPick = 2, curStep = 0;
-			while(curPick <= allNums.length) {
-				let newNums = [];
-				for(let i = 0; i < allNums.length; i++) {
-					if((i + 1) % curPick) {
-						newNums.push(allNums[i]);
+		function getLuckyNumbers(range) {
+			let remain = new Array(range).fill(0).map((num, index) => index + 1);
+			let pick = 2, step = 0;
+			while(pick <= remain.length) {
+				let survived = [];
+				for(let i = 0; i < remain.length; i++) {
+					if((i + 1) % pick) {
+						survived.push(remain[i]);
 					}
 				}
-				[allNums, curPick] = [newNums, newNums[++curStep]];
+				[remain, pick] = [survived, survived[++step]];
 			}
-			return allNums;
+			return remain;
 		}
 		/**
 		 * find nearest lucky numbers
@@ -28,8 +28,8 @@
 		 * @return {String} [nearest numbers]
 		 */
 		function nearestLuckyNumber(target) {
-			let limit = Math.pow(10, String(target).length);
-			let luckyNums = getLuckyNumbers(limit);
+			let range = Math.pow(10, String(target).length);
+			let luckyNums = getLuckyNumbers(range);
 			let index = luckyNums.findIndex(num => target <= num);
 			return luckyNums[index] == target ? 
 				`${target} is a Lucky Number.` : `${luckyNums[index - 1]} < ${target} < ${luckyNums[index]}`;
@@ -43,18 +43,14 @@
     input = 997;
 		console.log(`%c${input} -> %c${nearestLuckyNumber(input)}`, "color : skyblue;", "color : orange;");
 		//bonus input
-		//console.log(`%cBonus Input: `, "color : red;");
-		//let time = new Date().getTime();
-		//input = 100000;
-		//console.log(getLuckyNumbers(input));
-		//console.log(`%c${input} Found in: %c${new Date().getTime() - time}ms`, "color : skyblue;", "color : orange;");
-		//time = new Date().getTime();
-		//input = 1000000;
-		//console.log(getLuckyNumbers(input));
-		//console.log(`%c${input} Found in: %c${new Date().getTime() - time}ms`, "color : skyblue;", "color : orange;");
-		//time = new Date().getTime();
-		//input = 10000000;
-		//console.log(getLuckyNumbers(input));
-		//console.log(`%c${input} Found in: %c${new Date().getTime() - time}ms`, "color : skyblue;", "color : orange;");
+		console.log(`%cBonus Input: `, "color : red;");
+		let time = new Date().getTime();
+		input = 100000;
+		console.log(getLuckyNumbers(input));
+		console.log(`%c${input} Found in: %c${new Date().getTime() - time}ms`, "color : skyblue;", "color : orange;");
+		time = new Date().getTime();
+		input = 1000000;
+		console.log(getLuckyNumbers(input));
+		console.log(`%c${input} Found in: %c${new Date().getTime() - time}ms`, "color : skyblue;", "color : orange;");
 	});
 })();		
