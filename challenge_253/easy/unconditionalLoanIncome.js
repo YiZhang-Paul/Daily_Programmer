@@ -4,128 +4,128 @@
 		/**
 		 * loan class
 		 * @param {Object} [manager] - loan manager
-		 * @param {int} [principal] - principal amount for loan
 		 */
 		class Loan {
-			constructor(manager, principal = 15) {
+			constructor(manager) {
 				this.manager = manager;
-				this.principal = principal;
-				this.curBalance = this.principal;
+				this.balance = manager.principal;
 				this.rate = 0.02;
-				this.curRate = this.rate;
-				this.balances = [];
+				this.cumulativeRate = 0;
+				this.totalPay = 0;
+				this.records = [];
 			}
 			/**
-			 * add balance for a given year
-			 * @param {int} [age] - recipient's age for a given year
-			 * @param {float} [payment] - available payment
+			 * leave a number to a given decimal point
+			 * @param {float} [number] - number to be transformed
+			 * @param {int} [decimal] - decimal precision
 			 *
-			 * @return {float} [remaining payment amount]
+			 * @return {float} [transformed number]
 			 */
-			addBalance(age, payment) {
-				let actualPay = Math.min(this.curBalance, payment);
-				this.curBalance -= actualPay;
-				let interest = this.curRate == 1 ? 0 : Math.round(this.curBalance * this.rate * 10000) / 10000;
-				this.curRate = this.curRate == 1 ? 1 : (Math.round((this.curRate + this.rate) * 100) / 100);
-				this.balances.push({
-					curAge : age,
-					before : this.curBalance + actualPay,
-					pay : actualPay,
-					after : this.curBalance,
-					curInterest : interest, 
-					curRate : this.curRate
-				});
-				this.curBalance += interest;
-				return payment - actualPay;
-			}	
+			toDecimal(number, decimal) {
+				let precision = Math.pow(10, decimal);
+				return Math.round(number * precision) / precision;
+			}
+			/**
+			 * calculate interest for a year
+			 *
+			 * @return {float} [interest for a year]
+			 */
+			getInterest() {
+				let interest = this.cumulativeRate ? 
+					(this.cumulativeRate == 1 ? 0 : this.toDecimal(this.balance * this.rate, 4)) : 0;
+				this.cumulativeRate = this.toDecimal(this.cumulativeRate + this.rate, 2);
+				return interest;
+			}
+			/**
+			 * add record for a given year
+			 * @param {float} [pay] - available payment for a given year
+			 *
+			 * @return {float} [remaining payment]
+			 */
+			addRecord(pay) {
+				if(!this.balance) {
+					return pay;
+				}
+				let interest = this.getInterest();
+				let actualPay = Math.min(this.balance, pay);
+				this.totalPay += actualPay;
+				this.balance = this.toDecimal(this.balance + interest - actualPay, 4);
+				this.records.push({pay : actualPay, balance : this.toDecimal(this.balance + actualPay, 4), interest : interest, rate : this.cumulativeRate});
+				return this.toDecimal(pay - actualPay, 4);
+			}
 		}
 		/**
-		 * unconditional loan income manager
-		 * @param {int} [age] - recipient starting age
-		 * @param {String} [income] - list of recipient's incomes of each year
+		 * loan manager class
+		 * @param {int} [age] - recipient's starting age
+		 * @param {String} [incomes] - incomes of each year
 		 */
-		class URLManager {
-			constructor(age, income) {
-				this.age = age;
-				this.incomes = income.split(" ").map(num => Number(num));
+		class ULIManager {
+			constructor(age, incomes) {
+				this.startAge = age;
+				this.incomes = incomes.split(" ").map(income => Number(income));
 				this.principal = 15;
-				this.royalty = 0.2;
+				this.royaltyRate = 0.2;
+				this.clawbackRate = 0.2;
 				this.clawbackCap = 100;
 				this.loans = [];
-				this.totalLoan = 0;
-				this.balances = [];
-				this.getAllBalance();
+				this.records = [];
+				this.getBalance();
 			}
 			/**
 			 * add new loan
 			 */
 			addLoan() {
-				this.loans.push(new Loan(this, this.principal));
+				this.loans.push(new Loan(this));
 			}
 			/**
-			 * calculate total amount of loan issued
+			 * calculate current total on loans
 			 *
 			 * @return {float} [total loan amount]
 			 */
 			getTotalLoan() {
-				return Math.round(this.loans.reduce((acc, loan) => acc + loan.curBalance, 0) * 10000) / 10000;
+				return Math.round(this.loans.reduce((acc, loan) => acc + loan.balance, 0) * 10000) / 10000;
 			}
 			/**
-			 * calculate total amount of repayment for a given year
-			 * @param {int} [age] - age of repayment
-			 * @param {int} [income] - income for given year
+			 * calculate total amount of clawback for a given year
+			 * @param {int} [age] - age of payment year
 			 *
-			 * @return {Array} [clawback and royalty payment amount]
+			 * @return {int} [clawback]
 			 */
-			getRepayment(age, income) {
+			getClawback(age) {
 				let multiplier = age >= 65 ? 2 : 1;
-				let royalty = income * this.royalty * multiplier;
-				let clawback = this.totalLoan >= this.clawbackCap ? this.principal * this.royalty * multiplier : 0;
-				return [clawback, royalty];
+				return this.getTotalLoan() >= this.clawbackCap ? this.principal * this.clawbackRate * multiplier : 0;
+			}
+			/**
+			 * calculate total royalty for a given year
+			 * @param {int} [age] - age of payment year
+			 * @param {int} [income] - income of payment year
+			 *
+			 * @return {int} [royalty]
+			 */
+			getRoyalty(age, income) {
+				let multiplier = age >= 65 ? 2 : 1;
+				return income * this.royaltyRate * multiplier;
 			}
 			/**
 			 * calculate balance for all loans
 			 */
-			getAllBalance() {
-				for(let i = 0; i < this.incomes.length; i++) {
+			getBalance() {
+				this.incomes.forEach((income, index) => {
 					this.addLoan();
-					this.totalLoan = this.getTotalLoan();
-					let age = this.age + i;
-					let [clawback, royalty] = this.getRepayment(age, this.incomes[i]);
-					for(let j = 0, pay = clawback + royalty; j < this.loans.length; j++) {
-						pay = this.loans[j].addBalance(age, pay);
+					let curAge = this.startAge + index;
+					let [clawback, royalty] = [this.getClawback(curAge), this.getRoyalty(curAge, income)];
+					for(let i = 0, pay = clawback + royalty; i < this.loans.length; i++) {
+						pay = this.loans[i].addRecord(pay);
 					}
-					this.balances.push({
-						curAge : age,
-						principal : this.principal,
-						income : this.incomes[i],
-						clawback : clawback,
-						royalty : royalty,
-						pay : clawback + royalty,
-						before : this.totalLoan,
-						after : this.totalLoan - clawback - royalty
-					});
-				}
-			}
-			/**
-			 * calculate ending balance
-			 *
-			 * @return {Object} - ending balance
-			 */
-			getEndBalance() {
-				return {
-					overallLoan : this.incomes.length * this.principal,
-					totalRoyalty : this.balances.reduce((acc, loan) => acc + loan.royalty, 0),
-					totalClawback : this.balances.reduce((acc, loan) => acc + loan.clawback, 0),
-					after : this.balances[this.balances.length - 1].after
-				};
+					this.records.push({clawback : clawback, royalty : royalty, balance : this.getTotalLoan()});
+				});
 			}
 		}
 		//challenge & bonus input
 		console.log(`%cChallenge & Bonus Input: `, "color : red;");
 		let input = "0 0 20 20 20 20 20 20 20 20 20 20 30 30 30 30 30 30 30 30 30 30 40 40 40 40 40 40 40 40 40 40 50 50 50 50 50 50 50 50 50 50 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0";
-		let manager = new URLManager(18, input);
+		let manager = new ULIManager(18, input);
 		input = "0 0 30 30 30 30 30 30 30 30 30 30 40 40 40 40 40 40 40 40 40 40 50 50 50 50 50 50 50 50 50 50 60 60 60 60 60 60 60 60 60 60 100 120 140 160 200 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10";
-		manager = new URLManager(18, input);
+		manager = new ULIManager(18, input);
 	});
 })();			
