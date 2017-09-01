@@ -33,7 +33,7 @@
 			getInterest() {
 				let interest = this.cumulativeRate ? 
 					(this.cumulativeRate == 1 ? 0 : this.toDecimal(this.balance * this.rate, 4)) : 0;
-				this.cumulativeRate = this.toDecimal(this.cumulativeRate + this.rate, 2);
+				this.cumulativeRate = this.cumulativeRate == 1 ? 1 : this.toDecimal(this.cumulativeRate + this.rate, 2);
 				return interest;
 			}
 			/**
@@ -50,7 +50,7 @@
 				let actualPay = Math.min(this.balance, pay);
 				this.totalPay += actualPay;
 				this.balance = this.toDecimal(this.balance + interest - actualPay, 4);
-				this.records.push({pay : actualPay, balance : this.toDecimal(this.balance + actualPay, 4), interest : interest, rate : this.cumulativeRate});
+				this.records.push({pay : actualPay, balance : this.balance, interest : interest, rate : this.cumulativeRate});
 				return this.toDecimal(pay - actualPay, 4);
 			}
 		}
@@ -120,11 +120,37 @@
 					this.records.push({clawback : clawback, royalty : royalty, balance : this.getTotalLoan()});
 				});
 			}
+			/**
+			 * display balance by age
+			 */
+			balanceByAge() {
+				this.records.forEach((record, index) => {
+					console.log(`%cLoan: ${this.principal}, Income: ${this.incomes[index]}, Clawback: ${record.clawback}, Royalty: ${record.royalty}, Total: ${record.balance + record.royalty + record.clawback}, Balance: ${record.balance}`, "color : orange;");
+				});
+			}
+			/**
+			 * display balance by loan
+			 */
+			balanceByLoan() {
+				console.log();
+			}
+			/**
+			 * display end balance 
+			 */
+			endBalance() {
+				console.log();
+			}
 		}
 		//challenge & bonus input
 		console.log(`%cChallenge & Bonus Input: `, "color : red;");
 		let input = "0 0 20 20 20 20 20 20 20 20 20 20 30 30 30 30 30 30 30 30 30 30 40 40 40 40 40 40 40 40 40 40 50 50 50 50 50 50 50 50 50 50 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0";
 		let manager = new ULIManager(18, input);
+		console.log(`%cBalance By Year: `, "color : skyblue;");
+		manager.balanceByAge();
+		console.log(`%cBalance By Loan: `, "color : skyblue;");
+		manager.balanceByLoan();
+		console.log(`%cEnd Balance: `, "color : skyblue;");
+		manager.endBalance();
 		input = "0 0 30 30 30 30 30 30 30 30 30 30 40 40 40 40 40 40 40 40 40 40 50 50 50 50 50 50 50 50 50 50 60 60 60 60 60 60 60 60 60 60 100 120 140 160 200 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10";
 		manager = new ULIManager(18, input);
 	});
