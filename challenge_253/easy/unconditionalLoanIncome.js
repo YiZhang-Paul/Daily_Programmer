@@ -125,14 +125,16 @@
 			 */
 			balanceByAge() {
 				this.records.forEach((record, index) => {
-					console.log(`%cLoan: ${this.principal}, Income: ${this.incomes[index]}, Clawback: ${record.clawback}, Royalty: ${record.royalty}, Total: ${record.balance + record.royalty + record.clawback}, Balance: ${record.balance}`, "color : orange;");
+					console.log(`%cAge: ${this.startAge + index}, Loan: ${this.principal}, Income: ${this.incomes[index]}, Clawback: ${record.clawback}, Royalty: ${record.royalty}, Total: ${record.balance + record.royalty + record.clawback}, Balance: ${record.balance}`, "color : orange;");
 				});
 			}
 			/**
 			 * display balance by loan
 			 */
 			balanceByLoan() {
-				console.log();
+				this.loans.forEach(loan => {
+					console.log(`%cLoan: ${this.principal}, Balance: ${loan.balance}, Interest: ${loan.balance + loan.totalPay - this.principal}, Payment: ${loan.totalPay}`, "color : orange;");
+				});
 			}
 			/**
 			 * display end balance 
