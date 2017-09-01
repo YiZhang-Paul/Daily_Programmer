@@ -149,7 +149,7 @@
 			 */
 			balanceByLoan() {
 				this.loans.forEach(loan => {
-					console.log(`%cLoan: ${this.principal}, Balance: ${loan.balance}, Interest: ${loan.balance + loan.totalPay - this.principal}, Payment: ${loan.totalPay}`, "color : orange;");
+					console.log(`%cLoan: ${this.principal}, Balance: ${loan.balance}, Interest: ${Math.round((loan.balance + loan.totalPay - this.principal) * 10000) / 10000}, Payment: ${loan.totalPay}`, "color : orange;");
 				});
 			}
 			/**
@@ -171,5 +171,11 @@
 		manager.endBalance();
 		input = "0 0 30 30 30 30 30 30 30 30 30 30 40 40 40 40 40 40 40 40 40 40 50 50 50 50 50 50 50 50 50 50 60 60 60 60 60 60 60 60 60 60 100 120 140 160 200 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10 10";
 		manager = new ULIManager(18, input);
+		console.log(`%cBalance By Year: `, "color : skyblue;");
+		manager.balanceByAge();
+		console.log(`%cBalance By Loan: `, "color : skyblue;");
+		manager.balanceByLoan();
+		console.log(`%cEnd Balance: `, "color : skyblue;");
+		manager.endBalance();
 	});
 })();			

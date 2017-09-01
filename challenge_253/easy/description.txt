@@ -1,5 +1,7 @@
 #253[Easy] Unconditional Loan Income
 
+All Done
+
 url: https://www.reddit.com/r/dailyprogrammer/comments/44qzj5/20160208_challenge_253_easy_unconditional_loan/
 
 Unconditional Loan Income is a private or public (social) program that uses "soft loans" whose only repayment obligation is a royalty on future income.
