@@ -1,5 +1,7 @@
 #252[Easy] Sailors and monkeys and coconuts, oh my!
 
+All Done
+
 url: https://www.reddit.com/r/dailyprogrammer/comments/43ouxy/20160201_challenge_252_easy_sailors_and_monkeys/
 
 This exercise is inspired by a Numberphile video (no need to watch past 2:00).
