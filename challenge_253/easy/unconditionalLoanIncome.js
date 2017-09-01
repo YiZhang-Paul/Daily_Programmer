@@ -121,6 +121,22 @@
 				});
 			}
 			/**
+			 * calculate total clawback
+			 *
+			 * @return {int} [total clawback]
+			 */
+			totalClawback() {
+				return this.records.reduce((acc, loan) => acc + loan.clawback, 0);
+			}
+			/**
+			 * calculate total royalty
+			 *
+			 * @return {int} [total royalty]
+			 */
+			totalRoyalty() {
+				return this.records.reduce((acc, loan) => acc + loan.royalty, 0);
+			}
+			/**
 			 * display balance by age
 			 */
 			balanceByAge() {
@@ -140,7 +156,7 @@
 			 * display end balance 
 			 */
 			endBalance() {
-				console.log();
+				console.log(`%cTotal Loan: ${this.loans.length * this.principal}, Royalty: ${this.totalRoyalty()}, Clawback: ${this.totalClawback()}, Balance: ${this.records[this.records.length - 1].balance}`, "color : orange;");
 			}
 		}
 		//challenge & bonus input
