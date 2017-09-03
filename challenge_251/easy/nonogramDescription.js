@@ -11,13 +11,23 @@
 			return grid.map(row => row.match(/\*+/g).map(match => match.length));
 		}
 		/**
+		 * get a column from grid
+		 * @param {Array} [grid] - grid to be examined
+		 * @param {int} [index] - column index
+		 *
+		 * @return {String} [column from the grid]
+		 */
+		function getColumn(grid, index) {
+			return grid.map(row => row[index]).join("");
+		}
+		/**
 		 * get column descriptions
 		 * @param {Array} [grid] - column to be described 
 		 *
 		 * @return {Array} [column descriptions]
 		 */
 		function getColDesc(grid) {
-
+			return getRowDesc(grid[0].split("").map((col, index) => getColumn(grid, index)));
 		}
 		/**
 		 * describe nonogram
@@ -29,7 +39,7 @@
 			let grid = nonogram.split("\n").slice(1);
 			let rowDesc = getRowDesc(grid);
 			console.log(rowDesc);
-			let colDesc = getRowDesc(grid); 
+			let colDesc = getColDesc(grid); 
 			console.log(colDesc);
 		}
 		//challenge & bonus input
