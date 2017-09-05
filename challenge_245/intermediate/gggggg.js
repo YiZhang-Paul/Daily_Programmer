@@ -187,4 +187,4 @@
 		console.log(`%cDecode Back Into: -> `, "color : red;");
 		console.log(decodeAll(input));
 	});
-})();		
+})();

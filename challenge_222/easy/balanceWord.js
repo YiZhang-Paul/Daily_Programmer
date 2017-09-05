@@ -11,7 +11,7 @@
 		 */
 		function getPosition(letter) {
 			return letter.toUpperCase().charCodeAt() - 64;
-		} 
+		}
 		/**
 		 * calculate letter weight
 		 * @param int, int
@@ -23,21 +23,21 @@
 		 */
 		function getCharWeight(distance, position) {
 			return distance * position;
-		} 
+		}
 		/**
 		 * calculate total weight for a group of letters
 		 * @param array [], String
 		 *
 		 * letters   : letters to be examined
 		 * direction : direction relative to balance point
-		 * 
+		 *
 		 * returns int
 		 */
 		function totalWeight(letters, direction) {
 			let chars = direction.toLowerCase() == "l" ? letters.slice().reverse() : letters.slice();
-			return chars.reduce((acc, val, index) => 
+			return chars.reduce((acc, val, index) =>
 				acc + getCharWeight(index + 1, getPosition(val)), 0);
-		} 
+		}
 		/**
 		 * find balance point for a word
 		 * @param String
@@ -56,7 +56,7 @@
 				}
 			}
 			return `${word} Does Not Balance.`;
-		} 
+		}
 		//default input
 		console.log(`%cDefault Input: `, "color : red;");
 		console.log(findBalance("STEAD"));
@@ -67,4 +67,4 @@
 		console.log(findBalance("UNINTELLIGIBILITY"));
 		console.log(findBalance("SUPERGLUE"));
 	});
-})();		
+})();
