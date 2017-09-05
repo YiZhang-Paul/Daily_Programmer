@@ -25,8 +25,7 @@
 		 * @return {String} [circuit layout]
 		 */
 		function drawCircuit(hours, capacity = 1200, batteryVolt = 9, ledVolt = 1.7, current = 20) {
-			let ledPerLine = Math.floor(batteryVolt / ledVolt);
-			let line = `-${new Array(ledPerLine).fill("-|>|-").join("-")}-`;
+			let line = `-${new Array(Math.floor(batteryVolt / ledVolt)).fill("-|>|-").join("-")}-`;
 			let circuit = "", totalLines = Math.floor(capacity / hours / current);
 			for(let i = 0; i < totalLines; i++) {
 				let connector = i ? " " : "*";
@@ -46,6 +45,20 @@
 		 */
 		function getResistence(hours, capacity = 1200, batteryVolt = 9, ledVolt = 1.7, current = 20) {
 			return Math.round(batteryVolt % ledVolt / Math.floor(capacity / hours) * 1000 * 1000) / 1000;
+		}
+		/**
+		 * retrieve all information on a circuit
+		 * @param {float} [ledVolt] - LED voltage
+		 * @param {int} [current] - LED current
+		 * @param {float} [batteryVolt] - battery voltage
+		 * @param {int} [capacity] - battery capacity
+		 * @param {int} [hours] - total hours to lit up lights
+		 *
+		 * @return {String} [circuit information]
+		 */
+		function getCircuitInfo(ledVolt, current, batteryVolt, capacity, hours) {
+			let resistence = getResistence(hours, capacity, batteryVolt, ledVolt, current);
+			return `Resistor: ${resistence} Ohms\nScheme: \n` + drawCircuit(hours, capacity, batteryVolt, ledVolt, current);
 		}
 		//part 1 input
 		console.log(`%cPart 1 Input: `, "color : red;");
@@ -75,5 +88,9 @@
 		console.log(`%c${getResistence(input)}`, "color : orange;");
 		input = 8;		
 		console.log(`%c${getResistence(input)}`, "color : orange;");
+		//part 4 input
+		console.log(`%cPart 4 Input: `, "color : red;");
+		input = [1.7, 20, 9, 1200, 20];
+		console.log(`%c${getCircuitInfo(...input)}`, "color : orange;");
 	});
 })();		
