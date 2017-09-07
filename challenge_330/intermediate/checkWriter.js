@@ -22,43 +22,59 @@
 			return text[0].toUpperCase() + text.slice(1);
 		}
 		/**
+		 * segmentize number into groups of digits
+		 * @param {String} [numStr] - stringified number
+		 * @param {int} [size] - number of digits in each group
+		 *
+		 * @return {Array} [number segments]
+		 */
+		function toSegments(numStr, size = 3) {
+			const segments = [];
+			for(let i = numStr.length - size ; i >= 1 - size ; i -= size) {
+				let segment = numStr.slice(Math.max(i, 0), i + 3);
+				segments.unshift((segment.length == size ? "" : "0".repeat(size - segment.length)) + segment);
+			}
+			return segments;
+		}
+		/**
+		 * read hundreds into separate numbers
+		 * @param {String} [hundred] - hundred to be read
+		 *
+		 * @return {Array} [separated numbers that represent given hundred]
+		 */
+		function readHundred(hundred) {
+			const subNums = [];
+			const [lead, trails] = [Number(hundred[0]), Number(hundred.slice(1))];
+			if(lead) {
+				subNums.push(lead, 100, trails ? "&" : null);
+			}
+			if(trails) {
+				let nums = Number(hundred[1]) <= 1 || hundred[2] == "0" ? 
+					[trails] : [Number(hundred[1]) * 10, Number(hundred[2])];
+				subNums.push(...nums);	
+			}
+			return subNums.filter(num => num !== null);
+		}
+		/**
 		 * convert number to word
-		 * @param {float} [number] - number to be convereted
+		 * @param {float} [number] - number to be converted
 		 * @param {Object} [table] - translate table
 		 *
 		 * @return {String} [converted word]
 		 */
 		function numberToWord(number, table) {
 			const numStr = number.toFixed(2).replace(/[.]/, "0");
-			let segments = [];
-			for(let i = numStr.length - 3; i >= -2; i -= 3) {
-				let segment = numStr.slice(Math.max(i, 0), i + 3);
-				segments.unshift((segment.length == 3 ? "" : "0".repeat(3 - segment.length)) + segment);
-			}
-			for(let i = segments.length - 1; i >= 0; i--) {
-				let subSegment = [];
-				let [leadDigit, trailDigits] = [Number(segments[i][0]), Number(segments[i].slice(1))];
-				if(leadDigit) {
-					subSegment.push(leadDigit, 100);
-					if(trailDigits) {
-						subSegment.push("&");
-					}
+			const segments = toSegments(numStr).map((segment, index, allSegments) => {
+				if(!Number(segment)) {
+					return [table[0]];
 				}
-				if(trailDigits) {
-					if(segments[i][1] == "0" || segments[i][1] == "1" || segments[i][2] == "0") {
-						subSegment.push(trailDigits);
-					} else {
-						subSegment.push(Number(segments[i][1]) * 10, Number(segments[i][2]));
-					}
+				segment = [...readHundred(segment)];
+				if(allSegments.length - 2 - index > 0) {
+					segment.push(Math.pow(1000, allSegments.length - 2 - index));
 				}
-				subSegment = subSegment.length ? subSegment : [0];
-				segments[i] = [...subSegment];
-				if(segments.length - 2 - i > 0) {
-					segments[i].push(Math.pow(1000, segments.length - 2 - i));
-				}
-			}
-			let words = segments.map(segment => segment.map(num => table[num]).join(" "));
-			return capitalize(`${words.slice(0, -1).join(", ")} dollars and ${words[words.length - 1]} cents.`);
+				return segment.map(num => table[num]).join(" ");
+			});
+			return capitalize(`${segments.slice(0, -1).join(", ")} dollars and ${segments[segments.length - 1]} cents.`);
 		}
 		//default input
 		console.log(`%cDefault Input: `, "color : red;");
