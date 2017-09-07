@@ -3,13 +3,14 @@
 	document.addEventListener("DOMContentLoaded", () => {
 		//translate table
 		const table = {
-			0 : "zero", 1 : "one", 2 : "two", 3 : "three", 4 : "four", 5 : "five",
-			6 : "six", 7 : "seven", 8 : "eight", 9 : "nine", 10 : "ten",
-			11 : "eleven", 12 : "twelve", 13 : "thirteen", 14 : "fourteen",
-			15 : "fifteen", 16 : "sixteen", 17 : "seventeen", 18 : "eighteen",
-			19 : "nineteen", 20 : "twenty", 30 : "thirty", 40 : "fourty", 50 : "fifty",
+			0 : "zero", 1 : "one", 2 : "two", 3 : "three", 4 : "four", 5 : "five", 
+			6 : "six", 7 : "seven", 8 : "eight", 9 : "nine", 10 : "ten", 
+			11 : "eleven", 12 : "twelve", 13 : "thirteen", 14 : "fourteen", 
+			15 : "fifteen", 16 : "sixteen", 17 : "seventeen", 18 : "eighteen", 
+			19 : "nineteen", 20 : "twenty", 30 : "thirty", 40 : "forty", 50 : "fifty", 
 			60 : "sixty", 70 : "seventy", 80 : "eighty", 90 : "ninety", 100 : "hundred", 
-			1000 : "thousand", 1000000 : "million", 1000000000 : "billion", "&" : "and"
+			1000 : "thousand", 1000000 : "million", 1000000000 : "billion", 
+			1000000000000 : "trillion", 1000000000000000 : "quadrillion", "&" : "and"
 		};
 		/**
 		 * capitalize sentence or word
@@ -62,6 +63,29 @@
 		//default input
 		console.log(`%cDefault Input: `, "color : red;");
 		let input = 400120.0;
-		console.log(numberToWord(input, table));
+		console.log(`%c${input} -> `, "color : skyblue;");
+		console.log(`%c${numberToWord(input, table)}`, "color : orange;");
+		//challenge input
+		console.log(`%cChallenge Input: `, "color : red;");
+		input = 333.88;
+		console.log(`%c${input} -> `, "color : skyblue;");
+		console.log(`%c${numberToWord(input, table)}`, "color : orange;");
+		input = 742388.15;
+		console.log(`%c${input} -> `, "color : skyblue;");
+		console.log(`%c${numberToWord(input, table)}`, "color : orange;");
+		input = 919616.12;
+		console.log(`%c${input} -> `, "color : skyblue;");
+		console.log(`%c${numberToWord(input, table)}`, "color : orange;");
+		input = 12.11;
+		console.log(`%c${input} -> `, "color : skyblue;");
+		console.log(`%c${numberToWord(input, table)}`, "color : orange;");
+		input = 2.0;
+		console.log(`%c${input} -> `, "color : skyblue;");
+		console.log(`%c${numberToWord(input, table)}`, "color : orange;");
+		//bonus input
+		console.log(`%cBonus Input: `, "color : red;");
+		input = 999999999999999.9;
+		console.log(`%c${input} -> `, "color : skyblue;");
+		console.log(`%c${numberToWord(input, table)}`, "color : orange;");
 	});
 })();		
