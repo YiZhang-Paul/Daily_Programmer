@@ -105,12 +105,7 @@
 			 */
 			getMonthNumber(name) {
 				const monthTable = ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"];
-				for(let i = 0; i < monthTable.length; i++) {
-					if(new RegExp(monthTable[i]).test(name)) {
-						return i + 1;
-					}
-				}
-				return -1;
+				return monthTable.indexOf(name.slice(0, 3)) + 1;
 			}
 			/**
 			 * switch current date
@@ -131,12 +126,7 @@
 			 */
 			getDayNumber(name) {
 				const dayTable = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"];
-				for(let i = 0; i < dayTable.length; i++) {
-					if(dayTable[i] == name) {
-						return i ? i : 7;
-					}
-				}
-				return -1;
+				return dayTable.indexOf(name) ? dayTable.indexOf(name) : 7;
 			}
 			/**
 			 * move date forward
@@ -158,6 +148,22 @@
 					}
 					return;
 				}
+				let [start, end] = changes.split("from").reverse();
+				if(/\btomorrow\b|\byesterday\b/.test(start)) {
+					this.getAdjacentDate(start);
+				}
+				let changeAmount = Number(end.replace(/\ba\b|\ban\b/, "1").match(/\d+/)[0]);
+				if(/\bday/.test(end)) {
+					this.addDays(changeAmount);
+				} else if(/\bweek/.test(end)) {
+					this.addDays(changeAmount * 7);
+				} else if(/\byear/.test(end)) {
+					this.year += changeAmount;
+				} else if(/\bmonth/.test(end)) {
+					[this.year, this.month] = this.month == 12 ? [this.year + 1, 1] : [this.year, this.month + 1];
+					this.dayOfMonth = this.dayOfMonth > this.totalDaysOfMonth() ? this.totalDaysOfMonth() : this.dayOfMonth;
+				}
+				console.log(changes.split("from")[1]);
 			}
 			/**
 			 * move date backward
@@ -204,15 +210,10 @@
 			 * @return {String} [changed date string]
 			 */
 			changeDate(changes) {
-				if(/\bago\b|\blast\b/.test(changes)) {
-					this.reduceDate(changes);
-				} else if(/\bfrom\b|\bnext\b/.test(changes)) {
-					this.addDate(changes);
-				} else if(/\bjan|\bfeb|\bmar|\bapr|\bmay|\bjun|\bjul|\baug|\bsep|\boct|\bnov|\bdec/.test(changes)) {
-					this.switchDate(changes);
-				} else {
-					this.getAdjacentDate(changes);
-				}
+				if(/\bago\b|\blast\b/.test(changes)) this.reduceDate(changes);
+				else if(/\bfrom\b|\bnext\b/.test(changes)) this.addDate(changes);
+				else if(/\bjan|\bfeb|\bmar|\bapr|\bmay|\bjun|\bjul|\baug|\bsep|\boct|\bnov|\bdec/.test(changes)) this.switchDate(changes);
+				else this.getAdjacentDate(changes);
 				return this.getDateStr();
 			}
 		}
@@ -268,12 +269,11 @@
 		         last week
 		         LAST MONTH
 		         10 October 2010
-		         an year ago`;  
-		// input = `	             
-		// 		     2 years from tomoRRow
-		// 		     1 month from 2016-01-31
-		// 		     4 DAYS FROM today
-		// 		     9 weeks from yesterday`; 
+		         an year ago
+		         2 years from tomoRRow
+		 		     1 month from 2016-01-31
+		 		     4 DAYS FROM today
+		 		     9 weeks from yesterday`;  
 		console.log(`%c${translateDate(input, "2014-12-24").join("\n")}`, "color : orange;");     				             
 	});
 })();		
