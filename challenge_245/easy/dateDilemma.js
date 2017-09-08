@@ -93,9 +93,35 @@
 			getAdjacentDate(changes) {
 				if(/yesterday/.test(changes)) {
 					this.reduceDays(/before/.test(changes) ? 2 : 1);
-				} else {
-					this.addDays(/after/.test(changes) ? 2 : 730);
+				} else if(/tomorrow/.test(changes)) {
+					this.addDays(/after/.test(changes) ? 2 : 1);
 				} 
+			}
+			/**
+			 * translate month name to month number
+			 * @param {String} [name] - name of month
+			 *
+			 * @return {int} [month number]
+			 */
+			getMonthNumber(name) {
+				let monthTable = ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"];
+				for(let i = 0; i < monthTable.length; i++) {
+					if(new RegExp(monthTable[i]).test(name)) {
+						return i + 1;
+					}
+				}
+				return 0;
+			}
+			/**
+			 * switch current date
+			 * @param {String} [changes] - changes to date
+			 */
+			switchDate(changes) {
+				let dateNums = changes.match(/\d+/g).map(Number).sort((a, b) => b - a);
+				this.year = dateNums.length == 1 ? this.year : dateNums[0];
+				this.month = this.getMonthNumber(changes.match(/[a-z]+/)[0]);
+				this.dayOfMonth = dateNums[dateNums.length - 1];
+				this.dayOfWeek = this.getDayOfWeek();
 			}
 			/**
 			 * change date 
@@ -106,9 +132,9 @@
 			changeDate(changes) {
 				if(/ago|last/.test(changes)) this.reduceDate();
 				else if(/from|next/.test(changes)) this.addDate();
-				else if(/jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec/.test(changes)) this.switchDate();
-				else this.getAdjacentDate();
-				return this.getDateStr(changes);
+				else if(/jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec/.test(changes)) this.switchDate(changes);
+				else this.getAdjacentDate(changes);
+				return this.getDateStr();
 			}
 		}
 		/**
@@ -118,8 +144,8 @@
 		 * @return {String} [reformatted date]
 		 */
 		function reformatDate(date) {
-			let numbers = date.match(/\d+/g).map(Number);
-			let [year, month, day] = numbers[0] < 1000 ? [numbers[2], ...numbers.slice(0, 2)] : numbers;
+			let dateNums = date.match(/\d+/g).map(Number);
+			let [year, month, day] = dateNums[0] < 1000 ? [dateNums[2], ...dateNums.slice(0, 2)] : dateNums;
 			return `${year < 100 ? "20" + year : year}-${month < 10 ? "0" + month : month}-${day < 10 ? "0" + day : day}`;
 		}
 		/**
@@ -152,10 +178,10 @@
 		console.log(`%c${validateDates(input).join("\n")}`, "color : orange;");     
 		//bonus input
 		console.log(`%cBonus Input: `, "color : red;");  
-		input = "tomorrow";  
-		// input = `tomorrow
-		// 		     2010-dec-7
-		// 		     OCT 23
+		input = `tomorrow
+		         2010-dec-7
+		         OCT 23`;  
+		// input = `
 		// 		     1 week ago
 		// 		     next Monday
 		// 		     last sunDAY
