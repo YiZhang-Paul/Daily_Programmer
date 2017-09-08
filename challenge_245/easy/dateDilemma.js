@@ -51,7 +51,7 @@
 			 * @return {int} [total days in given month]
 			 */
 			totalDaysOfMonth(month = this.month) {
-				let daysPerMonth = {1 : 31, 2 : 28, 3 : 31, 4 : 30, 5 : 31, 6 : 30, 7 : 31, 8 : 31, 9 : 30, 10 : 31, 11 : 30, 12 : 31};
+				const daysPerMonth = {1 : 31, 2 : 28, 3 : 31, 4 : 30, 5 : 31, 6 : 30, 7 : 31, 8 : 31, 9 : 30, 10 : 31, 11 : 30, 12 : 31};
 				return daysPerMonth[month];
 			}
 			/**
@@ -91,10 +91,10 @@
 			 * @param {String} [changes] - changes to date
 			 */
 			getAdjacentDate(changes) {
-				if(/yesterday/.test(changes)) {
-					this.reduceDays(/before/.test(changes) ? 2 : 1);
-				} else if(/tomorrow/.test(changes)) {
-					this.addDays(/after/.test(changes) ? 2 : 1);
+				if(/\byesterday\b/.test(changes)) {
+					this.reduceDays(/\bbefore\b/.test(changes) ? 2 : 1);
+				} else if(/\btomorrow\b/.test(changes)) {
+					this.addDays(/\bafter\b/.test(changes) ? 2 : 1);
 				} 
 			}
 			/**
@@ -104,24 +104,98 @@
 			 * @return {int} [month number]
 			 */
 			getMonthNumber(name) {
-				let monthTable = ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"];
+				const monthTable = ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"];
 				for(let i = 0; i < monthTable.length; i++) {
 					if(new RegExp(monthTable[i]).test(name)) {
 						return i + 1;
 					}
 				}
-				return 0;
+				return -1;
 			}
 			/**
 			 * switch current date
 			 * @param {String} [changes] - changes to date
 			 */
 			switchDate(changes) {
-				let dateNums = changes.match(/\d+/g).map(Number).sort((a, b) => b - a);
+				const dateNums = changes.match(/\d+/g).map(Number).sort((a, b) => b - a);
 				this.year = dateNums.length == 1 ? this.year : dateNums[0];
 				this.month = this.getMonthNumber(changes.match(/[a-z]+/)[0]);
 				this.dayOfMonth = dateNums[dateNums.length - 1];
 				this.dayOfWeek = this.getDayOfWeek();
+			}
+			/**
+			 * translate day name to day number in week
+			 * @param {String} [name] - name of day
+			 *
+			 * @return {int} [day number in 0-index] 
+			 */
+			getDayNumber(name) {
+				const dayTable = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"];
+				for(let i = 0; i < dayTable.length; i++) {
+					if(dayTable[i] == name) {
+						return i ? i : 7;
+					}
+				}
+				return -1;
+			}
+			/**
+			 * move date forward
+			 * @param {String} [changes] - changes to date
+			 */
+			addDate(changes) {
+				if(/\bnext\b/.test(changes)) {
+					if(/\bday/.test(changes)) {
+						this.addDays(1);
+					} else if(/\bweek/.test(changes)) {
+						this.addDays(7);
+					} else if(/\byear/.test(changes)) {
+						this.year++;
+					} else if(/\bmonth/.test(changes)) {
+						[this.year, this.month] = this.month == 12 ? [this.year + 1, 1] : [this.year, this.month + 1];
+						this.dayOfMonth = this.dayOfMonth > this.totalDaysOfMonth() ? this.totalDaysOfMonth() : this.dayOfMonth;
+					} else {
+						this.addDays(7 - (this.dayOfWeek ? this.dayOfWeek : 7) + this.getDayNumber(changes.match(/\bmon|\btue|\bwed|\bthu|\bfri|\bsat|\bsun/)[0]));
+					}
+					return;
+				}
+			}
+			/**
+			 * move date backward
+			 * @param {String} [changes] - changes to date
+			 */
+			reduceDate(changes) {
+				if(/\blast\b/.test(changes)) {
+					if(/\bday/.test(changes)) {
+						this.reduceDays(1);
+					} else if(/\bweek/.test(changes)) {
+						this.reduceDays(7);
+					} else if(/\byear/.test(changes)) {
+						this.year--;
+					} else if(/\bmonth/.test(changes)) {
+						[this.year, this.month] = this.month == 1 ? [this.year - 1, 12] : [this.year, this.month - 1];
+						this.dayOfMonth = this.dayOfMonth > this.totalDaysOfMonth() ? this.totalDaysOfMonth() : this.dayOfMonth;
+					} else {
+						this.reduceDays(7 - this.getDayNumber(changes.match(/\bmon|\btue|\bwed|\bthu|\bfri|\bsat|\bsun/)[0]) + (this.dayOfWeek ? this.dayOfWeek : 7));
+					} 
+					return;
+				}
+				let changeAmount = Number(changes.replace(/\ba\b|\ban\b/, "1").match(/\d+/)[0]);
+				if(/\bday/.test(changes)) {
+					this.reduceDays(changeAmount);
+				} else if(/\bweek/.test(changes)) {
+					this.reduceDays(changeAmount * 7);
+				}	else if(/\byear/.test(changes)) {
+					this.year -= changeAmount;
+				} else if(/\bmonth/.test(changes)) {
+					while(changeAmount) {
+						if(this.month > changeAmount) {
+							this.month -= changeAmount;
+							break;
+						}
+						changeAmount -= this.month;
+						[this.year, this.month] = [this.year - 1, 12];
+					}
+				}
 			}
 			/**
 			 * change date 
@@ -130,10 +204,15 @@
 			 * @return {String} [changed date string]
 			 */
 			changeDate(changes) {
-				if(/ago|last/.test(changes)) this.reduceDate();
-				else if(/from|next/.test(changes)) this.addDate();
-				else if(/jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec/.test(changes)) this.switchDate(changes);
-				else this.getAdjacentDate(changes);
+				if(/\bago\b|\blast\b/.test(changes)) {
+					this.reduceDate(changes);
+				} else if(/\bfrom\b|\bnext\b/.test(changes)) {
+					this.addDate(changes);
+				} else if(/\bjan|\bfeb|\bmar|\bapr|\bmay|\bjun|\bjul|\baug|\bsep|\boct|\bnov|\bdec/.test(changes)) {
+					this.switchDate(changes);
+				} else {
+					this.getAdjacentDate(changes);
+				}
 				return this.getDateStr();
 			}
 		}
@@ -144,8 +223,8 @@
 		 * @return {String} [reformatted date]
 		 */
 		function reformatDate(date) {
-			let dateNums = date.match(/\d+/g).map(Number);
-			let [year, month, day] = dateNums[0] < 1000 ? [dateNums[2], ...dateNums.slice(0, 2)] : dateNums;
+			const dateNums = date.match(/\d+/g).map(Number);
+			const [year, month, day] = dateNums[0] < 1000 ? [dateNums[2], ...dateNums.slice(0, 2)] : dateNums;
 			return `${year < 100 ? "20" + year : year}-${month < 10 ? "0" + month : month}-${day < 10 ? "0" + day : day}`;
 		}
 		/**
@@ -180,17 +259,17 @@
 		console.log(`%cBonus Input: `, "color : red;");  
 		input = `tomorrow
 		         2010-dec-7
-		         OCT 23`;  
-		// input = `
-		// 		     1 week ago
-		// 		     next Monday
-		// 		     last sunDAY
-		// 		     1 year ago
-		// 		     1 month ago
-		// 		     last week
-		// 		     LAST MONTH
-		// 		     10 October 2010
-		// 		     an year ago
+		         OCT 23
+		         1 week ago
+		         next Monday
+		         last sunDAY
+		         1 year ago
+		         1 month ago
+		         last week
+		         LAST MONTH
+		         10 October 2010
+		         an year ago`;  
+		// input = `	             
 		// 		     2 years from tomoRRow
 		// 		     1 month from 2016-01-31
 		// 		     4 DAYS FROM today
