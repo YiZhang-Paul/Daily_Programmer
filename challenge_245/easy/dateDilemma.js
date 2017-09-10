@@ -55,11 +55,18 @@
 			 * @return {String} [date string]
 			 */
 			getDateString() {
-				return [this.year, this.appendZero(this.month), this.appendZero(this.day)].join("-");
+				return [this.year, this.appendZero(this.month), this.appendZero(this.dayOfMonth)].join("-");
 			}
 		}
-		console.log(new CustomDate("2/13/15"));
-		console.log(new CustomDate("2012 3 17"));
+		/**
+		 * reformat dates
+		 * @param {String} [dates] - dates to be reformatted
+		 *
+		 * @return {Array} [reformatted dates]
+		 */
+		function reformDates(dates) {
+			return dates.split("\n").map(date => new CustomDate(date).getDateString());
+		}
 		//challenge input
 		console.log(`%cChallenge Input: `, "color : red;");
 		let input = `2/13/15
@@ -68,7 +75,7 @@
                  2012 3 17
                  2001-01-01
                  2008/01/07`;
-		console.log(`%c${validateDates(input).join("\n")}`, "color : orange;");     
+		console.log(`%c${reformDates(input).join("\n")}`, "color : orange;");     
 		//bonus input
 		console.log(`%cBonus Input: `, "color : red;");  
 		input = `tomorrow
