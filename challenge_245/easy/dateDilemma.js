@@ -10,7 +10,16 @@
 				[this.year, this.month, this.dayOfMonth, this.dayOfWeek] = this.getDate(date);
 			}
 			/**
-			 * append number to format year to 4 digits
+			 * check if a year is a leap year
+			 * @param {int} [year] - year to be checked
+			 *
+			 * @return {boolean} [test result]
+			 */
+			isLeapYear(year = this.year) {
+				return this.year % 4 === 0 && (this.year % 100 || (this.year % 100 === 0 && this.year % 400 === 0));
+			}
+			/**
+			 * append number to reformat year to digits
 			 * @param {int} [year] - year to be appended
 			 *
 			 * @return {int} [appended year]
@@ -19,7 +28,7 @@
 				return year < 1000 ? year + 2000 : year;
 			}
 			/**
-			 * append zero to number smaller than 10
+			 * append zero to numbers smaller than 10
 			 * @param {int} [number] - number to be appended
 			 *
 			 * @return {String} [appended number]
@@ -39,23 +48,23 @@
 				return new Date(year, month, dayOfMonth).getDay();
 			}
 			/**
-			 * get date 
+			 * get date
 			 * @param {String} [date] - date string
 			 *
 			 * @return {Array} [date represented by date string]
 			 */
-			getDate(date, start) {
-				const dateValues = date.match(/\d+/g).map(Number); 
-				if(dateValues.length < 3 && this.year) {
-					dateValues.unshift(this.year);
+			getDate(date) {
+				const numbers = date.match(/\d+/g).map(Number);
+				if(numbers.length < 3 && this.year) {
+					numbers.unshift(this.year);
 				}
-				const [year, month, dayOfMonth] = dateValues[0] < 1000 ? [dateValues[2], ...dateValues.slice(0, 2)] : dateValues;
+				const [year, month, dayOfMonth] = numbers[0] < 1000 ? [numbers[2], ...numbers.slice(0, 2)] : numbers;
 				return [this.appendYear(year), month, dayOfMonth, this.getDayOfWeek(this.appendYear(year), month - 1, dayOfMonth)];
 			}
 			/**
 			 * get date string representing current date
 			 *
-			 * @return {String} [date string]
+			 * @return {String} [date string] 
 			 */
 			getDateString() {
 				return [this.year, this.appendZero(this.month), this.appendZero(this.dayOfMonth)].join("-");
@@ -72,13 +81,14 @@
 			}
 			/**
 			 * translate day name to day number in week
-			 * @param {String} [name] - name of day in week
+			 * @param {String} [changes] - changes to date
 			 *
-			 * @return {int} [day number in 1-index, starting from Monday]
+			 * @return {int} [day number in 1-index, counting from Monday]
 			 */
-			getDayNumber(name) {
-				const dayTable = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"];
-				return dayTable.indexOf(name) ? dayTable.indexOf(name) : 7;
+			getDayNumber(changes) {
+				const name = changes.match(/\bmon|\btue|\bweb|\bthu|\bfri|\bsat|\bsun/)[0];
+				const dayTable = ["mon", "tue", "wed", "thu", "fri", "sat", "sun"];
+				return dayTable.indexOf(name) + 1;
 			}
 			/**
 			 * get total days in a month
@@ -87,7 +97,7 @@
 			 * @return {int} [total days in given month]
 			 */
 			totalDaysOfMonth(month = this.month) {
-				const daysPerMonth = {1 : 31, 2 : 28, 3 : 31, 4 : 30, 5 : 31, 6 : 30, 7 : 31, 8 : 31, 9 : 30, 10 : 31, 11 : 30, 12 : 31};
+				const daysPerMonth = {1 : 31, 2 : this.isLeapYear() ? 29 : 28, 3 : 31, 4 : 30, 5 : 31, 6 : 30, 7 : 31, 8 : 31, 9 : 30, 10 : 31, 11 : 30, 12 : 31};
 				return daysPerMonth[month];
 			}
 			/**
@@ -103,35 +113,35 @@
 			 * add years
 			 * @param {int} [years] - years to add
 			 */
-			addYears(years) {
+			addYear(years) {
 				this.year += years;
 			}
 			/**
 			 * reduce years
 			 * @param {int} [years] - years to reduce
 			 */
-			reduceYears(years) {
+			reduceYear(years) {
 				this.year -= years;
 			}
 			/**
 			 * add months
 			 * @param {int} [months] - months to add
 			 */
-			addMonths(months) {
+			addMonth(months) {
 				if(this.month + months <= 12) {
 					this.month += months;
 					this.dayOfMonth = Math.min(this.totalDaysOfMonth(), this.dayOfMonth);
 					return;
 				}
-				months -= 13 - this.month; 
+				months -= 13 - this.month;
 				[this.year, this.month] = [this.year + 1, 1];
-				this.addMonths(months);
+				this.addMonth(months);
 			}
 			/**
 			 * reduce months
 			 * @param {int} [months] - months to reduce
 			 */
-			reduceMonths(months) {
+			reduceMonth(months) {
 				if(this.month - months > 0) {
 					this.month -= months;
 					this.dayOfMonth = Math.min(this.totalDaysOfMonth(), this.dayOfMonth);
@@ -139,49 +149,49 @@
 				}
 				months -= this.month;
 				[this.year, this.month] = [this.year - 1, 12];
-				this.reduceMonths(months);
+				this.reduceMonth(months);
 			}
 			/**
 			 * add weeks
 			 * @param {int} [weeks] - weeks to add
 			 */
-			addWeeks(weeks) {
-				this.addDays(weeks * 7);
+			addWeek(weeks) {
+				this.addDay(weeks * 7);
 			}
 			/**
-			 * reduce weeks
+			 * reduce weekes
 			 * @param {int} [weeks] - weeks to reduce
 			 */
-			reduceWeeks(weeks) {
-				this.reduceDays(weeks * 7);
+			reduceWeek(weeks) {
+				this.reduceDay(weeks * 7);
 			}
 			/**
 			 * add days
 			 * @param {int} [days] - days to add
 			 */
-			addDays(days) {
+			addDay(days) {
 				if(this.dayOfMonth + days <= this.totalDaysOfMonth()) {
 					this.dayOfMonth += days;
 					return;
 				}
 				days -= this.totalDaysOfMonth() + 1 - this.dayOfMonth;
-				this.addMonths(1);
+				this.addMonth(1);
 				this.dayOfMonth = 1;
-				this.addDays(days);
+				this.addDay(days);
 			}
 			/**
 			 * reduce days
 			 * @param {int} [days] - days to reduce
 			 */
-			reduceDays(days) {
+			reduceDay(days) {
 				if(this.dayOfMonth - days > 0) {
 					this.dayOfMonth -= days;
 					return;
 				}
 				days -= this.dayOfMonth;
-				this.reduceMonths(1);
+				this.reduceMonth(1);
 				this.dayOfMonth = this.totalDaysOfMonth();
-				this.reduceDays(days);
+				this.reduceDay(days);
 			}
 			/**
 			 * move date forward
@@ -190,66 +200,52 @@
 			addDate(changes) {
 				if(/from/.test(changes)) {
 					this.changeDate(changes.split("from")[1]);
-				} 
-				if(/\bdays*/.test(changes)) {
-					this.addDays(/next/.test(changes) ? 1 : this.getChangeAmount(changes));
-				} else if(/weeks*/.test(changes)) {
-					this.addWeeks(/next/.test(changes) ? 1 : this.getChangeAmount(changes));
-				} else if(/months*/.test(changes)) {
-					this.addMonths(/next/.test(changes) ? 1 : this.getChangeAmount(changes));
-				} else if(/years*/.test(changes)) {
-					this.addYears(/next/.test(changes) ? 1 : this.getChangeAmount(changes));
-				} else {
-					const targetDay = this.getDayNumber(changes.match(/\bmon|\btue|\bweb|\bthu|\bfri|\bsat|\bsun/)[0]);
-					this.addDays(7 - (!this.dayOfWeek ? 7 : this.dayOfWeek) + targetDay);
 				}
+				const changeAmount = /next/.test(changes) ? 1 : this.getChangeAmount(changes);
+				if(/\bdays*/.test(changes)) this.addDay(changeAmount);
+				else if(/weeks*/.test(changes)) this.addWeek(changeAmount);
+				else if(/months*/.test(changes)) this.addMonth(changeAmount);
+				else if(/years*/.test(changes)) this.addYear(changeAmount);
+				else this.addDay(7 - (!this.dayOfWeek ? 7 : this.dayOfWeek) + this.getDayNumber(changes)); 
 			}
 			/**
 			 * move date backward
 			 * @param {String} [changes] - changes to date
 			 */
 			reduceDate(changes) {
-				if(/\bdays*/.test(changes)) {
-					this.reduceDays(/last/.test(changes) ? 1 : this.getChangeAmount(changes));
-				} else if(/weeks*/.test(changes)) {
-					this.reduceWeeks(/last/.test(changes) ? 1 : this.getChangeAmount(changes));
-				} else if(/months*/.test(changes)) {
-					this.reduceMonths(/last/.test(changes) ? 1 : this.getChangeAmount(changes));
-				} else if(/years*/.test(changes)) {
-					this.reduceYears(/last/.test(changes) ? 1 : this.getChangeAmount(changes));
-				} else {
-					const targetDay = this.getDayNumber(changes.match(/\bmon|\btue|\bweb|\bthu|\bfri|\bsat|\bsun/)[0]);
-					this.reduceDays(7 - targetDay + (!this.dayOfWeek ? 7 : this.dayOfWeek));
-				}
+				const changeAmount = /last/.test(changes) ? 1 : this.getChangeAmount(changes);
+				if(/\bdays*/.test(changes)) this.reduceDay(changeAmount);
+				else if(/weeks*/.test(changes)) this.reduceWeek(changeAmount);
+				else if(/months*/.test(changes)) this.reduceMonth(changeAmount);
+				else if(/years*/.test(changes)) this.reduceYear(changeAmount);
+				else this.reduceDay(7 - this.getDayNumber(changes) + (!this.dayOfWeek ? 7 : this.dayOfWeek)); 
 			}
 			/**
 			 * get adjacent date
 			 * @param {String} [changes] - changes to date
 			 */
 			getAdjacentDate(changes) {
-				if(/yesterday/.test(changes)) this.reduceDays(/before/.test(changes) ? 2 : 1);
-				else if(/tomorrow/.test(changes)) this.addDays(/after/.test(changes) ? 2 : 1); 
+				if(/yesterday/.test(changes)) this.reduceDay(/before/.test(changes) ? 2 : 1);
+				else if(/tomorrow/.test(changes)) this.addDay(/after/.test(changes) ? 2 : 1);
 			}
 			/**
 			 * switch to a new date
 			 * @param {String} [changes] - changes to date
 			 */
 			switchDate(changes) {
-				const monthName = changes.match(/jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec/);
+				const monthName = changes.match(/\bjan|\bfeb|\bmar|\bapr|\bmay|\bjun|\bjul|\baug|\bsep|\boct|\bnov|\bdec/);
 				changes = monthName ? changes.replace(/[a-z]+/, this.getMonthNumber(monthName[0])) : changes;
 				[this.year, this.month, this.dayOfMonth, this.dayOfWeek] = this.getDate(changes);
 			}
 			/**
 			 * change date
 			 * @param {String} [changes] - changes to date
-			 *
-			 * @return {String} [changed date string]
 			 */
 			changeDate(changes) {
 				if(/ago|last/.test(changes)) this.reduceDate(changes);
 				else if(/from|next/.test(changes)) this.addDate(changes);
 				else if(/yesterday|tomorrow|today/.test(changes)) this.getAdjacentDate(changes);
-				else this.switchDate(changes);
+				else this.switchDate(changes);  
 			}
 		}
 		/**
