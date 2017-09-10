@@ -71,6 +71,16 @@
 				return monthTable.indexOf(name) + 1;
 			}
 			/**
+			 * translate day name to day number in week
+			 * @param {String} [name] - name of day in week
+			 *
+			 * @return {int} [day number in 1-index, starting from Monday]
+			 */
+			getDayNumber(name) {
+				const dayTable = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"];
+				return dayTable.indexOf(name) ? dayTable.indexOf(name) : 7;
+			}
+			/**
 			 * get total days in a month
 			 * @param {int} [month] - current month
 			 *
@@ -79,6 +89,15 @@
 			totalDaysOfMonth(month = this.month) {
 				const daysPerMonth = {1 : 31, 2 : 28, 3 : 31, 4 : 30, 5 : 31, 6 : 30, 7 : 31, 8 : 31, 9 : 30, 10 : 31, 11 : 30, 12 : 31};
 				return daysPerMonth[month];
+			}
+			/**
+			 * get change amount in dates
+			 * @param {String} [changes] - changes to date
+			 *
+			 * @return {int} [change amount]
+			 */
+			getChangeAmount(changes) {
+				return Number(changes.replace(/\ba\b|\ban\b/, "1").match(/\d+/)[0]);
 			}
 			/**
 			 * add years
@@ -98,40 +117,40 @@
 			 * add months
 			 * @param {int} [months] - months to add
 			 */
-			addMonth(months) {
+			addMonths(months) {
 				if(this.month + months <= 12) {
 					this.month += months;
 					return;
 				}
 				months -= 13 - this.month; 
 				[this.year, this.month] = [this.year + 1, 1];
-				this.addMonth(months);
+				this.addMonths(months);
 			}
 			/**
 			 * reduce months
 			 * @param {int} [months] - months to reduce
 			 */
-			reduceMonth(months) {
+			reduceMonths(months) {
 				if(this.month - months > 0) {
 					this.month -= months;
 					return;
 				}
 				months -= this.month;
 				[this.year, this.month] = [this.year - 1, 12];
-				this.reduceMonth(months);
+				this.reduceMonths(months);
 			}
 			/**
 			 * add weeks
 			 * @param {int} [weeks] - weeks to add
 			 */
-			addWeek(weeks) {
+			addWeeks(weeks) {
 				this.addDays(weeks * 7);
 			}
 			/**
 			 * reduce weeks
 			 * @param {int} [weeks] - weeks to reduce
 			 */
-			reduceWeek(weeks) {
+			reduceWeeks(weeks) {
 				this.reduceDays(weeks * 7);
 			}
 			/**
@@ -161,6 +180,17 @@
 				this.reduceMonth(1);
 				this.dayOfMonth = this.totalDaysOfMonth();
 				this.reduceDays(days);
+			}
+			/**
+			 * move date backward
+			 * @param {String} [changes] - changes to date
+			 */
+			reduceDate(changes) {
+				if(/\bdays*/.test(changes)) this.reduceDays(/last/.test(changes) ? 1 : this.getChangeAmount(changes));
+				else if(/weeks*/.test(changes)) this.reduceWeeks(/last/.test(changes) ? 1 : this.getChangeAmount(changes));
+				else if(/months*/.test(changes)) this.reduceMonths(/last/.test(changes) ? 1 : this.getChangeAmount(changes));
+				else if(/years*/.test(changes)) this.reduceYears(/last/.test(changes) ? 1 : this.getChangeAmount(changes));
+				else this.reduceDays(7 - this.getDayNumber(changes.match(/\bmon|\btue|\bweb|\bthu|\bfri|\bsat|\bsun/)[0]) + (!this.dayOfWeek ? 7 : this.dayOfWeek));
 			}
 			/**
 			 * get adjacent date
