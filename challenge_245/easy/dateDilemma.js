@@ -57,6 +57,46 @@
 			getDateString() {
 				return [this.year, this.appendZero(this.month), this.appendZero(this.dayOfMonth)].join("-");
 			}
+			/**
+			 * add years
+			 * @param {int} [years] - years to add
+			 */
+			addYears(years) {
+				this.years += years;
+			}
+			/**
+			 * reduce years
+			 * @param {int} [years] - years to reduce
+			 */
+			reduceYears(years) {
+				this.years -= years;
+			}
+			/**
+			 * add months
+			 * @param {int} [months] - months to add
+			 */
+			addMonth(months) {
+				if(this.month + months <= 12) {
+					this.month += months;
+					return;
+				}
+				months -= 13 - this.month; 
+				[this.year, this.month] = [this.year + 1, 1];
+				this.addMonth(months);
+			}
+			/**
+			 * reduce months
+			 * @param {int} [months] - months to reduce
+			 */
+			reduceMonth(months) {
+				if(this.month - months > 0) {
+					this.month -= months;
+					return;
+				}
+				months -= this.month;
+				[this.year, this.month] = [this.year - 1, 12];
+				this.reduceMonth(months);
+			}
 		}
 		/**
 		 * reformat dates
