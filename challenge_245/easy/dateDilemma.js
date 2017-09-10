@@ -58,6 +58,16 @@
 				return [this.year, this.appendZero(this.month), this.appendZero(this.dayOfMonth)].join("-");
 			}
 			/**
+			 * get total days in a month
+			 * @param {int} [month] - current month
+			 *
+			 * @return {int} [total days in given month]
+			 */
+			totalDaysOfMonth(month = this.month) {
+				const daysPerMonth = {1 : 31, 2 : 28, 3 : 31, 4 : 30, 5 : 31, 6 : 30, 7 : 31, 8 : 31, 9 : 30, 10 : 31, 11 : 30, 12 : 31};
+				return daysPerMonth[month];
+			}
+			/**
 			 * add years
 			 * @param {int} [years] - years to add
 			 */
@@ -96,6 +106,48 @@
 				months -= this.month;
 				[this.year, this.month] = [this.year - 1, 12];
 				this.reduceMonth(months);
+			}
+			/**
+			 * add weeks
+			 * @param {int} [weeks] - weeks to add
+			 */
+			addWeek(weeks) {
+				this.addDays(weeks * 7);
+			}
+			/**
+			 * reduce weeks
+			 * @param {int} [weeks] - weeks to reduce
+			 */
+			reduceWeek(weeks) {
+				this.reduceDays(weeks * 7);
+			}
+			/**
+			 * add days
+			 * @param {int} [days] - days to add
+			 */
+			addDays(days) {
+				if(this.dayOfMonth + days <= this.totalDaysOfMonth()) {
+					this.dayOfMonth += days;
+					return;
+				}
+				days -= this.totalDaysOfMonth() + 1 - this.dayOfMonth;
+				this.addMonth(1);
+				this.dayOfMonth = 1;
+				this.addDays(days);
+			}
+			/**
+			 * reduce days
+			 * @param {int} [days] - days to reduce
+			 */
+			reduceDays(days) {
+				if(this.dayOfMonth - days > 0) {
+					this.dayOfMonth -= days;
+					return;
+				}
+				days -= this.dayOfMonth;
+				this.reduceMonth(1);
+				this.dayOfMonth = this.totalDaysOfMonth();
+				this.reduceDays(days);
 			}
 		}
 		/**
