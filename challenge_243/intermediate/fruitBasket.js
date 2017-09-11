@@ -2,16 +2,16 @@
 (() => {
 	document.addEventListener("DOMContentLoaded", () => {
 		/**
-		 * create product table
-		 * @param {String} [products] - product information
+		 * create fruit table
+		 * @param {String} [fruits] - fruit information
 		 *
-		 * @return {Object} [product table]
+		 * @return {Object} [fruit table]
 		 */
-		function getProductTable(products) {
+		function getFruitTable(fruits) {
 			const table = new Map();
-			products.split("\n").forEach(product => {
-				const name = product.match(/[a-zA-Z\s]+/)[0].trim();
-				const price = Number(product.match(/\d+/)[0]);
+			fruits.split("\n").forEach(fruit => {
+				const name = fruit.match(/[a-zA-Z\s]+/)[0].trim();
+				const price = Number(fruit.match(/\d+.*\d$/)[0]);
 				table.set(name, price);
 			});
 			return table;
@@ -23,6 +23,6 @@
 								 mango 97
 								 papaya 254
 								 pineapple 399`;
-		console.log(getProductTable(input));								 
+		console.log(getFruitTable(input));								 
 	});
 })();		
