@@ -1,5 +1,7 @@
 #243[Intermediate] Jenny's Fruit Basket
 
+All Done
+
 url: https://www.reddit.com/r/dailyprogrammer/comments/3v4zsf/20151202_challenge_243_intermediate_jennys_fruit/
 
 Description
