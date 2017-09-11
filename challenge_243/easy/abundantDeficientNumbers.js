@@ -23,8 +23,10 @@
 		 * @return {String} [test result]
 		 */
 		function getNumberType(number) {
-			const divisors = getDivisors(number);
-			console.log(divisors);
+			const double = number * 2;
+			const sum = getDivisors(number).reduce((acc, val) => acc + val);
+			return sum == double ? 
+				`${number} Perfect.` : `${number} ${sum < double ? "Deficient" : "Abundant"} by ${Math.abs(double - sum)}.`;
 		}
 		//default input
 		console.log(`%cDefault Input: `, "color : red;");
