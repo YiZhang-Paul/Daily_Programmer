@@ -75,20 +75,25 @@
 		/**
 		 * find solution with given fruit combo
 		 * @param {Array} [combo] - fruit combo
-		 * @param {Object} [fruitTable] - fruit table
 		 * @param {int} [budget] - available budget
+		 * @param {Object} [fruitTable] - fruit table
+		 * @param {Object} [options] - all options to be selected
 		 * @param {int} [cost] - current cost
 		 * @param {Array} [selection] - current selection
 		 *
 		 * @return {Array} [all possible solutions for given fruit combo]
 		 */
-		function findSolution(combo, fruitTable, budget, cost = 0, selection = []) {
+		function findSolution(combo, budget, fruitTable, options, cost = 0, selection = []) {
 			if(cost >= budget) {
-				return cost == budget ? [selection] : null;
+				return cost == budget && !options.size ? [selection] : null;
 			}
 			const solution = [];
 			for(let i = 0; i < combo.length; i++) {
-				const result = findSolution(combo.slice(i), fruitTable, budget, cost + fruitTable.get(combo[i]), [...selection, combo[i]]);
+				const remainOptions = new Set(Array.from(options));
+				if(remainOptions.has(combo[i])) {
+					remainOptions.delete(combo[i]);
+				}
+				const result = findSolution(combo.slice(i), budget, fruitTable, remainOptions, cost + fruitTable.get(combo[i]), [...selection, combo[i]]);
 				if(Array.isArray(result)) {
 					solution.push(...result);
 				}
@@ -107,7 +112,7 @@
 			const solutions = [];
 			getFruitCombos(fruits).forEach(combo => {
 				if(isValidCombo(combo, fruitTable, budget)) {
-					solutions.push(...findSolution(sortCombo(combo, fruitTable), fruitTable, budget));
+					solutions.push(...findSolution(sortCombo(combo, fruitTable), budget, fruitTable, new Set(combo)));
 				}
 			});
 			return solutions;
