@@ -63,6 +63,39 @@
 			return combo.reduce((acc, name) => acc + fruitTable.get(name), 0) <= budget;
 		}
 		/**
+		 * sort fruit combo by prices in descending order
+		 * @param {Array} [combo] - fruit combo to be sorted
+		 * @param {Object} [fruitTable] - fruit table
+		 *
+		 * @return {Array} [sorted fruit combo]
+		 */
+		function sortCombo(combo, fruitTable) {
+			return combo.slice().sort((a, b) => fruitTable.get(b) - fruitTable.get(a));
+		}
+		/**
+		 * find solution with given fruit combo
+		 * @param {Array} [combo] - fruit combo
+		 * @param {Object} [fruitTable] - fruit table
+		 * @param {int} [budget] - available budget
+		 * @param {int} [cost] - current cost
+		 * @param {Array} [selection] - current selection
+		 *
+		 * @return {Array} [all possible solutions for given fruit combo]
+		 */
+		function findSolution(combo, fruitTable, budget, cost = 0, selection = []) {
+			if(cost >= budget) {
+				return cost == budget ? [selection] : null;
+			}
+			const solution = [];
+			for(let i = 0; i < combo.length; i++) {
+				const result = findSolution(combo.slice(i), fruitTable, budget, cost + fruitTable.get(combo[i]), [...selection, combo[i]]);
+				if(Array.isArray(result)) {
+					solution.push(...result);
+				}
+			}
+			return solution;
+		}
+		/**
 		 * find all possible ways to buy fruit basket
 		 * @param {String} [fruits] - fruit information
 		 * @param {int} [budget] - available budget
@@ -74,8 +107,7 @@
 			const solutions = [];
 			getFruitCombos(fruits).forEach(combo => {
 				if(isValidCombo(combo, fruitTable, budget)) {
-					console.log(combo);
-					//solutions.push(...findSolution(combo, fruitTable));
+					solutions.push(...findSolution(sortCombo(combo, fruitTable), fruitTable, budget));
 				}
 			});
 			return solutions;
@@ -87,6 +119,8 @@
 								 mango 97
 								 papaya 254
 								 pineapple 399`;
-		console.log(fillBasket(input, 500));								 
+		let time = new Date().getTime();
+		console.log(fillBasket(input, 500));
+		console.log(new Date().getTime() - time + "ms");								 
 	});
 })();		
