@@ -52,6 +52,17 @@
 			return combos;
 		}
 		/**
+		 * check if a fruit combination is valid
+		 * @param {Array} [combo] - fruit combination
+		 * @param {Object} [fruitTable] - fruit table
+		 * @param {int} [budget] - total available budget
+		 *
+		 * @return {boolean} [test result]
+		 */
+		function isValidCombo(combo, fruitTable, budget) {
+			return combo.reduce((acc, name) => acc + fruitTable.get(name), 0) <= budget;
+		}
+		/**
 		 * find all possible ways to buy fruit basket
 		 * @param {String} [fruits] - fruit information
 		 * @param {int} [budget] - available budget
@@ -60,8 +71,14 @@
 		 */
 		function fillBasket(fruits, budget) {
 			const fruitTable = getFruitTable(fruits);
-			const fruitCombos = getFruitCombos(fruits);
-			console.log(fruitCombos);
+			const solutions = [];
+			getFruitCombos(fruits).forEach(combo => {
+				if(isValidCombo(combo, fruitTable, budget)) {
+					console.log(combo);
+					//solutions.push(...findSolution(combo, fruitTable));
+				}
+			});
+			return solutions;
 		}
 		//default input
 		console.log(`%cDefault Input: `, "color : red;");
