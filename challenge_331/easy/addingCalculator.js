@@ -53,6 +53,20 @@
 			return number2 < 0 ? negateNumber(result) : result;
 		}
 		/**
+		 * calculate exponentials
+		 * @param {float} [number1] - operand 1
+		 * @param {float} [number2] - operand 2
+		 *
+		 * @return {float} [exponent of operand 1]
+		 */
+		function exponent(number1, number2) {
+			let result = 1;
+			for(let i = 0; i < Math.abs(number2); i++) {
+				result = multiply(result, number1);
+			}
+			return number2 < 0 ? divide(1, result) : result;
+		}
+		/**
 		 * read operands 
 		 * @param {Array} [operands] - operands to be read
 		 *
@@ -91,7 +105,7 @@
 				case "/" :
 					break;
 				case "^" :
-					break;				
+					return exponent(operand1, operand2);			
 			}
 		}
 		//chanllenge input
@@ -122,12 +136,20 @@
 		input = "7 / 3";
 		input = "0 / 0";
 		input = "5 ^ 3";
+		console.log(evalExpression(input));
 		input = "-5 ^ 3";
+		console.log(evalExpression(input));
 		input = "-8 ^ 3";
+		console.log(evalExpression(input));
 		input = "-1 ^ 1";
+		console.log(evalExpression(input));
 		input = "1 ^ 1";
+		console.log(evalExpression(input));
 		input = "0 ^ 5";
+		console.log(evalExpression(input));
 		input = "5 ^ 0";
+		console.log(evalExpression(input));
 		input = "10 ^ -3";
+		console.log(evalExpression(input));
 	});
 })();		
