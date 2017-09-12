@@ -7,7 +7,7 @@
 		 * @return {int} [negative one]
 		 */
 		function getNegativeOne() {
-			return Number.MIN_SAFE_INTEGER + 9007199254740990; 
+			return Number.MIN_SAFE_INTEGER + 9007199254740990;
 		}
 		/**
 		 * negate a number
@@ -15,11 +15,11 @@
 		 *
 		 * @return {float} [negated number]
 		 */
-		function negateNumber(number) {
+		function negate(number) {
 			return number > 0 ? multiply(getNegativeOne(), number) : Math.abs(number);
 		}
 		/**
-		 * add numbers 
+		 * add numbers
 		 * @param {float} [number1] - operand 1
 		 * @param {float} [number2] - operand 2
 		 *
@@ -36,7 +36,7 @@
 		 * @return {float} [difference of two numbers]
 		 */
 		function reduce(number1, number2) {
-			return add(number1, negateNumber(number2));
+			return add(number1, negate(number2));
 		}
 		/**
 		 * multiply numbers
@@ -50,7 +50,7 @@
 			for(let i = 0; i < Math.abs(number2); i++) {
 				result = add(result, number1);
 			}
-			return number2 < 0 ? negateNumber(result) : result;
+			return number2 < 0 ? negate(result) : result; 
 		}
 		/**
 		 * divide numbers
@@ -61,16 +61,16 @@
 		 */
 		function divide(number1, number2) {
 			const [abs1, abs2] = [number1, number2].map(Math.abs);
-			if(!abs2) {
+			if(abs2 === 0) {
 				return "Not-Defined.";
 			}
-			let result = 0, curSum = 0;
-			while(curSum < abs1) {
-				curSum = add(curSum, abs2);
+			let result = 0, sum = 0;
+			while(sum < abs1) {
+				sum = add(sum, abs2);
 				result++;
 			}
-			return curSum == abs1 ? 
-				((number1 < 0 && number2 < 0) || (number1 >= 0 && number2 >= 0) ? result : negateNumber(result)) : "Non-Integral Answer.";
+			return sum == abs1 ?
+				((number1 < 0 && number2 < 0) || (number1 >= 0 && number2 >= 0) ? result : negate(result)) : "Non-Integral Answer.";
 		}
 		/**
 		 * calculate exponentials
@@ -80,21 +80,21 @@
 		 * @return {float} [exponent of operand 1]
 		 */
 		function exponent(number1, number2) {
-			let result = 1;
+			let result = 1; 
 			for(let i = 0; i < Math.abs(number2); i++) {
 				result = multiply(result, number1);
 			}
 			return number2 < 0 ? divide(1, result) : result;
 		}
 		/**
-		 * read operands 
+		 * read operands
 		 * @param {Array} [operands] - operands to be read
 		 *
-		 * @return {Array} [operands with correct value]
+		 * @return {Array} [operands evaluated to true values]
 		 */
 		function readOperands(operands) {
 			return operands.map(operand => 
-				/-/.test(operand) ? negateNumber(Number(operand.match(/\d+/)[0])) : Number(operand));
+				/-/.test(operand) ? negate(Number(operand.match(/\d+/)[0])) : Number(operand));
 		}
 		/**
 		 * read expression
@@ -119,13 +119,13 @@
 				case "+" :
 					return expression + " = " + add(operand1, operand2);
 				case "-" :
-					return expression + " = " + reduce(operand1, operand2);
+					return expression + " = " + reduce(operand1, operand2);					
 				case "*" :
 					return expression + " = " + multiply(operand1, operand2);
 				case "/" :
 					return expression + " = " + divide(operand1, operand2);
 				case "^" :
-					return expression + " = " + exponent(operand1, operand2);			
+					return expression + " = " + exponent(operand1, operand2);					
 			}
 		}
 		//chanllenge input
