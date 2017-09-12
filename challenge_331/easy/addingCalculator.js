@@ -53,6 +53,26 @@
 			return number2 < 0 ? negateNumber(result) : result;
 		}
 		/**
+		 * divide numbers
+		 * @param {float} [number1] - operand 1
+		 * @param {float} [number2] - operand 2
+		 *
+		 * @return {float} [quotient of two numbers]
+		 */
+		function divide(number1, number2) {
+			const [abs1, abs2] = [number1, number2].map(Math.abs);
+			if(!abs2) {
+				return "Not-Defined.";
+			}
+			let result = 0, curSum = 0;
+			while(curSum < abs1) {
+				curSum = add(curSum, abs2);
+				result++;
+			}
+			return curSum == abs1 ? 
+				((number1 < 0 && number2 < 0) || (number1 >= 0 && number2 >= 0) ? result : negateNumber(result)) : "Non-Integral Answer.";
+		}
+		/**
 		 * calculate exponentials
 		 * @param {float} [number1] - operand 1
 		 * @param {float} [number2] - operand 2
@@ -97,15 +117,15 @@
 			const [operand1, operand2, operator] = readExpression(expression);
 			switch(operator) {
 				case "+" :
-					return add(operand1, operand2);
+					return expression + " = " + add(operand1, operand2);
 				case "-" :
-					return reduce(operand1, operand2);
+					return expression + " = " + reduce(operand1, operand2);
 				case "*" :
-					return multiply(operand1, operand2);
+					return expression + " = " + multiply(operand1, operand2);
 				case "/" :
-					break;
+					return expression + " = " + divide(operand1, operand2);
 				case "^" :
-					return exponent(operand1, operand2);			
+					return expression + " = " + exponent(operand1, operand2);			
 			}
 		}
 		//chanllenge input
@@ -131,10 +151,15 @@
 		input = "-12 * -9";
 		console.log(evalExpression(input));
 		input = "100 / 2";
+		console.log(evalExpression(input));
 		input = "75 / -3";
+		console.log(evalExpression(input));
 		input = "-75 / 3";
+		console.log(evalExpression(input));
 		input = "7 / 3";
+		console.log(evalExpression(input));
 		input = "0 / 0";
+		console.log(evalExpression(input));
 		input = "5 ^ 3";
 		console.log(evalExpression(input));
 		input = "-5 ^ 3";
