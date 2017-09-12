@@ -7,7 +7,16 @@
 		 * @return {int} [negative one]
 		 */
 		function getNegativeOne() {
-			return 9007199254740990 - Number.MAX_SAFE_INTEGER; 
+			return Number.MIN_SAFE_INTEGER + 9007199254740990; 
+		}
+		/**
+		 * negate a number
+		 * @param {float} [number] - number to be negated
+		 *
+		 * @return {float} [negated number]
+		 */
+		function negateNumber(number) {
+			return number > 0 ? multiply(getNegativeOne(), number) : Math.abs(number);
 		}
 		/**
 		 * add numbers 
@@ -20,6 +29,16 @@
 			return number1 + number2;
 		}
 		/**
+		 * reduce numbers
+		 * @param {float} [number1] - operand 1
+		 * @param {float} [number2] - operand 2
+		 *
+		 * @return {float} [difference of two numbers]
+		 */
+		function reduce(number1, number2) {
+			return add(number1, negateNumber(number2));
+		}
+		/**
 		 * multiply numbers
 		 * @param {float} [number1] - operand 1
 		 * @param {float} [number2] - operand 2
@@ -28,10 +47,10 @@
 		 */
 		function multiply(number1, number2) {
 			let result = 0;
-			for(let i = 0; i < number2; i++) {
+			for(let i = 0; i < Math.abs(number2); i++) {
 				result = add(result, number1);
 			}
-			return result;
+			return number2 < 0 ? negateNumber(result) : result;
 		}
 		/**
 		 * read operands 
@@ -41,7 +60,7 @@
 		 */
 		function readOperands(operands) {
 			return operands.map(operand => 
-				/-/.test(operand) ? multiply(getNegativeOne(), Number(operand.match(/\d+/)[0])) : Number(operand));
+				/-/.test(operand) ? negateNumber(Number(operand.match(/\d+/)[0])) : Number(operand));
 		}
 		/**
 		 * read expression
@@ -51,22 +70,52 @@
 		 */
 		function readExpression(expression) {
 			const operator = expression.match(/\s[+-^/*]\s/)[0].trim();
-			const operands = expression.split(operator).map(operand => operand.trim());
+			const operands = expression.match(/-*\d+/g).map(operand => operand.trim());
 			return [...readOperands(operands), operator];
+		}
+		/**
+		 * evaluate expressions
+		 * @param {String} [expression] - expression to be evaluated
+		 *
+		 * @return {float} [evaluation result]
+		 */
+		function evalExpression(expression) {
+			const [operand1, operand2, operator] = readExpression(expression);
+			switch(operator) {
+				case "+" :
+					return add(operand1, operand2);
+				case "-" :
+					return reduce(operand1, operand2);
+				case "*" :
+					return multiply(operand1, operand2);
+				case "/" :
+					break;
+				case "^" :
+					break;				
+			}
 		}
 		//chanllenge input
 		console.log(`%cChallenge Input: `, "color : red;");
 		let input = "12 + 25";
+		console.log(evalExpression(input));
 		input = "-30 + 100";
-		console.log(readExpression(input));
+		console.log(evalExpression(input));
 		input = "100 - 30";
+		console.log(evalExpression(input));
 		input = "100 - -30";
+		console.log(evalExpression(input));
 		input = "-25 - 29";
+		console.log(evalExpression(input));
 		input = "-41 - -10";
+		console.log(evalExpression(input));
 		input = "9 * 3";
+		console.log(evalExpression(input));
 		input = "9 * -4";
+		console.log(evalExpression(input));
 		input = "-4 * 8";
+		console.log(evalExpression(input));
 		input = "-12 * -9";
+		console.log(evalExpression(input));
 		input = "100 / 2";
 		input = "75 / -3";
 		input = "-75 / 3";
