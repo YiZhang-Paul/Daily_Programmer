@@ -46,6 +46,17 @@
 			}
 			return false;
 		}
-		console.log(new Array(100).fill(0).map((num, index) => index + 1).filter(num => isPrime(num)));
+		/**
+		 * get all prime factors of a number
+		 * @param {int} [number] - number to be tested
+		 *
+		 * @return {Array} [all prime factors]
+		 */
+		function getPrimeFactor(number) {
+			return new Array(number - 1).fill(0)
+																	.map((num, index) => index + 2)
+																	.filter(num => number % num === 0 && isPrime(num));
+		}
+		console.log(getPrimeFactor(714));
 	});
 })();
