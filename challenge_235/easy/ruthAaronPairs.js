@@ -33,7 +33,7 @@
 		 */
 		function isPrime(number) {
 			if(number == 1 || number == 2) {
-				return number == 2;
+				return number == 2; 
 			}
 			const [s, d, testBase] = [...getCoefficient(number), getTestBase(number)];
 			for(let i = 0; i < testBase.length; i++) {
@@ -54,9 +54,43 @@
 		 */
 		function getPrimeFactor(number) {
 			return new Array(number - 1).fill(0)
-																	.map((num, index) => index + 2)
-																	.filter(num => number % num === 0 && isPrime(num));
+			 														.map((num, index) => index + 2)
+			 														.filter(num => number % num === 0 && isPrime(num));
 		}
-		console.log(getPrimeFactor(714));
+		/**
+		 * get sum of all prime factors of a number
+		 * @param {int} [number] - number to be tested
+		 *
+		 * @return {int} [sum of all prime factors]
+		 */
+		function getPrimeSum(number) {
+			return getPrimeFactor(number).reduce((acc, val) => acc + val, 0);
+		}
+		/**
+		 * check if a number pair is Ruth-Aaron pair
+		 * @param {Array} [pair] - pair to be tested
+		 *
+		 * @return {boolean} [test result]
+		 */
+		function isRuthAaronPair(pair) {
+			return getPrimeSum(pair[0]) == getPrimeSum(pair[1]);
+		}
+		//default input
+		console.log(`%cDefault Input: `, "color : red;");
+		let input = `(714,715)
+								 (77,78)
+								 (20,21)`;
+		input.split("\n").forEach(pair => {
+			console.log(`%c${pair.trim()} -> %c${isRuthAaronPair(pair.match(/\d+/g).map(Number)) ? "VALID" : "NOT VALID"}`, "color : skyblue;", "color : orange;");
+		});								 
+		//challenge input
+		console.log(`%cChallenge Input: `, "color : red;");			
+		input = `(5,6) 
+					   (2107,2108) 
+					   (492,493) 
+					   (128,129)`;					 
+		input.split("\n").forEach(pair => {
+			console.log(`%c${pair.trim()} -> %c${isRuthAaronPair(pair.match(/\d+/g).map(Number)) ? "VALID" : "NOT VALID"}`, "color : skyblue;", "color : orange;");
+		});	
 	});
 })();
