@@ -47,6 +47,25 @@
 			}
 			return calculateCarry(product).reverse();
 		}
-		console.log(multiply(splitNumber(59), 51));
+		/**
+		 * manual implementation of exponent
+		 * @param {int} [base] - base number
+		 * @param {int} [power] - power of exponent
+		 *
+		 * @return {Array} [digits of exponent]
+		 */
+		function exponent(base, power) {
+			let exponent = [1];
+			for(let i = 0; i < power; i++) {
+				exponent = multiply(exponent, base);
+			}
+			return exponent;
+		}
+		//default input
+		console.log(`%cDefault Input: `, "color : red;");
+		let time = new Date().getTime();
+		let input = [2, 1234];
+		console.log(`%c${input[0]}^${input[1]} -> %c${exponent(2, 1234).join("")}`, "color : skyblue;", "color : orange;");
+		console.log(`%cTime Spent: %c${new Date().getTime() - time}ms`, "color : skyblue;", "color : orange;");
 	});
 })();
