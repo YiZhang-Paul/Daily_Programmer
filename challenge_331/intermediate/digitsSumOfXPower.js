@@ -44,14 +44,30 @@
 			multiplier.reverse().forEach((digit, index) => {
 				let subProduct = new Array(number.length).fill(0);
 				for(let i = number.length - 1; i >= 0; i--) {
-					const subOperand1 = number[i] * Math.pow(10, number.length - 1 - i);
-					const subOperand2 = digit * Math.pow(10, index);
-					subProduct = add(subProduct, splitNumber(subOperand1 * subOperand2));
+					let minorProduct = [...splitNumber(number[i] * digit), ...new Array(number.length - 1 - i + index).fill(0)];
+					subProduct = add(subProduct, minorProduct);
 				}
 				product = add(product, subProduct);
 			});
 			return product;
 		}
-		console.log(multiply(splitNumber(91121), splitNumber(50)));
+		/**
+		 * manual implementation of exponential
+		 * @param {Array} [base] - all digits of base number
+		 * @param {int} [power] - power of exponent
+		 *
+		 * @return {Array} [digits of exponent]
+		 */
+		function exponent(base, power) {
+			let exponent = [1];
+			for(let i = 0; i < power; i++) {
+				exponent = multiply(exponent, base);
+			}
+			return exponent;
+		}
+		let time = new Date().getTime();
+		console.log(exponent(splitNumber(2), 1234).reduce((acc, val) => acc + val) + ` ${new Date().getTime() - time}ms`);
+		//console.log(exponent(splitNumber(11), 4000).reduce((acc, val) => acc + val));
+		//console.log(exponent(splitNumber(50), 3000).reduce((acc, val) => acc + val));
 	});
 })();
