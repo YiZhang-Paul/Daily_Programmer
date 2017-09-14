@@ -11,6 +11,28 @@
 			return String(number).split("").map(Number);
 		}
 		/**
+		 * manual implementation of summation
+		 * @param {Array} [number] - all digits of number to be added
+		 * @param {Array} [adding] - all digits of number to add
+		 *
+		 * @return {Array} [digits of the sum]
+		 */
+		function add(number, adding) {
+			let sum = number.length > adding.length ? number.slice() : adding.slice();
+			let toAdd = number.length > adding.length ? adding.slice() : number.slice();
+			let carry = false;
+			toAdd.reverse().forEach((digit, index) => {
+				const curIndex = sum.length - 1 - index;
+				const subSum = sum[curIndex] + digit + (carry ? 1 : 0);
+				sum[curIndex] = subSum % 10;
+				carry = subSum >= 10; 
+			});
+			if(carry) {
+				return add(sum, [1, ...new Array(toAdd.length).fill(0)]);
+			}
+			return sum;
+		}
+		/**
 		 * manual implementation of multiplication
 		 * @param {Array} [number] - all digits of number to be multiplied
 		 * @param {Array} [multiplier] - all digits of number to multiply
@@ -18,18 +40,17 @@
 		 * @return {Array} [digits of the product]
 		 */
 		function multiply(number, multiplier) {
-			let curNum = new Array(number.length).fill(0);
+			let product = new Array(number.length).fill(0);
 			multiplier.reverse().forEach((digit, index) => {
-				let curProduct = number.slice();
-				for(let i = curProduct.length - 1; i >= 0; i--) {
-					const subOperand1 = curProduct[i] * Math.pow(10, curProduct.length - 1 - i);
+				let subProduct = number.slice();
+				for(let i = subProduct.length - 1; i >= 0; i--) {
+					const subOperand1 = subProduct[i] * Math.pow(10, subProduct.length - 1 - i);
 					const subOperand2 = digit * Math.pow(10, index);
-					console.log(subOperand1 * subOperand2);
-					//curProduct = add(curProduct, subOperand1 * subOperand2);
+					//subProduct = add(subProduct, splitNumber(subOperand1 * subOperand2));
 				}
-				//curNum = add(curNum, curProduct);
+				//product = add(product, subProduct);
 			});
-			return curNum;
+			return product;
 		}
 		console.log(multiply(splitNumber(91121), splitNumber(50)));
 	});
