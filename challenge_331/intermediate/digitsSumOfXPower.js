@@ -20,12 +20,10 @@
 			let product = subProducts.slice();
 			for(let i = 0; i < product.length; i++) {
 				const subSum = product[i].reduce((acc, val) => acc + val);
+				product[i] = subSum % 10;
 				if(subSum >= 10) {
-					product[i] = subSum % 10;
 					product[i + 1] = product[i + 1] ? [...product[i + 1], Math.floor(subSum / 10)] : [Math.floor(subSum / 10)];
-					continue;
 				}
-				product[i] = subSum;
 			}
 			return product;
 		}
@@ -61,11 +59,29 @@
 			}
 			return exponent;
 		}
-		//default input
-		console.log(`%cDefault Input: `, "color : red;");
+		/**
+		 * find digits sum of some power of a number
+		 * @param {int} [number] - number to be tested
+		 * @param {int} [power] - power of number
+		 *
+		 * @return {int} [digits sum of number to the given power]
+		 */
+		function findDigitSum(number, power) {
+			return exponent(number, power).reduce((acc, val) => acc + val);
+		}
+		//challenge input
+		console.log(`%cChallenge Input: `, "color : red;");
 		let time = new Date().getTime();
 		let input = [2, 1234];
-		console.log(`%c${input[0]}^${input[1]} -> %c${exponent(2, 1234).join("")}`, "color : skyblue;", "color : orange;");
+		console.log(`%c${input[0]}^${input[1]} -> %c${findDigitSum(...input)}`, "color : skyblue;", "color : orange;");
+		console.log(`%cTime Spent: %c${new Date().getTime() - time}ms`, "color : skyblue;", "color : orange;");
+		time = new Date().getTime();
+		input = [11, 4000];
+		console.log(`%c${input[0]}^${input[1]} -> %c${findDigitSum(...input)}`, "color : skyblue;", "color : orange;");
+		console.log(`%cTime Spent: %c${new Date().getTime() - time}ms`, "color : skyblue;", "color : orange;");
+		time = new Date().getTime();
+		input = [50, 3000];
+		console.log(`%c${input[0]}^${input[1]} -> %c${findDigitSum(...input)}`, "color : skyblue;", "color : orange;");
 		console.log(`%cTime Spent: %c${new Date().getTime() - time}ms`, "color : skyblue;", "color : orange;");
 	});
 })();
