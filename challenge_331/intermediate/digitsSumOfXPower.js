@@ -44,8 +44,13 @@
 			multiplier.reverse().forEach((digit, index) => {
 				let subProduct = new Array(number.length).fill(0);
 				for(let i = number.length - 1; i >= 0; i--) {
-					let minorProduct = [...splitNumber(number[i] * digit), ...new Array(number.length - 1 - i + index).fill(0)];
-					subProduct = add(subProduct, minorProduct);
+					let minorProduct = splitNumber(number[i] * digit);
+					const trailZeros = number.length - 1 - i + index;
+					if(trailZeros >= subProduct.length) {
+						subProduct = [...minorProduct, ...new Array(trailZeros - subProduct.length).fill(0), ...subProduct];
+					} else {
+						subProduct = [...add(subProduct.slice(0, -trailZeros), minorProduct), ...subProduct.slice(subProduct.length - trailZeros)];
+					}
 				}
 				product = add(product, subProduct);
 			});
