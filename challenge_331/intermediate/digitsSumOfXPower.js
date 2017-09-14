@@ -2,6 +2,15 @@
 (() => {
 	document.addEventListener("DOMContentLoaded", () => {
 		/**
+		 * split number into array of digits
+		 * @param {int} [number] - number to be splitted
+		 *
+		 * @return {Array} [array of all digits]
+		 */
+		function splitNumber(number) {
+			return String(number).split("").map(Number);
+		}
+		/**
 		 * manual implementation of multiplication
 		 * @param {Array} [number] - all digits of number to be multiplied
 		 * @param {Array} [multiplier] - all digits of number to multiply
@@ -22,6 +31,6 @@
 			});
 			return curNum;
 		}
-		console.log(multiply([9, 1, 1, 2, 1], [5, 0]));
+		console.log(multiply(splitNumber(91121), splitNumber(50)));
 	});
 })();
