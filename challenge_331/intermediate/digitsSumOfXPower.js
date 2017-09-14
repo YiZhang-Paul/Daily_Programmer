@@ -42,13 +42,13 @@
 		function multiply(number, multiplier) {
 			let product = new Array(number.length).fill(0);
 			multiplier.reverse().forEach((digit, index) => {
-				let subProduct = number.slice();
-				for(let i = subProduct.length - 1; i >= 0; i--) {
-					const subOperand1 = subProduct[i] * Math.pow(10, subProduct.length - 1 - i);
+				let subProduct = new Array(number.length).fill(0);
+				for(let i = number.length - 1; i >= 0; i--) {
+					const subOperand1 = number[i] * Math.pow(10, number.length - 1 - i);
 					const subOperand2 = digit * Math.pow(10, index);
-					//subProduct = add(subProduct, splitNumber(subOperand1 * subOperand2));
+					subProduct = add(subProduct, splitNumber(subOperand1 * subOperand2));
 				}
-				//product = add(product, subProduct);
+				product = add(product, subProduct);
 			});
 			return product;
 		}
