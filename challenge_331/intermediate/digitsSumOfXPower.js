@@ -5,81 +5,48 @@
 		 * split number into array of digits
 		 * @param {int} [number] - number to be splitted
 		 *
-		 * @return {Array} [array of all digits]
+		 * @return {Array} [digits of number]
 		 */
 		function splitNumber(number) {
 			return String(number).split("").map(Number);
 		}
 		/**
-		 * manual implementation of summation
-		 * @param {Array} [number] - all digits of number to be added
-		 * @param {Array} [adding] - all digits of number to add
+		 * calculate carries from addition
+		 * @param {Array} [subProducts] - sub products
 		 *
-		 * @return {Array} [digits of the sum]
+		 * @return {Array} [products with carries calculated]
 		 */
-		function add(number, adding) {
-			let sum = number.length > adding.length ? number.slice() : adding.slice();
-			let toAdd = number.length > adding.length ? adding.slice() : number.slice();
-			let carry = false;
-			toAdd.reverse().forEach((digit, index) => {
-				const curIndex = sum.length - 1 - index;
-				const subSum = sum[curIndex] + digit + (carry ? 1 : 0);
-				sum[curIndex] = subSum % 10;
-				carry = subSum >= 10; 
-			});
-			if(carry) {
-				return add(sum, [1, ...new Array(toAdd.length).fill(0)]);
+		function calculateCarry(subProducts) {
+			let product = subProducts.slice();
+			for(let i = 0; i < product.length; i++) {
+				const subSum = product[i].reduce((acc, val) => acc + val);
+				if(subSum >= 10) {
+					product[i] = subSum % 10;
+					product[i + 1] = product[i + 1] ? [...product[i + 1], Math.floor(subSum / 10)] : [Math.floor(subSum / 10)];
+					continue;
+				}
+				product[i] = subSum;
 			}
-			return sum;
+			return product;
 		}
 		/**
 		 * manual implementation of multiplication
-		 * @param {Array} [number] - all digits of number to be multiplied
-		 * @param {Array} [multiplier] - all digits of number to multiply
+		 * @param {Array} [number] - digits of number to be multiplied
+		 * @param {int} [multiplier] - number to multiply
 		 *
 		 * @return {Array} [digits of the product]
 		 */
 		function multiply(number, multiplier) {
-			let product = new Array(number.length).fill(0);
-			multiplier.slice().reverse().forEach((digit, index) => {
-				let subProduct = new Array(number.length).fill(0);
-				for(let i = number.length - 1; i >= 0; i--) {
-					let minorProduct = splitNumber(number[i] * digit);
-					const trailZeros = number.length - 1 - i + index;
-					if(trailZeros >= subProduct.length) {
-						subProduct = [...minorProduct, ...new Array(trailZeros - subProduct.length).fill(0), ...subProduct];
-					} else {
-						subProduct = [...add(subProduct.slice(0, -trailZeros), minorProduct), ...subProduct.slice(subProduct.length - trailZeros)];
-					}
+			let product = [];
+			for(let i = number.length - 1; i >= 0; i--) {
+				let subProduct = splitNumber(number[i] * multiplier);
+				for(let j = subProduct.length - 1; j >= 0; j--) {
+					const curIndex = (number.length - 1 - i) + (subProduct.length - 1 - j);
+					product[curIndex] = product[curIndex] ? [...product[curIndex], subProduct[j]] : [subProduct[j]];
 				}
-				product = add(product, subProduct);
-			});
-			return product;
-		}
-		/**
-		 * manual implementation of exponential
-		 * @param {Array} [base] - all digits of base number
-		 * @param {int} [power] - power of exponent
-		 *
-		 * @return {Array} [digits of exponent]
-		 */
-		function exponent(base, power) {
-			let exponent = [1], curPower = 1;
-			while(power > 1) {
-				let subExponent = base.slice();
-				while(curPower * 2 <= power) {
-					curPower *= 2;
-					subExponent = multiply(subExponent, subExponent);
-				}
-				exponent = multiply(exponent, subExponent);
-				power -= curPower;
-				curPower = 1;
 			}
-			return power ? multiply(exponent, base) : exponent;
+			return calculateCarry(product).reverse();
 		}
-		let time = new Date().getTime();
-		console.log(exponent(splitNumber(2), 1234).reduce((acc, val) => acc + val) + ` ${new Date().getTime() - time}ms`);
-		//console.log(exponent(splitNumber(11), 4000).reduce((acc, val) => acc + val));
-		//console.log(exponent(splitNumber(50), 3000).reduce((acc, val) => acc + val));
+		console.log(multiply(splitNumber(59), 51));
 	});
 })();
