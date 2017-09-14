@@ -41,7 +41,7 @@
 		 */
 		function multiply(number, multiplier) {
 			let product = new Array(number.length).fill(0);
-			multiplier.reverse().forEach((digit, index) => {
+			multiplier.slice().reverse().forEach((digit, index) => {
 				let subProduct = new Array(number.length).fill(0);
 				for(let i = number.length - 1; i >= 0; i--) {
 					let minorProduct = splitNumber(number[i] * digit);
@@ -64,11 +64,18 @@
 		 * @return {Array} [digits of exponent]
 		 */
 		function exponent(base, power) {
-			let exponent = [1];
-			for(let i = 0; i < power; i++) {
-				exponent = multiply(exponent, base);
+			let exponent = [1], curPower = 1;
+			while(power > 1) {
+				let subExponent = base.slice();
+				while(curPower * 2 <= power) {
+					curPower *= 2;
+					subExponent = multiply(subExponent, subExponent);
+				}
+				exponent = multiply(exponent, subExponent);
+				power -= curPower;
+				curPower = 1;
 			}
-			return exponent;
+			return power ? multiply(exponent, base) : exponent;
 		}
 		let time = new Date().getTime();
 		console.log(exponent(splitNumber(2), 1234).reduce((acc, val) => acc + val) + ` ${new Date().getTime() - time}ms`);
