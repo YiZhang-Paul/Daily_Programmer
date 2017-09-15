@@ -36,7 +36,7 @@
 		 *
 		 * @return {Object} [all cards dealt for the round]
 		 */
-		function dealCard(cards = getDeck(), players = 8) {
+		function dealCard(cards, players) {
 			return {
 				deal : new Array(players).fill(0).map(player => drawCard(cards, 2)),
 				flop : drawCard(cards, 4).slice(1),
@@ -51,30 +51,46 @@
 		 * @return {String} [card name]
 		 */
 		function readCard(card) {
-			const numbers = {1 : "Ace", 11 : "Jack", 12 : "Queen", 13 : "King"}; 
+			const numbers = {1 : "Ace", 11 : "Jack", 12 : "Queen", 13 : "King"};
 			const shades = {1 : "Clubs", 2 : "Diamonds", 3 : "Spades", 4 : "Hearts"};
 			const [number, shade] = [Math.floor(card / 10), card % 10];
-			return `${numbers[number] || number} of ${shades[shade]}`; 
+			return `${numbers[number] || number} of ${shades[shade]}`;
 		}
 		/**
 		 * display deal for a round
 		 * @param {Array} [cards] - all available cards
 		 * @param {int} [players] - total number of players
 		 *
-		 * @return {String} [round deal announcement]
+		 * @return {String} [round information]
 		 */
-		function displayDeal(cards = getDeck(), players = 8) {
-			let announcement = "";
-			let roundDeal = dealCard();
-			roundDeal.deal.forEach((player, index) => {
-				announcement += `${index === 0 ? "Your" : "CPU " + index} Hand: ${player.map(card => readCard(card)).join(", ")}\n`;
+		function displayDeal(cards, players) {
+			let info = "How Many Players (2 - 8) ? " + players + "\n\n";
+			let round = dealCard(cards, players);
+			round.deal.forEach((player, index) => {
+				info += `${index ? "CPU " + index : "Your"} Hand: ${player.map(card => readCard(card)).join(", ")}\n`;
 			});
-			announcement += "\n";
-			Object.keys(roundDeal).filter(key => key != "deal").forEach(cardSet => {
-				announcement += `${cardSet[0].toUpperCase() + cardSet.slice(1)}: ${roundDeal[cardSet].map(card => readCard(card)).join(", ")}\n`;
+			info += "\n";
+			Object.keys(round).filter(key => key != "deal").forEach(set => {
+				info += `${set[0].toUpperCase() + set.slice(1)}: ${round[set].map(card => readCard(card)).join(", ")}\n`;
 			});
-			return announcement;
+			return info;
 		}
-		console.log(displayDeal());
+		/**
+		 * start a round
+		 * @param {int} [players] - total number of players
+		 *
+		 * @return {String} [round information]
+		 */
+		function beginRound() {
+			const message = "How Many Players (2 - 8) ? ";
+			let players = Number(prompt(message));
+			while(isNaN(players) || players < 2 || players > 8) {
+				players = Number(prompt(message));
+			}
+			return displayDeal(getDeck(), players);
+		}
+		//challenge input
+		console.log(`%cChallenge Input: `, "color : red;");
+		console.log(`%c${beginRound()}`, "color : orange;");
 	});
 })();		
