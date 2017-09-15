@@ -1,5 +1,7 @@
 #215[Easy] Sad Cycles
 
+All Done
+
 url: https://www.reddit.com/r/dailyprogrammer/comments/36cyxf/20150518_challenge_215_easy_sad_cycles/
 
 Take a number, and add up the square of each digit. You'll end up with another number. If you repeat this process over and over again, you'll see that one of two things happen:
