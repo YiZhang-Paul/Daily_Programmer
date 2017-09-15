@@ -16,6 +16,20 @@
 			return deck;
 		}
 		/**
+		 * draw given amount of cards from card deck
+		 * @param {Array} [cards] - all available cards
+		 * @param {int} [total] - total number of cards to be drawn
+		 *
+		 * @return {Array} [cards drawn]
+		 */
+		function drawCard(cards, total = 1) {
+			let drawn = [];
+			for(let i = 0; i < total; i++) {
+				drawn.push(cards.splice(Math.floor(Math.random() * cards.length), 1)[0]);
+			}
+			return drawn;
+		}
+		/**
 		 * deal cards for a round
 		 * @param {Array} [cards] - all available cards
 		 * @param {int} [players] - total number of players
@@ -31,6 +45,7 @@
 				}
 				deal.players = deal.players ? [...deal.players, curDeal] : [curDeal];
 			}
+			console.log(cards);
 			return deal;
 		}
 		console.log(dealCard());
