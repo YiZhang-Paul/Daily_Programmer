@@ -56,5 +56,25 @@
 			const [number, shade] = [Math.floor(card / 10), card % 10];
 			return `${numbers[number] || number} of ${shades[shade]}`; 
 		}
+		/**
+		 * display deal for a round
+		 * @param {Array} [cards] - all available cards
+		 * @param {int} [players] - total number of players
+		 *
+		 * @return {String} [round deal announcement]
+		 */
+		function displayDeal(cards = getDeck(), players = 8) {
+			let announcement = "";
+			let roundDeal = dealCard();
+			roundDeal.deal.forEach((player, index) => {
+				announcement += `${index === 0 ? "Your" : "CPU " + index} Hand: ${player.map(card => readCard(card)).join(", ")}\n`;
+			});
+			announcement += "\n";
+			Object.keys(roundDeal).filter(key => key != "deal").forEach(cardSet => {
+				announcement += `${cardSet[0].toUpperCase() + cardSet.slice(1)}: ${roundDeal[cardSet].map(card => readCard(card)).join(", ")}\n`;
+			});
+			return announcement;
+		}
+		console.log(displayDeal());
 	});
 })();		
