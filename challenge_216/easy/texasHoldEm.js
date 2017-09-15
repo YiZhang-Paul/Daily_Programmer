@@ -37,17 +37,24 @@
 		 * @return {Object} [all cards dealt for the round]
 		 */
 		function dealCard(cards = getDeck(), players = 8) {
-			let deal = [];
-			for(let i = 0; i < players; i++) {
-				deal.push(drawCard(cards, 2));
-			}
 			return {
-				deal : deal,
+				deal : new Array(players).fill(0).map(player => drawCard(cards, 2)),
 				flop : drawCard(cards, 4).slice(1),
 				turn : drawCard(cards, 2).slice(1),
 				river : drawCard(cards, 2).slice(1)
 			};
 		}
-		console.log(dealCard());
+		/**
+		 * read card
+		 * @param {int} [card] - card to be read
+		 *
+		 * @return {String} [card name]
+		 */
+		function readCard(card) {
+			const numbers = {1 : "Ace", 11 : "Jack", 12 : "Queen", 13 : "King"}; 
+			const shades = {1 : "Clubs", 2 : "Diamonds", 3 : "Spades", 4 : "Hearts"};
+			const [number, shade] = [Math.floor(card / 10), card % 10];
+			return `${numbers[number] || number} of ${shades[shade]}`; 
+		}
 	});
 })();		
