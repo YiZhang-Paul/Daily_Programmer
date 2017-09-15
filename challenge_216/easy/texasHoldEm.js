@@ -37,16 +37,16 @@
 		 * @return {Object} [all cards dealt for the round]
 		 */
 		function dealCard(cards = getDeck(), players = 8) {
-			let deal = {};
+			let deal = [];
 			for(let i = 0; i < players; i++) {
-				let curDeal = [];
-				for(let j = 0; j < 2; j++) {
-					curDeal.push(cards.splice(Math.floor(Math.random() * cards.length), 1)[0]);
-				}
-				deal.players = deal.players ? [...deal.players, curDeal] : [curDeal];
+				deal.push(drawCard(cards, 2));
 			}
-			console.log(cards);
-			return deal;
+			return {
+				deal : deal,
+				flop : drawCard(cards, 4).slice(1),
+				turn : drawCard(cards, 2).slice(1),
+				river : drawCard(cards, 2).slice(1)
+			};
 		}
 		console.log(dealCard());
 	});
