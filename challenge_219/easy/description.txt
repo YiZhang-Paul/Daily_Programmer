@@ -1,5 +1,7 @@
 #219[Easy] To-do list (Part 1)
 
+All Done
+
 url: https://www.reddit.com/r/dailyprogrammer/comments/39ws1x/20150615_challenge_218_easy_todo_list_part_1/
 
 Description
