@@ -39,6 +39,18 @@
 										 .map(char => isConsonant(char) ? char + "o" + char.toLowerCase() : char)
 										 .join("");
 		}
+		/**
+		 * decode sentence back into normal English sentence
+		 * @param {String} [sentence] - sentence to be decoded
+		 *
+		 * @return {String} [decoded sentence]
+		 */
+		function decode(sentence) {
+			for(let i = 0; i < sentence.length; i++) {
+				sentence = isConsonant(sentence[i]) ? sentence.slice(0, i + 1) + sentence.slice(i + 3) : sentence;
+			}
+			return sentence;
+		}
 		//default input
 		console.log(`%cDefault Input: `, "color : red;");
 		let input = "Jag talar Rövarspråket!";
@@ -55,5 +67,19 @@
 		input = "Vår kung är coolare än er kung.";
 		console.log(`%c${input} -> `, "color : skyblue;");
 		console.log(`%c${encode(input)}`, "color : orange;");
+		//bonus input
+		console.log(`%cBonus Input: `, "color : red;");
+		input = "Jojagog totalolaror Rorövovarorsospoproråkoketot!";
+		console.log(`%c${input} -> `, "color : skyblue;");
+		console.log(`%c${decode(input)}`, "color : orange;");
+		input = "I'mom sospopeakokinongog Rorobobboberor'sos lolanongoguagoge!";
+		console.log(`%c${input} -> `, "color : skyblue;");
+		console.log(`%c${decode(input)}`, "color : orange;");
+		input = "Totrore Kokrorononoror äror vovärorloldodenonsos bobäsostota isoshohocockokeylolagog.";
+		console.log(`%c${input} -> `, "color : skyblue;");
+		console.log(`%c${decode(input)}`, "color : orange;");
+		input = "Vovåror kokunongog äror cocoololarore änon eror kokunongog.";
+		console.log(`%c${input} -> `, "color : skyblue;");
+		console.log(`%c${decode(input)}`, "color : orange;");
 	});
 })();		
