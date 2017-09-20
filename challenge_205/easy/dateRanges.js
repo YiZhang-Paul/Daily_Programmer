@@ -47,7 +47,7 @@
 			 *
 			 * @return {String} [date printed]
 			 */
-			printDate(toPrint = "YMD", format = "YMD") {
+			printDate(toPrint = "YMD", format = "MDY") {
 				const printList = new Set(toPrint);
 				let date = "";
 				for(let i = 0; i < format.length; i++) {
@@ -59,7 +59,7 @@
 						date += format[i] == "Y" ? this.year + " " : (format[i] == "M" ? this.printMonth() : this.printDay()) + " ";
 					}
 				}
-				return date; 
+				return date.trim(); 
 			}
 		}
 		/**
@@ -70,7 +70,7 @@
 		 * @param {int} [curYear] - current year
 		 */
 		class RangeGenerator {
-			constructor(date1, date2, format = "YMD", curYear = 2015) {
+			constructor(date1, date2, format = "MDY", curYear = 2015) {
 				[this.date1, this.date2] = [date1, date2].map(this.readDate);
 				this.format = format;
 				this.curYear = curYear;
@@ -92,6 +92,26 @@
 			 */
 			inCurrentYear(date) {
 				return date.year == this.curYear;
+			}
+			/**
+			 * check if two dates are in same year
+			 * @param {Object} [date1] - date 1
+			 * @param {Object} [date2] - date 2
+			 *
+			 * @return {boolean} [test result] 
+			 */
+			isSameYear(date1 = this.date1, date2 = this.date2) {
+				return date1.year == date2.year;
+			}
+			/**
+			 * check if two dates are in same month
+			 * @param {Object} [date1] - date 1
+			 * @param {Object} [date2] - date 2
+			 *
+			 * @return {boolean} [test result] 
+			 */
+			isSameMonth(date1 = this.date1, date2 = this.date2) {
+				return date1.month == date2.month;
 			}
 			/**
 			 * check if two dates are the same 
@@ -122,11 +142,22 @@
 				if(this.isSameDate()) {
 					return this.date1.printDate("YMD", this.format);
 				}
-				let [begin, end] = this.sortDate(this.date1, this.date2);
-				console.log(begin, end);
+				const [begin, end] = this.sortDate(this.date1, this.date2);
+				if(this.inCurrentYear(begin) && end.year - begin.year <= 1) {
+					return begin.printDate("MD", this.format) + " - " + end.printDate(this.isSameMonth() ? "D" : "MD", this.format);
+				}
+				return begin.printDate(this.isSameYear() ? "MD" : "YMD", this.format) + " - " + end.printDate("YMD", this.format);
 			}
 		}
 		console.log(new RangeGenerator("2015-07-01", "2015-07-04").getDateRange());
+		console.log(new RangeGenerator("2015-12-01", "2016-02-03").getDateRange());
+		console.log(new RangeGenerator("2015-12-01", "2017-02-03").getDateRange());
+		console.log(new RangeGenerator("2016-03-01", "2016-05-05").getDateRange());
 		console.log(new RangeGenerator("2017-01-01", "2017-01-01").getDateRange());
+		console.log(new RangeGenerator("2022-09-05", "2023-09-04").getDateRange());
+
+		console.log(new RangeGenerator("2015-07-01", "2015-07-04", "DMY").getDateRange());
+		console.log(new RangeGenerator("2016-03-01", "2016-05-05", "YDM").getDateRange());
+		console.log(new RangeGenerator("2022-09-05", "2023-09-04", "YMD").getDateRange());
 	});
 })();			
