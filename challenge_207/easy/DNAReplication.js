@@ -42,7 +42,20 @@
 			}
 			return table;
 		}
-		console.log(getCodonTable());
+		/**
+		 * translate DNA
+		 * @param {String} [strand] - DNA strand to be translated
+		 *
+		 * @return {String} [translated DNA strand] 
+		 */
+		function translateDNA(strand) {
+			const codonTable = getCodonTable();
+			let translate = "";
+			for(let i = 0; i < strand.length; i += 6) {
+				translate += codonTable.get(strand.slice(i, i + 6).split(" ").join("")) + " ".repeat(3);
+			}
+			return translate;
+		}
 		//default input
 		console.log(`%cDefault Input: `, "color : red;");
 		let input = "A T A A G C ";
@@ -55,5 +68,8 @@
 		console.log(`%c${getStrands(input).join("\n")}`, "color : orange;");
 		//bonus input
 		console.log(`%cBonus Input: `, "color : red;");
+		input = "A T G T T T C G A G G C T A A";
+		console.log(`%c${input} ->`, "color : skyblue;");
+		console.log(`%c${translateDNA(input)}`, "color : orange;");
 	});
 })();		
