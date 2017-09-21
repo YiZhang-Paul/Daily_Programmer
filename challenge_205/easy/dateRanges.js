@@ -37,12 +37,12 @@
 					if(new Set([1, 2, 3]).has(remainder)) {
 						return this.day + (remainder == 1 ? "st" : (remainder == 2 ? "nd" : "rd"));
 					}
-				}				
+				}
 				return this.day + "th";
 			}
 			/**
 			 * print date
-			 * @param {String} [toPrint] - date items to print
+			 * @param {String} [toPrint] - date items to be printed
 			 * @param {String} [format] - date format
 			 *
 			 * @return {String} [date printed]
@@ -59,7 +59,7 @@
 						date += format[i] == "Y" ? this.year + " " : (format[i] == "M" ? this.printMonth() : this.printDay()) + " ";
 					}
 				}
-				return date.trim(); 
+				return date.trim();
 			}
 		}
 		/**
@@ -98,7 +98,7 @@
 			 * @param {Object} [date1] - date 1
 			 * @param {Object} [date2] - date 2
 			 *
-			 * @return {boolean} [test result] 
+			 * @return {boolean} [test result]
 			 */
 			isSameYear(date1 = this.date1, date2 = this.date2) {
 				return date1.year == date2.year;
@@ -108,37 +108,37 @@
 			 * @param {Object} [date1] - date 1
 			 * @param {Object} [date2] - date 2
 			 *
-			 * @return {boolean} [test result] 
+			 * @return {boolean} [test result]
 			 */
 			isSameMonth(date1 = this.date1, date2 = this.date2) {
 				return date1.month == date2.month;
-			}
+			}	
 			/**
 			 * check if two dates have the same day
 			 * @param {Object} [date1] - date 1
 			 * @param {Object} [date2] - date 2
 			 *
-			 * @return {boolean} [test result] 
+			 * @return {boolean} [test result]
 			 */
 			isSameDay(date1 = this.date1, date2 = this.date2) {
 				return date1.day == date2.day;
 			}
 			/**
-			 * check if two dates are the same 
+			 * check if two dates are the same
 			 * @param {Object} [date1] - date 1
 			 * @param {Object} [date2] - date 2
 			 *
 			 * @return {boolean} [test result]
 			 */
 			isSameDate(date1 = this.date1, date2 = this.date2) {
-				return date1.year == date2.year && date1.month == date2.month && date1.day == date2.day;
+				return this.isSameYear(date1, date2) && this.isSameMonth(date1, date2) && this.isSameDay(date1, date2);
 			}
 			/**
 			 * sort date in ascending order
 			 * @param {Object} [date1] - date 1
 			 * @param {Object} [date2] - date 2
 			 *
-			 * @return {Array} [sorted dates]
+			 * @return {boolean} [test result]
 			 */
 			sortDate(date1 = this.date1, date2 = this.date2) {
 				return [date1, date2].sort((a, b) => a.year - b.year || a.month - b.month || a.day - b.day);
@@ -152,14 +152,19 @@
 				if(this.isSameDate()) {
 					return this.date1.printDate("YMD", this.format);
 				}
-				const [begin, end] = this.sortDate(this.date1, this.date2);
+				const [begin, end] = this.sortDate();
+				let items1, items2;
 				if(this.inCurrentYear(begin) && end.year - begin.year <= 1) {
 					if(this.isSameMonth() && this.isSameDay()) {
 						return begin.printDate("YMD", this.format) + " - " + end.printDate("YMD", this.format);
 					}
-					return begin.printDate("MD", this.format) + " - " + end.printDate(this.isSameMonth() ? "D" : "MD", this.format);
+					[items1, items2] = [this.isSameMonth() ? "D" : "MD", "MD"];
+					[items1, items2] = this.format.replace(/Y/, "") == "DM" ? [items1, items2] : [items2, items1];
+				} else {
+					[items1, items2] = ["YMD", this.isSameYear() ? "MD" : "YMD"];
+					[items1, items2] = this.format[0] == "Y" ? [items1, items2] : [items2, items1];
 				}
-				return begin.printDate(this.isSameYear() ? "MD" : "YMD", this.format) + " - " + end.printDate("YMD", this.format);
+				return begin.printDate(items1, this.format) + " - " + end.printDate(items2, this.format);
 			}
 		}
 		//challenge input
