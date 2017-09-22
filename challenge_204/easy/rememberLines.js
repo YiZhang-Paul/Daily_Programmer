@@ -54,10 +54,21 @@
 		 */
 		function searchSection(type, quote, text) {
 			let sectionNum = 1, content = getSection(type, 1, text);
-			while(!new RegExp(quote).test(content)) {
+			while(content && !new RegExp(quote).test(content)) {
 				content = getSection(type, ++sectionNum, text);
 			}
 			return content ? [sectionNum, content] : [null, null];
+		}
+		/**
+		 * get all characters in a scene
+		 * @param {String} [scene] - scene to be checked
+		 *
+		 * @return {Array} [characters]
+		 */
+		function getCharacter(scene) {
+			let names = scene.match(/\s{2}([A-Z]|\s)+\.\s+\n/g)
+											 .map(name => name.match(/([A-Z]|\s)+/g)[0].trim());
+			return Array.from(new Set(names)).map(name => name[0] + name.slice(1).toLowerCase());
 		}
 		/**
 		 * retrieve passage
@@ -72,7 +83,11 @@
 				return "Passage Not Found.";
 			}
 			const [sceneNum, curScene] = searchSection("SCENE", quote, curAct);
-			return curScene ? [actNum, sceneNum, curScene] : "Passage Not Found.";
+			let header = `ACT ${toRomanNumeral(actNum)}\n`;
+			header += `SCENE ${toRomanNumeral(sceneNum)}\n`;
+			header += `Characters in Scene: ${getCharacter(curScene).join(", ")}\n`;
+			header += `Spoken by \n`;
+			return header + "";
 		}
 
 		getText("macbeth.txt").then(text => {
