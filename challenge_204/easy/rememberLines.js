@@ -44,9 +44,39 @@
 			const sectionEnd = new RegExp(nextSection).test(parent) ? `(?=${nextSection})` : "(?!(\\w|\\W))";
 			return parent.match(new RegExp(`${curSection}(\\w|\\W)+${sectionEnd}`))[0];
 		}
+		/**
+		 * searh quote in a given section
+		 * @param {String} [type] - section type
+		 * @param {String} [quote] - quote to search
+		 * @param {String} [text] - search context
+		 *
+		 * @return {Array} [section number and content]
+		 */
+		function searchSection(type, quote, text) {
+			let sectionNum = 1, content = getSection(type, 1, text);
+			while(!new RegExp(quote).test(content)) {
+				content = getSection(type, ++sectionNum, text);
+			}
+			return content ? [sectionNum, content] : [null, null];
+		}
+		/**
+		 * retrieve passage
+		 * @param {String} [quote] - quote to search
+		 * @param {String} [text] - full text of the play
+		 *
+		 * @return {String} [parent passage of the quote and its context]
+		 */
+		function getPassage(quote, text) {
+			const [actNum, curAct] = searchSection("ACT", quote, text);
+			if(!curAct) {
+				return "Passage Not Found.";
+			}
+			const [sceneNum, curScene] = searchSection("SCENE", quote, curAct);
+			return curScene ? [actNum, sceneNum, curScene] : "Passage Not Found.";
+		}
 
 		getText("macbeth.txt").then(text => {
-			console.log(getSection("SCENE", 2, getSection("ACT", 3, text)));
+			console.log(getPassage("rugged Russian bear", text));
 		}).catch(error => {console.log(error);});
 	});
 })();
