@@ -25,8 +25,11 @@
 		 * @return {String} [Roman Numerals representation]
 		 */
 		function toRomanNumeral(number) {
-			const table = {1 : "I", 2 : "II", 3 : "III", 4 : "IV", 5 : "V", 6 : "VI", 7 : "VII", 8 : "VIII", 9 : "IX", 10 : "X"};
-			return table[number];
+			const table = {
+				1 : "I", 2 : "II", 3 : "III", 4 : "IV", 5 : "V", 
+				6 : "VI", 7 : "VII", 8 : "VIII", 9 : "IX", 10 : "X"
+			};
+			return "X".repeat(Math.floor(number / 10)) + (table[number % 10] || "");
 		}
 		/**
 		 * retrieve ACT
@@ -37,10 +40,9 @@
 		 */
 		function getAct(act, play) {
 			const [curAct, nextAct] = [act, act + 1].map(num => `ACT ${toRomanNumeral(num)}\\.`);
-			const endOfAct = new RegExp(nextAct).test(play) ? "(?=" + nextAct + ")" : "(?!(\\w|\\W))";
-			return play.match(new RegExp(curAct + "(\\w|\\W)+" + endOfAct))[0];
+			const endOfAct = new RegExp(nextAct).test(play) ? `(?=${nextAct})` : "(?!(\\w|\\W))";
+			return play.match(new RegExp(`${curAct}(\\w|\\W)+${endOfAct}`))[0];
 		}
-
 		getText("macbeth.txt").then(text => {
 			//console.log(getAct(1, text));
 			//console.log(getAct(2, text));
