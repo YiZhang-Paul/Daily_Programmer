@@ -32,23 +32,21 @@
 			return "X".repeat(Math.floor(number / 10)) + (table[number % 10] || "");
 		}
 		/**
-		 * retrieve ACT
-		 * @param {int} [act] - ACT number
-		 * @param {String} [play] - full text of the play
+		 * retrieve act or scene
+		 * @param {String} [type] - section type
+		 * @param {int} [section] - section number
+		 * @param {String} [parent] - parent section
 		 *
-		 * @return {String} [full text of desired ACT]
+		 * @return {String} [full text of desired section]
 		 */
-		function getAct(act, play) {
-			const [curAct, nextAct] = [act, act + 1].map(num => `ACT ${toRomanNumeral(num)}\\.`);
-			const endOfAct = new RegExp(nextAct).test(play) ? `(?=${nextAct})` : "(?!(\\w|\\W))";
-			return play.match(new RegExp(`${curAct}(\\w|\\W)+${endOfAct}`))[0];
+		function getSection(type, section, parent) {
+			const [curSection, nextSection] = [section, section + 1].map(num => `${type} ${toRomanNumeral(num)}\\.`);
+			const sectionEnd = new RegExp(nextSection).test(parent) ? `(?=${nextSection})` : "(?!(\\w|\\W))";
+			return parent.match(new RegExp(`${curSection}(\\w|\\W)+${sectionEnd}`))[0];
 		}
+
 		getText("macbeth.txt").then(text => {
-			//console.log(getAct(1, text));
-			//console.log(getAct(2, text));
-			//console.log(getAct(3, text));
-			//console.log(getAct(4, text));
-			console.log(getAct(5, text));
+			console.log(getSection("SCENE", 2, getSection("ACT", 3, text)));
 		}).catch(error => {console.log(error);});
 	});
 })();
