@@ -60,6 +60,15 @@
 			return content ? [sectionNum, content] : [null, null];
 		}
 		/**
+		 * capitalize name
+		 * @param {String} [name] - name to be capitalized
+		 *
+		 * @return {String} [capitalized name]
+		 */
+		function capitalize(name) {
+			return name[0].toUpperCase() + name.slice(1).toLowerCase();
+		}
+		/**
 		 * get all characters in a scene
 		 * @param {String} [scene] - scene to be checked
 		 *
@@ -68,16 +77,37 @@
 		function getCharacter(scene) {
 			let names = scene.match(/\s{2}([A-Z]|\s)+\.\s+\n/g)
 											 .map(name => name.match(/([A-Z]|\s)+/g)[0].trim());
-			return Array.from(new Set(names)).map(name => name[0] + name.slice(1).toLowerCase());
+			return Array.from(new Set(names)).map(capitalize);
 		}
 		/**
-		 * retrieve passage
+		 * retrieve passage 
+		 * @param {Stromg} [quote] - quote to search
+		 * @param {String} [scene] - full text of the scene
+		 *
+		 * @return {Array} [whole passage and its speaker]
+		 */
+		function getPassage(quote, scene) {
+			let lines = scene.split("\n");
+			const quoteIndex = lines.findIndex(line => new RegExp(quote).test(line));
+			let start = quoteIndex - 1;
+			while(!/\s{2}([A-Z]|\s)+\./.test(lines[start])) {
+				start--;
+			}
+			let end = quoteIndex + 1;
+			while(!/\s{2}([A-Z]|\s)+\./.test(lines[end])) {
+				end++;
+			}
+			return [capitalize(lines[start].match(/([A-Z]|\s)+/g)[0].trim()), 
+							lines.slice(start + 1, end - 1).filter(line => !/\[(\w|\W)+\]/.test(line)).join("\n")];
+		}
+		/**
+		 * display search result
 		 * @param {String} [quote] - quote to search
 		 * @param {String} [text] - full text of the play
 		 *
-		 * @return {String} [parent passage of the quote and its context]
+		 * @return {String} [search result]
 		 */
-		function getPassage(quote, text) {
+		function displayResult(quote, text) {
 			const [actNum, curAct] = searchSection("ACT", quote, text);
 			if(!curAct) {
 				return "Passage Not Found.";
@@ -86,12 +116,27 @@
 			let header = `ACT ${toRomanNumeral(actNum)}\n`;
 			header += `SCENE ${toRomanNumeral(sceneNum)}\n`;
 			header += `Characters in Scene: ${getCharacter(curScene).join(", ")}\n`;
-			header += `Spoken by \n`;
-			return header + "";
+			const [speaker, passage] = getPassage(quote, curScene);
+			header += `Spoken by ${speaker}:\n`;
+			return header + passage;
 		}
-
 		getText("macbeth.txt").then(text => {
-			console.log(getPassage("rugged Russian bear", text));
+			//default & bonus input
+			console.log(`%cDefault & Bonus Input: `, "color : red;");
+			let input = "Eye of newt";
+			console.log(`%c${input} -> `, "color : skyblue;");
+			console.log(`%c${displayResult(input, text)}`, "color : orange;");
+			input = "rugged Russian bear";
+			console.log(`%c${input} -> `, "color : skyblue;");
+			console.log(`%c${displayResult(input, text)}`, "color : orange;");
+			//challenge & bonus input
+			console.log(`%cChallenge & Bonus Input: `, "color : red;");
+			input = "break this enterprise";
+			console.log(`%c${input} -> `, "color : skyblue;");
+			console.log(`%c${displayResult(input, text)}`, "color : orange;");
+			input = "Yet who would have thought";
+			console.log(`%c${input} -> `, "color : skyblue;");
+			console.log(`%c${displayResult(input, text)}`, "color : orange;");
 		}).catch(error => {console.log(error);});
 	});
 })();
