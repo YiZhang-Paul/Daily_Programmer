@@ -28,6 +28,23 @@
 				return [date.getYear() + 1900, date.getMonth() + 1, date.getDate()];
 			}
 			/**
+			 * append zero to month and days
+			 * @param {int} [monthDay] - month or day
+			 *
+			 * @return {String} [month or day with zero appended]
+			 */
+			appendZero(monthDay) {
+				return monthDay < 10 ? "0" + monthDay : monthDay;
+			}
+			/**
+			 * print date
+			 *
+			 * @return {String} [date string]
+			 */
+			printDate() {
+				return [this.year, this.appendZero(this.month), this.appendZero(this.day)].join("/");
+			}
+			/**
 			 * check if a year is a leap year
 			 * @param {int} [year] - year to be checked
 			 *
@@ -104,15 +121,52 @@
 				}
 				return difference * (date1.tag == "today" ? 1 : -1);
 			}
+			/**
+			 * count date difference
+			 * @param {Object} [date1] - date 1
+			 * @param {Object} [date2] - date 2
+			 *
+			 * @return {String} [counting result]
+			 */
+			countDays(date1 = this.target, date2 = this.today) {
+				const difference = this.getDifference();
+				[date1, date2] = this.sortDate(date1, date2);
+				return `Date Format: YYYY/MM/DD\n${Math.abs(difference)} Days${difference < 0 ? " Passed" : ""} From ${date1.printDate()} to ${date2.printDate()}`;
+			}
 		}
-		console.log(new DayCounter("2015 7 4").getDifference());
-		console.log(new DayCounter("2015 10 31").getDifference());
-		console.log(new DayCounter("2015 12 24").getDifference());
-		console.log(new DayCounter("2016 1 1").getDifference());
-		console.log(new DayCounter("2016 2 9").getDifference());
-		console.log(new DayCounter("2020 1 1").getDifference());
-		console.log(new DayCounter("2020 2 9").getDifference());
-		console.log(new DayCounter("2020 3 1").getDifference());
-		console.log(new DayCounter("3015 2 9").getDifference());
+		//default input
+		console.log(`%cDefault Input: `, "color : red;");
+		let input = "2015 2 14";
+		console.log(`%c${input} -> `, "color : skyblue;");
+		console.log(`%c${new DayCounter(input).countDays()}`, "color : orange;");
+		//challenge input
+		console.log(`%cChallenge Input: `, "color : red;");
+		input = "2015 7 4";
+		console.log(`%c${input} -> `, "color : skyblue;");
+		console.log(`%c${new DayCounter(input).countDays()}`, "color : orange;");
+		input = "2015 10 31";
+		console.log(`%c${input} -> `, "color : skyblue;");
+		console.log(`%c${new DayCounter(input).countDays()}`, "color : orange;");
+		input = "2015 12 24";
+		console.log(`%c${input} -> `, "color : skyblue;");
+		console.log(`%c${new DayCounter(input).countDays()}`, "color : orange;");
+		input = "2016 1 1";
+		console.log(`%c${input} -> `, "color : skyblue;");
+		console.log(`%c${new DayCounter(input).countDays()}`, "color : orange;");
+		input = "2016 2 9";
+		console.log(`%c${input} -> `, "color : skyblue;");
+		console.log(`%c${new DayCounter(input).countDays()}`, "color : orange;");
+		input = "2020 1 1";
+		console.log(`%c${input} -> `, "color : skyblue;");
+		console.log(`%c${new DayCounter(input).countDays()}`, "color : orange;");
+		input = "2020 2 9";
+		console.log(`%c${input} -> `, "color : skyblue;");
+		console.log(`%c${new DayCounter(input).countDays()}`, "color : orange;");
+		input = "2020 3 1";
+		console.log(`%c${input} -> `, "color : skyblue;");
+		console.log(`%c${new DayCounter(input).countDays()}`, "color : orange;");
+		input = "3015 2 9";
+		console.log(`%c${input} -> `, "color : skyblue;");
+		console.log(`%c${new DayCounter(input).countDays()}`, "color : orange;");
 	});
 })();
