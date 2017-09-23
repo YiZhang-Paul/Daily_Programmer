@@ -28,13 +28,22 @@
 				return [date.getYear() + 1900, date.getMonth() + 1, date.getDate()];
 			}
 			/**
+			 * check if a year is a leap year
+			 * @param {int} [year] - year to be checked
+			 *
+			 * @return {boolean} [test result]
+			 */
+			isLeapYear(year = this.year) {
+				return year % 4 === 0 && (year % 100 !== 0 || year % 400 === 0);
+			}
+			/**
 			 * get total days in a month
 			 * @param {int} [month] - month number
 			 *
 			 * @return {int} [total days in the given month]
 			 */
 			daysInMonth(month = this.month) {
-				const table = {1 : 31, 2 : 28, 3 : 31, 4 : 30, 5 : 31, 6 : 30, 7 : 31, 8 : 31, 9 : 30, 10 : 31, 11 : 30, 12 : 31};
+				const table = {1 : 31, 2 : this.isLeapYear() ? 29 : 28, 3 : 31, 4 : 30, 5 : 31, 6 : 30, 7 : 31, 8 : 31, 9 : 30, 10 : 31, 11 : 30, 12 : 31};
 				return table[month];
 			}
 			/**
@@ -89,7 +98,10 @@
 					return Math.abs(date1.daysPassed() - date2.daysPassed());
 				}
 				[date1, date2] = this.sortDate(date1, date2);
-				const difference = date1.daysRemain() + date2.daysPassed() + (date2.year - date1.year - 1) * 365;
+				let difference = date1.daysRemain() + date2.daysPassed();
+				for(let i = date1.year + 1; i <= date2.year - 1; i++) {
+					difference += new CustomDate(i, 1, 1).isLeapYear() ? 366 : 365;
+				}
 				return difference * (date1.tag == "today" ? 1 : -1);
 			}
 		}
