@@ -89,7 +89,8 @@
 					return Math.abs(date1.daysPassed() - date2.daysPassed());
 				}
 				[date1, date2] = this.sortDate(date1, date2);
-				return date1.daysRemain() + date2.daysPassed() + (date2.year - date1.year - 1) * 365;
+				const difference = date1.daysRemain() + date2.daysPassed() + (date2.year - date1.year - 1) * 365;
+				return difference * (date1.tag == "today" ? 1 : -1);
 			}
 		}
 		console.log(new DayCounter("2015 7 4").getDifference());
