@@ -1,5 +1,7 @@
 #195[Easy] Symbolic Link Resolution
 
+All Done
+
 url: https://www.reddit.com/r/dailyprogrammer/comments/2qmz12/20141228_challenge_195_easy_symbolic_link/
 
 Many Unix-based systems support the concept of a symbolic link. This is where one directory name is transparently mapped to another. Before we look further at symbolic links, here's a brief primer on Unix paths.

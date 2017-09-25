@@ -3,12 +3,12 @@
 	document.addEventListener("DOMContentLoaded", () => {
 		/**
 		 * remove trailing forward slash
-		 * @param {String} [path] - path to be checked
+		 * @param {String} [paths] - path to be checked
 		 *
 		 * @return {String} [path with trailing forward slash removed]
 		 */
-		function removeSlash(path) {
-			return path[path.length - 1] == "/" ? path.slice(0, -1) : path;
+		function removeSlash(paths) {
+			return paths[paths.length - 1] == "/" ? paths.slice(0, -1) : paths;
 		}
 		/**
 		 * create symbolic table
@@ -18,24 +18,24 @@
 		 */
 		function makeTable(symbolics) {
 			let table = new Map();
-			symbolics.forEach(symbolic => {
-				let link = symbolic.split(":");
+			symbolics.forEach(link => {
+				link = link.split(":");
 				table.set(removeSlash(link[0]), removeSlash(link[1]));
 			});
 			return table;
 		}
 		/**
 		 * check if a path is fully extended
-		 * @param {String} [path] - path to be checked
+		 * @param {String} [paths] - path to be checked
 		 * @param {Object} [table] - symbolic links table
-		 *
+		 * 
 		 * @return {boolean} [test result]
 		 */
-		function isExtended(path, table) {
-			let directories = path.match(/[^\/]+/g);
-			for(let i = 0, curPath = ""; i < directories.length; i++) {
-				curPath += "/" + directories[i];
-				if(table.has(curPath)) {
+		function isExtended(paths, table) {
+			let directories = paths.match(/[^\/]+/g);
+			for(let i = 0, subPath = ""; i < directories.length; i++) {
+				subPath += "/" + directories[i];
+				if(table.has(subPath)) {
 					return false;
 				}
 			}
@@ -43,37 +43,37 @@
 		}
 		/**
 		 * extend a path
-		 * @param {String} [path] - path to be checked
+		 * @param {String} [paths] - path to be extended
 		 * @param {Object} [table] - symbolic links table
 		 *
 		 * @return {String} [extended path]
 		 */
-		function extendPath(path, table) {
-			let directories = path.match(/[^\/]+/g);
-			for(let i = 0, curPath = ""; i < directories.length; i++) {
-				curPath += "/" + directories[i];
-				if(table.has(curPath)) {
-					return path.replace(curPath, table.get(curPath));
+		function extendPath(paths, table) {
+			let directories = paths.match(/[^\/]+/g);
+			for(let i = 0, subPath = ""; i < directories.length; i++) {
+				subPath += "/" + directories[i];
+				if(table.has(subPath)) {
+					return paths.replace(subPath, table.get(subPath));
 				}
 			}
-			return path;
+			return paths;
 		}
 		/**
 		 * resolve symbolic link
 		 * @param {Array} [symbolics] - symbolic links
-		 * @param {String} [path] - path to be resolved
+		 * @param {String} [paths] - paths to be resolved
 		 *
 		 * @return {String} [resolved path]
 		 */
-		function resolveLink(symbolics, path) {
-			let links = makeTable(symbolics), counter = 0;
-			while(!isExtended(path, links)) {
-				path = extendPath(path, links);
+		function resolveLink(symbolics, paths) {
+			let linkTable = makeTable(symbolics), counter = 0;
+			while(!isExtended(paths, linkTable)) {
+				paths = extendPath(paths, linkTable);
 				if(++counter == 500) {
-					return "Infinite Loop Detected.";
+					return "Infinite Loop Found.";
 				}
 			}
-			return path;
+			return paths;
 		}
 		//default input
 		console.log(`%cDefault Input: `, "color : red;");
@@ -86,6 +86,10 @@
 		input = [["/bin:/usr/bin", "/usr/bin:/usr/local/bin/", "/usr/local/bin/log:/var/log-2014"], "/bin/log/rc"];
 		console.log(`%c${input[1]} -> %c${resolveLink(...input)}`, "color : skyblue;", "color : orange;");
 		input = [["/etc:/tmp/etc", "/tmp/etc/:/etc/"], "/etc/modprobe.d/config/"];
+		console.log(`%c${input[1]} -> %c${resolveLink(...input)}`, "color : skyblue;", "color : orange;");
+		//bonus input
+		console.log(`%cBonus Input: `, "color : red;");
+		input = [["/bin/thing:/bin/thing-3", "/bin/thing-3:/bin/thing-3.2", "/bin/thing/include:/usr/include", "/bin/thing-3.2/include/SDL:/usr/local/include/SDL"], "/bin/thing/include/SDL/stan"];
 		console.log(`%c${input[1]} -> %c${resolveLink(...input)}`, "color : skyblue;", "color : orange;");
 	});
 })();		
