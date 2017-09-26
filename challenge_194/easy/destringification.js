@@ -2,13 +2,13 @@
 (() => {
 	document.addEventListener("DOMContentLoaded", () => {
 		/**
-		 * check if a string is properly wrapped by matching pair of quotes
-		 * @param {String} [text] - string to be checked
+		 * extract sub-strings
+		 * @param {String} [parent] - parent string
 		 *
-		 * @return {boolean} [test result]
+		 * @return {Array} [extracted sub-strings]
 		 */
-		function isValidString(text) {
-			return new Set("'\"").has(text[0]) && text[0] == text[text.length - 1] && text[text.length - 2] != "\\";
+		function getSubString(parent) {
+			return parent.match(/"(\w|\W)*[^\\]"(?=\s)|"(\w|\W)*[^\\]"(?!(\w|\W))/g);
 		}
 		/**
 		 * split string by escape characters
@@ -21,7 +21,7 @@
 		}
 		/**
 		 * get escape string
-		 * @param {String} [escape] - escape string representation
+		 * @param {String} [escape] - escape string
 		 *
 		 * @return {String} [escape string]
 		 */
@@ -30,8 +30,8 @@
 			switch(escape[1]) {
 				case "'" : case "\"" : case "\\" :
 					escaped = escape[1];
-					break;		
-				case "n" : 
+					break;
+				case "n" :
 					escaped = "\n";
 					break;
 				case "r" :
@@ -46,15 +46,15 @@
 				case "f" :
 					escaped = "\f";
 					break;
-				case "v" :
+				case "v" : 
 					escaped = "\v";
-					break;
+					break; 					
 				case "0" :
 					escaped = "\0";
-					break;		
+					break;
 				default :
-					return null;			
-			}
+					return null;
+			} 
 			return escaped;
 		}
 		/**
@@ -64,8 +64,12 @@
 		 * @return {String} [parsed string]
 		 */
 		function parseString(parse) {
-			if(!isValidString(parse.trim())) {
-				return "Invalid String! (String Not Properly Ended.)";
+			let subString = getSubString(parse);
+			if(!subString) {
+				return "Invalid String! (String Not Properly Ended)";
+			}
+			if(subString.length > 1) {
+				return subString.map((sub, index) => `String ${index + 1}:\n${parseString(sub)}`).join("\n\n");
 			}
 			let parsed = "", toParse = splitString(parse);
 			for(let i = 0; i < toParse.length; i++) {
@@ -93,6 +97,11 @@
 		console.log(`%c${input} -> `, "color : skyblue;");
 		console.log(`%c${parseString(input)}`, "color : orange;");
 		input = "\"another invalid string \\q\"";
+		console.log(`%c${input} -> `, "color : skyblue;");
+		console.log(`%c${parseString(input)}`, "color : orange;");
+		//bonus input
+		console.log(`%cBonus Input: `, "color : red;");
+		input = "\"hello\\nhello again\" \"\\\\\\\"world!\\\\\\\"\"";
 		console.log(`%c${input} -> `, "color : skyblue;");
 		console.log(`%c${parseString(input)}`, "color : orange;");
 	});

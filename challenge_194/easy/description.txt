@@ -1,5 +1,7 @@
 #194[Easy] Destringification
 
+All Done
+
 url: https://www.reddit.com/r/dailyprogrammer/comments/2q2xnc/20141222_challenge_194_easy_destringification/
 
 Most programming languages understand the concept of escaping strings. For example, if you wanted to put a double-quote " into a string that is delimited by double quotes, you can't just do this:
