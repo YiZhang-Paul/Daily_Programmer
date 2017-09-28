@@ -27,8 +27,35 @@
 		function getContent(book) {
 			return book.match(/INTRODUCTION.\s*\n(\w|\W)*(?=End of the Project Gutenberg)/)[0];
 		}
+		/**
+		 * count words in a book
+		 * @param {String} [book] - book to count from
+		 *
+		 * @return {Object} [occurrence of each word in the book]
+		 */
+		function countWord(book) {
+			let counts = new Map();
+			book.match(/[a-zA-Z]+/g).forEach(word => {
+				const curWord = word.toLowerCase();
+				counts.set(curWord, counts.has(curWord) ? counts.get(curWord) + 1 : 1);
+			});
+			return counts;
+		}
+		/**
+		 * show word occurrences of a book
+		 * @param {String} [book] - book to count from
+		 */
+		function wordInBook(book) {
+			let result = "{";
+			countWord(getContent(book)).forEach((count, word) => {
+				result += `${word} : ${count},\n`;
+			});
+			return result.slice(0, -2) + "}";
+		}
 		getText("book.txt").then(text => {
-			console.log(getContent(text));
+			//challenge & bonus input
+			console.log(`%cChallenge & Bonus Input: `, "color : red;");
+			console.log(`%c${wordInBook(text)}`, "color : orange;");
 		}).catch(error => {console.log(error);});
 	});
 })();		
