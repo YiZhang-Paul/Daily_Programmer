@@ -8,7 +8,7 @@
 		 * @return {Array} [numbers extracted from string]
 		 */
 		function getNumber(numStr) {
-			return /\d/.test(numStr) ? numStr.match(/[+-]{0,1}\d+\.*\d*/g).map(Number) : [1];
+			return /\d/.test(numStr) ? numStr.match(/[+-]{0,1}\d+\.*\d*/g).map(Number) : (/\w/.test(numStr) ? [1] : [0]);
 		}
 		/**
 		 * read expression
@@ -18,9 +18,11 @@
 		 */
 		function readExpression(expression) {
 			let sides = expression.split("=").map(side => side.trim());
-			const totalY = getNumber(sides[0])[0];
-			const [a, b] = sides[1].split("x").map(number => getNumber(number)[0]);
-			return {totalY, a, b};
+			return {
+				totalY : getNumber(sides[0])[0],
+				a : getNumber(sides[1].match(/(\w|\W)*x/)[0])[0],
+				b : getNumber(sides[1].split("x")[1])[0]
+			};
 		}
 		/**
 		 * multiply all values in an object
@@ -57,6 +59,17 @@
 			return (equation.a * x + equation.b) / equation.totalY;
 		}
 		/**
+		 * round number to a given decimal place
+		 * @param {float} [number] - number to be rounded
+		 * @param {int} [place] - precision of rounded number
+		 *
+		 * @return {float} [rounded number]
+		 */
+		function roundTo(number, place = 4) {
+			const precision = Math.pow(10, place);
+			return Math.round(number * precision) / precision;
+		}
+		/**
 		 * find intersection of two lines
 		 * @param {String} [expression1] - expression 1
 		 * @param {String} [expression2] - expression 2
@@ -65,10 +78,23 @@
 		 */
 		function findIntersect(expression1, expression2) {
 			let [numbers1, numbers2] = [expression1, expression2].map(readExpression);
+			console.log(numbers1, numbers2);
 			let x = solveX(multiplyObj(numbers1, numbers2.totalY), multiplyObj(numbers2, numbers1.totalY));
-			return {x : x, y : solveY(numbers1, x)};
+			return {x : roundTo(x), y : roundTo(solveY(numbers1, x))};
 		}
-
-		console.log(findIntersect("y=2x+2", "y=5x-4"));
+		//challenge input
+		console.log(`%cChallenge Input: `, "color : red;");
+		let input = ["y=2x+2", "y=5x-4"];
+		let result = findIntersect(...input);
+		console.log(`%c${input.join(" & ")} ->`, "color : skyblue;");
+		console.log(`%c(${result.x}, ${result.y})`, "color : orange;");
+		input = ["y=-5x", "y=-4x+1"];
+		result = findIntersect(...input);
+		console.log(`%c${input.join(" & ")} ->`, "color : skyblue;");
+		console.log(`%c(${result.x}, ${result.y})`, "color : orange;");
+		input = ["y=0.5x+1.3", "y=-1.4x-0.2"];
+		result = findIntersect(...input);
+		console.log(`%c${input.join(" & ")} ->`, "color : skyblue;");
+		console.log(`%c(${result.x}, ${result.y})`, "color : orange;");
 	});
 })();		
