@@ -78,9 +78,56 @@
 		 */
 		function findIntersect(expression1, expression2) {
 			let [numbers1, numbers2] = [expression1, expression2].map(readExpression);
-			console.log(numbers1, numbers2);
 			let x = solveX(multiplyObj(numbers1, numbers2.totalY), multiplyObj(numbers2, numbers1.totalY));
 			return {x : roundTo(x), y : roundTo(solveY(numbers1, x))};
+		}
+		/**
+		 * draw line
+		 * @param {String} [line] - equation of line to draw
+		 * @param {String} [id] - canvas ID name
+		 * @param {String} [color] - color of line
+		 */
+		function drawLine(line, id, color = "black") {
+			let canvas = document.getElementById(id);
+			const [width, height] = [canvas.width, canvas.height];
+			let equation = readExpression(line);
+			const [x1, y1] = [0, roundTo(solveY(equation, 0))];
+			const [x2, y2] = [width, roundTo(solveY(equation, width))];
+			let ctx = canvas.getContext("2d");
+			ctx.beginPath();
+			ctx.moveTo(x1 * 55, -y1 * 20 + height * 0.5);
+			ctx.lineTo(x2 * 55, -y2 * 20 + height * 0.5);
+			ctx.strokeStyle = color;
+			ctx.stroke();
+		}
+		/**
+		 * draw intersection
+		 * @param {String} [line1] - line 1
+		 * @param {String} [line2] - line 2
+		 * @param {String} [id] - canvas ID name
+		 * @param {String} [color] - dot color
+		 */
+		function drawIntersect(line1, line2, id, color = "skyblue") {
+			let canvas = document.getElementById(id);
+			const [width, height] = [canvas.width, canvas.height];
+			let intersect = findIntersect(line1, line2);
+			let ctx = canvas.getContext("2d");
+			ctx.beginPath();
+			ctx.arc(intersect.x * 55, -intersect.y * 20 + height * 0.5, width * 0.0035, 0, Math.PI * 2);
+			ctx.fillStyle = color;
+			ctx.fill();
+		}
+		/**
+		 * draw graph
+		 * @param {String} [line1] - line 1
+		 * @param {String} [line2] - line 2
+		 * @param {String} [id] - canvas ID name
+		 * @param {Array} [colors] - line1 color, line2 color and dot color
+		 */
+		function drawGraph(line1, line2, id, colors) {
+			drawLine(line1, id, colors[0]);
+			drawLine(line2, id, colors[1]);
+			drawIntersect(line1, line2, id, colors[2]);
 		}
 		//challenge input
 		console.log(`%cChallenge Input: `, "color : red;");
@@ -96,5 +143,9 @@
 		result = findIntersect(...input);
 		console.log(`%c${input.join(" & ")} ->`, "color : skyblue;");
 		console.log(`%c(${result.x}, ${result.y})`, "color : orange;");
+		//bonus input
+		console.log(`%cBonus Input: `, "color : red;");
+		console.log(`%cPlease Check the Web Page`, "color : orange;");
+		drawGraph("y=2x+2", "y=5x-4", "canvas", ["red", "blue", "green"]);
 	});
 })();		
