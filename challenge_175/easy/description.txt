@@ -1,0 +1,21 @@
+#175[Easy] Bogo!
+
+url: https://www.reddit.com/r/dailyprogrammer/comments/2d8yk5/8112014_challenge_175_easy_bogo/
+
+Description
+
+A bogo sort is a purposefully inefficient algorithm for sorting a sequence. Today we will be using this for strings to test for equality.
+
+Here is wikipedias entry for a Bogo-Sort
+Inputs & Outputs
+
+Given a scrambled string N and another string M. You must sort N so that it matches M. After it has been sorted, it must output how many iterations it took to complete the sorting.
+Sample Inputs & Outputs
+
+Input:
+
+Bogo("lolhe","Hello")
+
+Output:
+
+1456 iterations
