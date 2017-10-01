@@ -10,8 +10,8 @@
 		 * @return {Array} [updated record]
 		 */
 		function recordSpeed(day, speed, record = new Array(7).fill(0)) {
-			const daysInWeek = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
-			record[daysInWeek.indexOf(day)] += speed;
+			const daysInWeek = {"Mon" : 0, "Tue" : 1, "Wed" : 2, "Thu" : 3, "Fri" : 4, "Sat" : 5, "Sun" : 6};
+			record[daysInWeek[day]] += speed;
 			return record;
 		}
 		/**
@@ -23,10 +23,25 @@
 		function getDataTable(data) {
 			let table = {};
 			data.forEach(entry => {
-				const [id, day, speed] = entry.match(/\w+/g).map(item => isNaN(item) ? item : Number(item));
-				table[id] = table[id] ? recordSpeed(day, speed, table[id]) : recordSpeed(day, speed);
+				const [id, day, speed] = entry.match(/\w+/g);
+				table[id] = recordSpeed(day, Number(speed), table[id]);
 			});
 			return table;
+		}
+		/**
+		 * display data in pivot table
+		 * @param {Array} [data] - raw data
+		 *
+		 * @return {String} [pivot table]
+		 */
+		function makePivotTable(data) {
+			let dataTable = getDataTable(data);
+			let ids = Object.keys(dataTable).sort((a, b) => Number(a) - Number(b));
+			const header = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"].join("  ");
+			return ids.reduce((acc, val) => {
+				const record = dataTable[val].map(speed => " ".repeat(4 - String(speed).length) + speed);
+				return acc + `${val} ${record.join(" ")}\n`;
+			}, " ".repeat(String(ids[ids.length - 1]).length + 2) + header + "\n");
 		}
 		/**
 		 * retrieve data
@@ -46,7 +61,7 @@
 			});
 		}
 		getData("data.txt").then(data => {
-			console.log(getDataTable(data));
+			console.log(makePivotTable(data));
 		}).catch(error => {console.log(error);});
 	});
 })();		
