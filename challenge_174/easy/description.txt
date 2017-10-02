@@ -1,5 +1,7 @@
 #174[Easy] Thue-Morse Sequences
 
+All Done
+
 url: https://www.reddit.com/r/dailyprogrammer/comments/2cld8m/8042014_challenge_174_easy_thuemorse_sequences/
 
 Description:
