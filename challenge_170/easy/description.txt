@@ -1,5 +1,7 @@
 #170[Easy] Blackjack Checker
 
+All Done
+
 url: https://www.reddit.com/r/dailyprogrammer/comments/29zut0/772014_challenge_170_easy_blackjack_checker/
 
 Blackjack is a very common card game, where the primary aim is to pick up cards until your hand has a higher value than everyone else but is less than or equal to 21. This challenge will look at the outcome of the game, rather than playing the game itself.
