@@ -16,7 +16,7 @@
 		}
 		/**
 		 * calculate total value of hand
-		 * @param {Array} [cards] - all cards
+		 * @param {Array} [cards] - cards in hand
 		 *
 		 * @return {int} [total value of hand]
 		 */
@@ -33,6 +33,25 @@
 			}
 			return total;
 		}
+		/**
+		 * check if a player has win hand
+		 * @param {Array} [cards] - cards in hand
+		 *
+		 * @return {boolean} [test result]
+		 */
+		function isWinHand(cards) {
+			return cards.split(",").length == 5 && getHandValue(cards) <= 21;
+		}
+		/**
+		 * check if a player has lose hand
+		 * @param {Array} [cards] - cards in hand
+		 *
+		 * @return {boolean} [test result]
+		 */
+		function isLoseHand(cards) {
+			return cards.split(",").length == 5 && getCardValue(cards) > 21;
+		}
+		console.log(isWinHand("Two of Hearts, Three of Clubs, Three of Hearts, Five of Hearts, Six of Hearts"));
 		console.log(getHandValue("Two of Hearts, Three of Clubs, Three of Hearts, Five of Hearts, Six of Hearts"));
 	});
 })();		
