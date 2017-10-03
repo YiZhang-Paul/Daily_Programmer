@@ -2,33 +2,43 @@
 (() => {
 	document.addEventListener("DOMContentLoaded", () => {
 		/**
+		 * capitalize a word
+		 * @param {String} [word] - word to be capitalized
+		 *
+		 * @return {String} [capitalized word]
+		 */
+		function capitalize(word) {
+			return word[0].toUpperCase() + word.slice(1).toLowerCase();
+		}
+		/**
 		 * decode segment
 		 * @param {String} [segment] - segment to decode
 		 * @param {Array} [dictionary] - dictionary for decoding
 		 *
-		 * @return {String} [decoded segment]
+		 * @return {String} [decoded segment] 
 		 */
 		function decode(segment, dictionary) {
 			if(/\d/.test(segment)) {
-				const word = dictionary[Number(segment.match(/\d+/)[0])].toLowerCase();
-				const modifier = /[^\d]/.test(segment) ? segment[segment.length - 1] : null;
-				return modifier ? (modifier == "!" ? word.toUpperCase() : word[0].toUpperCase() + word.slice(1)) : word;
+				const word = dictionary[Number(segment.match(/\d+/)[0])];
+				const modifier = /[^\d]/.test(segment) ? segment.slice(-1) : null;
+				return modifier ? (modifier == "^" ? capitalize(word) : word.toUpperCase()) : word.toLowerCase();
 			}
 			return new Set("RE").has(segment) ? (segment == "R" ? "\n" : "") : segment;
 		}
 		/**
 		 * decompress message
 		 * @param {int} [size] - total words in the dictionary
-		 * @param {String} [info] - words in dictionary and messages to decompress
+		 * @param {String} [data] - words in dictionary and messages to decompress
 		 *
 		 * @return {String} [decompressed message]
 		 */
-		function decompress(size, info) {
-			let lines = info.split("\n").map(line => line.trim());
+		function decompress(size, data) {
+			let lines = data.split("\n").map(line => line.trim());
 			let dictionary = lines.slice(0, size);
 			return lines.slice(size).reduce((acc, val) => {
-				return acc + val.match(/\s(?![.,?!;:])|[^\s]+/g).map(segment => decode(segment, dictionary)).join("");
-			}, "");
+				let segments = val.match(/\s(?![.,?!;:])|[^\s]+/g);
+				return acc + segments.map(segment => decode(segment.toUpperCase(), dictionary)).join("");
+			}, "").replace(/\n\s|\s\-\s/g, match => /\-/.test(match) ? "-" : "\n");
 		}
 		//default input
 		console.log(`%cDefault Input: `, "color : red;");
