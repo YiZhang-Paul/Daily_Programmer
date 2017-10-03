@@ -1,5 +1,7 @@
 #166[Easy] Planetary Gravity Calculator
 
+All Done
+
 url: https://www.reddit.com/r/dailyprogrammer/comments/284mep/6142014_challenge_166b_easy_planetary_gravity/
 
 Welcome to this week's rebooted challenges. While this challenge is very simple at its core (which I think gives it an Easy rating), it gives me a chance to teach a bit of physics while I'm at it, so I may as well!
