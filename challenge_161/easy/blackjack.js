@@ -16,6 +16,19 @@
 			}
 			return deck;
 		}
-		console.log(makeDeck());
+		/**
+		 * shuffle a deck of card
+		 * @param {Array} [deck] - deck of card to shuffle
+		 *
+		 * @return {Array} [shuffled card]
+		 */
+		function shuffleDeck(deck) {
+			let shuffled = [];
+			while(deck.length) {
+				shuffled.push(deck.splice(Math.floor(Math.random() * deck.length), 1)[0]);
+			}
+			return shuffled;
+		}
+		console.log(shuffleDeck(makeDeck()));
 	});
 })();		
