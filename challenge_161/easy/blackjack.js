@@ -29,6 +29,36 @@
 			}
 			return shuffled;
 		}
-		console.log(shuffleDeck(makeDeck()));
+		/**
+		 * get card value
+		 * @param {String} [card] - card to check
+		 *
+		 * @return {int} [card value]
+		 */
+		function getCardValue(card) {
+			const number = Number(card.match(/\d+/)[0]);
+			return number == 1 ? 11 : Math.min(number, 10);
+		}
+		/**
+		 * read card 
+		 * @param {String} [card] - card to read
+		 *
+		 * @return {String} [card name]
+		 */
+		function readCard(card) {
+			const suits = Object.freeze({
+				D : "Diamonds", C : "Clubs", H : "Hearts", S : "Spades"
+			});
+			const numbers = Object.freeze({
+				1 : "Ace", 2 : "Two", 3 : "Three", 4 : "Four", 5 : "Five", 6 : "Six", 7 : "Seven", 
+				8 : "Eight", 9 : "Nine", 10 : "Ten", 11 : "Jack", 12 : "Queen", 13 : "King"
+			});
+			const [number, suit] = card.match(/\d+|\D+/g);
+			return `${numbers[number]} of ${suits[suit]}`;
+		}
+		let deck = shuffleDeck(makeDeck());
+		console.log(deck[0]);
+		console.log(getCardValue(deck[0]));
+		console.log(readCard(deck[0]));
 	});
 })();		
