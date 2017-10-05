@@ -56,9 +56,49 @@
 			const [number, suit] = card.match(/\d+|\D+/g);
 			return `${numbers[number]} of ${suits[suit]}`;
 		}
-		let deck = shuffleDeck(makeDeck());
-		console.log(deck[0]);
-		console.log(getCardValue(deck[0]));
-		console.log(readCard(deck[0]));
+		/**
+		 * deal hands of 2s
+		 * @param {Array} [deck] - card deck to deal from
+		 *
+		 * @return {Array} [hands of deal]
+		 */
+		function deal(deck) {
+			return [deck.shift(), deck.shift()];
+		}
+		/**
+		 * hit on a hand
+		 * @param {Array} [deck] - card deck to deal from
+		 * @param {Array} [hand] - current hands of card
+		 *
+		 * @return {Array} [current hand with new card]
+		 */
+		function hit(deck, hand) {
+			return [...hand, deck.shift()];
+		}
+		/**
+		 * get total value of hand
+		 * @param {Array} [hand] - deal of hand
+		 *
+		 * @return {int} [total hand value]
+		 */
+		function getHandValue(hand) {
+			let total = 0, hasAce = false;
+			hand.forEach(card => {
+				const value = getCardValue(card);
+				total += value == 11 && hasAce ? 1 : value;
+				hasAce = value == 11 ? true : hasAce;
+			});
+			return total;
+		}
+		/**
+		 * check if a deal of hand is natural blackjacks
+		 * @param {Array} [hand] - deal of hand
+		 *
+		 * @return {boolean} [test result]
+		 */
+		function isBlackJack(hand) {
+			return hand.length == 2 && getHandValue(hand) == 21;
+		}
+		
 	});
 })();		
