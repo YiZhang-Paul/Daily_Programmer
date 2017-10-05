@@ -10,6 +10,7 @@
 			constructor(name = "Computer", type = "AI") {
 				this.name = name;
 				this.type = type;
+				this.win = 0;
 				this.moves = ["Rock", "Paper", "Scissors", "Lizard", "Spock"];
 			}
 			/**
@@ -27,10 +28,10 @@
 			 */
 			getMove() {
 				const message = "Please Enter Your Move:\n1 -> Rock\n2 -> Paper\n3 -> Scissors\n4 -> Lizard\n5 -> Spock";
-				let move = Number(prompt(message));
-				while(isNaN(move) || move < 1 || move > 5) {
+				let move = 0;
+				do {
 					move = Number(prompt(message));
-				}
+				} while (isNaN(move) || move < 1 || move > 5);
 				return this.moves[move - 1];
 			}
 		}
@@ -44,14 +45,6 @@
 		function getPercentage(denominator, numerator = 1) {
 			return (denominator / numerator * 100).toFixed(2) + "%";
 		}
-		//game rule
-		const rule = Object.freeze({
-			Rock : {Scissors : "Crushes", Lizard : "Crushes"},
-			Paper : {Spock : "Disproves", Rock : "Covers"},
-			Scissors : {Paper : "Cuts", Lizard : "Decapitates"},
-			Lizard : {Spock : "Poisons", Paper : "Eats"},
-			Spock : {Scissors : "Smashes", Rock : "Vaporizes"}
-		});
 		/**
 		 * play a round of game
 		 * @param {Object} [player1] - player 1
@@ -69,5 +62,29 @@
 			return [win, lose, `${roundInfo}${win.move} ${rule[win.move][lose.move]} ${lose.move}. ${win.name} Wins!`];
 		}
 
+
+		/**
+		 * play a given number of games and calculate result
+		 * @param {Array} [player1Info] - player 1 information
+		 * @param {Array} [player2Info] - player 2 information
+		 * @param {int} [rounds] - total rounds of game
+		 *
+		 * @return {String} [game result]
+		 */
+		function playGame(player1Info, player2Info, rounds = 5) {
+			const rule = Object.freeze({
+				Rock : {Scissors : "Crushes", Lizard : "Crushes"},
+				Paper : {Spock : "Disproves", Rock : "Covers"},
+				Scissors : {Paper : "Cuts", Lizard : "Decapitates"},
+				Lizard : {Spock : "Poisons", Paper : "Eats"},
+				Spock : {Scissors : "Smashes", Rock : "Vaporizes"}
+			});
+			let [player1, player2] = [new Player(...player1Info), new Player(...player2Info)];
+			for(let i = 0; i < rounds; i++) {
+				playRound(player1, player2, rule);
+			}
+			return [player1.win, player2.win, rounds - player1.win - player2.win];
+		}
+		console.log(playGame(["John", "Human"], ["Tim", "AI"]));
 	});
 })();		
