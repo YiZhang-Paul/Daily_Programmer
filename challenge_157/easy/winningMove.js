@@ -36,7 +36,7 @@
 		}
 		/**
 		 * check if current move is a winning move
-		 * @param {char} [marker] - current player marker
+		 * @param {char} [marker] - player marker
 		 * @param {int} [row] - row of current move
 		 * @param {int} [col] - column of current move
 		 * @param {Array} [board] - current game board
@@ -48,9 +48,27 @@
 			let directions = ["t", "l", "r", "b", "bl", "br", "tl", "tr"];
 			return directions.some(direction => isConnect(direction, marker, row, col, board, goal));
 		}
+		/**
+		 * find all winning moves
+		 * @param {char} [marker] - player marker
+		 * @param {String} [layout] - current layout
+		 *
+		 * @return {Array} [all possible winning moves]
+		 */
+		function findWinMoves(marker, layout) {
+			let winMoves = [], board = readBoard(layout);
+			for(let i = 0; i < board.length; i++) {
+				for(let j = 0; j < board[i].length; j++) {
+					if(board[i][j] == "-" && isWinMove(marker, i, j, board, 3)) {
+						console.log("hi");
+					}
+				}
+			}
+			return winMoves;
+		}
 		let board = `XX-
                  -XO
                  OO-`;
-		console.log(isWinMove("X", 2, 2, readBoard(board)));
+		console.log(findWinMoves("X", board));
 	});
 })();		
