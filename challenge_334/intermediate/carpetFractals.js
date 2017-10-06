@@ -55,24 +55,64 @@
 		/**
 		 * generate carpet
 		 * @param {int} [iteration] - total number of iterations
-		 * @param {String} [colorRule] - color filling rules
+		 * @param {String} [rules] - color filling rules
 		 * @param {float} [pixelWidth] - initial pixel width
 		 *
 		 * @return {Array} [carpet pattern after all iteration]
 		 */
-		function generateCarpet(iteration, colorRule, pixelWidth) {
-			let rules = colorRule.split("\n").map(rule => rule.match(/\d+/g).map(Number));
+		function generateCarpet(iteration, rules, pixelWidth) {
 			let carpet = [{color : 0, discard : false, x : 0, y : 0, width : pixelWidth}];
 			for(let i = 0; i < iteration; i++) {
 				carpet = splitAllGrid(carpet, rules);
 			}
 			return carpet;
 		}
+		/**
+		 * get color value
+		 * @param {int} [step] - color step
+		 *
+		 * @return {String} [RGB color value]
+		 */
+		function getColorValue(step) {
+			let values = new Array(3).fill(step).map((slot, index) => {
+				return step > index * 255 ? Math.min(255, step - index * 255) : 0;
+			});
+			return `rgb(${values.join(", ")})`;
+		}
+		/**
+		 * create color table
+		 * @param {int} [total] - total number of colors
+		 *
+		 * @return {Array} [color values]
+		 */
+		function getColorTable(total) {
+			const colorStep = Math.floor(255 * 3 / total);
+			let table = [], curStep = 0;
+			for(let i = 0; i < total; i++) {
+				table.push(getColorValue(curStep));
+				curStep += colorStep;
+			}
+			return table;
+		}
+		/**
+		 * draw carpet
+		 * @param {int} [iteration] - total number of iterations
+		 * @param {String} [rules] - color filling rules
+		 * @param {String} [canvasID] - ID of canvas to draw on
+		 */
+		function drawCarpet(iteration, rules, canvasID = "canvas") {
+			let canvas = document.getElementById(canvasID);
+			let colorRules = rules.split("\n").map(rule => rule.match(/\d+/g).map(Number));
+			let colorTable = getColorTable(colorRules.length);
+			let pattern = generateCarpet(iteration, colorRules, canvas.offsetWidth);
+			console.log(colorTable);
+			console.log(pattern);
+		}
 		//default input
 		console.log(`%cDefault Input: `, "color : red;");
 		let iteration = 4;
 		let rules = `0 0 0 0 1 0 0 0 0
                  1 1 1 1 1 1 1 1 1`;
-		console.log(generateCarpet(4, rules, 500));
+		console.log(drawCarpet(4, rules));
 	});
 })();		
