@@ -32,7 +32,7 @@
 				}
 				total++;
 			}
-			return total == goal;
+			return total >= goal;
 		}
 		/**
 		 * check if current move is a winning move
@@ -58,9 +58,20 @@
 			return board.reduce((acc, val) => acc + val.join("") + "\n", "");
 		}
 		/**
+		 * display all winning moves
+		 * @param {Array} [winMoves] - winning moves to print
+		 *
+		 * @return {String} [all win moves]
+		 */
+		function displayWinMove(winMoves) {
+			const plural = winMoves.length > 1;
+			const message = `There ${plural ? "are" : "is"} ${winMoves.length} Winning Move${plural ? "s" : ""}:\n\n`;
+			return message + winMoves.reduce((acc, val, index) => `${acc}Win Move No.${index + 1}:\n\n${printBoard(val[0])}\n`, "");
+		}
+		/**
 		 * find all winning moves
 		 * @param {char} [marker] - player marker
-		 * @param {String} [layout] - current layout
+		 * @param {String} [layout] - current board layout
 		 *
 		 * @return {String} [all possible winning moves]
 		 */
@@ -71,34 +82,71 @@
 					if(board[i][j] == "-" && isWinMove(marker, i, j, board, 3)) {
 						let boardCopy = readBoard(layout);
 						boardCopy[i][j] = marker;
-						winMoves.push(printBoard(boardCopy));
+						winMoves.push([boardCopy, i, j]);
 					}
 				}
 			}
-			return winMoves.length ? winMoves.reduce((acc, val, index) => `${acc}Win Move No.${index + 1}:\n${val}\n`, "") : "No Winning Move.";
+			return winMoves;
 		}
-		//challenge input
-		console.log(`%cChallenge Input: `, "color : red;");
+		/**
+		 * display block moves
+		 * @param {Array} [blockMoves] - block moves to print
+		 *
+		 * @return {String} [all block moves]
+		 */
+		function displayBlockMove(blockMoves) {
+			const plural = blockMoves.length > 1;
+			const message = `There ${plural ? "are" : "is"} ${blockMoves.length} Block Move${plural ? "s" : ""}:\n\n`;
+			return message + blockMoves.reduce((acc, val, index) => `${acc}Block Move No.${index + 1}:\n\n${printBoard(val[0])}\n`, "");		
+		}
+		/**
+		 * find all block moves
+		 * @param {char} [marker] - player marker
+		 * @param {String} [layout] - current board layout
+		 *
+		 * @return {String} [all possible block moves]
+		 */
+		function findBlockMoves(marker, layout) {
+			return findWinMoves(marker == "X" ? "O" : "X", layout).map(move => {
+				move[0][move[1]][move[2]] = marker;
+				return move;
+			});
+		}
+		/**
+		 * analyze games
+		 * @param {char} [marker] - player marker
+		 * @param {String} [layout] - current board layout
+		 *
+		 * @return {String} [game analyze]
+		 */
+		function analyzeGame(marker, layout) {
+			let winMoves = findWinMoves(marker, layout);
+			let blockMoves = findBlockMoves(marker, layout);
+			return winMoves.length || blockMoves.length ? 
+				displayWinMove(winMoves) + displayBlockMove(blockMoves) : "There is Neither Winning Move nor Block Move.";
+		}
+		//challenge & bonus input
+		console.log(`%cChallenge & Bonus Input: `, "color : red;");
 		let move = "X";
 		let board = `XX-
                  -XO
                  OO-`;
-		console.log(`%cMove: ${move}:`, "color : skyblue;");
-		console.log(`%c${board.split("\n").map(row => row.trim()).join("\n")}`, "color : skyblue;");
-		console.log(`%c${findWinMoves(move, board)}`, "color : orange;");
+		console.log(`%cMove: ${move}`, "color : skyblue;");
+		console.log(`%c${board.split("\n").map(row => row.trim()).join("\n")}\n`, "color : skyblue;");
+		console.log(`%c${analyzeGame(move, board)}`, "color : orange;");
 		move = "O";
 		board = `O-X
 						 -OX
 						 ---`;
-		console.log(`%cMove: ${move}:`, "color : skyblue;");
-		console.log(`%c${board.split("\n").map(row => row.trim()).join("\n")}`, "color : skyblue;");
-		console.log(`%c${findWinMoves(move, board)}`, "color : orange;");
+		console.log(`%cMove: ${move}`, "color : skyblue;");
+		console.log(`%c${board.split("\n").map(row => row.trim()).join("\n")}\n`, "color : skyblue;");
+		console.log(`%c${analyzeGame(move, board)}`, "color : orange;");
 		move = "X";
 		board = `--O
              OXX
              ---`;
-		console.log(`%cMove: ${move}:`, "color : skyblue;");
-		console.log(`%c${board.split("\n").map(row => row.trim()).join("\n")}`, "color : skyblue;");
-		console.log(`%c${findWinMoves(move, board)}`, "color : orange;");
+		console.log(`%cMove: ${move}`, "color : skyblue;");
+		console.log(`%c${board.split("\n").map(row => row.trim()).join("\n")}\n`, "color : skyblue;");
+		console.log(`%c${analyzeGame(move, board)}`, "color : orange;");
 	});
 })();		
