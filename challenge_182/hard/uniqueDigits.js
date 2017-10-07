@@ -22,8 +22,9 @@
 			for(let i = specials.length; i <= 7; i++) {
 				let orders = factorial(i) / factorial(Math.max(i - specials.length, 1)); 
 				let [restDigit, restLen] = [base - specials.length, i - specials.length];
+				//when leading number is/is not one of the special numbers
 				uniques += hasZero ? 
-					orders / i * (i - 1) * Math.pow(restDigit, restLen) :
+					orders / i * (specials.length - 1) * Math.pow(restDigit, restLen) + orders / i * restLen * Math.pow(restDigit, restLen) : 
 					orders / i * specials.length * Math.pow(restDigit, restLen) + orders / i * restLen * ((restDigit - 1) * Math.pow(restDigit, restLen - 1));
 			}
 			return uniques;
