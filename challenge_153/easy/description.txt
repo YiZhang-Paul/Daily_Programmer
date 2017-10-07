@@ -1,5 +1,7 @@
 #153[Easy] Pascal's Pyramid
 
+All Done
+
 url: https://www.reddit.com/r/dailyprogrammer/comments/20l2it/17042014_challenge_153_easy_pascals_pyramid/
 
 You may have seen Pascal's Triangle before. It has been known about for a long time now and is a very simple concept - it makes several appearances in mathematics, one of which is when you calculate the binomial expansion.
