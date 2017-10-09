@@ -9,15 +9,15 @@
 		 * @return {int} [random number]
 		 */
 		function randomNumber(min = 0, max = 3) {
-			return Math.floor(Math.random() * (max + 1 - min)) + min;
+			return Math.floor(Math.random() * (max - min + 1)) + min;
 		}
 		/**
 		 * initialize round
+		 * @param {Array} [objects] - avaliable objects for the round
 		 *
 		 * @return {Array} [objects behind each door]
 		 */
-		function initRound() {
-			let objects = ["goat", "goat", "car"];
+		function initRound(objects = ["goat", "goat", "car"]) {
 			let arrangement = [];
 			while(objects.length) {
 				const index = randomNumber(0, objects.length - 1);
@@ -34,7 +34,42 @@
 		function pickDoor(doors = 3) {
 			return randomNumber(0, doors - 1);
 		}
-		
-		console.log(pickDoor());
+		/**
+		 * suggest a door to player
+		 * @param {Array} [arrangement] - current arrangement
+		 * @param {int} [curPick] - current player pick
+		 *
+		 * @return {int} [suggested door]
+		 */
+		function suggestDoor(arrangement, curPick) {
+			let remainDoors = arrangement.map((door, index) => index).filter(door => door != curPick);
+			let validDoors = remainDoors.filter(door => arrangement[door] != "car");
+			const doorShown = validDoors[randomNumber(0, validDoors.length - 1)];
+			return remainDoors.filter(door => door != doorShown);
+		}
+		/**
+		 * check if a player wins a round
+		 * @param {Array} [arrangement] - current arrangement
+		 * @param {int} [curPick] - current player pick
+		 *
+		 * @return {boolean} [test result]
+		 */
+		function isWin(arrangement, curPick) {
+			return arrangement[curPick] == "car";
+		}
+		/**
+		 * simulate a round with both tactics
+		 *
+		 * @return {Object} [round result with both tactics]
+		 */
+		function simulateRound() {
+			let arrangement = initRound();
+			const doorPick = pickDoor();
+			return {
+				stick : isWin(arrangement, doorPick),
+				change : isWin(arrangement, suggestDoor(arrangement, doorPick))
+			};
+		}
+		console.log(simulateRound());
 	});
 })();		
