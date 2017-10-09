@@ -1,5 +1,7 @@
 #141[Easy] Checksums
 
+All Done
+
 url: https://www.reddit.com/r/dailyprogrammer/comments/1qwkdz/111113_challenge_141_easy_checksums/
 
 Checksums are a tool that allow you to verify the integrity of data (useful for networking, security, error-correction, etc.). Though there are many different Checksum algorithms, the general usage is that you give raw-data to your algorithm of choice, and a block of data (usually smaller than the given data) is generated and can later be used by re-computing the checksum and comparing the original and recent values.

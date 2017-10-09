@@ -15,8 +15,22 @@
 			}
 			return ((sum2 << 8) | sum1).toString(16).toUpperCase();
 		}
-		console.log(getChecksum("Fletcher"));
-		console.log(getChecksum("Sally sells seashells by the seashore."));
-		console.log(getChecksum("Les chaussettes de l'archi-duchesse, sont-elles seches ou archi-seches ?"));
+		/**
+		 * generate checksums for a block of text
+		 * @param {String} [text] - text to generate checksum
+		 *
+		 * @return {String} [checksums]
+		 */
+		function getAllChecksum(text) {
+			return text.split("\n")
+			           .map((line, index) => `${index + 1} ${getChecksum(line.trim())}`)
+			           .join("\n");
+		}
+		//challenge input
+		console.log(`%cChallenge Input: `, "color : red;");
+		let input = `Fletcher
+								 Sally sells seashells by the seashore.
+								 Les chaussettes de l'archi-duchesse, sont-elles seches ou archi-seches ?`;
+		console.log(`%c${getAllChecksum(input)}`, "color : orange;");
 	});
 })();		
