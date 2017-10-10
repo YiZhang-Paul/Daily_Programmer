@@ -35,12 +35,21 @@
 								    .map(row => row.trim().split(" "))
 								    .reduce((acc, val) => acc.map((char, index) => char + val[index]));
 		}
-
+		/**
+		 * translate Braille to English
+		 * @param {String} [braille] - Braille writing
+		 *
+		 * @return {String} [translated English]
+		 */
+		function translateBraille(braille) {
+			let table = getTable(), brailleChars = readBraille(braille);
+			return brailleChars.map(char => toEnglish(char, table)).join("");
+		}
 		//challenge input
 		console.log(`%cChallenge Input: `, "color : red;");
 		let input = `O. O. O. O. O. .O O. O. O. OO 
                  OO .O O. O. .O OO .O OO O. .O
                  .. .. O. O. O. .O O. O. O. ..`;
-    console.log(readBraille(input));
+    console.log(`%c${translateBraille(input)}`, "color : orange;");
 	});
 })();		
