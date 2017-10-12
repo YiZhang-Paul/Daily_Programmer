@@ -7,6 +7,19 @@ using System.Threading.Tasks;
 namespace pangrams {
     class PangramChecker {
         /**
+         * display content of a dictionary
+         * @param {Dictionary<char, int>} [dictionary] - dictionary to display
+         * 
+         * @return {string} [dictionary content]
+         */
+        public string DisplayContent(Dictionary<char, int> dictionary) {
+            StringBuilder content = new StringBuilder();
+            foreach(KeyValuePair<char, int> pair in dictionary) {
+                content.Append(pair.Key + " : " + pair.Value + ", ");
+            }
+            return "{" + content.ToString().Substring(0, content.Length - 1) + "}";
+        }
+        /**
          * check if a string is pangram
          * @param {string} [testStr] - string to test
          * @param {Dictionary<char, int>} [counter] - letter counter
