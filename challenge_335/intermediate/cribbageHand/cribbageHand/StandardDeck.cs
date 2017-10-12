@@ -26,5 +26,31 @@ namespace cribbageHand {
             }
             return deck.ToArray();
         }
+        /**
+         * get deck rank
+         * @param {string} [card] - card to read
+         * 
+         * @return {int} [card rank]
+         */
+        public int GetRank(string card) {
+            if(Char.IsLetter(card[0])) {
+                switch(card[0]) {
+                    case 'A' : return 1;
+                    case 'J' : return 11;
+                    case 'Q' : return 12;
+                    case 'K' : return 13;
+                }
+            }
+            return Int32.Parse(card.Substring(0, card.Length - 1));
+        }
+        /**
+         * get deck suit
+         * @param {string} [card] - card to read
+         * 
+         * @return {char} [card suit]
+         */
+        public char GetSuit(string card) {
+            return card[card.Length - 1];
+        }
     }
 }
