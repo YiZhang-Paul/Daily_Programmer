@@ -15,10 +15,32 @@ namespace cribbageHand {
          * @return {int} [game score]
          */
         public int GetScore(string[] hand) {
+            string[] runs = GetRun(hand);
             List<string[]> pairs = GetPairs(hand);
-            int flush = GetFlush(hand);
-            List<string> nobs = GetNobs(hand);
-            return nobs.Count;
+            int flushes = GetFlush(hand);
+            string[] nobs = GetNobs(hand);
+            return nobs.Length;
+        }
+        /**
+         * check for runs in a hand
+         * @param {string[]} [hand] - current hand to check
+         * 
+         * @return {string[]} [all cards in the run]
+         */
+        public string[] GetRun(string[] hand) {
+            var sortedHand = hand.OrderBy(card => this.deck.GetRank(card));
+            List<string> runs = new List<string>();
+            int curRuns = 0; 
+            foreach(string card in sortedHand) {
+                if(runs.Count == 0 || this.deck.GetRank(card) - this.deck.GetRank(runs.Last()) == 1) {
+                    runs.Add(card);
+                    curRuns++;
+                } else if(curRuns < 3) {
+                    runs.Clear();
+                    curRuns = 0;
+                }
+            }
+            return runs.ToArray();
         }
         /**
          * count occurrence of each suit
@@ -65,9 +87,9 @@ namespace cribbageHand {
          * check for all Nobs in a hand
          * @param {string[]} [hand] - current hand to check
          * 
-         * @return {List<string>} [all Nobs]
+         * @return {string[]} [all Nobs]
          */
-        public List<string> GetNobs(string[] hand) {
+        public string[] GetNobs(string[] hand) {
             List<string> nobs = new List<string>();
             for(int i = 0; i < hand.Length - 1; i++) {
                 bool isJack = this.deck.GetRank(hand[i]) == 11;
@@ -76,7 +98,7 @@ namespace cribbageHand {
                     nobs.Add(hand[i]);
                 }
             }
-            return nobs;
+            return nobs.ToArray();
         }
     }
 }
