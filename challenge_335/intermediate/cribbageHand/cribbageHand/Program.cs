@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 namespace cribbageHand {
     class Program {
         static void Main(string[] args) {
-            StandardDeck deck = new StandardDeck();
-            string[] cards = deck.MakeDeck();
-            
+            CribbageChecker checker = new CribbageChecker();
+            string[] hand1 = new string[] { "5D", "QS", "JC", "KH", "AC" };
+            checker.GetScore(hand1);
         }
     }
 }
