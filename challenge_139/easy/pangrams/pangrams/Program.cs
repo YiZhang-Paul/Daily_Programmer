@@ -18,7 +18,7 @@ namespace pangrams {
             PangramChecker checker = new PangramChecker();
 
             foreach(string sentence in sentences) {
-                Console.WriteLine(checker.IsPangram(sentence, new Dictionary<char,int>()));
+                Console.WriteLine(checker.CheckPangram(sentence));
             }
         }
     }
