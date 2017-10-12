@@ -9,18 +9,29 @@ namespace cribbageHand {
         private StandardDeck deck = new StandardDeck();
 
         /**
-         * get game score
+         * check game result
          * @param {string[]} [hand] - current hand
          * 
-         * @return {int} [game score]
+         * @return {string} [game result]
          */
-        public int GetScore(string[] hand) {
+        public string GetResult(string[] hand) {
             List<string[]> fifteens = GetFifteen(hand, new List<string>(), new List<string[]>());
             string[] runs = GetRun(hand);
             List<string[]> pairs = GetPairs(hand);
             int flushes = GetFlush(hand);
             string[] nobs = GetNobs(hand);
-            return fifteens.Count() * 2 + runs.Length + pairs.Select(pair => pair.Length * (pair.Length - 1)).Sum() + flushes + nobs.Length;
+            //get scores
+            int fifteenScore = fifteens.Count() * 2;
+            int pairsScore = pairs.Select(pair => (pair.Length - 1) * pair.Length).Sum();
+            int totalScore = fifteenScore + runs.Length + pairsScore + flushes + nobs.Length;
+            //display messages
+            StringBuilder message = new StringBuilder();
+            message.Append(fifteens.Count != 0 ? (fifteens.Count == 1 ? "a Fifteen" : fifteens.Count + " Fifteens") + " - " + fifteenScore + ", " : "");
+            message.Append(runs.Length != 0 ? "a Run of " + runs.Length + " - " + runs.Length + ", " : "");
+            message.Append(pairs.Count != 0 ? (pairs.Count == 1 ? "a Pair" : pairs.Count + " Pairs") + " - " + pairsScore + ", " : "");
+            message.Append(flushes != 0 ? "a Flush of " + flushes + " - " + flushes  + ", " : "");
+            message.Append(nobs.Length != 0 ? (nobs.Length == 1 ? "a Nob" : nobs.Length + " Nobs") + " - " + nobs.Length + ", " : "");
+            return totalScore + " Points. (" + message.ToString().Substring(0, message.Length - 2) + ")";
         }
         /**
          * check for fifteens in a hand
@@ -39,9 +50,9 @@ namespace cribbageHand {
                 return null;
             }
             for(int i = 0; i < hand.Length; i++) {
-                string[] remainCard = hand.TakeWhile((card, index) => index != i).ToArray();
-                var curCards = new List<string>(cards.ToArray().Concat(new string[] { hand[i] }));
-                GetFifteen(remainCard, curCards, combinations, target, sum + this.deck.GetValue(hand[i]));
+                string[] otherCard = hand.TakeWhile((card, index) => index != i).ToArray();
+                var curCards = new List<string>(cards.Concat(new string[] { hand[i] }));
+                GetFifteen(otherCard, curCards, combinations, target, sum + this.deck.GetValue(hand[i]));
             }
             return combinations;
         }
@@ -61,23 +72,24 @@ namespace cribbageHand {
                     curRuns++;
                 } else if(curRuns < 3) {
                     runs.Clear();
-                    curRuns = 0;
+                    runs.Add(card);
+                    curRuns = 1;
                 }
             }
-            return runs.ToArray();
+            return runs.Count >= 3 ? runs.ToArray() : new string[0];
         }
         /**
-         * count occurrence of each suit
+         * count occurrence of each rank
          * @param {string[]} [hand] - current hand to check
          * 
-         * @return {Dictionary<char, List<string>>} [occurrence of each suit]
+         * @return {Dictionary<int, List<string>>} [occurrence of each rank]
          */
-        public Dictionary<char, List<string>> GetOccurrence(string[] hand) { 
-            var counter = new Dictionary<char, List<string>>();
+        public Dictionary<int, List<string>> GetOccurrence(string[] hand) { 
+            var counter = new Dictionary<int, List<string>>();
             foreach(string card in hand) {
-                char suit = this.deck.GetSuit(card);
-                counter[suit] = counter.ContainsKey(suit) ? counter[suit] : new List<string>();
-                counter[suit].Add(card);
+                int rank = this.deck.GetRank(card);
+                counter[rank] = counter.ContainsKey(rank) ? counter[rank] : new List<string>();
+                counter[rank].Add(card);
             }
             return counter;
         }
