@@ -15,11 +15,35 @@ namespace cribbageHand {
          * @return {int} [game score]
          */
         public int GetScore(string[] hand) {
+            List<string[]> fifteens = GetFifteen(hand, new List<string>(), new List<string[]>());
             string[] runs = GetRun(hand);
             List<string[]> pairs = GetPairs(hand);
             int flushes = GetFlush(hand);
             string[] nobs = GetNobs(hand);
-            return nobs.Length;
+            return fifteens.Count() * 2 + runs.Length + pairs.Select(pair => pair.Length * (pair.Length - 1)).Sum() + flushes + nobs.Length;
+        }
+        /**
+         * check for fifteens in a hand
+         * @param {string[]} [hand] - current hand to check
+         * @param {List<string>} [cards] - current card combinations
+         * @param {int} [target] - target sum of card values
+         * @param {int} [sum] - current sum of card values
+         * 
+         * @return {List<string[]>} [all fifteens]
+         */
+        public List<string[]> GetFifteen(string[] hand, List<string> cards, List<string[]> combinations, int target = 15, int sum = 0) { 
+            if(sum >= target || hand.Length == 0) {
+                if(sum == target) {
+                    combinations.Add(cards.ToArray());
+                }
+                return null;
+            }
+            for(int i = 0; i < hand.Length; i++) {
+                string[] remainCard = hand.TakeWhile((card, index) => index != i).ToArray();
+                var curCards = new List<string>(cards.ToArray().Concat(new string[] { hand[i] }));
+                GetFifteen(remainCard, curCards, combinations, target, sum + this.deck.GetValue(hand[i]));
+            }
+            return combinations;
         }
         /**
          * check for runs in a hand

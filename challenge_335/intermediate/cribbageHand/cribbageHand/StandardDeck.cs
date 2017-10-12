@@ -27,6 +27,15 @@ namespace cribbageHand {
             return deck.ToArray();
         }
         /**
+         * get deck value
+         * @param {string} [card] - card to read
+         * 
+         * @return {int} [card value]
+         */
+        public int GetValue(string card) {
+            return Math.Min(GetRank(card), 10);
+        }
+        /**
          * get deck rank
          * @param {string} [card] - card to read
          * 
