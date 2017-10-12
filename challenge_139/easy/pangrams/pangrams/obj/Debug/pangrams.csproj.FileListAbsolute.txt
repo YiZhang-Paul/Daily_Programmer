@@ -1,0 +1,6 @@
+D:\all_languages\reddit_challenges\challenge_139\easy\pangrams\pangrams\bin\Debug\pangrams.exe.config
+D:\all_languages\reddit_challenges\challenge_139\easy\pangrams\pangrams\obj\Debug\pangrams.csprojResolveAssemblyReference.cache
+D:\all_languages\reddit_challenges\challenge_139\easy\pangrams\pangrams\bin\Debug\pangrams.exe
+D:\all_languages\reddit_challenges\challenge_139\easy\pangrams\pangrams\bin\Debug\pangrams.pdb
+D:\all_languages\reddit_challenges\challenge_139\easy\pangrams\pangrams\obj\Debug\pangrams.exe
+D:\all_languages\reddit_challenges\challenge_139\easy\pangrams\pangrams\obj\Debug\pangrams.pdb

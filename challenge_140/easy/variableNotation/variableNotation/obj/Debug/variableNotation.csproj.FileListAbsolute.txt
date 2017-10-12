@@ -1,0 +1,6 @@
+D:\all_languages\reddit_challenges\challenge_140\easy\variableNotation\variableNotation\bin\Debug\variableNotation.exe.config
+D:\all_languages\reddit_challenges\challenge_140\easy\variableNotation\variableNotation\bin\Debug\variableNotation.exe
+D:\all_languages\reddit_challenges\challenge_140\easy\variableNotation\variableNotation\bin\Debug\variableNotation.pdb
+D:\all_languages\reddit_challenges\challenge_140\easy\variableNotation\variableNotation\obj\Debug\variableNotation.csprojResolveAssemblyReference.cache
+D:\all_languages\reddit_challenges\challenge_140\easy\variableNotation\variableNotation\obj\Debug\variableNotation.exe
+D:\all_languages\reddit_challenges\challenge_140\easy\variableNotation\variableNotation\obj\Debug\variableNotation.pdb

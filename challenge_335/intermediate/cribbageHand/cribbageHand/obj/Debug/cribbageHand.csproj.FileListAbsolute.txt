@@ -1,0 +1,5 @@
+D:\all_languages\reddit_challenges\challenge_335\intermediate\cribbageHand\cribbageHand\bin\Debug\cribbageHand.exe.config
+D:\all_languages\reddit_challenges\challenge_335\intermediate\cribbageHand\cribbageHand\bin\Debug\cribbageHand.exe
+D:\all_languages\reddit_challenges\challenge_335\intermediate\cribbageHand\cribbageHand\bin\Debug\cribbageHand.pdb
+D:\all_languages\reddit_challenges\challenge_335\intermediate\cribbageHand\cribbageHand\obj\Debug\cribbageHand.exe
+D:\all_languages\reddit_challenges\challenge_335\intermediate\cribbageHand\cribbageHand\obj\Debug\cribbageHand.pdb
