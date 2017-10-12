@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Text.RegularExpressions;
 
 namespace variableNotation {
     class NotationBuilder {
@@ -13,17 +14,13 @@ namespace variableNotation {
          * 
          * @return {string} [specified notation]
          */
-        public string BuildNotation(int type, string words) {
-            string[] allWords = words.ToLower().Split(new char[] {' '});
+        public string BuildNotation(int type, string words) {      
             switch(type) {
-                case 0 :
-                    return MakeCamelCase(allWords);
-                case 1:
-                    return MakeSnakeCase(allWords);
-                case 2 :
-                    return MakeCapitalizeSnakeCase(allWords);
+                case 0 : return MakeCamelCase(words.Trim());
+                case 1 : return MakeSnakeCase(words.Trim());
+                case 2 : return MakeCapitalizeSnakeCase(words.Trim());
+                default : return null;
             }
-            return null;
         }
         /**
          * capitalize a word
@@ -36,30 +33,43 @@ namespace variableNotation {
         }
         /**
          * create camel case notation
-         * @param {string[]} [words] - words used to create camel case
+         * @param {string} [words] - words used to create camel case
          * 
          * @return {string} [camel case notation]
          */
-        public string MakeCamelCase(string[] words) {
-            return words[0] + string.Join("", words.Skip(1).Select(word => Capitalize(word)));
+        public string MakeCamelCase(string words) {
+            string[] allWords = words.ToLower().Split(new char[] { ' ' });
+            return allWords[0] + string.Join("", allWords.Skip(1).Select(word => Capitalize(word)));
         }
         /**
          * create snake case notation
-         * @param {string[]} [words] - words used to create camel case
+         * @param {string} [words] - words used to create camel case
          * 
          * @return {string} [snake case notation]
          */
-        public string MakeSnakeCase(string[] words) {
-            return string.Join("_", words);
+        public string MakeSnakeCase(string words) {
+            return words.ToLower().Replace(" ", "_");
         }
         /**
          * create capitalized snake case notation
-         * @param {string[]} [words] - words used to create camel case
+         * @param {string} [words] - words used to create camel case
          * 
          * @return {string} [capitalized snake case notation]
          */
-        public string MakeCapitalizeSnakeCase(string[] words) {
+        public string MakeCapitalizeSnakeCase(string words) {
             return MakeSnakeCase(words).ToUpper();
+        }
+        /**
+         * convert a notation to another notation
+         * @param {int} [curForm] - current notation
+         * @param {int} [target] - target notation
+         * @param {string} [notation] - notation to convert
+         * 
+         * @return {string} [notation after conversion]
+         */
+        public string ConvertNotation(int curForm, int target, string notation) {
+            string words = Regex.Replace(notation, "[A-Z_]", match => match.Value == "_" ? " " : " " + match);
+            return BuildNotation(target, words);
         }
     }
 }

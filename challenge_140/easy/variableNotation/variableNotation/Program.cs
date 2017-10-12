@@ -12,8 +12,11 @@ namespace variableNotation {
 
             NotationBuilder builder = new NotationBuilder();
             for(int i = 0; i < inputs.Length; i++) {
-                Console.WriteLine(builder.BuildNotation(i, inputs[i]));
+                Console.WriteLine(inputs[i] + " -> " + builder.BuildNotation(i, inputs[i]));
             }
+            //bonus input
+            Console.WriteLine("user_id -> " + builder.ConvertNotation(1, 0, "user_id"));
+            Console.WriteLine("userId -> " + builder.ConvertNotation(0, 1, "userId"));
         }
     }
 }
