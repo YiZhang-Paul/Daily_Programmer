@@ -1,6 +1,6 @@
 #139[Easy] Pangrams
 
-All Done
+All Done 
 
 url: https://www.reddit.com/r/dailyprogrammer/comments/1pwl73/11413_challenge_139_easy_pangrams/
 

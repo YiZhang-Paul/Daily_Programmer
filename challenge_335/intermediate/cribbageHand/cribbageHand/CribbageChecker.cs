@@ -37,6 +37,7 @@ namespace cribbageHand {
          * check for fifteens in a hand
          * @param {string[]} [hand] - current hand to check
          * @param {List<string>} [cards] - current card combinations
+         * @param {List<string[]>} [combinations] - current list of all valid combinations
          * @param {int} [target] - target sum of card values
          * @param {int} [sum] - current sum of card values
          * 
@@ -65,15 +66,11 @@ namespace cribbageHand {
         public string[] GetRun(string[] hand) {
             var sortedHand = hand.OrderBy(card => this.deck.GetRank(card));
             List<string> runs = new List<string>();
-            int curRuns = 0; 
             foreach(string card in sortedHand) {
                 if(runs.Count == 0 || this.deck.GetRank(card) - this.deck.GetRank(runs.Last()) == 1) {
                     runs.Add(card);
-                    curRuns++;
-                } else if(curRuns < 3) {
-                    runs.Clear();
-                    runs.Add(card);
-                    curRuns = 1;
+                } else if(runs.Count < 3) {
+                    runs = new List<string>(new string[] { card });
                 }
             }
             return runs.Count >= 3 ? runs.ToArray() : new string[0];

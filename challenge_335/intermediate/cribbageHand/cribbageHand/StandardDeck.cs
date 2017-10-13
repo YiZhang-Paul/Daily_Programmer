@@ -59,7 +59,7 @@ namespace cribbageHand {
          * @return {char} [card suit]
          */
         public char GetSuit(string card) {
-            return card[card.Length - 1];
+            return card.Last();
         }
     }
 }
