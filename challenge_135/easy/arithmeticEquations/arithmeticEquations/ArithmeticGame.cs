@@ -23,12 +23,12 @@ namespace arithmeticEquations {
         public void StartGame(int low, int high) {
             Equation equation = GetEquation(low, high);     
             while(true) {
-                Console.WriteLine("> " + equation._equation);
+                Console.WriteLine("> " + equation._equation + " " + equation._answer);
                 //retrieve user input
                 string input = GetInput();
                 while(input == null) {
                     Console.WriteLine("Invalid Input. Please Enter an Integer.");
-                    Console.WriteLine("> " + equation._equation);
+                    Console.WriteLine("> " + equation._equation + " " + equation._answer);
                     input = GetInput();
                 }
                 //check for program termination request
@@ -67,6 +67,48 @@ namespace arithmeticEquations {
             return null;
         }
         /*
+         * evaluate an single arithmetic operation
+         * @param {List<string>} [expressions] - expressions containing arithmetic operations 
+         * @param {int} [index] - index of operator
+         */
+        public void EvalOperator(List<string> expressions, int index) {
+            int operand1 = Int32.Parse(expressions[index - 1]);
+            int operand2 = Int32.Parse(expressions[index + 1]);
+            string curOperator = expressions[index];
+            if(curOperator == "x") {
+                expressions[index] = (operand1 * operand2).ToString();
+            } else if(curOperator == "-") {
+                expressions[index] = (operand1 - operand2).ToString();
+            } else if(curOperator == "+") { 
+                expressions[index] = (operand1 + operand2).ToString();            
+            }
+            expressions.RemoveAt(index + 1);
+            expressions.RemoveAt(index - 1);
+        }
+        /*
+         * evaluate an equation
+         * @param {List<string>} [expressions] - expressions to evaluate
+         *
+         * @return {int} [evaluation result]
+         */
+        public int EvalEquation(List<string> expressions) {
+            while(expressions.Count > 1) {
+                for(int i = 0; i < expressions.Count; i++) {
+                    if(expressions[i] == "x") {
+                        EvalOperator(expressions, i);
+                        i = -1;
+                    }
+                }
+                for(int i = 0; i < expressions.Count; i++) {
+                    if(expressions[i] == "-" || expressions[i] == "+") {
+                        EvalOperator(expressions, i);
+                        i = -1;
+                    }
+                }
+            }
+            return Int32.Parse(expressions[0]);
+        }
+        /*
          * randomly generate a equation
          * @param {int} [low] - low bound of numbers to pick from
          * @param {int} [high] - high bound of numbers to pick from
@@ -74,25 +116,15 @@ namespace arithmeticEquations {
          * @return {Equation} [equation generated]
          */
         public Equation GetEquation(int low, int high) { 
-            char[] operators = new char[] { '+', '-', 'x'};
+            string[] operators = new string[] { "+", "-", "x"};
             Random random = new Random();
             //build equation and calculate answer
-            int answer = random.Next(low, high + 1);
-            string equation = answer.ToString();
+            var expItems = new List<string>(new string[] { random.Next(low, high).ToString() });
             for(int i = 0; i < 3; i++) {
-                char newOperator = operators[random.Next(0, operators.Length)];
-                int number = random.Next(low, high + 1);
-                equation += " " + newOperator + " " + number;
-                //update answer
-                if(newOperator == '+') {
-                    answer += number;
-                } else if(newOperator == '-') {
-                    answer -= number;
-                } else {
-                    answer *= number;
-                }
+                expItems.Add(operators[random.Next(0, operators.Length)]);
+                expItems.Add(random.Next(low, high).ToString());
             }
-            return new Equation(equation, answer);
+            return new Equation(string.Join(" ", expItems), EvalEquation(expItems));
         }
     }
 }

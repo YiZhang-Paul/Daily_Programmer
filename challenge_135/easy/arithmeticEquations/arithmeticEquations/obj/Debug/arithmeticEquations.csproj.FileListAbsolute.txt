@@ -3,3 +3,4 @@ D:\all_languages\reddit_challenges\challenge_135\easy\arithmeticEquations\arithm
 D:\all_languages\reddit_challenges\challenge_135\easy\arithmeticEquations\arithmeticEquations\bin\Debug\arithmeticEquations.pdb
 D:\all_languages\reddit_challenges\challenge_135\easy\arithmeticEquations\arithmeticEquations\obj\Debug\arithmeticEquations.exe
 D:\all_languages\reddit_challenges\challenge_135\easy\arithmeticEquations\arithmeticEquations\obj\Debug\arithmeticEquations.pdb
+D:\all_languages\reddit_challenges\challenge_135\easy\arithmeticEquations\arithmeticEquations\obj\Debug\arithmeticEquations.csprojResolveAssemblyReference.cache
