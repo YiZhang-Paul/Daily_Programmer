@@ -1,1 +1,6 @@
 D:\all_languages\reddit_challenges\challenge_137\easy\stringTransposition\stringTransposition\bin\Debug\stringTransposition.exe.config
+D:\all_languages\reddit_challenges\challenge_137\easy\stringTransposition\stringTransposition\obj\Debug\stringTransposition.csprojResolveAssemblyReference.cache
+D:\all_languages\reddit_challenges\challenge_137\easy\stringTransposition\stringTransposition\bin\Debug\stringTransposition.exe
+D:\all_languages\reddit_challenges\challenge_137\easy\stringTransposition\stringTransposition\bin\Debug\stringTransposition.pdb
+D:\all_languages\reddit_challenges\challenge_137\easy\stringTransposition\stringTransposition\obj\Debug\stringTransposition.exe
+D:\all_languages\reddit_challenges\challenge_137\easy\stringTransposition\stringTransposition\obj\Debug\stringTransposition.pdb
