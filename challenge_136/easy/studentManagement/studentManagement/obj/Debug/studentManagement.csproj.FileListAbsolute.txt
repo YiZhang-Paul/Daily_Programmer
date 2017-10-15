@@ -1,1 +1,6 @@
 D:\all_languages\reddit_challenges\challenge_136\easy\studentManagement\studentManagement\bin\Debug\studentManagement.exe.config
+D:\all_languages\reddit_challenges\challenge_136\easy\studentManagement\studentManagement\bin\Debug\studentManagement.exe
+D:\all_languages\reddit_challenges\challenge_136\easy\studentManagement\studentManagement\bin\Debug\studentManagement.pdb
+D:\all_languages\reddit_challenges\challenge_136\easy\studentManagement\studentManagement\obj\Debug\studentManagement.csprojResolveAssemblyReference.cache
+D:\all_languages\reddit_challenges\challenge_136\easy\studentManagement\studentManagement\obj\Debug\studentManagement.exe
+D:\all_languages\reddit_challenges\challenge_136\easy\studentManagement\studentManagement\obj\Debug\studentManagement.pdb
