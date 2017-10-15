@@ -24,7 +24,9 @@ namespace studentManagement {
 
             GradeManager manager = new GradeManager();
             manager.ReadGrades(grades1);
-            Console.WriteLine(manager.GetClassAverage());
+            Console.WriteLine(manager.DisplayAllAverage());
+            manager.ReadGrades(grades2);
+            Console.WriteLine(manager.DisplayAllAverage());
         }
     }
 }

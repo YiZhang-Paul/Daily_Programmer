@@ -20,7 +20,7 @@ namespace studentManagement {
             //record grades
             Records = new Dictionary<string, int[]>();
             foreach(string[] grade in allGrades) {
-                Records.Add(grade[0], grade.Skip(1).Select(item => Int32.Parse(item)).ToArray());
+                Records.Add(grade[0], grade.Skip(1).Select(number => Int32.Parse(number)).ToArray());
             }
         }
         /*
@@ -32,8 +32,25 @@ namespace studentManagement {
             if(Records == null) {
                 return 0.0d;
             }
-            double average = Records.Select(pair => pair.Value.Average()).Sum() / Records.Count;
-            return Math.Round(average, 2);
+            return Records.Select(pair => pair.Value.Average()).Sum() / Records.Count;
+        }
+        /*
+         * display class average and student average
+         * 
+         * @return {string} [class average and student average]
+         */
+        public string DisplayAllAverage() {
+            double classAverage = GetClassAverage();
+            if(classAverage == 0) {
+                return "No Student Record Found.";
+            }
+            StringBuilder result = new StringBuilder();
+            //append class average and every student's average
+            result.Append(classAverage.ToString("F") + "\n");
+            foreach(var pair in Records) {
+                result.Append(pair.Key + " " + pair.Value.Average().ToString("F") + "\n");
+            }
+            return result.ToString();
         }
     }
 }
