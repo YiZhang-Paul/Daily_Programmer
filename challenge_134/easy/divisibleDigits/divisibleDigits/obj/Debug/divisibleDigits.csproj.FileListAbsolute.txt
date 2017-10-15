@@ -1,1 +1,6 @@
 D:\all_languages\reddit_challenges\challenge_134\easy\divisibleDigits\divisibleDigits\bin\Debug\divisibleDigits.exe.config
+D:\all_languages\reddit_challenges\challenge_134\easy\divisibleDigits\divisibleDigits\bin\Debug\divisibleDigits.exe
+D:\all_languages\reddit_challenges\challenge_134\easy\divisibleDigits\divisibleDigits\bin\Debug\divisibleDigits.pdb
+D:\all_languages\reddit_challenges\challenge_134\easy\divisibleDigits\divisibleDigits\obj\Debug\divisibleDigits.csprojResolveAssemblyReference.cache
+D:\all_languages\reddit_challenges\challenge_134\easy\divisibleDigits\divisibleDigits\obj\Debug\divisibleDigits.exe
+D:\all_languages\reddit_challenges\challenge_134\easy\divisibleDigits\divisibleDigits\obj\Debug\divisibleDigits.pdb
