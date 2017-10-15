@@ -1,6 +1,6 @@
 #134[Easy] N-Divisible Digits
 
-All Done
+All Done 
 
 url: https://www.reddit.com/r/dailyprogrammer/comments/1jtryq/080613_challenge_134_easy_ndivisible_digits/
 
