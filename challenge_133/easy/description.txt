@@ -1,5 +1,7 @@
 #133[Easy] Foot-Traffic Analysis
 
+All Done
+
 url: https://www.reddit.com/r/dailyprogrammer/comments/1iambu/071513_challenge_133_easy_foottraffic_analysis/
 
 The world's most prestigious art gallery in the world needs your help! Management wants to figure out how many people visit each room in the gallery, and for how long: this is to help improve the quality of the overall gallery in the future.

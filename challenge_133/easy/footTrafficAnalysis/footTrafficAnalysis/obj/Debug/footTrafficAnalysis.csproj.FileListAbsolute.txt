@@ -1,1 +1,6 @@
 D:\all_languages\reddit_challenges\challenge_133\easy\footTrafficAnalysis\footTrafficAnalysis\bin\Debug\footTrafficAnalysis.exe.config
+D:\all_languages\reddit_challenges\challenge_133\easy\footTrafficAnalysis\footTrafficAnalysis\obj\Debug\footTrafficAnalysis.csprojResolveAssemblyReference.cache
+D:\all_languages\reddit_challenges\challenge_133\easy\footTrafficAnalysis\footTrafficAnalysis\bin\Debug\footTrafficAnalysis.exe
+D:\all_languages\reddit_challenges\challenge_133\easy\footTrafficAnalysis\footTrafficAnalysis\bin\Debug\footTrafficAnalysis.pdb
+D:\all_languages\reddit_challenges\challenge_133\easy\footTrafficAnalysis\footTrafficAnalysis\obj\Debug\footTrafficAnalysis.exe
+D:\all_languages\reddit_challenges\challenge_133\easy\footTrafficAnalysis\footTrafficAnalysis\obj\Debug\footTrafficAnalysis.pdb
