@@ -23,5 +23,17 @@ namespace studentManagement {
                 Records.Add(grade[0], grade.Skip(1).Select(item => Int32.Parse(item)).ToArray());
             }
         }
+        /*
+         * calculate class average
+         * 
+         * @return {double} [class average]
+         */
+        public double GetClassAverage() { 
+            if(Records == null) {
+                return 0.0d;
+            }
+            double average = Records.Select(pair => pair.Value.Average()).Sum() / Records.Count;
+            return Math.Round(average, 2);
+        }
     }
 }

@@ -23,7 +23,8 @@ namespace studentManagement {
                                WILLIAM 12 12 19 9 4 3 0 4 13 14";
 
             GradeManager manager = new GradeManager();
-            manager.ReadGrades(grades1); 
+            manager.ReadGrades(grades1);
+            Console.WriteLine(manager.GetClassAverage());
         }
     }
 }
