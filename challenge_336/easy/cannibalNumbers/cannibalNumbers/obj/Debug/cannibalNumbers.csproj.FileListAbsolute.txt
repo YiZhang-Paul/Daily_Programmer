@@ -1,1 +1,6 @@
 D:\all_languages\reddit_challenges\challenge_336\easy\cannibalNumbers\cannibalNumbers\bin\Debug\cannibalNumbers.exe.config
+D:\all_languages\reddit_challenges\challenge_336\easy\cannibalNumbers\cannibalNumbers\bin\Debug\cannibalNumbers.exe
+D:\all_languages\reddit_challenges\challenge_336\easy\cannibalNumbers\cannibalNumbers\bin\Debug\cannibalNumbers.pdb
+D:\all_languages\reddit_challenges\challenge_336\easy\cannibalNumbers\cannibalNumbers\obj\Debug\cannibalNumbers.csprojResolveAssemblyReference.cache
+D:\all_languages\reddit_challenges\challenge_336\easy\cannibalNumbers\cannibalNumbers\obj\Debug\cannibalNumbers.exe
+D:\all_languages\reddit_challenges\challenge_336\easy\cannibalNumbers\cannibalNumbers\obj\Debug\cannibalNumbers.pdb
