@@ -1,0 +1,1 @@
+D:\all_languages\reddit_challenges\challenge_132\easy\greatestCommonDivisor\greatestCommonDivisor\bin\Debug\greatestCommonDivisor.exe.config
