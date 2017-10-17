@@ -1,1 +1,6 @@
 D:\all_languages\reddit_challenges\challenge_131\easy\testTheTest\testTheTest\bin\Debug\testTheTest.exe.config
+D:\all_languages\reddit_challenges\challenge_131\easy\testTheTest\testTheTest\obj\Debug\testTheTest.csprojResolveAssemblyReference.cache
+D:\all_languages\reddit_challenges\challenge_131\easy\testTheTest\testTheTest\bin\Debug\testTheTest.exe
+D:\all_languages\reddit_challenges\challenge_131\easy\testTheTest\testTheTest\bin\Debug\testTheTest.pdb
+D:\all_languages\reddit_challenges\challenge_131\easy\testTheTest\testTheTest\obj\Debug\testTheTest.exe
+D:\all_languages\reddit_challenges\challenge_131\easy\testTheTest\testTheTest\obj\Debug\testTheTest.pdb
