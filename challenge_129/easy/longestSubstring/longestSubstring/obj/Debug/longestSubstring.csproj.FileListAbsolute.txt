@@ -1,1 +1,6 @@
 D:\all_languages\reddit_challenges\challenge_129\easy\longestSubstring\longestSubstring\bin\Debug\longestSubstring.exe.config
+D:\all_languages\reddit_challenges\challenge_129\easy\longestSubstring\longestSubstring\bin\Debug\longestSubstring.exe
+D:\all_languages\reddit_challenges\challenge_129\easy\longestSubstring\longestSubstring\bin\Debug\longestSubstring.pdb
+D:\all_languages\reddit_challenges\challenge_129\easy\longestSubstring\longestSubstring\obj\Debug\longestSubstring.csprojResolveAssemblyReference.cache
+D:\all_languages\reddit_challenges\challenge_129\easy\longestSubstring\longestSubstring\obj\Debug\longestSubstring.exe
+D:\all_languages\reddit_challenges\challenge_129\easy\longestSubstring\longestSubstring\obj\Debug\longestSubstring.pdb
