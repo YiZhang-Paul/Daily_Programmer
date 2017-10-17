@@ -15,7 +15,9 @@ namespace testTheTest {
                              1 Batman BATMAN
                              1 Graph GRAPH
                              1 One one";
-            
+            Console.WriteLine(ToUpperCase("Batman"));
+            Console.WriteLine(ToUpperCase("Graph"));
+            Console.WriteLine(ToUpperCase("One"));
             //Console.WriteLine(Test(input));
         }
         /*
@@ -50,7 +52,7 @@ namespace testTheTest {
                 if(Char.IsLetter(character)) {
                     //calculate new character code for upper-case letter
                     int charCode = Char.ConvertToUtf32(character.ToString(), 0);
-                    charCode -= charCode > 64 && charCode < 91 ? 32 : 0;
+                    charCode -= charCode > 64 && charCode < 91 ? 0 : 32;
                     result.Append(Char.ConvertFromUtf32(charCode));
                     continue;
                 }
