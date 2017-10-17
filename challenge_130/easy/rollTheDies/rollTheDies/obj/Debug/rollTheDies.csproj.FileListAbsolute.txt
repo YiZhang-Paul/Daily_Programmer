@@ -1,1 +1,6 @@
 D:\all_languages\reddit_challenges\challenge_130\easy\rollTheDies\rollTheDies\bin\Debug\rollTheDies.exe.config
+D:\all_languages\reddit_challenges\challenge_130\easy\rollTheDies\rollTheDies\bin\Debug\rollTheDies.exe
+D:\all_languages\reddit_challenges\challenge_130\easy\rollTheDies\rollTheDies\bin\Debug\rollTheDies.pdb
+D:\all_languages\reddit_challenges\challenge_130\easy\rollTheDies\rollTheDies\obj\Debug\rollTheDies.csprojResolveAssemblyReference.cache
+D:\all_languages\reddit_challenges\challenge_130\easy\rollTheDies\rollTheDies\obj\Debug\rollTheDies.exe
+D:\all_languages\reddit_challenges\challenge_130\easy\rollTheDies\rollTheDies\obj\Debug\rollTheDies.pdb
