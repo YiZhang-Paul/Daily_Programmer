@@ -41,28 +41,23 @@ namespace cannibalNumbers {
          * @return {int} [current query result]
          */
         public static int Query(int[] sorted, int query) {
-            //copy all sorted numbers
-            var sortedCopy = new List<int>(sorted);
-            int candidate = sortedCopy.Where(number => number < query).Count();
+            //all numbers that do/do not satisfy query requirements
+            var satisfied = sorted.Where(number => number >= query).ToList();
+            var candidate = sorted.Take(sorted.Length - satisfied.Count).ToList();
+            //when there is at least one food and one cannibal available in the candidates
+            while(candidate.Count > 1) {
+                //consume food and increment cannibal
+                candidate.RemoveAt(0);
+                candidate[candidate.Count - 1]++;
 
-            while(candidate - 1 > 0) {
-
-                int totalFood = candidate - 1;
-                int cannibal = sortedCopy[candidate - 1];
-                sortedCopy.RemoveAt(candidate - 1);
-
-                while(totalFood > 0 && cannibal < query) {
-
-                    sortedCopy.RemoveAt(0);
-                    totalFood--;
-                    cannibal++;
+                if(candidate.Last() >= query) {
+                    //move cannibal that satisfies query requirement to satisfied list
+                    satisfied.Add(candidate.Last());
+                    candidate.RemoveAt(candidate.Count - 1);
                 }
-
-                sortedCopy.Insert(totalFood, cannibal);
-                candidate = sortedCopy.Where(number => number < query).Count();
             }
 
-            return sortedCopy.Where(number => number >= query).Count();
+            return satisfied.Count;
         }
     }
 }
