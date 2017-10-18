@@ -1,1 +1,6 @@
 D:\all_languages\reddit_challenges\challenge_124\easy\edgeSorting\edgeSorting\bin\Debug\edgeSorting.exe.config
+D:\all_languages\reddit_challenges\challenge_124\easy\edgeSorting\edgeSorting\bin\Debug\edgeSorting.exe
+D:\all_languages\reddit_challenges\challenge_124\easy\edgeSorting\edgeSorting\bin\Debug\edgeSorting.pdb
+D:\all_languages\reddit_challenges\challenge_124\easy\edgeSorting\edgeSorting\obj\Debug\edgeSorting.csprojResolveAssemblyReference.cache
+D:\all_languages\reddit_challenges\challenge_124\easy\edgeSorting\edgeSorting\obj\Debug\edgeSorting.exe
+D:\all_languages\reddit_challenges\challenge_124\easy\edgeSorting\edgeSorting\obj\Debug\edgeSorting.pdb
