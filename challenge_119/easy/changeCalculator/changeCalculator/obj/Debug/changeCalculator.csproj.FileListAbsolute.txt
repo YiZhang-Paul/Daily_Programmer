@@ -1,1 +1,6 @@
 D:\all_languages\reddit_challenges\challenge_119\easy\changeCalculator\changeCalculator\bin\Debug\changeCalculator.exe.config
+D:\all_languages\reddit_challenges\challenge_119\easy\changeCalculator\changeCalculator\bin\Debug\changeCalculator.exe
+D:\all_languages\reddit_challenges\challenge_119\easy\changeCalculator\changeCalculator\bin\Debug\changeCalculator.pdb
+D:\all_languages\reddit_challenges\challenge_119\easy\changeCalculator\changeCalculator\obj\Debug\changeCalculator.csprojResolveAssemblyReference.cache
+D:\all_languages\reddit_challenges\challenge_119\easy\changeCalculator\changeCalculator\obj\Debug\changeCalculator.exe
+D:\all_languages\reddit_challenges\challenge_119\easy\changeCalculator\changeCalculator\obj\Debug\changeCalculator.pdb
