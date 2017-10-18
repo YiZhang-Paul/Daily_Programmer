@@ -1,1 +1,6 @@
 D:\all_languages\reddit_challenges\challenge_122\easy\wordsWithOrderedVowels\wordsWithOrderedVowels\bin\Debug\wordsWithOrderedVowels.exe.config
+D:\all_languages\reddit_challenges\challenge_122\easy\wordsWithOrderedVowels\wordsWithOrderedVowels\bin\Debug\wordsWithOrderedVowels.exe
+D:\all_languages\reddit_challenges\challenge_122\easy\wordsWithOrderedVowels\wordsWithOrderedVowels\bin\Debug\wordsWithOrderedVowels.pdb
+D:\all_languages\reddit_challenges\challenge_122\easy\wordsWithOrderedVowels\wordsWithOrderedVowels\obj\Debug\wordsWithOrderedVowels.csprojResolveAssemblyReference.cache
+D:\all_languages\reddit_challenges\challenge_122\easy\wordsWithOrderedVowels\wordsWithOrderedVowels\obj\Debug\wordsWithOrderedVowels.exe
+D:\all_languages\reddit_challenges\challenge_122\easy\wordsWithOrderedVowels\wordsWithOrderedVowels\obj\Debug\wordsWithOrderedVowels.pdb
