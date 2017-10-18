@@ -1,1 +1,6 @@
 D:\all_languages\reddit_challenges\challenge_121\easy\bytelandianExchange\bytelandianExchange\bin\Debug\bytelandianExchange.exe.config
+D:\all_languages\reddit_challenges\challenge_121\easy\bytelandianExchange\bytelandianExchange\bin\Debug\bytelandianExchange.exe
+D:\all_languages\reddit_challenges\challenge_121\easy\bytelandianExchange\bytelandianExchange\bin\Debug\bytelandianExchange.pdb
+D:\all_languages\reddit_challenges\challenge_121\easy\bytelandianExchange\bytelandianExchange\obj\Debug\bytelandianExchange.csprojResolveAssemblyReference.cache
+D:\all_languages\reddit_challenges\challenge_121\easy\bytelandianExchange\bytelandianExchange\obj\Debug\bytelandianExchange.exe
+D:\all_languages\reddit_challenges\challenge_121\easy\bytelandianExchange\bytelandianExchange\obj\Debug\bytelandianExchange.pdb
