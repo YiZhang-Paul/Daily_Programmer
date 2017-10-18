@@ -1,1 +1,6 @@
 D:\all_languages\reddit_challenges\challenge_123\easy_2\newLineTroubles\newLineTroubles\bin\Debug\newLineTroubles.exe.config
+D:\all_languages\reddit_challenges\challenge_123\easy_2\newLineTroubles\newLineTroubles\bin\Debug\newLineTroubles.exe
+D:\all_languages\reddit_challenges\challenge_123\easy_2\newLineTroubles\newLineTroubles\bin\Debug\newLineTroubles.pdb
+D:\all_languages\reddit_challenges\challenge_123\easy_2\newLineTroubles\newLineTroubles\obj\Debug\newLineTroubles.csprojResolveAssemblyReference.cache
+D:\all_languages\reddit_challenges\challenge_123\easy_2\newLineTroubles\newLineTroubles\obj\Debug\newLineTroubles.exe
+D:\all_languages\reddit_challenges\challenge_123\easy_2\newLineTroubles\newLineTroubles\obj\Debug\newLineTroubles.pdb
