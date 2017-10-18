@@ -1,0 +1,7 @@
+D:\all_languages\reddit_challenges\challenge_127\easy_1\sumDigits\sumDigits\bin\Debug\sumDigits.exe.config
+D:\all_languages\reddit_challenges\challenge_123\easy_1\sumDigits\sumDigits\bin\Debug\sumDigits.exe.config
+D:\all_languages\reddit_challenges\challenge_123\easy_1\sumDigits\sumDigits\bin\Debug\sumDigits.exe
+D:\all_languages\reddit_challenges\challenge_123\easy_1\sumDigits\sumDigits\bin\Debug\sumDigits.pdb
+D:\all_languages\reddit_challenges\challenge_123\easy_1\sumDigits\sumDigits\obj\Debug\sumDigits.csprojResolveAssemblyReference.cache
+D:\all_languages\reddit_challenges\challenge_123\easy_1\sumDigits\sumDigits\obj\Debug\sumDigits.exe
+D:\all_languages\reddit_challenges\challenge_123\easy_1\sumDigits\sumDigits\obj\Debug\sumDigits.pdb

@@ -1,5 +1,7 @@
 #123[Easy] Sum Them Digits
 
+All Done
+
 url: https://www.reddit.com/r/dailyprogrammer/comments/1cundw/042213_challenge_123_easy_sum_them_digits/
 
 As a crude form of hashing function, Lars wants to sum the digits of a number. Then he wants to sum the digits of the result, and repeat until he have only one digit left. He learnt that this is called the digital root of a number, but the Wikipedia article is just confusing him.
