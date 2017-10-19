@@ -5,41 +5,37 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace repetitiveRubikCube {
-    class Face {
-
-        public char Color { get; private set; }
-        public int[,] Content { get; set; }
-
-        public Face() { 
-        }
-        /*
-         * @param {} [] - default face color
-         */
-        public Face(char color) {
-
-            Color = color;
-            Content = new int[,] { 
-                { color, color, color }, 
-                { color, color, color }, 
-                { color, color, color } 
-            }; 
-        }
-    }
-
     class RubikCube {
+
+        private char[] _colors = new char[] { 'r', 'b', 'y', 'g', 'w', 'o' };
+        private string[] _names = new string[] { "up", "down", "left", "right", "front", "back" };
 
         public Dictionary<string, Face> Faces { get; private set; }
 
         public RubikCube() {
 
-            Faces = new Dictionary<string, Face>();
-            char[] colors = new char[] { 'r', 'b', 'y', 'g', 'w', 'o' };
-            string[] names = new string[] { "up", "down", "left", "right", "front", "back" };
-            //create faces
-            for(int i = 0; i < names.Length; i++) {
+            CreateFace();
+        }
+        /*
+         * create all faces of the cube
+         */
+        public void CreateFace() {
 
-                Faces.Add(names[i], new Face(colors[i]));
+            Faces = new Dictionary<string, Face>();
+
+            for(int i = 0; i < _names.Length; i++) {
+
+                Faces.Add(_names[i], new Face(_colors[i]));
             }
+        }
+        /*
+         * check if the cube is on default state
+         *
+         * @return {bool} [test result]
+         */
+        public bool OnDefaultState() {
+
+            return _names.All(name => Faces[name].OnDefaultState());
         }
     }
 }
