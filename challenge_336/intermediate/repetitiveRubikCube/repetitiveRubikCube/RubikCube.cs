@@ -43,9 +43,7 @@ namespace repetitiveRubikCube {
          */
         public void RotateUp(string direction = "clockwise") {
 
-            string[] affected = _names.Where(name => name != "up" && name != "down").ToArray();
-            //determine order of affected faces base on rotation direction
-            if(direction != "clockwise") affected.Reverse(); 
+            string[] affected = GetAffected("up", direction);
         }
         /*
          * rotate front face
@@ -53,9 +51,7 @@ namespace repetitiveRubikCube {
          */
         public void RotateFront(string direction = "clockwise") {
 
-            string[] affected = _names.Where(name => name != "front" && name != "back").ToArray();
-            //determine order of affected faces base on rotation direction
-            if(direction == "clockwise") affected.Reverse(); 
+            string[] affected = GetAffected("front", direction);
         }
         /*
          * rotate right face
@@ -63,12 +59,66 @@ namespace repetitiveRubikCube {
          */
         public void RotateRight(string direction = "clockwise") {
 
-            string[] affected = _names.Where(name => name != "right" && name != "left").ToArray();
-            //determine order of affected faces base on rotation direction
-            if(direction == "clockwise") affected.Reverse();
+            string[] affected = GetAffected("right", direction);
+            //rotate face
+            Faces["right"].Rotate(direction);
 
-            Faces["right"].RotateClockwise();
                 
+        }
+        /*
+         * retrieve opposite face of a given face
+         * @param {string} [name] - name of current face
+         *
+         * @return {string} [name of opposite face]
+         */
+        public string GetOpposite(string name) { 
+        
+            string opposite = "";
+
+            switch(name) {
+            
+                case "right" : case "left" :
+
+                    opposite = name == "right" ? "left" : "right";
+                    break;
+
+                case "up" : case "down" :
+
+                    opposite = name == "up" ? "down" : "up";
+                    break;
+
+                case "front" : case "back" :
+
+                    opposite = name == "front" ? "back" : "front";
+                    break;
+            }
+
+            return opposite;
+        }
+        /*
+         * retrieve all affected faces due to rotation
+         * @param {string} [face] - face to rotate
+         * @param {string} [direction] - direction of rotation
+         *
+         * @return {string[]} [names of affected faces in affected order]
+         */
+        public string[] GetAffected(string face, string direction = "clockwise") {
+
+            string[] affected = _names.Where(name => name != face && name != GetOpposite(face)).ToArray();
+            //determine order of affected faces base on rotation direction
+            if(direction == "clockwise") {
+
+                if(face == "up" || face == "down") {
+
+                    affected = affected.Reverse().ToArray();
+                }
+            }
+            else if(face != "up" && face != "down") {
+
+                affected = affected.Reverse().ToArray();
+            }
+
+            return affected;
         }
     }
 }

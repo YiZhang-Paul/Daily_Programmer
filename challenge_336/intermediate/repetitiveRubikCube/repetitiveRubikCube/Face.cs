@@ -19,12 +19,9 @@ namespace repetitiveRubikCube {
 
             Color = color;
             Content = new int[,] { 
-                //{ color, color, color }, 
-                //{ color, color, color }, 
-                //{ color, color, color } 
-                { 1, 2, 3 }, 
-                { 4, 5, 6 }, 
-                { 7, 8, 9 } 
+                { color, color, color }, 
+                { color, color, color }, 
+                { color, color, color } 
             };
         }
         /*
@@ -40,9 +37,9 @@ namespace repetitiveRubikCube {
          * rotate face 90 degrees
          * @param {string} [direction] - direction of rotation
          */
-        public void RotateClockwise(string direction = "clockwise") {
+        public void Rotate(string direction = "aclockwise") {
 
-            int[,] rotated = new int[Content.GetLength(0), Content.GetLength(1)];
+            int[,] rotated = new int[Content.GetLength(1), Content.GetLength(0)];
 
             for(int i = 0; i < Content.GetLength(0); i++) {
 

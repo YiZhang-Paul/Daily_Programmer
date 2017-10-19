@@ -9,7 +9,9 @@ namespace repetitiveRubikCube {
         static void Main(string[] args) {
 
             var cube = new RubikCube();
-            cube.RotateRight();
+            cube.RotateUp("a");
+            cube.RotateFront("a");
+            cube.RotateRight("a");
         }
     }
 }
