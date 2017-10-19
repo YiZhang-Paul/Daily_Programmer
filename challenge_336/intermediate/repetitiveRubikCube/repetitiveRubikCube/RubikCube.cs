@@ -38,24 +38,54 @@ namespace repetitiveRubikCube {
             return Faces.All(pair => pair.Value.OnDefaultState());
         }
         /*
-         * rotate up face
+         * rotate up or down face
+         * @param {string} [face] - face to rotate
          * @param {string} [direction] - direction of rotation
          */
-        public void RotateUp(string direction = "clockwise") {
+        public void RotateUpDown(string face, string direction = "clockwise") {
 
-            string[] affected = GetAffected("up", direction);
+            string[] affected = GetAffected(face, direction);
+            int targetRow = face == "up" ? 0 : Faces[face].Content.GetLength(0) - 1;
+            char[] rowShift = Faces[affected.Last()].GetRow(targetRow);
+
+            for(int i = 0; i < affected.Length; i++) {
+                //change blocks on given row
+                char[] newRowShift = Faces[affected[i]].GetRow(targetRow);
+                Faces[affected[i]].ChangeRow(targetRow, rowShift);
+                rowShift = newRowShift;
+            }
             //rotate face
-            Faces["up"].Rotate(direction); 
+            Faces[face].Rotate(direction);
         }
         /*
-         * rotate down face
+         * rotate left or right face
+         * @param {string} [face] - face to rotate
          * @param {string} [direction] - direction of rotation
          */
-        public void RotateDown(string direction = "clockwise") {
+        public void RotateLeftRight(string face, string direction = "clockwise") {
 
-            string[] affected = GetAffected("down", direction);
+            string[] affected = GetAffected(face, direction);
+            int targetCol = face == "left" ? 0 : Faces[face].Content.GetLength(1) - 1;
+            char[] colShift = Faces[affected.Last()].GetColumn(targetCol);
+
+            for(int i = 0; i < affected.Length; i++) {
+                //change blocks on given column
+                char[] newColShift = Faces[affected[i]].GetColumn(targetCol);
+                Faces[affected[i]].ChangeColumn(targetCol, colShift);
+                colShift = newColShift;
+            }
             //rotate face
-            Faces["down"].Rotate(direction); 
+            Faces[face].Rotate(direction);
+        }
+        /*
+         * rotate right face
+         * @param {string} [direction] - direction of rotation
+         */
+        public void RotateRight(string direction = "clockwise") {
+
+            string[] affected = GetAffected("right", direction);
+            //rotate face
+            Faces["right"].Rotate(direction);
         }
         /*
          * rotate front face
@@ -68,14 +98,14 @@ namespace repetitiveRubikCube {
             Faces["front"].Rotate(direction); 
         }
         /*
-         * rotate right face
+         * rotate back face
          * @param {string} [direction] - direction of rotation
          */
-        public void RotateRight(string direction = "clockwise") {
+        public void RotateBack(string direction = "clockwise") {
 
-            string[] affected = GetAffected("right", direction);
+            string[] affected = GetAffected("back", direction);
             //rotate face
-            Faces["right"].Rotate(direction);      
+            Faces["back"].Rotate(direction);
         }
         /*
          * retrieve opposite face of a given face

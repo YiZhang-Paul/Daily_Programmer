@@ -54,6 +54,30 @@ namespace repetitiveRubikCube {
             return column;
         }
         /*
+         * change a given row of the face
+         * @param {int} [rowIndex] - index of row to change
+         * @param {char[]} [newRow] - new blocks in the row
+         */
+        public void ChangeRow(int rowIndex, char[] newRow) {
+
+            for(int i = 0; i < newRow.Length; i++) {
+
+                Content[rowIndex, i] = newRow[i];
+            }
+        }
+        /*
+         * change a given column of the face
+         * @param {int} [colIndex] - index of column to change
+         * @param {char[]} [newCol] - new blocks in the column
+         */
+        public void ChangeColumn(int colIndex, char[] newCol) {
+
+            for(int i = 0; i < newCol.Length; i++) {
+
+                Content[i, colIndex] = newCol[i];
+            }
+        }
+        /*
          * check if the face is on default state
          *
          * @return {bool} [test result]
