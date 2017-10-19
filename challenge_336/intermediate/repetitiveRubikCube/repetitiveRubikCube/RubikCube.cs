@@ -85,7 +85,42 @@ namespace repetitiveRubikCube {
         public void RotateFrontBack(string face, string direction = "clockwise") {
 
             string[] affected = GetAffected(face, direction);
+            string[] affectedType = new string[] { "row", "col", "row", "col" };
+            int[] affectedIndex;
+            //determine index of row/column on each affected face
+            if(direction == "clockwise") {
 
+                affectedIndex = face == "front" ? 
+                    new int[] { Faces["up"].Content.GetLength(0) - 1, 0, 0, Faces["left"].Content.GetLength(1) - 1 } :
+                    new int[] { 0, 0, Faces["down"].Content.GetLength(0) - 1, Faces["right"].Content.GetLength(1) - 1 };
+            }
+            else { 
+            
+                affectedIndex = face == "front" ? 
+                    new int[] { Faces["up"].Content.GetLength(0) - 1, Faces["left"].Content.GetLength(1) - 1, 0, 0 } :
+                    new int[] { 0, Faces["right"].Content.GetLength(1) - 1, Faces["down"].Content.GetLength(0) - 1, 0 }; 
+            }
+            //u, r, d, l - clockwise
+            //u, l, d, r           
+            char[] shift = affectedType.Last() == "row" ? 
+                Faces[affected.Last()].GetRow(affectedIndex.Last()) : Faces[affected.Last()].GetColumn(affectedIndex.Last());
+
+            for(int i = 0; i < affected.Length; i++) {
+                //change blocks on given column
+                char[] newShift = affectedType[i] == "row" ?
+                    Faces[affected[i]].GetRow(affectedIndex[i]) : Faces[affected[i]].GetColumn(affectedIndex[i]);
+                
+                if(affectedType[i] == "row") {
+
+                    Faces[affected[i]].ChangeRow(affectedIndex[i], shift);
+                }
+                else {
+
+                    Faces[affected[i]].ChangeColumn(affectedIndex[i], shift);
+                }
+
+                shift = newShift;
+            }
             //rotate face
             Faces[face].Rotate(direction);   
         }
