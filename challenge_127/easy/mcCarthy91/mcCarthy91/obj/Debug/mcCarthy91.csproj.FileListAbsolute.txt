@@ -1,1 +1,5 @@
 D:\all_languages\reddit_challenges\challenge_127\easy\mcCarthy91\mcCarthy91\bin\Debug\mcCarthy91.exe.config
+D:\all_languages\reddit_challenges\challenge_127\easy\mcCarthy91\mcCarthy91\bin\Debug\mcCarthy91.exe
+D:\all_languages\reddit_challenges\challenge_127\easy\mcCarthy91\mcCarthy91\bin\Debug\mcCarthy91.pdb
+D:\all_languages\reddit_challenges\challenge_127\easy\mcCarthy91\mcCarthy91\obj\Debug\mcCarthy91.exe
+D:\all_languages\reddit_challenges\challenge_127\easy\mcCarthy91\mcCarthy91\obj\Debug\mcCarthy91.pdb
