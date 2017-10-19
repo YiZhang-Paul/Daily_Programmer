@@ -12,10 +12,12 @@ namespace repetitiveRubikCube {
             string input1 = "R";
             string input2 = "R F2 L' U D B2";
             string input3 = "R' F2 B F B F2 L' U F2 D R2 L R' B L B2 R U";
+            string input4 = "R D";
 
             Console.WriteLine(GetTotalTime(input1));
             Console.WriteLine(GetTotalTime(input2));
             Console.WriteLine(GetTotalTime(input3));
+            Console.WriteLine(GetTotalTime(input4));
         }
         /*
          * process Rubik Cube instructions
@@ -31,17 +33,20 @@ namespace repetitiveRubikCube {
 
                 switch(instruction[0]) {
 
-                    case 'R' : case 'L' :
+                    case 'R': 
+                    case 'L':
 
                         cube.RotateLeftRight(instruction[0] == 'R' ? "right" : "left", direction);
                         break;
 
-                    case 'F' : case 'B' :
+                    case 'F': 
+                    case 'B':
 
                         cube.RotateFrontBack(instruction[0] == 'F' ? "front" : "back", direction);
                         break;
 
-                    case 'U' : case 'D' :
+                    case 'U': 
+                    case 'D':
 
                         cube.RotateUpDown(instruction[0] == 'U' ? "up" : "down", direction);
                         break;

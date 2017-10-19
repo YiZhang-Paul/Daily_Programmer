@@ -90,7 +90,7 @@ namespace repetitiveRubikCube {
          * rotate face 90 degrees
          * @param {string} [direction] - direction of rotation
          */
-        public void Rotate(string direction = "aclockwise") {
+        public void Rotate(string direction = "clockwise") {
 
             char[,] rotated = new char[Content.GetLength(1), Content.GetLength(0)];
 

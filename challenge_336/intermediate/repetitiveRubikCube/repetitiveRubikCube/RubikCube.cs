@@ -40,136 +40,193 @@ namespace repetitiveRubikCube {
         /*
          * rotate up or down face
          * @param {string} [face] - face to rotate
-         * @param {string} [direction] - direction of rotation
+         * @param {string} [direction] - rotate direction
          */
-        public void RotateUpDown(string face, string direction = "clockwise") {
+        public void RotateUpDown(string face, string direction) {
 
-            string[] affected = GetAffected(face, direction);
-            int targetRow = face == "up" ? 0 : Faces[face].Content.GetLength(0) - 1;
-            char[] rowShift = Faces[affected.Last()].GetRow(targetRow);
+            if(direction == "clockwise") {
+
+                RotateUpDownClockwise(face);
+            }
+            else {
+
+                RotateUpDownCounterClockwise(face);
+            }
+        }
+        /*
+         * rotate up or down face clockwise
+         * @param {string} [face] - face to rotate
+         */
+        public void RotateUpDownClockwise(string face) {
+
+            string[] affected = GetAffected(face);
+            int shiftIndex = face == "up" ? 0 : 2;
+            char[] shift = Faces[affected.Last()].GetRow(shiftIndex);
 
             for(int i = 0; i < affected.Length; i++) {
-                //change blocks on given row
-                char[] newRowShift = Faces[affected[i]].GetRow(targetRow);
-                Faces[affected[i]].ChangeRow(targetRow, rowShift);
-                rowShift = newRowShift;
+                //change affected rows on affected faces
+                char[] newShift = Faces[affected[i]].GetRow(shiftIndex);
+                Faces[affected[i]].ChangeRow(shiftIndex, shift);
+                shift = newShift;
             }
             //rotate face
-            Faces[face].Rotate(direction);
+            Faces[face].Rotate();
+        }
+        /*
+         * rotate up or down face counter-clockwise
+         * @param {string} [face] - face to rotate
+         */
+        public void RotateUpDownCounterClockwise(string face) {
+
+            for(int i = 0; i < 3; i++) {
+
+                RotateUpDownClockwise(face);
+            }
         }
         /*
          * rotate left or right face
          * @param {string} [face] - face to rotate
-         * @param {string} [direction] - direction of rotation
+         * @param {string} [direction] - rotate direction
          */
-        public void RotateLeftRight(string face, string direction = "clockwise") {
+        public void RotateLeftRight(string face, string direction) {
 
-            string[] affected = GetAffected(face, direction);
-            int targetCol = face == "left" ? 0 : Faces[face].Content.GetLength(1) - 1;
-            char[] colShift = Faces[affected.Last()].GetColumn(targetCol);
+            if(direction == "clockwise") {
+
+                RotateLeftRightClockwise(face);
+            }
+            else {
+
+                RotateLeftRightCounterClockwise(face);
+            }
+        }
+        /*
+         * rotate left or right face clockwise
+         * @param {string} [face] - face to rotate
+         */
+        public void RotateLeftRightClockwise(string face) {
+
+            string[] affected = GetAffected(face);
+            int[] shiftIndex = face == "right" ? new int[] { 2, 0, 2, 2 } : new int[] { 0, 0, 0, 2 };
+            char[] shift = Faces[affected.Last()].GetColumn(shiftIndex.Last());
 
             for(int i = 0; i < affected.Length; i++) {
-                //change blocks on given column
-                char[] newColShift = Faces[affected[i]].GetColumn(targetCol);
-                Faces[affected[i]].ChangeColumn(targetCol, colShift);
-                colShift = newColShift;
+
+                char[] newShift = Faces[affected[i]].GetColumn(shiftIndex[i]);
+                //reverse shifting column when necessary
+                if(affected[i] == "back" || (i > 0 && affected[i - 1] == "back")) {
+
+                    shift = shift.Reverse().ToArray();
+                }
+                //change affected columns on affected faces
+                Faces[affected[i]].ChangeColumn(shiftIndex[i], shift);
+                shift = newShift;
             }
             //rotate face
-            Faces[face].Rotate(direction);
+            Faces[face].Rotate();
+        }
+        /*
+         * rotate left or right face counter-clockwise
+         * @param {string} [face] - face to rotate
+         */
+        public void RotateLeftRightCounterClockwise(string face) {
+
+            for(int i = 0; i < 3; i++) {
+
+                RotateLeftRightClockwise(face);
+            }
         }
         /*
          * rotate front or back face
          * @param {string} [face] - face to rotate
-         * @param {string} [direction] - direction of rotation
+         * @param {string} [direction] - rotate direction
          */
-        public void RotateFrontBack(string face, string direction = "clockwise") {
+        public void RotateFrontBack(string face, string direction) {
 
-            string[] affected = GetAffected(face, direction);
-            string[] affectedType = new string[] { "row", "col", "row", "col" };
-            int[] affectedIndex;
-            //determine index of row/column on each affected face
             if(direction == "clockwise") {
 
-                affectedIndex = face == "front" ? 
-                    new int[] { Faces["up"].Content.GetLength(0) - 1, 0, 0, Faces["left"].Content.GetLength(1) - 1 } :
-                    new int[] { 0, 0, Faces["down"].Content.GetLength(0) - 1, Faces["right"].Content.GetLength(1) - 1 };
+                RotateFrontBackClockwise(face);
             }
-            else { 
-            
-                affectedIndex = face == "front" ? 
-                    new int[] { Faces["up"].Content.GetLength(0) - 1, Faces["left"].Content.GetLength(1) - 1, 0, 0 } :
-                    new int[] { 0, Faces["right"].Content.GetLength(1) - 1, Faces["down"].Content.GetLength(0) - 1, 0 }; 
+            else {
+
+                RotateFrontBackCounterClockwise(face);
             }
-            //u, r, d, l - clockwise
-            //u, l, d, r           
+        }
+        /*
+         * rotate front or back face clockwise
+         * @param {string} [face] - face to rotate
+         */
+        public void RotateFrontBackClockwise(string face) {
+
+            string[] affected = GetAffected(face);
+            string[] affectedType = new string[] { "row", "col", "row", "col" };
+            int[] shiftIndex = face == "front" ? new int[] { 2, 0, 0, 2 } : new int[] { 0, 0, 2, 2 };
             char[] shift = affectedType.Last() == "row" ? 
-                Faces[affected.Last()].GetRow(affectedIndex.Last()) : Faces[affected.Last()].GetColumn(affectedIndex.Last());
+                Faces[affected.Last()].GetRow(shiftIndex.Last()) : Faces[affected.Last()].GetColumn(shiftIndex.Last());
 
             for(int i = 0; i < affected.Length; i++) {
-                //change blocks on given column
-                char[] newShift = affectedType[i] == "row" ?
-                    Faces[affected[i]].GetRow(affectedIndex[i]) : Faces[affected[i]].GetColumn(affectedIndex[i]);
+            
+                char[] newShift = affectedType[i] == "row" ? 
+                    Faces[affected[i]].GetRow(shiftIndex[i]) : Faces[affected[i]].GetColumn(shiftIndex[i]);
+                //reverse shifting row/column when necessary
+                if((face == "front" && (affected[i] == "down" || (i > 0 && affected[i - 1] == "left"))) ||
+                   (face == "back" && (affected[i] == "left" || (i > 0 && affected[i - 1] == "down")))) {
                 
+                    shift = shift.Reverse().ToArray();
+                }
+                //change affected row/column on affected faces
                 if(affectedType[i] == "row") {
-
-                    Faces[affected[i]].ChangeRow(affectedIndex[i], shift);
+                
+                    Faces[affected[i]].ChangeRow(shiftIndex[i], shift);
                 }
                 else {
-
-                    Faces[affected[i]].ChangeColumn(affectedIndex[i], shift);
+                
+                    Faces[affected[i]].ChangeColumn(shiftIndex[i], shift);
                 }
 
                 shift = newShift;
             }
             //rotate face
-            Faces[face].Rotate(direction);   
+            Faces[face].Rotate();
         }
         /*
-         * retrieve all affected faces due to rotation
+         * rotate front or back face counter-clockwise
          * @param {string} [face] - face to rotate
-         * @param {string} [direction] - direction of rotation
-         *
-         * @return {string[]} [names of affected faces in affected order]
          */
-        public string[] GetAffected(string face, string direction = "clockwise") {
+        public void RotateFrontBackCounterClockwise(string face) {
+
+            for(int i = 0; i < 3; i++) {
+
+                RotateFrontBackClockwise(face);
+            }
+        }
+        /*
+         * retrieve all affected faces in affected order 
+         * @param {string} [face] - face to rotate
+         */
+        public string[] GetAffected(string face) {
 
             switch(face) {
-            
-                case "up" :
 
-                    return direction == "clockwise" ?
+                case "left":
+                case "right":
+
+                    return face == "left" ?
+                        new string[] { "up", "front", "down", "back" } :
+                        new string[] { "up", "back", "down", "front" };
+
+                case "up":
+                case "down":
+
+                    return face == "up" ?
                         new string[] { "front", "left", "back", "right" } :
                         new string[] { "front", "right", "back", "left" };
 
-                case "down" :
+                case "front":
+                case "back":
 
-                    return direction == "clockwise" ?
-                        new string[] { "front", "right", "back", "left" } :
-                        new string[] { "front", "left", "back", "right" };
-
-                case "left" :
-
-                    return direction == "clockwise" ?
-                        new string[] { "front", "down", "back", "up" } :
-                        new string[] { "front", "up", "back", "down" };
-
-                case "right" :
-        
-                    return direction == "clockwise" ?
-                        new string[] { "front", "up", "back", "down" } :
-                        new string[] { "front", "down", "back", "up" };
-
-                case "front" :
-
-                    return direction == "clockwise" ?
+                    return face == "front" ?
                         new string[] { "up", "right", "down", "left" } :
                         new string[] { "up", "left", "down", "right" };
-
-                case "back" :
-
-                    return direction == "clockwise" ?
-                        new string[] { "up", "left", "down", "right" } :
-                        new string[] { "up", "right", "down", "left" };
             }
 
             return null;
