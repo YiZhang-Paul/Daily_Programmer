@@ -35,7 +35,7 @@ namespace repetitiveRubikCube {
          */
         public bool OnDefaultState() {
 
-            return _names.All(name => Faces[name].OnDefaultState());
+            return Faces.All(pair => pair.Value.OnDefaultState());
         }
         /*
          * rotate up face
@@ -44,6 +44,18 @@ namespace repetitiveRubikCube {
         public void RotateUp(string direction = "clockwise") {
 
             string[] affected = GetAffected("up", direction);
+            //rotate face
+            Faces["up"].Rotate(direction); 
+        }
+        /*
+         * rotate down face
+         * @param {string} [direction] - direction of rotation
+         */
+        public void RotateDown(string direction = "clockwise") {
+
+            string[] affected = GetAffected("down", direction);
+            //rotate face
+            Faces["down"].Rotate(direction); 
         }
         /*
          * rotate front face
@@ -52,6 +64,8 @@ namespace repetitiveRubikCube {
         public void RotateFront(string direction = "clockwise") {
 
             string[] affected = GetAffected("front", direction);
+            //rotate face
+            Faces["front"].Rotate(direction); 
         }
         /*
          * rotate right face
@@ -61,9 +75,7 @@ namespace repetitiveRubikCube {
 
             string[] affected = GetAffected("right", direction);
             //rotate face
-            Faces["right"].Rotate(direction);
-
-                
+            Faces["right"].Rotate(direction);      
         }
         /*
          * retrieve opposite face of a given face
@@ -73,27 +85,22 @@ namespace repetitiveRubikCube {
          */
         public string GetOpposite(string name) { 
         
-            string opposite = "";
-
             switch(name) {
             
                 case "right" : case "left" :
 
-                    opposite = name == "right" ? "left" : "right";
-                    break;
+                    return name == "right" ? "left" : "right";
 
                 case "up" : case "down" :
 
-                    opposite = name == "up" ? "down" : "up";
-                    break;
+                    return name == "up" ? "down" : "up";
 
                 case "front" : case "back" :
 
-                    opposite = name == "front" ? "back" : "front";
-                    break;
+                    return name == "front" ? "back" : "front";
             }
 
-            return opposite;
+            return "";
         }
         /*
          * retrieve all affected faces due to rotation
