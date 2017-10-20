@@ -8,7 +8,9 @@ namespace scientificNotationTranslator {
     class Program {
         static void Main(string[] args) {
 
-
+            var generator = new NumberGenerator();
+            Console.WriteLine(generator.GetRandom());
+            Console.WriteLine(generator.GetRandomScientificNotation());
         }
     }
 }
