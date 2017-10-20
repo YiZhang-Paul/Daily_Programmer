@@ -16,8 +16,45 @@ namespace scientificNotationTranslator {
             Console.WriteLine(ToScientificNotation(input1));
             Console.WriteLine(ToScientificNotation(input2));
             Console.WriteLine(ToScientificNotation(input3));
-            //Console.WriteLine(TestToScientificNotation());
-            //Console.WriteLine(TestToExpandedNumber());
+            //bonus input
+            Console.WriteLine(TestToScientificNotation());
+            Console.WriteLine(TestToExpandedNumber());
+        }
+        /*
+         * randomly generate numbers and convert to scientific notation
+         *
+         * @return {string} [conversion result]
+         */
+        public static string TestToScientificNotation() {
+
+            var result = new StringBuilder();
+            var generator = new NumberGenerator();
+
+            for(int i = 0; i < 10; i++) {
+
+                double number = generator.GetRandom();
+                result.Append(number + " -> " + ToScientificNotation(number) + "\n");
+            }
+
+            return result.ToString();
+        }
+        /*
+         * randomly generate numbers in scientific notation and convert to expanded form
+         *
+         * @return {string} [conversion result]
+         */
+        public static string TestToExpandedNumber() {
+
+            var result = new StringBuilder();
+            var generator = new NumberGenerator();
+
+            for(int i = 0; i < 10; i++) {
+
+                string notation = generator.GetRandomScientificNotation();
+                result.Append(notation + " -> " + ToExpandedNumber(notation) + "\n");
+            }
+
+            return result.ToString();
         }
         /*
          * convert number into scientific notation
@@ -27,10 +64,9 @@ namespace scientificNotationTranslator {
          */
         public static string ToScientificNotation(double number) {
 
+            int power = 0;
             string leadDigits = Math.Truncate(number).ToString();
             //change number to scientific notation
-            int power = 0;
-
             if(leadDigits == "0") {
 
                 do {
