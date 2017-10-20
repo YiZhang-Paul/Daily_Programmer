@@ -1,1 +1,6 @@
 D:\all_languages\reddit_challenges\challenge_116\easy\permuteString\permuteString\bin\Debug\permuteString.exe.config
+D:\all_languages\reddit_challenges\challenge_116\easy\permuteString\permuteString\bin\Debug\permuteString.exe
+D:\all_languages\reddit_challenges\challenge_116\easy\permuteString\permuteString\bin\Debug\permuteString.pdb
+D:\all_languages\reddit_challenges\challenge_116\easy\permuteString\permuteString\obj\Debug\permuteString.csprojResolveAssemblyReference.cache
+D:\all_languages\reddit_challenges\challenge_116\easy\permuteString\permuteString\obj\Debug\permuteString.exe
+D:\all_languages\reddit_challenges\challenge_116\easy\permuteString\permuteString\obj\Debug\permuteString.pdb
