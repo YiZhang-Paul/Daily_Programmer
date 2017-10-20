@@ -1,0 +1,5 @@
+D:\all_languages\reddit_challenges\challenge_111\easy\starDelete\starDelete\bin\Debug\starDelete.exe.config
+D:\all_languages\reddit_challenges\challenge_111\easy\starDelete\starDelete\bin\Debug\starDelete.exe
+D:\all_languages\reddit_challenges\challenge_111\easy\starDelete\starDelete\bin\Debug\starDelete.pdb
+D:\all_languages\reddit_challenges\challenge_111\easy\starDelete\starDelete\obj\Debug\starDelete.exe
+D:\all_languages\reddit_challenges\challenge_111\easy\starDelete\starDelete\obj\Debug\starDelete.pdb
