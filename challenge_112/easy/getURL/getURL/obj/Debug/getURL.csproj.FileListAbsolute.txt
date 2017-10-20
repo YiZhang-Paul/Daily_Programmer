@@ -1,0 +1,6 @@
+D:\all_languages\reddit_challenges\challenge_112\easy\getURL\getURL\bin\Debug\getURL.exe.config
+D:\all_languages\reddit_challenges\challenge_112\easy\getURL\getURL\bin\Debug\getURL.exe
+D:\all_languages\reddit_challenges\challenge_112\easy\getURL\getURL\bin\Debug\getURL.pdb
+D:\all_languages\reddit_challenges\challenge_112\easy\getURL\getURL\obj\Debug\getURL.csprojResolveAssemblyReference.cache
+D:\all_languages\reddit_challenges\challenge_112\easy\getURL\getURL\obj\Debug\getURL.exe
+D:\all_languages\reddit_challenges\challenge_112\easy\getURL\getURL\obj\Debug\getURL.pdb
