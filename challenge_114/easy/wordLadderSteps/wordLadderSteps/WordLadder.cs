@@ -37,7 +37,7 @@ namespace wordLadderSteps {
             return null;
         }
         /*
-         * retrieve all valid words for current word in ladder
+         * retrieve all valid words for current word in the ladder
          * @param {string} [curWord] - current word in the ladder
          *
          * @return {string[]} [all valid words]
@@ -47,7 +47,7 @@ namespace wordLadderSteps {
             return WordList.Where(word => IsValidWord(curWord, word)).ToArray();
         }
         /*
-         * check if a word is a candidate of current word in ladder
+         * check if a word is a candidate of current word in the ladder
          * @param {string} [curWord] - current word in the ladder
          * @param {string} [testWord] - word to check
          *
@@ -56,7 +56,7 @@ namespace wordLadderSteps {
         public bool IsValidWord(string curWord, string testWord) { 
         
             if(testWord.Length != curWord.Length) {
-            
+
                 return false;
             }
 
@@ -73,6 +73,43 @@ namespace wordLadderSteps {
             }
 
             return hasOtherChar;
+        }
+        /*
+         * find words with given amount of candidates
+         * @param {int} [total] - total amount of candidates needed for the word
+         *
+         * @return {string[]} [all words with given amoun of candidates]
+         */
+        public string[] GetWordWithGivenCandidates(int total) {
+
+            return WordList.Where(word => GetCandidates(word).Length == total).ToArray();
+        }
+        /*
+         * retrieve all unique candidates along the word ladder chain
+         * @param {string} [start] - starting word in the chain
+         * @param {int} [steps] - total steps in the chain
+         *
+         * @return {string[]} [all unique candidates]
+         */
+        public string[] GetCandidatesChain(string start, int steps) {
+
+            var allCandidates = new HashSet<string>();
+            var curCandidates = new HashSet<string>(new string[] { start });
+
+            for(int i = 0; i < steps; i++) {
+
+                var newCandidates = new HashSet<string>();
+                
+                foreach(string word in curCandidates) {
+
+                    newCandidates.UnionWith(GetCandidates(word));
+                }
+
+                curCandidates = newCandidates;
+                allCandidates.UnionWith(curCandidates);
+            }
+
+            return allCandidates.ToArray();
         }
     }
 }
