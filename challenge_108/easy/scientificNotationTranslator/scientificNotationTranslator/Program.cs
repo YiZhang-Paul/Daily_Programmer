@@ -11,12 +11,13 @@ namespace scientificNotationTranslator {
             //challenge input
             double input1 = 239487d;
             double input2 = .654d;
+            double input3 = .0012d;
 
-            var generator = new NumberGenerator();
             Console.WriteLine(ToScientificNotation(input1));
             Console.WriteLine(ToScientificNotation(input2));
-            Console.WriteLine(ToExpandedNumber(ToScientificNotation(input1)));
-            Console.WriteLine(ToExpandedNumber(ToScientificNotation(input2)));
+            Console.WriteLine(ToScientificNotation(input3));
+            //Console.WriteLine(TestToScientificNotation());
+            //Console.WriteLine(TestToExpandedNumber());
         }
         /*
          * convert number into scientific notation
@@ -28,8 +29,22 @@ namespace scientificNotationTranslator {
 
             string leadDigits = Math.Truncate(number).ToString();
             //change number to scientific notation
-            number = leadDigits == "0" ? number * 10 : number / Math.Pow(10, leadDigits.Length - 1);
-            int power = leadDigits == "0" ? -1 : leadDigits.Length - 1;
+            int power = 0;
+
+            if(leadDigits == "0") {
+
+                do {
+
+                    number *= 10;
+                    power--;
+
+                } while(Math.Truncate(number) == 0);
+            }
+            else {
+
+                power = leadDigits.Length - 1;
+                number /= Math.Pow(10, power);
+            }
 
             return number + "e" + power;
         }
