@@ -1,1 +1,5 @@
 D:\all_languages\reddit_challenges\challenge_115\easy\guessNumberGame\guessNumberGame\bin\Debug\guessNumberGame.exe.config
+D:\all_languages\reddit_challenges\challenge_115\easy\guessNumberGame\guessNumberGame\bin\Debug\guessNumberGame.exe
+D:\all_languages\reddit_challenges\challenge_115\easy\guessNumberGame\guessNumberGame\bin\Debug\guessNumberGame.pdb
+D:\all_languages\reddit_challenges\challenge_115\easy\guessNumberGame\guessNumberGame\obj\Debug\guessNumberGame.exe
+D:\all_languages\reddit_challenges\challenge_115\easy\guessNumberGame\guessNumberGame\obj\Debug\guessNumberGame.pdb

@@ -8,7 +8,9 @@ namespace guessNumberGame {
     class Program {
         static void Main(string[] args) {
 
-
+            //challenge input
+            var game = new GuessNumberGame();
+            game.Run();
         }
     }
 }
