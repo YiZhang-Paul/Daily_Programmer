@@ -8,7 +8,9 @@ namespace wordLadderSteps {
     class Program {
         static void Main(string[] args) {
 
-
+            var ladder = new WordLadder();
+            //challenge input
+            Console.WriteLine(string.Join("\n", ladder.GetCandidates("puma")));
         }
     }
 }
