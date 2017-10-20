@@ -1,0 +1,6 @@
+D:\all_languages\reddit_challenges\challenge_109\easy\digitsCheck\digitsCheck\bin\Debug\digitsCheck.exe.config
+D:\all_languages\reddit_challenges\challenge_109\easy\digitsCheck\digitsCheck\bin\Debug\digitsCheck.exe
+D:\all_languages\reddit_challenges\challenge_109\easy\digitsCheck\digitsCheck\bin\Debug\digitsCheck.pdb
+D:\all_languages\reddit_challenges\challenge_109\easy\digitsCheck\digitsCheck\obj\Debug\digitsCheck.csprojResolveAssemblyReference.cache
+D:\all_languages\reddit_challenges\challenge_109\easy\digitsCheck\digitsCheck\obj\Debug\digitsCheck.exe
+D:\all_languages\reddit_challenges\challenge_109\easy\digitsCheck\digitsCheck\obj\Debug\digitsCheck.pdb
