@@ -1,0 +1,6 @@
+D:\all_languages\reddit_challenges\challenge_107\easy\allDecodings\allDecodings\bin\Debug\allDecodings.exe.config
+D:\all_languages\reddit_challenges\challenge_107\easy\allDecodings\allDecodings\bin\Debug\allDecodings.exe
+D:\all_languages\reddit_challenges\challenge_107\easy\allDecodings\allDecodings\bin\Debug\allDecodings.pdb
+D:\all_languages\reddit_challenges\challenge_107\easy\allDecodings\allDecodings\obj\Debug\allDecodings.csprojResolveAssemblyReference.cache
+D:\all_languages\reddit_challenges\challenge_107\easy\allDecodings\allDecodings\obj\Debug\allDecodings.exe
+D:\all_languages\reddit_challenges\challenge_107\easy\allDecodings\allDecodings\obj\Debug\allDecodings.pdb
