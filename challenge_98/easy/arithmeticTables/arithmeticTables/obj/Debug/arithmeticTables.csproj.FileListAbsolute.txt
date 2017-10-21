@@ -1,0 +1,6 @@
+D:\all_languages\reddit_challenges\challenge_98\easy\arithmeticTables\arithmeticTables\bin\Debug\arithmeticTables.exe.config
+D:\all_languages\reddit_challenges\challenge_98\easy\arithmeticTables\arithmeticTables\bin\Debug\arithmeticTables.exe
+D:\all_languages\reddit_challenges\challenge_98\easy\arithmeticTables\arithmeticTables\bin\Debug\arithmeticTables.pdb
+D:\all_languages\reddit_challenges\challenge_98\easy\arithmeticTables\arithmeticTables\obj\Debug\arithmeticTables.csprojResolveAssemblyReference.cache
+D:\all_languages\reddit_challenges\challenge_98\easy\arithmeticTables\arithmeticTables\obj\Debug\arithmeticTables.exe
+D:\all_languages\reddit_challenges\challenge_98\easy\arithmeticTables\arithmeticTables\obj\Debug\arithmeticTables.pdb
