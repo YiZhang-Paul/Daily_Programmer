@@ -1,0 +1,5 @@
+D:\all_languages\reddit_challenges\challenge_100\easy\sleepCycleEstimator\sleepCycleEstimator\bin\Debug\sleepCycleEstimator.exe.config
+D:\all_languages\reddit_challenges\challenge_100\easy\sleepCycleEstimator\sleepCycleEstimator\bin\Debug\sleepCycleEstimator.exe
+D:\all_languages\reddit_challenges\challenge_100\easy\sleepCycleEstimator\sleepCycleEstimator\bin\Debug\sleepCycleEstimator.pdb
+D:\all_languages\reddit_challenges\challenge_100\easy\sleepCycleEstimator\sleepCycleEstimator\obj\Debug\sleepCycleEstimator.exe
+D:\all_languages\reddit_challenges\challenge_100\easy\sleepCycleEstimator\sleepCycleEstimator\obj\Debug\sleepCycleEstimator.pdb
