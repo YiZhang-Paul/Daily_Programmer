@@ -1,0 +1,7 @@
+#99[easy] Words with letters in alphabetical order
+
+All Done
+
+url: https://www.reddit.com/r/dailyprogrammer/comments/101m7y/9172012_challenge_99_easy_words_with_letters_in/
+
+How many words contained in this dictionary have their letters in alphabetical order? So, for instance the letters in "ghost" and "bee" is in alphabetical order, but the letters in "cab" are not.
