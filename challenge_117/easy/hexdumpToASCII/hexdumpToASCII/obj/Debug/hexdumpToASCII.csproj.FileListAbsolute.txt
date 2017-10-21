@@ -1,0 +1,6 @@
+D:\all_languages\reddit_challenges\challenge_117\easy\hexdumpToASCII\hexdumpToASCII\bin\Debug\hexdumpToASCII.exe.config
+D:\all_languages\reddit_challenges\challenge_117\easy\hexdumpToASCII\hexdumpToASCII\obj\Debug\hexdumpToASCII.csprojResolveAssemblyReference.cache
+D:\all_languages\reddit_challenges\challenge_117\easy\hexdumpToASCII\hexdumpToASCII\bin\Debug\hexdumpToASCII.exe
+D:\all_languages\reddit_challenges\challenge_117\easy\hexdumpToASCII\hexdumpToASCII\bin\Debug\hexdumpToASCII.pdb
+D:\all_languages\reddit_challenges\challenge_117\easy\hexdumpToASCII\hexdumpToASCII\obj\Debug\hexdumpToASCII.exe
+D:\all_languages\reddit_challenges\challenge_117\easy\hexdumpToASCII\hexdumpToASCII\obj\Debug\hexdumpToASCII.pdb
