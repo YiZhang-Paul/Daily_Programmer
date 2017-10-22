@@ -1,0 +1,6 @@
+D:\all_languages\reddit_challenges\challenge_125\easy\wordAnalytics\wordAnalytics\bin\Debug\wordAnalytics.exe.config
+D:\all_languages\reddit_challenges\challenge_125\easy\wordAnalytics\wordAnalytics\obj\Debug\wordAnalytics.csprojResolveAssemblyReference.cache
+D:\all_languages\reddit_challenges\challenge_125\easy\wordAnalytics\wordAnalytics\bin\Debug\wordAnalytics.exe
+D:\all_languages\reddit_challenges\challenge_125\easy\wordAnalytics\wordAnalytics\bin\Debug\wordAnalytics.pdb
+D:\all_languages\reddit_challenges\challenge_125\easy\wordAnalytics\wordAnalytics\obj\Debug\wordAnalytics.exe
+D:\all_languages\reddit_challenges\challenge_125\easy\wordAnalytics\wordAnalytics\obj\Debug\wordAnalytics.pdb
