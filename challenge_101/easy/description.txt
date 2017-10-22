@@ -1,5 +1,7 @@
 #101[easy] Non-repeating years
 
+All Done
+
 url: https://www.reddit.com/r/dailyprogrammer/comments/10l8ay/9272012_challenge_101_easy_nonrepeating_years/
 
 This challenge comes to us from user skeeto
