@@ -1,0 +1,6 @@
+D:\all_languages\reddit_challenges\challenge_104\easy\powerplantSimulation\powerplantSimulation\bin\Debug\powerplantSimulation.exe.config
+D:\all_languages\reddit_challenges\challenge_104\easy\powerplantSimulation\powerplantSimulation\bin\Debug\powerplantSimulation.exe
+D:\all_languages\reddit_challenges\challenge_104\easy\powerplantSimulation\powerplantSimulation\bin\Debug\powerplantSimulation.pdb
+D:\all_languages\reddit_challenges\challenge_104\easy\powerplantSimulation\powerplantSimulation\obj\Debug\powerplantSimulation.csprojResolveAssemblyReference.cache
+D:\all_languages\reddit_challenges\challenge_104\easy\powerplantSimulation\powerplantSimulation\obj\Debug\powerplantSimulation.exe
+D:\all_languages\reddit_challenges\challenge_104\easy\powerplantSimulation\powerplantSimulation\obj\Debug\powerplantSimulation.pdb
