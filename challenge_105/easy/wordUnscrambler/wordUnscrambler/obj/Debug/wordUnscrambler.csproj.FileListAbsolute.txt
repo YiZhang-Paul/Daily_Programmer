@@ -1,0 +1,6 @@
+D:\all_languages\reddit_challenges\challenge_105\easy\wordUnscrambler\wordUnscrambler\bin\Debug\wordUnscrambler.exe.config
+D:\all_languages\reddit_challenges\challenge_105\easy\wordUnscrambler\wordUnscrambler\bin\Debug\wordUnscrambler.exe
+D:\all_languages\reddit_challenges\challenge_105\easy\wordUnscrambler\wordUnscrambler\bin\Debug\wordUnscrambler.pdb
+D:\all_languages\reddit_challenges\challenge_105\easy\wordUnscrambler\wordUnscrambler\obj\Debug\wordUnscrambler.csprojResolveAssemblyReference.cache
+D:\all_languages\reddit_challenges\challenge_105\easy\wordUnscrambler\wordUnscrambler\obj\Debug\wordUnscrambler.exe
+D:\all_languages\reddit_challenges\challenge_105\easy\wordUnscrambler\wordUnscrambler\obj\Debug\wordUnscrambler.pdb
