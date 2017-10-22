@@ -1,0 +1,6 @@
+D:\all_languages\reddit_challenges\challenge_102\easy\diceRoller\diceRoller\bin\Debug\diceRoller.exe.config
+D:\all_languages\reddit_challenges\challenge_102\easy\diceRoller\diceRoller\bin\Debug\diceRoller.exe
+D:\all_languages\reddit_challenges\challenge_102\easy\diceRoller\diceRoller\bin\Debug\diceRoller.pdb
+D:\all_languages\reddit_challenges\challenge_102\easy\diceRoller\diceRoller\obj\Debug\diceRoller.csprojResolveAssemblyReference.cache
+D:\all_languages\reddit_challenges\challenge_102\easy\diceRoller\diceRoller\obj\Debug\diceRoller.exe
+D:\all_languages\reddit_challenges\challenge_102\easy\diceRoller\diceRoller\obj\Debug\diceRoller.pdb
