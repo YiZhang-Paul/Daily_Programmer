@@ -1,1 +1,6 @@
 D:\all_languages\reddit_challenges\challenge_118\easy\dateLocalization\dateLocalization\bin\Debug\dateLocalization.exe.config
+D:\all_languages\reddit_challenges\challenge_118\easy\dateLocalization\dateLocalization\bin\Debug\dateLocalization.exe
+D:\all_languages\reddit_challenges\challenge_118\easy\dateLocalization\dateLocalization\bin\Debug\dateLocalization.pdb
+D:\all_languages\reddit_challenges\challenge_118\easy\dateLocalization\dateLocalization\obj\Debug\dateLocalization.csprojResolveAssemblyReference.cache
+D:\all_languages\reddit_challenges\challenge_118\easy\dateLocalization\dateLocalization\obj\Debug\dateLocalization.exe
+D:\all_languages\reddit_challenges\challenge_118\easy\dateLocalization\dateLocalization\obj\Debug\dateLocalization.pdb
