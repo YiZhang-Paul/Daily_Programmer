@@ -1,0 +1,6 @@
+D:\all_languages\reddit_challenges\challenge_106\easy\randomTalker\randomTalker\bin\Debug\randomTalker.exe.config
+D:\all_languages\reddit_challenges\challenge_106\easy\randomTalker\randomTalker\obj\Debug\randomTalker.csprojResolveAssemblyReference.cache
+D:\all_languages\reddit_challenges\challenge_106\easy\randomTalker\randomTalker\bin\Debug\randomTalker.exe
+D:\all_languages\reddit_challenges\challenge_106\easy\randomTalker\randomTalker\bin\Debug\randomTalker.pdb
+D:\all_languages\reddit_challenges\challenge_106\easy\randomTalker\randomTalker\obj\Debug\randomTalker.exe
+D:\all_languages\reddit_challenges\challenge_106\easy\randomTalker\randomTalker\obj\Debug\randomTalker.pdb
