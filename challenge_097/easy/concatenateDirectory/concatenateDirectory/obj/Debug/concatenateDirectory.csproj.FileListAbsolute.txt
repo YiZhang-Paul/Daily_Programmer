@@ -1,1 +1,6 @@
 D:\all_languages\reddit_challenges\challenge_097\easy\concatenateDirectory\concatenateDirectory\bin\Debug\concatenateDirectory.exe.config
+D:\all_languages\reddit_challenges\challenge_097\easy\concatenateDirectory\concatenateDirectory\bin\Debug\concatenateDirectory.exe
+D:\all_languages\reddit_challenges\challenge_097\easy\concatenateDirectory\concatenateDirectory\bin\Debug\concatenateDirectory.pdb
+D:\all_languages\reddit_challenges\challenge_097\easy\concatenateDirectory\concatenateDirectory\obj\Debug\concatenateDirectory.csprojResolveAssemblyReference.cache
+D:\all_languages\reddit_challenges\challenge_097\easy\concatenateDirectory\concatenateDirectory\obj\Debug\concatenateDirectory.exe
+D:\all_languages\reddit_challenges\challenge_097\easy\concatenateDirectory\concatenateDirectory\obj\Debug\concatenateDirectory.pdb
