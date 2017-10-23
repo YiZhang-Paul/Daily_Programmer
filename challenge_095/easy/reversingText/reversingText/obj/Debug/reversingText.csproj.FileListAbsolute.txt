@@ -1,0 +1,6 @@
+D:\all_languages\reddit_challenges\challenge_095\easy\reversingText\reversingText\bin\Debug\reversingText.exe.config
+D:\all_languages\reddit_challenges\challenge_095\easy\reversingText\reversingText\bin\Debug\reversingText.exe
+D:\all_languages\reddit_challenges\challenge_095\easy\reversingText\reversingText\bin\Debug\reversingText.pdb
+D:\all_languages\reddit_challenges\challenge_095\easy\reversingText\reversingText\obj\Debug\reversingText.csprojResolveAssemblyReference.cache
+D:\all_languages\reddit_challenges\challenge_095\easy\reversingText\reversingText\obj\Debug\reversingText.exe
+D:\all_languages\reddit_challenges\challenge_095\easy\reversingText\reversingText\obj\Debug\reversingText.pdb
