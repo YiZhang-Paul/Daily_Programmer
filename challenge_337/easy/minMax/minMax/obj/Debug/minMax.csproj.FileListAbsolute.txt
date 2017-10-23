@@ -1,1 +1,6 @@
 D:\all_languages\reddit_challenges\challenge_337\easy\minMax\minMax\bin\Debug\minMax.exe.config
+D:\all_languages\reddit_challenges\challenge_337\easy\minMax\minMax\obj\Debug\minMax.csprojResolveAssemblyReference.cache
+D:\all_languages\reddit_challenges\challenge_337\easy\minMax\minMax\bin\Debug\minMax.exe
+D:\all_languages\reddit_challenges\challenge_337\easy\minMax\minMax\bin\Debug\minMax.pdb
+D:\all_languages\reddit_challenges\challenge_337\easy\minMax\minMax\obj\Debug\minMax.exe
+D:\all_languages\reddit_challenges\challenge_337\easy\minMax\minMax\obj\Debug\minMax.pdb
