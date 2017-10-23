@@ -1,0 +1,1 @@
+this is text file in sub directory 1.

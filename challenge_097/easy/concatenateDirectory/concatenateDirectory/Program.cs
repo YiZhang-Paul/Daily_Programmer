@@ -8,25 +8,42 @@ using System.IO;
 namespace concatenateDirectory {
     class Program {
         static void Main(string[] args) {
-
+            
             //challenge input
-            Console.WriteLine("Enter Directory Path: ");
-            Console.WriteLine(string.Join(" ", ShowFiles(Console.ReadLine())));
+            if(args.Length <= 1) {
+
+                Console.WriteLine(args.Length == 0 ? "Enter Directory Path:\n" : "");
+                Console.WriteLine(ShowFiles(Console.ReadLine()));
+            }
+            else if(args.Length == 2 && args[1] == "-r") {
+
+                Console.WriteLine(ShowFiles(Console.ReadLine(), true));
+            }
         }
         /// <summary>
         /// retrieve paths of all text files in given directory
         /// </summary>
-        /// <param name="directory">directory name</param>
-        /// 
+        /// <param name="name">directory name</param>
+        /// <param name="collection">collection of all file paths</param>
+        /// <param name="recursive">get all text files in sub-directories when true</param>
         /// <returns>list of all text file paths</returns>
-        /// 
-        public static string[] GetFilePaths(string directory) {
+        public static List<FileInfo> GetFilePaths(string name, List<FileInfo> collection, bool recursive = false) {
 
             try {
 
-                directory = directory.Trim() == "" ? Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "testDir") : directory;
+                var directory = new DirectoryInfo(name == "" ? "testDir" : name);
+                //look for all text files in all sub-directories
+                if(recursive) {
+                
+                    foreach(var directoryInfo in directory.GetDirectories()) {
 
-                return Directory.GetFiles(directory, "*.txt");
+                        GetFilePaths(directoryInfo.FullName, collection, true);
+                    }
+                }
+                //record text file information
+                collection.AddRange(directory.GetFiles());
+
+                return collection;
             }
             catch(Exception exception) {
 
@@ -34,25 +51,23 @@ namespace concatenateDirectory {
                 Console.WriteLine(exception.Message);
             }
 
-            return new string[0];
+            return new List<FileInfo>();
         }
         /// <summary>
-        /// display text file information in a given directory
+        /// display text file information in a given direcotry
         /// </summary>
         /// <param name="directory">directory with text files</param>
-        /// 
+        /// <param name="recursive">get all text files in sub-directories when true</param>
         /// <returns>file information</returns>
-        /// 
-        public static string ShowFiles(string directory = null) {
+        public static string ShowFiles(string directory = "", bool recursive = false) {
 
             var information = new StringBuilder();
-            string[] paths = GetFilePaths(directory);
+            var fileInfos = GetFilePaths(directory.Trim(), new List<FileInfo>(), recursive);
 
-            foreach(string path in paths) {
+            foreach(var fileInfo in fileInfos) {
                 //retrieve file information and content
-                var info = new FileInfo(path);
-                information.Append("=== " + info.Name + "(" + info.Length + " bytes)\n");
-                information.Append(File.ReadAllText(path) + "\n\n");
+                information.Append("=== " + fileInfo.Name + "(" + fileInfo.Length + " bytes)\n");
+                information.Append(File.ReadAllText(fileInfo.FullName) + "\n\n");
             }
 
             return information.ToString();
