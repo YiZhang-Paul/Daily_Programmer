@@ -13,9 +13,9 @@ namespace allDecodings {
          * @return {string[]} [all decoding]
          */
         public string[] GetAllDecoding(string message) {
-
+        
             var patterns = GetPatterns(message, new List<string>());
-
+        
             return patterns.Where(pattern => IsValid(pattern))
                            .Select(pattern => Decode(pattern))
                            .Reverse()
