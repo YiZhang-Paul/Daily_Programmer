@@ -1,0 +1,6 @@
+D:\all_languages\reddit_challenges\challenge_090\easy\walkaroundRasterizer\walkaroundRasterizer\bin\Debug\walkaroundRasterizer.exe.config
+D:\all_languages\reddit_challenges\challenge_090\easy\walkaroundRasterizer\walkaroundRasterizer\bin\Debug\walkaroundRasterizer.exe
+D:\all_languages\reddit_challenges\challenge_090\easy\walkaroundRasterizer\walkaroundRasterizer\bin\Debug\walkaroundRasterizer.pdb
+D:\all_languages\reddit_challenges\challenge_090\easy\walkaroundRasterizer\walkaroundRasterizer\obj\Debug\walkaroundRasterizer.csprojResolveAssemblyReference.cache
+D:\all_languages\reddit_challenges\challenge_090\easy\walkaroundRasterizer\walkaroundRasterizer\obj\Debug\walkaroundRasterizer.exe
+D:\all_languages\reddit_challenges\challenge_090\easy\walkaroundRasterizer\walkaroundRasterizer\obj\Debug\walkaroundRasterizer.pdb
