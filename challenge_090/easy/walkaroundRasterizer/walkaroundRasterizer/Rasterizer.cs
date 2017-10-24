@@ -53,15 +53,16 @@ namespace walkaroundRasterizer {
         /// <param name="row">total rows on grid</param>
         /// <param name="column">total columns on grid</param>
         /// <param name="instructions">walkaround rasterizer instructions</param>
+        /// <param name="color">color to draw</param>
         /// <param name="output">output file name</param>
-        public void Rasterize(int row, int column, string instructions, string output = "testRasterizer.png") { 
+        public void Rasterize(int row, int column, string instructions, Color color, string output = "testRasterizer.png") { 
         
             using(var image = new Bitmap(row * PixelWidth, column * PixelWidth)) {
 
                 using(var drawer = Graphics.FromImage(image)) {
                     //fill entire background with white
                     drawer.Clear(Color.White);
-                    var brush = new SolidBrush(Color.Gray);
+                    var brush = new SolidBrush(color);
 
                     foreach(char instruction in instructions.ToLower()) {
 

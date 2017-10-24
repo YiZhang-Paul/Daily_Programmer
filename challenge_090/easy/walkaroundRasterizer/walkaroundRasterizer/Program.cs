@@ -11,13 +11,13 @@ namespace walkaroundRasterizer {
 
             //challenge input
             var rasterizer = new Rasterizer();
-            rasterizer.Rasterize(5, 5, "PESPESPESPESPNNNNPWSPWSPWSPWSP");
+            rasterizer.Rasterize(5, 5, "PESPESPESPESPNNNNPWSPWSPWSPWSP", Color.Gray);
             //bonus input
             var derasterizer = new Derasterizer();
             string result = derasterizer.Derasterize("testRasterizer.png", 5, 5);
             Console.WriteLine(result);
             //test bonus
-            rasterizer.Rasterize(5, 5, result, "testDerasterizer.png");
+            rasterizer.Rasterize(5, 5, result, Color.Red, "testDerasterizer.png");
         }
     }
 }
