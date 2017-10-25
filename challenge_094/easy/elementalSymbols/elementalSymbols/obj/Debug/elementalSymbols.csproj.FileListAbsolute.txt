@@ -1,1 +1,6 @@
 D:\all_languages\reddit_challenges\challenge_094\easy\elementalSymbols\elementalSymbols\bin\Debug\elementalSymbols.exe.config
+D:\all_languages\reddit_challenges\challenge_094\easy\elementalSymbols\elementalSymbols\bin\Debug\elementalSymbols.exe
+D:\all_languages\reddit_challenges\challenge_094\easy\elementalSymbols\elementalSymbols\bin\Debug\elementalSymbols.pdb
+D:\all_languages\reddit_challenges\challenge_094\easy\elementalSymbols\elementalSymbols\obj\Debug\elementalSymbols.csprojResolveAssemblyReference.cache
+D:\all_languages\reddit_challenges\challenge_094\easy\elementalSymbols\elementalSymbols\obj\Debug\elementalSymbols.exe
+D:\all_languages\reddit_challenges\challenge_094\easy\elementalSymbols\elementalSymbols\obj\Debug\elementalSymbols.pdb
