@@ -1,1 +1,6 @@
 D:\all_languages\reddit_challenges\challenge_092\easy\numberDisplay\numberDisplay\bin\Debug\numberDisplay.exe.config
+D:\all_languages\reddit_challenges\challenge_092\easy\numberDisplay\numberDisplay\obj\Debug\numberDisplay.csprojResolveAssemblyReference.cache
+D:\all_languages\reddit_challenges\challenge_092\easy\numberDisplay\numberDisplay\bin\Debug\numberDisplay.exe
+D:\all_languages\reddit_challenges\challenge_092\easy\numberDisplay\numberDisplay\bin\Debug\numberDisplay.pdb
+D:\all_languages\reddit_challenges\challenge_092\easy\numberDisplay\numberDisplay\obj\Debug\numberDisplay.exe
+D:\all_languages\reddit_challenges\challenge_092\easy\numberDisplay\numberDisplay\obj\Debug\numberDisplay.pdb
