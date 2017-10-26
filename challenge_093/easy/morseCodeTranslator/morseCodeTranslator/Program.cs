@@ -8,7 +8,8 @@ namespace morseCodeTranslator {
     class Program {
         static void Main(string[] args) {
 
-
+            //challenge input
+            var translator = new MorseCodeTranslator();
         }
     }
 }
