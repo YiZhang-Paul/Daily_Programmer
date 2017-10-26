@@ -8,6 +8,7 @@ namespace rowColumnSorting {
     class MatrixSorter {
 
         public int[][] Matrix { get; private set; }
+        public int MaxNumber { get { return Matrix.Max(row => row.Max()); } }
 
         public MatrixSorter() {
         }
@@ -126,7 +127,10 @@ namespace rowColumnSorting {
         /// <param name="matrix">matrix to display</param>
         public void DisplayMatrix(int[][] matrix) {
 
-            Console.WriteLine(string.Join("\n", matrix.Select(row => string.Join(" ", row))) + "\n");
+            int colWidth = MaxNumber.ToString().Length;
+            string lineBreak = "".PadLeft((colWidth + 3) * matrix[0].Length + 1, '-');
+            var rows = matrix.Select(row => "| " + string.Join(" | ", row.Select(number => number.ToString().PadLeft(colWidth, ' '))) + " |");
+            Console.WriteLine(lineBreak + "\n" + string.Join("\n" + lineBreak + "\n", rows) + "\n" + lineBreak);
         }
         /// <summary>
         /// sort matrix by row and by column
