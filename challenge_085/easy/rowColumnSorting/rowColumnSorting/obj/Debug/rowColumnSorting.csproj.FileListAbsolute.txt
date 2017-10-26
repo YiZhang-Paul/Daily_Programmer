@@ -1,1 +1,6 @@
 D:\all_languages\reddit_challenges\challenge_085\easy\rowColumnSorting\rowColumnSorting\bin\Debug\rowColumnSorting.exe.config
+D:\all_languages\reddit_challenges\challenge_085\easy\rowColumnSorting\rowColumnSorting\bin\Debug\rowColumnSorting.exe
+D:\all_languages\reddit_challenges\challenge_085\easy\rowColumnSorting\rowColumnSorting\bin\Debug\rowColumnSorting.pdb
+D:\all_languages\reddit_challenges\challenge_085\easy\rowColumnSorting\rowColumnSorting\obj\Debug\rowColumnSorting.csprojResolveAssemblyReference.cache
+D:\all_languages\reddit_challenges\challenge_085\easy\rowColumnSorting\rowColumnSorting\obj\Debug\rowColumnSorting.exe
+D:\all_languages\reddit_challenges\challenge_085\easy\rowColumnSorting\rowColumnSorting\obj\Debug\rowColumnSorting.pdb
