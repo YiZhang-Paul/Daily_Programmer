@@ -10,6 +10,8 @@ namespace morseCodeTranslator {
 
             //challenge input
             var translator = new MorseCodeTranslator();
+            Console.WriteLine(translator.Translate("SOS (SOS)"));
+            Console.WriteLine(translator.Translate("... --- ...  -.--.- ... --- ... -.--.-"));
         }
     }
 }
