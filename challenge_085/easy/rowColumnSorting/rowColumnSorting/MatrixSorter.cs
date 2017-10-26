@@ -38,88 +38,59 @@ namespace rowColumnSorting {
         /// retrieve a given row of matrix
         /// </summary>
         /// <param name="row">index of target row</param>
+        /// <param name="matrix">target matrix</param>
         /// <returns>target row on matrix</returns>
-        public int[] GetRow(int row) { 
-        
-            return Matrix[row];
+        public int[] GetRow(int row, int[][] matrix) {
+
+            return matrix[row];
         }
         /// <summary>
         /// retrieve a given column of matrix
         /// </summary>
         /// <param name="column">index of target column</param>
+        /// <param name="matrix">target matrix</param>
         /// <returns>target column on matrix</returns>
-        public int[] GetColumn(int column) {
+        public int[] GetColumn(int column, int[][] matrix) {
 
-            return Matrix.Select(row => row[column]).ToArray();
+            return matrix.Select(row => row[column]).ToArray();
+        }
+        /// <summary>
+        /// retrieve all rows on matrix
+        /// </summary>
+        /// <param name="matrix">target matrix</param>
+        /// <returns>all rows on matrix</returns>
+        public List<int[]> GetAllRows(int[][] matrix) {
+
+            return new int[matrix.Length].Select((row, index) => GetRow(index, matrix)).ToList();
+        }
+        /// <summary>
+        /// retrieve all columns on matrix
+        /// </summary>
+        /// <param name="matrix">target matrix</param>
+        /// <returns>all columns on matrix</returns>
+        public List<int[]> GetAllColumns(int[][] matrix) {
+
+            return new int[matrix[0].Length].Select((column, index) => GetColumn(index, matrix)).ToList();
         }
         /// <summary>
         /// sort matrix by row sum
         /// </summary>
+        /// <param name="matrix">target matrix</param>
         /// <returns>sorted matrix</returns>
-        public int[][] SortByRow() { 
-        
-            int[][] output = new int[Matrix.Length][];
-            var sums = new Dictionary<int, List<int>>();
+        public int[][] SortByRow(int[][] matrix) {
 
-            for(int i = 0; i < Matrix.Length; i++) {
-
-                int sum = GetRow(i).Sum();
-                sums[sum] = sums.ContainsKey(sum) ? sums[sum] : new List<int>();
-                sums[sum].Add(i);
-            }
-
-            int curRow = 0;
-
-            foreach(var pair in sums.OrderBy(pair => pair.Key)) {
-            
-                foreach(int index in pair.Value) {
-                
-                    output[curRow++] = GetRow(index);
-                }
-            }
-
-            return output;
+            return GetAllRows(matrix).OrderBy(row => row.Sum()).ToArray();
         }
         /// <summary>
         /// sort matrix by column sum
         /// </summary>
+        /// <param name="matrix">target matrix</param>
         /// <returns>sorted matrix</returns>
-        public int[][] SortByColumn() { 
-        
-            int[][] output = new int[Matrix.Length][];
+        public int[][] SortByColumn(int[][] matrix) {
 
-            for(int i = 0; i < Matrix.Length; i++) {
+            var sorted = GetAllColumns(matrix).OrderBy(column => column.Sum());
 
-                output[i] = new int[Matrix[0].Length];
-            }
-
-            var sums = new Dictionary<int, List<int>>();
-
-            for(int i = 0; i < Matrix[0].Length; i++) {
-
-                int sum = GetColumn(i).Sum();
-                sums[sum] = sums.ContainsKey(sum) ? sums[sum] : new List<int>();
-                sums[sum].Add(i);
-            }
-
-            int curColumn = 0;
-
-            foreach(var pair in sums.OrderBy(pair => pair.Key)) {
-            
-                foreach(int index in pair.Value) {
-
-                    int[] column = GetColumn(index);
-
-                    for(int i = 0; i < column.Length; i++) {
-
-                        output[i][curColumn] = column[i];
-                    }
-
-                    curColumn++;
-                }
-            }
-
-            return output;
+            return GetAllColumns(sorted.ToArray()).ToArray();
         }
         /// <summary>
         /// display matrix in console
@@ -127,18 +98,20 @@ namespace rowColumnSorting {
         /// <param name="matrix">matrix to display</param>
         public void DisplayMatrix(int[][] matrix) {
 
-            int colWidth = MaxNumber.ToString().Length;
-            string lineBreak = "".PadLeft((colWidth + 3) * matrix[0].Length + 1, '-');
-            var rows = matrix.Select(row => "| " + string.Join(" | ", row.Select(number => number.ToString().PadLeft(colWidth, ' '))) + " |");
+            int columnWidth = MaxNumber.ToString().Length;
+            string lineBreak = "".PadLeft((columnWidth + 3) * matrix[0].Length + 1, '-');
+            var rows = matrix.Select(row => row.Select(number => number.ToString().PadLeft(columnWidth, ' ')))
+                             .Select(row => "| " + string.Join(" | ", row) + " |");
             Console.WriteLine(lineBreak + "\n" + string.Join("\n" + lineBreak + "\n", rows) + "\n" + lineBreak);
         }
         /// <summary>
         /// sort matrix by row and by column
         /// </summary>
-        public void SortByRowColumn() {
+        /// <param name="matrix">matrix to display</param>
+        public void SortByRowColumn(int[][] matrix) {
 
-            DisplayMatrix(SortByRow());
-            DisplayMatrix(SortByColumn());
+            DisplayMatrix(SortByRow(matrix));
+            DisplayMatrix(SortByColumn(matrix));
         }
     }
 }

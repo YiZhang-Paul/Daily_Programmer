@@ -14,7 +14,7 @@ namespace rowColumnSorting {
                                11 6 55 3";
 
             var sorter = new MatrixSorter(matrix1);
-            sorter.SortByRowColumn();
+            sorter.SortByRowColumn(sorter.Matrix);
             //challenge & bonus input
             string matrix2 = @"5 58 88 60 11 23 97 48 59 82 95 24 6 67 47
                                45 14 36 99 16 70 77 18 43 39 97 54 11 53 98
@@ -36,8 +36,9 @@ namespace rowColumnSorting {
                                53 27 68 43 48 29 27 14 50 29 53 65 5 56 46
                                94 36 17 64 2 93 5 95 47 78 90 3 85 26 32
                                46 62 70 63 81 6 86 51 44 96 47 83 33 28 28";
+
             sorter = new MatrixSorter(matrix2);
-            sorter.SortByRowColumn();
+            sorter.SortByRowColumn(sorter.Matrix);
         }
     }
 }
