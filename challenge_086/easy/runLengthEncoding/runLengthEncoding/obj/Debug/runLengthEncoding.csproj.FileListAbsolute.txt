@@ -1,0 +1,6 @@
+D:\all_languages\reddit_challenges\challenge_086\easy\runLengthEncoding\runLengthEncoding\bin\Debug\runLengthEncoding.exe.config
+D:\all_languages\reddit_challenges\challenge_086\easy\runLengthEncoding\runLengthEncoding\bin\Debug\runLengthEncoding.exe
+D:\all_languages\reddit_challenges\challenge_086\easy\runLengthEncoding\runLengthEncoding\bin\Debug\runLengthEncoding.pdb
+D:\all_languages\reddit_challenges\challenge_086\easy\runLengthEncoding\runLengthEncoding\obj\Debug\runLengthEncoding.csprojResolveAssemblyReference.cache
+D:\all_languages\reddit_challenges\challenge_086\easy\runLengthEncoding\runLengthEncoding\obj\Debug\runLengthEncoding.exe
+D:\all_languages\reddit_challenges\challenge_086\easy\runLengthEncoding\runLengthEncoding\obj\Debug\runLengthEncoding.pdb
