@@ -1,1 +1,6 @@
 D:\all_languages\reddit_challenges\challenge_337\intermediate\scrambledImages\scrambledImages\bin\Debug\scrambledImages.exe.config
+D:\all_languages\reddit_challenges\challenge_337\intermediate\scrambledImages\scrambledImages\bin\Debug\scrambledImages.exe
+D:\all_languages\reddit_challenges\challenge_337\intermediate\scrambledImages\scrambledImages\bin\Debug\scrambledImages.pdb
+D:\all_languages\reddit_challenges\challenge_337\intermediate\scrambledImages\scrambledImages\obj\Debug\scrambledImages.csprojResolveAssemblyReference.cache
+D:\all_languages\reddit_challenges\challenge_337\intermediate\scrambledImages\scrambledImages\obj\Debug\scrambledImages.exe
+D:\all_languages\reddit_challenges\challenge_337\intermediate\scrambledImages\scrambledImages\obj\Debug\scrambledImages.pdb
