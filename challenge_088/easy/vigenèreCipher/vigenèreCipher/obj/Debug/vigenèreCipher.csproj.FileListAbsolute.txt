@@ -1,1 +1,6 @@
 D:\all_languages\reddit_challenges\challenge_088\easy\vigenèreCipher\vigenèreCipher\bin\Debug\vigenèreCipher.exe.config
+D:\all_languages\reddit_challenges\challenge_088\easy\vigenèreCipher\vigenèreCipher\obj\Debug\vigenèreCipher.csprojResolveAssemblyReference.cache
+D:\all_languages\reddit_challenges\challenge_088\easy\vigenèreCipher\vigenèreCipher\bin\Debug\vigenèreCipher.exe
+D:\all_languages\reddit_challenges\challenge_088\easy\vigenèreCipher\vigenèreCipher\bin\Debug\vigenèreCipher.pdb
+D:\all_languages\reddit_challenges\challenge_088\easy\vigenèreCipher\vigenèreCipher\obj\Debug\vigenèreCipher.exe
+D:\all_languages\reddit_challenges\challenge_088\easy\vigenèreCipher\vigenèreCipher\obj\Debug\vigenèreCipher.pdb
