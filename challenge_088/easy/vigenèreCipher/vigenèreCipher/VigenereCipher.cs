@@ -52,41 +52,19 @@ namespace vigenèreCipher {
 
             return Char.ConvertFromUtf32(value + 65)[0];
         }
-        /// <summary>
-        /// encrypt messages
-        /// </summary>
-        /// <param name="message">message to encrypt</param>
-        /// <returns>encrypted messages</returns>
-        public string Encrypt(string message) {
+        public string EncryptOrDecrypt(string message, bool encrypt = true) {
 
-            var encrypted = new StringBuilder();
+            var result = new StringBuilder();
             int counter = 0;
 
             foreach(char keyChar in GetKeyChar().Take(message.Length)) {
 
-                int charValue = (CharToValue(message[counter++]) + CharToValue(keyChar)) % 26;
-                encrypted.Append(ValueToChar(charValue));
+                int keyCharValue = encrypt ? CharToValue(keyChar) : 26 - CharToValue(keyChar);
+                int newCharValue = (CharToValue(message[counter++]) + keyCharValue) % 26;
+                result.Append(ValueToChar(newCharValue));
             }
 
-            return encrypted.ToString();
-        }
-        /// <summary>
-        /// decrypt messages
-        /// </summary>
-        /// <param name="encrypted">encrypted messages</param>
-        /// <returns>decrypted messages</returns>
-        public string Decrypt(string encrypted) {
-
-            var decrypted = new StringBuilder();
-            int counter = 0;
-
-            foreach(char keyChar in GetKeyChar().Take(encrypted.Length)) {
-
-                int charValue = (CharToValue(encrypted[counter++]) - CharToValue(keyChar) + 26) % 26;
-                decrypted.Append(ValueToChar(charValue));
-            }
-
-            return decrypted.ToString();
+            return result.ToString();
         }
     }
 }

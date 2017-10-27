@@ -1,5 +1,7 @@
 #88[easy] Vigenère cipher
 
+All Done
+
 url: https://www.reddit.com/r/dailyprogrammer/comments/y5sox/8132012_challenge_88_easy_vigen%C3%A8re_cipher/
 
 The easy challenge today is to implement the famous Vigenère cipher. The Wikipedia article explains well how it works, but here's a short description anyway:
