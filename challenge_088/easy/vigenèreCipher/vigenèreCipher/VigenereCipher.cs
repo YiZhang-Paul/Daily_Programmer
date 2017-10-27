@@ -52,6 +52,12 @@ namespace vigenèreCipher {
 
             return Char.ConvertFromUtf32(value + 65)[0];
         }
+        /// <summary>
+        /// encrypt/decrypt messages
+        /// </summary>
+        /// <param name="message">message to encrypt/decrypt</param>
+        /// <param name="encrypt">encrypt when true, otherwise decrypt</param>
+        /// <returns>encrypted/decrypted messages</returns>
         public string EncryptOrDecrypt(string message, bool encrypt = true) {
 
             var result = new StringBuilder();
