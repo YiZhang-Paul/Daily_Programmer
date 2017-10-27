@@ -9,8 +9,7 @@ namespace rectangleIntersection {
         static void Main(string[] args) {
 
             //challenge input
-            var rectangle = new Rectangle(3, 3, 10, 10);
-            rectangle.GetIntersects(new Rectangle(6, 6, 12, 12));
+            
         }
     }
 }
