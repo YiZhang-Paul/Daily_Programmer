@@ -1,1 +1,6 @@
 D:\all_languages\reddit_challenges\challenge_087\easy\rectangleIntersection\rectangleIntersection\bin\Debug\rectangleIntersection.exe.config
+D:\all_languages\reddit_challenges\challenge_087\easy\rectangleIntersection\rectangleIntersection\obj\Debug\rectangleIntersection.csprojResolveAssemblyReference.cache
+D:\all_languages\reddit_challenges\challenge_087\easy\rectangleIntersection\rectangleIntersection\bin\Debug\rectangleIntersection.exe
+D:\all_languages\reddit_challenges\challenge_087\easy\rectangleIntersection\rectangleIntersection\bin\Debug\rectangleIntersection.pdb
+D:\all_languages\reddit_challenges\challenge_087\easy\rectangleIntersection\rectangleIntersection\obj\Debug\rectangleIntersection.exe
+D:\all_languages\reddit_challenges\challenge_087\easy\rectangleIntersection\rectangleIntersection\obj\Debug\rectangleIntersection.pdb
