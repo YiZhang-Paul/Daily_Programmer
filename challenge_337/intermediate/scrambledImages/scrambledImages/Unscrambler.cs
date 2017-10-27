@@ -10,7 +10,6 @@ namespace scrambledImages {
     class Unscrambler {
 
         public string FileName { get; private set; }
-        public string[][] Pixels { get; private set; }
         /// <param name="name">image file name</param>
         public Unscrambler(string name) {
 
@@ -33,64 +32,56 @@ namespace scrambledImages {
         
             using(var image = new Bitmap(FileName)) {
 
-                Pixels = ReadPixels(image);
-                AlignRow(color);
-                DrawImage(image);
+                AlignRows(image, color);
                 image.Save(output);
             }
         }
         /// <summary>
-        /// read all pixels on image
+        /// retrieve color marker index on given row
         /// </summary>
-        /// <param name="image">image to read</param>
-        /// <returns>all pixels on image</returns>
-        public string[][] ReadPixels(Bitmap image) {
+        /// <param name="image">bitmap representation of image</param>
+        /// <param name="row">target row</param>
+        /// <param name="color">marker color</param>
+        /// <returns></returns>
+        public int GetRowMarkerIndex(Bitmap image, int row, Color color) {
 
-            string[][] pixels = new string[image.Height][];
+            int markerArgb = color.ToArgb();
+
+            for(int i = 0; i < image.Width; i++) {
+
+                if(image.GetPixel(i, row).ToArgb() == markerArgb) {
+
+                    return i;
+                }
+            }
+
+            return -1;
+        }
+        /// <summary>
+        /// unscramble image by rows 
+        /// </summary>
+        /// <param name="image">image to draw on</param>
+        /// <param name="color">marker color</param>
+        public void AlignRows(Bitmap image, Color color) {
 
             for(int i = 0; i < image.Height; i++) {
 
-                string[] row = new string[image.Width];
+                int markerIndex = GetRowMarkerIndex(image, i, color);
+                var pixels = new List<int>();
 
-                for(int j = 0; j < image.Width; j++) {
+                for(int j = markerIndex + 1; j < image.Width; j++) {
 
-                    row[j] = image.GetPixel(j, i).ToString();
+                    pixels.Add(image.GetPixel(j, i).ToArgb());
                 }
 
-                pixels[i] = row;
-            }
+                for(int j = 0; j <= markerIndex; j++) {
 
-            return pixels;
-        }
-        /// <summary>
-        /// align color mark on each row
-        /// </summary>
-        /// <param name="color">color mark</param>
-        public void AlignRow(Color color) {
+                    pixels.Add(image.GetPixel(j, i).ToArgb());
+                }
 
-            string colorMark = "Color [A=" + color.A + ", R=" + color.R + ", G=" + color.G + ", B=" + color.B + "]";
+                for(int j = 0; j < pixels.Count; j++) {
 
-            for(int i = 0; i < Pixels.Length; i++) {
-
-                int colorIndex = new List<string>(Pixels[i]).FindIndex(pixel => pixel == colorMark);
-                var newRow = new List<string>();
-                newRow.AddRange(Pixels[i].Skip(colorIndex + 1));
-                newRow.AddRange(Pixels[i].Take(colorIndex + 1));
-                Pixels[i] = newRow.ToArray();
-            }
-        }
-        /// <summary>
-        /// draw on image
-        /// </summary>
-        /// <param name="image">image to draw on</param>
-        public void DrawImage(Bitmap image) {
-
-            for(int i = 0; i < Pixels.Length; i++) {
-
-                for(int j = 0; j < Pixels[i].Length; j++) {
-                    //ARGB values
-                    int[] values = Regex.Matches(Pixels[i][j], @"\d+").Cast<Match>().Select(match => Int32.Parse(match.Value)).ToArray();
-                    image.SetPixel(j, i, Color.FromArgb(values[0], values[1], values[2], values[3]));
+                    image.SetPixel(j, i, Color.FromArgb(pixels[j]));
                 }
             }
         }
