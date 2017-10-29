@@ -1,1 +1,6 @@
 D:\all_languages\reddit_challenges\challenge_080\easy\anagrams\anagrams\bin\Debug\anagrams.exe.config
+D:\all_languages\reddit_challenges\challenge_080\easy\anagrams\anagrams\bin\Debug\anagrams.exe
+D:\all_languages\reddit_challenges\challenge_080\easy\anagrams\anagrams\bin\Debug\anagrams.pdb
+D:\all_languages\reddit_challenges\challenge_080\easy\anagrams\anagrams\obj\Debug\anagrams.csprojResolveAssemblyReference.cache
+D:\all_languages\reddit_challenges\challenge_080\easy\anagrams\anagrams\obj\Debug\anagrams.exe
+D:\all_languages\reddit_challenges\challenge_080\easy\anagrams\anagrams\obj\Debug\anagrams.pdb
