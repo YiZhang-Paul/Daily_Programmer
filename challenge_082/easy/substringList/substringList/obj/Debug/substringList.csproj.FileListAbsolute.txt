@@ -3,3 +3,4 @@ D:\all_languages\reddit_challenges\challenge_082\easy\substringList\substringLis
 D:\all_languages\reddit_challenges\challenge_082\easy\substringList\substringList\bin\Debug\substringList.pdb
 D:\all_languages\reddit_challenges\challenge_082\easy\substringList\substringList\obj\Debug\substringList.exe
 D:\all_languages\reddit_challenges\challenge_082\easy\substringList\substringList\obj\Debug\substringList.pdb
+D:\all_languages\reddit_challenges\challenge_082\easy\substringList\substringList\obj\Debug\substringList.csprojResolveAssemblyReference.cache
