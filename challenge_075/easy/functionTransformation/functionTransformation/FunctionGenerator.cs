@@ -7,17 +7,6 @@ using System.Text.RegularExpressions;
 
 namespace functionTransformation {
     class FunctionGenerator {
-
-        private Dictionary<string, string> _translateTable = new Dictionary<string, string> {
-
-            {"sqrt", "Math.Sqrt"}, //square root
-            {"abs", "Math.Abs"},   //absolute value
-            {"sin", "Math.Sin"},   //sine
-            {"cos", "Math.Cos"},   //cosine
-            {"tan", "Math.Tan"},   //tangent
-            {"exp", "Math.Exp"},   //exponent
-            {"log", "Math.Log"}    //logarithm
-        };
         /// <summary>
         /// capitalize a word
         /// </summary>
@@ -42,11 +31,6 @@ namespace functionTransformation {
         /// </summary>
         public string Translate(string input) { 
         
-            if(_translateTable.ContainsKey(input)) {
-            
-                return _translateTable[input];
-            }
-
             if(Regex.IsMatch(input, @"\^")) {
 
                 string[] operands = input.Split('^');
@@ -54,7 +38,7 @@ namespace functionTransformation {
                 return "Math.Pow(" + operands[0] + ", " + operands[1] + ")";
             }
 
-            return " " + input + " ";
+            return input.Length == 1 ? " " + input + " " : "Math." + Capitalize(input);
         }
         /// <summary>
         /// generate function body
