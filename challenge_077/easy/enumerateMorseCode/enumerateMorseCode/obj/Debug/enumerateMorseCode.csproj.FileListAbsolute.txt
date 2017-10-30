@@ -1,0 +1,5 @@
+D:\all_languages\reddit_challenges\challenge_077\easy\enumerateMorseCode\enumerateMorseCode\bin\Debug\enumerateMorseCode.exe.config
+D:\all_languages\reddit_challenges\challenge_077\easy\enumerateMorseCode\enumerateMorseCode\bin\Debug\enumerateMorseCode.exe
+D:\all_languages\reddit_challenges\challenge_077\easy\enumerateMorseCode\enumerateMorseCode\bin\Debug\enumerateMorseCode.pdb
+D:\all_languages\reddit_challenges\challenge_077\easy\enumerateMorseCode\enumerateMorseCode\obj\Debug\enumerateMorseCode.exe
+D:\all_languages\reddit_challenges\challenge_077\easy\enumerateMorseCode\enumerateMorseCode\obj\Debug\enumerateMorseCode.pdb
