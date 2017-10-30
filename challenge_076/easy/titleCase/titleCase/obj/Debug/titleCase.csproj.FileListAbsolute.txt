@@ -1,0 +1,6 @@
+D:\all_languages\reddit_challenges\challenge_076\easy\titleCase\titleCase\bin\Debug\titleCase.exe.config
+D:\all_languages\reddit_challenges\challenge_076\easy\titleCase\titleCase\bin\Debug\titleCase.exe
+D:\all_languages\reddit_challenges\challenge_076\easy\titleCase\titleCase\bin\Debug\titleCase.pdb
+D:\all_languages\reddit_challenges\challenge_076\easy\titleCase\titleCase\obj\Debug\titleCase.csprojResolveAssemblyReference.cache
+D:\all_languages\reddit_challenges\challenge_076\easy\titleCase\titleCase\obj\Debug\titleCase.exe
+D:\all_languages\reddit_challenges\challenge_076\easy\titleCase\titleCase\obj\Debug\titleCase.pdb
