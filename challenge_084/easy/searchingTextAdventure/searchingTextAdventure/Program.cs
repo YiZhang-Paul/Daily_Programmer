@@ -8,7 +8,8 @@ namespace searchingTextAdventure {
     class Program {
         static void Main(string[] args) {
 
-
+            var game = new TextSearchGame(10, 10);
+            game.Run();
         }
     }
 }

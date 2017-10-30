@@ -1,1 +1,6 @@
 D:\all_languages\reddit_challenges\challenge_084\easy\searchingTextAdventure\searchingTextAdventure\bin\Debug\searchingTextAdventure.exe.config
+D:\all_languages\reddit_challenges\challenge_084\easy\searchingTextAdventure\searchingTextAdventure\bin\Debug\searchingTextAdventure.exe
+D:\all_languages\reddit_challenges\challenge_084\easy\searchingTextAdventure\searchingTextAdventure\bin\Debug\searchingTextAdventure.pdb
+D:\all_languages\reddit_challenges\challenge_084\easy\searchingTextAdventure\searchingTextAdventure\obj\Debug\searchingTextAdventure.csprojResolveAssemblyReference.cache
+D:\all_languages\reddit_challenges\challenge_084\easy\searchingTextAdventure\searchingTextAdventure\obj\Debug\searchingTextAdventure.exe
+D:\all_languages\reddit_challenges\challenge_084\easy\searchingTextAdventure\searchingTextAdventure\obj\Debug\searchingTextAdventure.pdb
