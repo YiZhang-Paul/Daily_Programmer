@@ -1,0 +1,5 @@
+D:\all_languages\reddit_challenges\challenge_079\easy\countingSteps\countingSteps\bin\Debug\countingSteps.exe.config
+D:\all_languages\reddit_challenges\challenge_079\easy\countingSteps\countingSteps\bin\Debug\countingSteps.exe
+D:\all_languages\reddit_challenges\challenge_079\easy\countingSteps\countingSteps\bin\Debug\countingSteps.pdb
+D:\all_languages\reddit_challenges\challenge_079\easy\countingSteps\countingSteps\obj\Debug\countingSteps.exe
+D:\all_languages\reddit_challenges\challenge_079\easy\countingSteps\countingSteps\obj\Debug\countingSteps.pdb
