@@ -1,6 +1,6 @@
 #84[easy] Searching Text Adventure
 
-All Done
+All Done 
 
 url: https://www.reddit.com/r/dailyprogrammer/comments/xilfu/812012_challenge_84_easy_searching_text_adventure/
 
