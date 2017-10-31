@@ -1,0 +1,6 @@
+D:\all_languages\reddit_challenges\challenge_071\easy\pythagoreanTriple\pythagoreanTriple\bin\Debug\pythagoreanTriple.exe.config
+D:\all_languages\reddit_challenges\challenge_071\easy\pythagoreanTriple\pythagoreanTriple\bin\Debug\pythagoreanTriple.exe
+D:\all_languages\reddit_challenges\challenge_071\easy\pythagoreanTriple\pythagoreanTriple\bin\Debug\pythagoreanTriple.pdb
+D:\all_languages\reddit_challenges\challenge_071\easy\pythagoreanTriple\pythagoreanTriple\obj\Debug\pythagoreanTriple.csprojResolveAssemblyReference.cache
+D:\all_languages\reddit_challenges\challenge_071\easy\pythagoreanTriple\pythagoreanTriple\obj\Debug\pythagoreanTriple.exe
+D:\all_languages\reddit_challenges\challenge_071\easy\pythagoreanTriple\pythagoreanTriple\obj\Debug\pythagoreanTriple.pdb
