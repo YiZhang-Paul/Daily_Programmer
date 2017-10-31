@@ -1,0 +1,6 @@
+D:\all_languages\reddit_challenges\challenge_073\easy\reversePolishNotation\reversePolishNotation\bin\Debug\reversePolishNotation.exe.config
+D:\all_languages\reddit_challenges\challenge_073\easy\reversePolishNotation\reversePolishNotation\bin\Debug\reversePolishNotation.exe
+D:\all_languages\reddit_challenges\challenge_073\easy\reversePolishNotation\reversePolishNotation\bin\Debug\reversePolishNotation.pdb
+D:\all_languages\reddit_challenges\challenge_073\easy\reversePolishNotation\reversePolishNotation\obj\Debug\reversePolishNotation.csprojResolveAssemblyReference.cache
+D:\all_languages\reddit_challenges\challenge_073\easy\reversePolishNotation\reversePolishNotation\obj\Debug\reversePolishNotation.exe
+D:\all_languages\reddit_challenges\challenge_073\easy\reversePolishNotation\reversePolishNotation\obj\Debug\reversePolishNotation.pdb
