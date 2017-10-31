@@ -1,0 +1,6 @@
+D:\all_languages\reddit_challenges\challenge_083\easy\longAndShortScale\longAndShortScale\bin\Debug\longAndShortScale.exe.config
+D:\all_languages\reddit_challenges\challenge_083\easy\longAndShortScale\longAndShortScale\bin\Debug\longAndShortScale.exe
+D:\all_languages\reddit_challenges\challenge_083\easy\longAndShortScale\longAndShortScale\bin\Debug\longAndShortScale.pdb
+D:\all_languages\reddit_challenges\challenge_083\easy\longAndShortScale\longAndShortScale\obj\Debug\longAndShortScale.csprojResolveAssemblyReference.cache
+D:\all_languages\reddit_challenges\challenge_083\easy\longAndShortScale\longAndShortScale\obj\Debug\longAndShortScale.exe
+D:\all_languages\reddit_challenges\challenge_083\easy\longAndShortScale\longAndShortScale\obj\Debug\longAndShortScale.pdb
