@@ -1,0 +1,5 @@
+D:\all_languages\reddit_challenges\challenge_070\easy\mostCommonWords\mostCommonWords\bin\Debug\mostCommonWords.exe.config
+D:\all_languages\reddit_challenges\challenge_070\easy\mostCommonWords\mostCommonWords\bin\Debug\mostCommonWords.exe
+D:\all_languages\reddit_challenges\challenge_070\easy\mostCommonWords\mostCommonWords\bin\Debug\mostCommonWords.pdb
+D:\all_languages\reddit_challenges\challenge_070\easy\mostCommonWords\mostCommonWords\obj\Debug\mostCommonWords.exe
+D:\all_languages\reddit_challenges\challenge_070\easy\mostCommonWords\mostCommonWords\obj\Debug\mostCommonWords.pdb
