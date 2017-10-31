@@ -1,0 +1,6 @@
+D:\all_languages\reddit_challenges\challenge_338\easy\dayOfTheWeek\dayOfTheWeek\bin\Debug\dayOfTheWeek.exe.config
+D:\all_languages\reddit_challenges\challenge_338\easy\dayOfTheWeek\dayOfTheWeek\bin\Debug\dayOfTheWeek.exe
+D:\all_languages\reddit_challenges\challenge_338\easy\dayOfTheWeek\dayOfTheWeek\bin\Debug\dayOfTheWeek.pdb
+D:\all_languages\reddit_challenges\challenge_338\easy\dayOfTheWeek\dayOfTheWeek\obj\Debug\dayOfTheWeek.csprojResolveAssemblyReference.cache
+D:\all_languages\reddit_challenges\challenge_338\easy\dayOfTheWeek\dayOfTheWeek\obj\Debug\dayOfTheWeek.exe
+D:\all_languages\reddit_challenges\challenge_338\easy\dayOfTheWeek\dayOfTheWeek\obj\Debug\dayOfTheWeek.pdb
