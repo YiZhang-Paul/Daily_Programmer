@@ -1,0 +1,6 @@
+D:\all_languages\reddit_challenges\challenge_072\easy\cellularAutomata\cellularAutomata\bin\Debug\cellularAutomata.exe.config
+D:\all_languages\reddit_challenges\challenge_072\easy\cellularAutomata\cellularAutomata\bin\Debug\cellularAutomata.exe
+D:\all_languages\reddit_challenges\challenge_072\easy\cellularAutomata\cellularAutomata\bin\Debug\cellularAutomata.pdb
+D:\all_languages\reddit_challenges\challenge_072\easy\cellularAutomata\cellularAutomata\obj\Debug\cellularAutomata.csprojResolveAssemblyReference.cache
+D:\all_languages\reddit_challenges\challenge_072\easy\cellularAutomata\cellularAutomata\obj\Debug\cellularAutomata.exe
+D:\all_languages\reddit_challenges\challenge_072\easy\cellularAutomata\cellularAutomata\obj\Debug\cellularAutomata.pdb
