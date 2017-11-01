@@ -1,0 +1,6 @@
+D:\all_languages\reddit_challenges\challenge_066\easy\compareRomanNumerals\compareRomanNumerals\bin\Debug\compareRomanNumerals.exe.config
+D:\all_languages\reddit_challenges\challenge_066\easy\compareRomanNumerals\compareRomanNumerals\bin\Debug\compareRomanNumerals.exe
+D:\all_languages\reddit_challenges\challenge_066\easy\compareRomanNumerals\compareRomanNumerals\bin\Debug\compareRomanNumerals.pdb
+D:\all_languages\reddit_challenges\challenge_066\easy\compareRomanNumerals\compareRomanNumerals\obj\Debug\compareRomanNumerals.csprojResolveAssemblyReference.cache
+D:\all_languages\reddit_challenges\challenge_066\easy\compareRomanNumerals\compareRomanNumerals\obj\Debug\compareRomanNumerals.exe
+D:\all_languages\reddit_challenges\challenge_066\easy\compareRomanNumerals\compareRomanNumerals\obj\Debug\compareRomanNumerals.pdb
