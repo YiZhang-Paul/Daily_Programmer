@@ -1,0 +1,6 @@
+D:\all_languages\reddit_challenges\challenge_069\easy\printTables\printTables\bin\Debug\printTables.exe.config
+D:\all_languages\reddit_challenges\challenge_069\easy\printTables\printTables\bin\Debug\printTables.exe
+D:\all_languages\reddit_challenges\challenge_069\easy\printTables\printTables\bin\Debug\printTables.pdb
+D:\all_languages\reddit_challenges\challenge_069\easy\printTables\printTables\obj\Debug\printTables.exe
+D:\all_languages\reddit_challenges\challenge_069\easy\printTables\printTables\obj\Debug\printTables.pdb
+D:\all_languages\reddit_challenges\challenge_069\easy\printTables\printTables\obj\Debug\printTables.csprojResolveAssemblyReference.cache
