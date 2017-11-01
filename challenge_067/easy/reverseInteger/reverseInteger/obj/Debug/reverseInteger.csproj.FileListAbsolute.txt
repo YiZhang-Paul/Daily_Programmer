@@ -1,0 +1,5 @@
+D:\all_languages\reddit_challenges\challenge_067\easy\reverseInteger\reverseInteger\bin\Debug\reverseInteger.exe.config
+D:\all_languages\reddit_challenges\challenge_067\easy\reverseInteger\reverseInteger\bin\Debug\reverseInteger.exe
+D:\all_languages\reddit_challenges\challenge_067\easy\reverseInteger\reverseInteger\bin\Debug\reverseInteger.pdb
+D:\all_languages\reddit_challenges\challenge_067\easy\reverseInteger\reverseInteger\obj\Debug\reverseInteger.exe
+D:\all_languages\reddit_challenges\challenge_067\easy\reverseInteger\reverseInteger\obj\Debug\reverseInteger.pdb
