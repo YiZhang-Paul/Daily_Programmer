@@ -1,0 +1,6 @@
+D:\all_languages\reddit_challenges\challenge_065\easy\moneyChanges\moneyChanges\bin\Debug\moneyChanges.exe.config
+D:\all_languages\reddit_challenges\challenge_065\easy\moneyChanges\moneyChanges\obj\Debug\moneyChanges.csprojResolveAssemblyReference.cache
+D:\all_languages\reddit_challenges\challenge_065\easy\moneyChanges\moneyChanges\bin\Debug\moneyChanges.exe
+D:\all_languages\reddit_challenges\challenge_065\easy\moneyChanges\moneyChanges\bin\Debug\moneyChanges.pdb
+D:\all_languages\reddit_challenges\challenge_065\easy\moneyChanges\moneyChanges\obj\Debug\moneyChanges.exe
+D:\all_languages\reddit_challenges\challenge_065\easy\moneyChanges\moneyChanges\obj\Debug\moneyChanges.pdb
