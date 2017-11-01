@@ -1,0 +1,6 @@
+D:\all_languages\reddit_challenges\challenge_068\easy\emirp\emirp\bin\Debug\emirp.exe.config
+D:\all_languages\reddit_challenges\challenge_068\easy\emirp\emirp\bin\Debug\emirp.exe
+D:\all_languages\reddit_challenges\challenge_068\easy\emirp\emirp\bin\Debug\emirp.pdb
+D:\all_languages\reddit_challenges\challenge_068\easy\emirp\emirp\obj\Debug\emirp.csprojResolveAssemblyReference.cache
+D:\all_languages\reddit_challenges\challenge_068\easy\emirp\emirp\obj\Debug\emirp.exe
+D:\all_languages\reddit_challenges\challenge_068\easy\emirp\emirp\obj\Debug\emirp.pdb
