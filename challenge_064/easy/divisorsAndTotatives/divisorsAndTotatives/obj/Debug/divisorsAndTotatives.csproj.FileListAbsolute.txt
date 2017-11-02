@@ -1,0 +1,6 @@
+D:\all_languages\reddit_challenges\challenge_064\easy\divisorsAndTotatives\divisorsAndTotatives\bin\Debug\divisorsAndTotatives.exe.config
+D:\all_languages\reddit_challenges\challenge_064\easy\divisorsAndTotatives\divisorsAndTotatives\bin\Debug\divisorsAndTotatives.exe
+D:\all_languages\reddit_challenges\challenge_064\easy\divisorsAndTotatives\divisorsAndTotatives\bin\Debug\divisorsAndTotatives.pdb
+D:\all_languages\reddit_challenges\challenge_064\easy\divisorsAndTotatives\divisorsAndTotatives\obj\Debug\divisorsAndTotatives.csprojResolveAssemblyReference.cache
+D:\all_languages\reddit_challenges\challenge_064\easy\divisorsAndTotatives\divisorsAndTotatives\obj\Debug\divisorsAndTotatives.exe
+D:\all_languages\reddit_challenges\challenge_064\easy\divisorsAndTotatives\divisorsAndTotatives\obj\Debug\divisorsAndTotatives.pdb
