@@ -1,0 +1,6 @@
+D:\all_languages\reddit_challenges\challenge_063\easy\reverseSubarray\reverseSubarray\bin\Debug\reverseSubarray.exe.config
+D:\all_languages\reddit_challenges\challenge_063\easy\reverseSubarray\reverseSubarray\bin\Debug\reverseSubarray.exe
+D:\all_languages\reddit_challenges\challenge_063\easy\reverseSubarray\reverseSubarray\bin\Debug\reverseSubarray.pdb
+D:\all_languages\reddit_challenges\challenge_063\easy\reverseSubarray\reverseSubarray\obj\Debug\reverseSubarray.csprojResolveAssemblyReference.cache
+D:\all_languages\reddit_challenges\challenge_063\easy\reverseSubarray\reverseSubarray\obj\Debug\reverseSubarray.exe
+D:\all_languages\reddit_challenges\challenge_063\easy\reverseSubarray\reverseSubarray\obj\Debug\reverseSubarray.pdb
