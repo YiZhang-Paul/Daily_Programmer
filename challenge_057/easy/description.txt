@@ -1,0 +1,9 @@
+#57[easy] Largest Sum Contiguous Subarray
+
+All Done
+
+url: https://www.reddit.com/r/dailyprogrammer/comments/u4mk4/5252012_challenge_57_easy/
+
+Input: A sequence of integers either +ve or -ve
+
+Output : a part of the sequence in the list with the maximum sum.
