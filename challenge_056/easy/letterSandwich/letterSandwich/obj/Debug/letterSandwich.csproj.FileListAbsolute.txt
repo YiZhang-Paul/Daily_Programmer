@@ -1,0 +1,6 @@
+D:\all_languages\reddit_challenges\challenge_056\easy\letterSandwich\letterSandwich\bin\Debug\letterSandwich.exe.config
+D:\all_languages\reddit_challenges\challenge_056\easy\letterSandwich\letterSandwich\bin\Debug\letterSandwich.exe
+D:\all_languages\reddit_challenges\challenge_056\easy\letterSandwich\letterSandwich\bin\Debug\letterSandwich.pdb
+D:\all_languages\reddit_challenges\challenge_056\easy\letterSandwich\letterSandwich\obj\Debug\letterSandwich.csprojResolveAssemblyReference.cache
+D:\all_languages\reddit_challenges\challenge_056\easy\letterSandwich\letterSandwich\obj\Debug\letterSandwich.exe
+D:\all_languages\reddit_challenges\challenge_056\easy\letterSandwich\letterSandwich\obj\Debug\letterSandwich.pdb
