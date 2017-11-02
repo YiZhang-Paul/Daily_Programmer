@@ -1,0 +1,6 @@
+D:\all_languages\reddit_challenges\challenge_055\easy\slidingWindow\slidingWindow\bin\Debug\slidingWindow.exe.config
+D:\all_languages\reddit_challenges\challenge_055\easy\slidingWindow\slidingWindow\bin\Debug\slidingWindow.exe
+D:\all_languages\reddit_challenges\challenge_055\easy\slidingWindow\slidingWindow\bin\Debug\slidingWindow.pdb
+D:\all_languages\reddit_challenges\challenge_055\easy\slidingWindow\slidingWindow\obj\Debug\slidingWindow.csprojResolveAssemblyReference.cache
+D:\all_languages\reddit_challenges\challenge_055\easy\slidingWindow\slidingWindow\obj\Debug\slidingWindow.exe
+D:\all_languages\reddit_challenges\challenge_055\easy\slidingWindow\slidingWindow\obj\Debug\slidingWindow.pdb
