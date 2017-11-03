@@ -1,0 +1,6 @@
+D:\all_languages\reddit_challenges\challenge_054\easy\matrixCipher\matrixCipher\bin\Debug\matrixCipher.exe.config
+D:\all_languages\reddit_challenges\challenge_054\easy\matrixCipher\matrixCipher\bin\Debug\matrixCipher.exe
+D:\all_languages\reddit_challenges\challenge_054\easy\matrixCipher\matrixCipher\bin\Debug\matrixCipher.pdb
+D:\all_languages\reddit_challenges\challenge_054\easy\matrixCipher\matrixCipher\obj\Debug\matrixCipher.csprojResolveAssemblyReference.cache
+D:\all_languages\reddit_challenges\challenge_054\easy\matrixCipher\matrixCipher\obj\Debug\matrixCipher.exe
+D:\all_languages\reddit_challenges\challenge_054\easy\matrixCipher\matrixCipher\obj\Debug\matrixCipher.pdb
