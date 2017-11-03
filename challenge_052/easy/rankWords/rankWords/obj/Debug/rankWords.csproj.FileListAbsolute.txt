@@ -1,0 +1,5 @@
+D:\all_languages\reddit_challenges\challenge_052\easy\rankWords\rankWords\bin\Debug\rankWords.exe.config
+D:\all_languages\reddit_challenges\challenge_052\easy\rankWords\rankWords\bin\Debug\rankWords.exe
+D:\all_languages\reddit_challenges\challenge_052\easy\rankWords\rankWords\bin\Debug\rankWords.pdb
+D:\all_languages\reddit_challenges\challenge_052\easy\rankWords\rankWords\obj\Debug\rankWords.exe
+D:\all_languages\reddit_challenges\challenge_052\easy\rankWords\rankWords\obj\Debug\rankWords.pdb
