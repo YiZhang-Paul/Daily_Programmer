@@ -1,5 +1,7 @@
 #58[easy] Number Bases
 
+All Done
+
 url: https://www.reddit.com/r/dailyprogrammer/comments/u8jmi/5282012_challenge_58_easy/
 
 As computer programmers are well aware, it can be very useful to write numbers using numerical bases other than the familiar base 10 notation we use in everyday life. In computer programming, base 2 and base 16 are especially handy. In base 2, the number 1234 becomes 10011010010 and in base 16 it becomes 4D2.
