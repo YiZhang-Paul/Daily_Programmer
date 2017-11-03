@@ -1,0 +1,6 @@
+D:\all_languages\reddit_challenges\challenge_061\easy\binaryRotation\binaryRotation\bin\Debug\binaryRotation.exe.config
+D:\all_languages\reddit_challenges\challenge_061\easy\binaryRotation\binaryRotation\bin\Debug\binaryRotation.exe
+D:\all_languages\reddit_challenges\challenge_061\easy\binaryRotation\binaryRotation\bin\Debug\binaryRotation.pdb
+D:\all_languages\reddit_challenges\challenge_061\easy\binaryRotation\binaryRotation\obj\Debug\binaryRotation.csprojResolveAssemblyReference.cache
+D:\all_languages\reddit_challenges\challenge_061\easy\binaryRotation\binaryRotation\obj\Debug\binaryRotation.exe
+D:\all_languages\reddit_challenges\challenge_061\easy\binaryRotation\binaryRotation\obj\Debug\binaryRotation.pdb
