@@ -1,0 +1,6 @@
+D:\all_languages\reddit_challenges\challenge_060\easy\politeNumbers\politeNumbers\bin\Debug\politeNumbers.exe.config
+D:\all_languages\reddit_challenges\challenge_060\easy\politeNumbers\politeNumbers\bin\Debug\politeNumbers.exe
+D:\all_languages\reddit_challenges\challenge_060\easy\politeNumbers\politeNumbers\bin\Debug\politeNumbers.pdb
+D:\all_languages\reddit_challenges\challenge_060\easy\politeNumbers\politeNumbers\obj\Debug\politeNumbers.csprojResolveAssemblyReference.cache
+D:\all_languages\reddit_challenges\challenge_060\easy\politeNumbers\politeNumbers\obj\Debug\politeNumbers.exe
+D:\all_languages\reddit_challenges\challenge_060\easy\politeNumbers\politeNumbers\obj\Debug\politeNumbers.pdb
