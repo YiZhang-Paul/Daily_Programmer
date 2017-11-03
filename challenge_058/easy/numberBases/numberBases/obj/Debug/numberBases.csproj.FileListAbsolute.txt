@@ -1,0 +1,6 @@
+D:\all_languages\reddit_challenges\challenge_058\easy\numberBases\numberBases\bin\Debug\numberBases.exe.config
+D:\all_languages\reddit_challenges\challenge_058\easy\numberBases\numberBases\bin\Debug\numberBases.exe
+D:\all_languages\reddit_challenges\challenge_058\easy\numberBases\numberBases\bin\Debug\numberBases.pdb
+D:\all_languages\reddit_challenges\challenge_058\easy\numberBases\numberBases\obj\Debug\numberBases.csprojResolveAssemblyReference.cache
+D:\all_languages\reddit_challenges\challenge_058\easy\numberBases\numberBases\obj\Debug\numberBases.exe
+D:\all_languages\reddit_challenges\challenge_058\easy\numberBases\numberBases\obj\Debug\numberBases.pdb
