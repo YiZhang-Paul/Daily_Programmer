@@ -1,0 +1,6 @@
+D:\all_languages\reddit_challenges\challenge_062\easy\ullmanPuzzle\ullmanPuzzle\bin\Debug\ullmanPuzzle.exe.config
+D:\all_languages\reddit_challenges\challenge_062\easy\ullmanPuzzle\ullmanPuzzle\bin\Debug\ullmanPuzzle.exe
+D:\all_languages\reddit_challenges\challenge_062\easy\ullmanPuzzle\ullmanPuzzle\bin\Debug\ullmanPuzzle.pdb
+D:\all_languages\reddit_challenges\challenge_062\easy\ullmanPuzzle\ullmanPuzzle\obj\Debug\ullmanPuzzle.csprojResolveAssemblyReference.cache
+D:\all_languages\reddit_challenges\challenge_062\easy\ullmanPuzzle\ullmanPuzzle\obj\Debug\ullmanPuzzle.exe
+D:\all_languages\reddit_challenges\challenge_062\easy\ullmanPuzzle\ullmanPuzzle\obj\Debug\ullmanPuzzle.pdb
