@@ -1,0 +1,6 @@
+D:\all_languages\reddit_challenges\challenge_041\easy\sentenceBanner\sentenceBanner\bin\Debug\sentenceBanner.exe.config
+D:\all_languages\reddit_challenges\challenge_041\easy\sentenceBanner\sentenceBanner\bin\Debug\sentenceBanner.exe
+D:\all_languages\reddit_challenges\challenge_041\easy\sentenceBanner\sentenceBanner\bin\Debug\sentenceBanner.pdb
+D:\all_languages\reddit_challenges\challenge_041\easy\sentenceBanner\sentenceBanner\obj\Debug\sentenceBanner.csprojResolveAssemblyReference.cache
+D:\all_languages\reddit_challenges\challenge_041\easy\sentenceBanner\sentenceBanner\obj\Debug\sentenceBanner.exe
+D:\all_languages\reddit_challenges\challenge_041\easy\sentenceBanner\sentenceBanner\obj\Debug\sentenceBanner.pdb
