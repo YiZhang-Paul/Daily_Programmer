@@ -1,0 +1,6 @@
+D:\all_languages\reddit_challenges\challenge_049\easy\montyHallProblem\montyHallProblem\bin\Debug\montyHallProblem.exe.config
+D:\all_languages\reddit_challenges\challenge_049\easy\montyHallProblem\montyHallProblem\bin\Debug\montyHallProblem.exe
+D:\all_languages\reddit_challenges\challenge_049\easy\montyHallProblem\montyHallProblem\bin\Debug\montyHallProblem.pdb
+D:\all_languages\reddit_challenges\challenge_049\easy\montyHallProblem\montyHallProblem\obj\Debug\montyHallProblem.csprojResolveAssemblyReference.cache
+D:\all_languages\reddit_challenges\challenge_049\easy\montyHallProblem\montyHallProblem\obj\Debug\montyHallProblem.exe
+D:\all_languages\reddit_challenges\challenge_049\easy\montyHallProblem\montyHallProblem\obj\Debug\montyHallProblem.pdb
