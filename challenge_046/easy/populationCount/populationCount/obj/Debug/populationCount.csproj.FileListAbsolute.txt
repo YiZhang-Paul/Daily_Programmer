@@ -1,0 +1,5 @@
+D:\all_languages\reddit_challenges\challenge_046\easy\populationCount\populationCount\bin\Debug\populationCount.exe.config
+D:\all_languages\reddit_challenges\challenge_046\easy\populationCount\populationCount\bin\Debug\populationCount.exe
+D:\all_languages\reddit_challenges\challenge_046\easy\populationCount\populationCount\bin\Debug\populationCount.pdb
+D:\all_languages\reddit_challenges\challenge_046\easy\populationCount\populationCount\obj\Debug\populationCount.exe
+D:\all_languages\reddit_challenges\challenge_046\easy\populationCount\populationCount\obj\Debug\populationCount.pdb
