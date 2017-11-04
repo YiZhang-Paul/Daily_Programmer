@@ -1,0 +1,6 @@
+D:\all_languages\reddit_challenges\challenge_042\easy\printSongs\printSongs\bin\Debug\printSongs.exe.config
+D:\all_languages\reddit_challenges\challenge_042\easy\printSongs\printSongs\bin\Debug\printSongs.exe
+D:\all_languages\reddit_challenges\challenge_042\easy\printSongs\printSongs\bin\Debug\printSongs.pdb
+D:\all_languages\reddit_challenges\challenge_042\easy\printSongs\printSongs\obj\Debug\printSongs.csprojResolveAssemblyReference.cache
+D:\all_languages\reddit_challenges\challenge_042\easy\printSongs\printSongs\obj\Debug\printSongs.exe
+D:\all_languages\reddit_challenges\challenge_042\easy\printSongs\printSongs\obj\Debug\printSongs.pdb
