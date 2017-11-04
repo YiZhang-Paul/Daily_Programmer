@@ -1,0 +1,6 @@
+D:\all_languages\reddit_challenges\challenge_044\easy\longestSentence\longestSentence\bin\Debug\longestSentence.exe.config
+D:\all_languages\reddit_challenges\challenge_044\easy\longestSentence\longestSentence\bin\Debug\longestSentence.exe
+D:\all_languages\reddit_challenges\challenge_044\easy\longestSentence\longestSentence\bin\Debug\longestSentence.pdb
+D:\all_languages\reddit_challenges\challenge_044\easy\longestSentence\longestSentence\obj\Debug\longestSentence.csprojResolveAssemblyReference.cache
+D:\all_languages\reddit_challenges\challenge_044\easy\longestSentence\longestSentence\obj\Debug\longestSentence.exe
+D:\all_languages\reddit_challenges\challenge_044\easy\longestSentence\longestSentence\obj\Debug\longestSentence.pdb
