@@ -1,0 +1,6 @@
+D:\all_languages\reddit_challenges\challenge_045\easy\drawCheckeredGrid\drawCheckeredGrid\bin\Debug\drawCheckeredGrid.exe.config
+D:\all_languages\reddit_challenges\challenge_045\easy\drawCheckeredGrid\drawCheckeredGrid\obj\Debug\drawCheckeredGrid.csprojResolveAssemblyReference.cache
+D:\all_languages\reddit_challenges\challenge_045\easy\drawCheckeredGrid\drawCheckeredGrid\bin\Debug\drawCheckeredGrid.exe
+D:\all_languages\reddit_challenges\challenge_045\easy\drawCheckeredGrid\drawCheckeredGrid\bin\Debug\drawCheckeredGrid.pdb
+D:\all_languages\reddit_challenges\challenge_045\easy\drawCheckeredGrid\drawCheckeredGrid\obj\Debug\drawCheckeredGrid.exe
+D:\all_languages\reddit_challenges\challenge_045\easy\drawCheckeredGrid\drawCheckeredGrid\obj\Debug\drawCheckeredGrid.pdb
