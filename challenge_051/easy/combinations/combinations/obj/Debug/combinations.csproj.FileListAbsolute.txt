@@ -1,0 +1,6 @@
+D:\all_languages\reddit_challenges\challenge_051\easy\combinations\combinations\bin\Debug\combinations.exe.config
+D:\all_languages\reddit_challenges\challenge_051\easy\combinations\combinations\bin\Debug\combinations.exe
+D:\all_languages\reddit_challenges\challenge_051\easy\combinations\combinations\bin\Debug\combinations.pdb
+D:\all_languages\reddit_challenges\challenge_051\easy\combinations\combinations\obj\Debug\combinations.csprojResolveAssemblyReference.cache
+D:\all_languages\reddit_challenges\challenge_051\easy\combinations\combinations\obj\Debug\combinations.exe
+D:\all_languages\reddit_challenges\challenge_051\easy\combinations\combinations\obj\Debug\combinations.pdb
