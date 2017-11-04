@@ -11,8 +11,8 @@ namespace printSongs {
             var printer = new SongPrinter();
 
             //challenge input
-            //Console.WriteLine(printer.PrintSong1());
-            //Console.WriteLine(printer.PrintSong2());
+            Console.WriteLine(printer.PrintSong1() + "\n");
+            Console.WriteLine(printer.PrintSong2() + "\n");
             Console.WriteLine(printer.PrintSong3());
         }
     }

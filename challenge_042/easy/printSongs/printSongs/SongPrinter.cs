@@ -33,7 +33,38 @@ namespace printSongs {
             return song.Append("Go to the store and buy some more, " + _reader.ReadNumber(99) + " bottles of beer on the wall.").ToString();
         }
         /// <summary>
-        /// print song "the twelve days of Christmas" 
+        /// print song "Old MacDonald Had A Farm"
+        /// </summary>
+        public string PrintSong2() {
+
+            var song = new StringBuilder();
+            string[] animals = new string[] { 
+            
+                "a cow", "a pig", "a turkey", "a kangaroo", "a T-Rex", "some chickens"   
+            };
+            string[] sounds = new string[] { 
+            
+                "moo", "oink", "gobble", "g'day mate", "GAAAAARGH", "cluck"
+            };
+
+            for(int i = 0; i < animals.Length; i++) {
+
+                song.Append("Old MACDONALD had a farm\nE-I-E-I-O\nAnd on his farm he had " + animals[i] + "\nE-I-E-I-O\n")
+                    .Append("With a " + sounds[i] + " " + sounds[i] + " here\nAnd a " + sounds[i] + " " + sounds[i] + " there\n")
+                    .Append("Here a " + sounds[i] + ", there a " + sounds[i] + "\nEverywhere a " + sounds[i] + " " + sounds[i] + "\n")
+                    .Append(i == animals.Length - 1 ? "" : "Old MacDonald had a farm\nE-I-E-I-O\n\n");
+            }
+
+            for(int i = animals.Length - 2; i >= 0; i--) {
+
+                song.Append("With a " + sounds[i] + " " + sounds[i] + " here\nAnd a " + sounds[i] + " " + sounds[i] + " there\n")
+                    .Append("Here a " + sounds[i] + ", there a " + sounds[i] + "\nEverywhere a " + sounds[i] + " " + sounds[i] + "\n");
+            }
+
+            return song.Append("\nOld MacDonald had a farm\nE-I-E-I-OOOOOOO.........").ToString();
+        }
+        /// <summary>
+        /// print song "the Twelve Days of Christmas" 
         /// </summary>
         public string PrintSong3() {
 
