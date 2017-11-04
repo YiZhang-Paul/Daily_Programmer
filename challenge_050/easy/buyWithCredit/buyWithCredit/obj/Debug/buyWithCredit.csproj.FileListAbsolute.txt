@@ -1,0 +1,6 @@
+D:\all_languages\reddit_challenges\challenge_050\easy\buyWithCredit\buyWithCredit\bin\Debug\buyWithCredit.exe.config
+D:\all_languages\reddit_challenges\challenge_050\easy\buyWithCredit\buyWithCredit\bin\Debug\buyWithCredit.exe
+D:\all_languages\reddit_challenges\challenge_050\easy\buyWithCredit\buyWithCredit\bin\Debug\buyWithCredit.pdb
+D:\all_languages\reddit_challenges\challenge_050\easy\buyWithCredit\buyWithCredit\obj\Debug\buyWithCredit.csprojResolveAssemblyReference.cache
+D:\all_languages\reddit_challenges\challenge_050\easy\buyWithCredit\buyWithCredit\obj\Debug\buyWithCredit.exe
+D:\all_languages\reddit_challenges\challenge_050\easy\buyWithCredit\buyWithCredit\obj\Debug\buyWithCredit.pdb
