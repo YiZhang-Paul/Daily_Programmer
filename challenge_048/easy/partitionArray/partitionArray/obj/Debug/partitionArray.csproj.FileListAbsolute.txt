@@ -1,0 +1,6 @@
+D:\all_languages\reddit_challenges\challenge_048\easy\partitionArray\partitionArray\bin\Debug\partitionArray.exe.config
+D:\all_languages\reddit_challenges\challenge_048\easy\partitionArray\partitionArray\bin\Debug\partitionArray.exe
+D:\all_languages\reddit_challenges\challenge_048\easy\partitionArray\partitionArray\bin\Debug\partitionArray.pdb
+D:\all_languages\reddit_challenges\challenge_048\easy\partitionArray\partitionArray\obj\Debug\partitionArray.csprojResolveAssemblyReference.cache
+D:\all_languages\reddit_challenges\challenge_048\easy\partitionArray\partitionArray\obj\Debug\partitionArray.exe
+D:\all_languages\reddit_challenges\challenge_048\easy\partitionArray\partitionArray\obj\Debug\partitionArray.pdb
