@@ -1,0 +1,6 @@
+D:\all_languages\reddit_challenges\challenge_030\easy\subsetSum\subsetSum\bin\Debug\subsetSum.exe.config
+D:\all_languages\reddit_challenges\challenge_030\easy\subsetSum\subsetSum\bin\Debug\subsetSum.exe
+D:\all_languages\reddit_challenges\challenge_030\easy\subsetSum\subsetSum\bin\Debug\subsetSum.pdb
+D:\all_languages\reddit_challenges\challenge_030\easy\subsetSum\subsetSum\obj\Debug\subsetSum.exe
+D:\all_languages\reddit_challenges\challenge_030\easy\subsetSum\subsetSum\obj\Debug\subsetSum.pdb
+D:\all_languages\reddit_challenges\challenge_030\easy\subsetSum\subsetSum\obj\Debug\subsetSum.csprojResolveAssemblyReference.cache
