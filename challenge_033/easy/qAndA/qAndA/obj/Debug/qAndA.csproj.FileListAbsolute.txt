@@ -1,0 +1,6 @@
+D:\all_languages\reddit_challenges\challenge_033\easy\qAndA\qAndA\bin\Debug\qAndA.exe.config
+D:\all_languages\reddit_challenges\challenge_033\easy\qAndA\qAndA\obj\Debug\qAndA.csprojResolveAssemblyReference.cache
+D:\all_languages\reddit_challenges\challenge_033\easy\qAndA\qAndA\bin\Debug\qAndA.exe
+D:\all_languages\reddit_challenges\challenge_033\easy\qAndA\qAndA\bin\Debug\qAndA.pdb
+D:\all_languages\reddit_challenges\challenge_033\easy\qAndA\qAndA\obj\Debug\qAndA.exe
+D:\all_languages\reddit_challenges\challenge_033\easy\qAndA\qAndA\obj\Debug\qAndA.pdb
