@@ -1,0 +1,5 @@
+D:\all_languages\reddit_challenges\challenge_037\easy\countLines\countLines\bin\Debug\countLines.exe.config
+D:\all_languages\reddit_challenges\challenge_037\easy\countLines\countLines\bin\Debug\countLines.exe
+D:\all_languages\reddit_challenges\challenge_037\easy\countLines\countLines\bin\Debug\countLines.pdb
+D:\all_languages\reddit_challenges\challenge_037\easy\countLines\countLines\obj\Debug\countLines.exe
+D:\all_languages\reddit_challenges\challenge_037\easy\countLines\countLines\obj\Debug\countLines.pdb
