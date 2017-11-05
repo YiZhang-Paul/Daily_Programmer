@@ -1,0 +1,6 @@
+D:\all_languages\reddit_challenges\challenge_035\easy\numberTriangle\numberTriangle\bin\Debug\numberTriangle.exe.config
+D:\all_languages\reddit_challenges\challenge_035\easy\numberTriangle\numberTriangle\obj\Debug\numberTriangle.csprojResolveAssemblyReference.cache
+D:\all_languages\reddit_challenges\challenge_035\easy\numberTriangle\numberTriangle\bin\Debug\numberTriangle.exe
+D:\all_languages\reddit_challenges\challenge_035\easy\numberTriangle\numberTriangle\bin\Debug\numberTriangle.pdb
+D:\all_languages\reddit_challenges\challenge_035\easy\numberTriangle\numberTriangle\obj\Debug\numberTriangle.exe
+D:\all_languages\reddit_challenges\challenge_035\easy\numberTriangle\numberTriangle\obj\Debug\numberTriangle.pdb
