@@ -1,0 +1,5 @@
+D:\all_languages\reddit_challenges\challenge_034\easy\largerNumberSquareSum\largerNumberSquareSum\bin\Debug\largerNumberSquareSum.exe.config
+D:\all_languages\reddit_challenges\challenge_034\easy\largerNumberSquareSum\largerNumberSquareSum\bin\Debug\largerNumberSquareSum.exe
+D:\all_languages\reddit_challenges\challenge_034\easy\largerNumberSquareSum\largerNumberSquareSum\bin\Debug\largerNumberSquareSum.pdb
+D:\all_languages\reddit_challenges\challenge_034\easy\largerNumberSquareSum\largerNumberSquareSum\obj\Debug\largerNumberSquareSum.exe
+D:\all_languages\reddit_challenges\challenge_034\easy\largerNumberSquareSum\largerNumberSquareSum\obj\Debug\largerNumberSquareSum.pdb

@@ -1,0 +1,15 @@
+#34[easy] Larger Numbers Square Sum
+
+All Done
+
+url: https://www.reddit.com/r/dailyprogrammer/comments/rmmn8/3312012_challenge_34_easy/
+
+A very basic challenge:
+
+In this challenge, the
+
+inputs are : 3 numbers as arguments
+
+output: the sum of the squares of the two larger numbers.
+
+Your task is to write the indicated challenge.
