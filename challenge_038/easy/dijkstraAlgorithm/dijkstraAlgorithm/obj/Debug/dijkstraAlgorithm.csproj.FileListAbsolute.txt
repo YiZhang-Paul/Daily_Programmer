@@ -1,0 +1,6 @@
+D:\all_languages\reddit_challenges\challenge_038\easy\dijkstraAlgorithm\dijkstraAlgorithm\bin\Debug\dijkstraAlgorithm.exe.config
+D:\all_languages\reddit_challenges\challenge_038\easy\dijkstraAlgorithm\dijkstraAlgorithm\bin\Debug\dijkstraAlgorithm.exe
+D:\all_languages\reddit_challenges\challenge_038\easy\dijkstraAlgorithm\dijkstraAlgorithm\bin\Debug\dijkstraAlgorithm.pdb
+D:\all_languages\reddit_challenges\challenge_038\easy\dijkstraAlgorithm\dijkstraAlgorithm\obj\Debug\dijkstraAlgorithm.csprojResolveAssemblyReference.cache
+D:\all_languages\reddit_challenges\challenge_038\easy\dijkstraAlgorithm\dijkstraAlgorithm\obj\Debug\dijkstraAlgorithm.exe
+D:\all_languages\reddit_challenges\challenge_038\easy\dijkstraAlgorithm\dijkstraAlgorithm\obj\Debug\dijkstraAlgorithm.pdb
