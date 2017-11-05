@@ -1,0 +1,6 @@
+D:\all_languages\reddit_challenges\challenge_036\easy\lockerProblem\lockerProblem\bin\Debug\lockerProblem.exe.config
+D:\all_languages\reddit_challenges\challenge_036\easy\lockerProblem\lockerProblem\bin\Debug\lockerProblem.exe
+D:\all_languages\reddit_challenges\challenge_036\easy\lockerProblem\lockerProblem\bin\Debug\lockerProblem.pdb
+D:\all_languages\reddit_challenges\challenge_036\easy\lockerProblem\lockerProblem\obj\Debug\lockerProblem.csprojResolveAssemblyReference.cache
+D:\all_languages\reddit_challenges\challenge_036\easy\lockerProblem\lockerProblem\obj\Debug\lockerProblem.exe
+D:\all_languages\reddit_challenges\challenge_036\easy\lockerProblem\lockerProblem\obj\Debug\lockerProblem.pdb
