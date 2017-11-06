@@ -1,0 +1,6 @@
+D:\all_languages\reddit_challenges\challenge_027\easy\analyzeYear\analyzeYear\bin\Debug\analyzeYear.exe.config
+D:\all_languages\reddit_challenges\challenge_027\easy\analyzeYear\analyzeYear\bin\Debug\analyzeYear.exe
+D:\all_languages\reddit_challenges\challenge_027\easy\analyzeYear\analyzeYear\bin\Debug\analyzeYear.pdb
+D:\all_languages\reddit_challenges\challenge_027\easy\analyzeYear\analyzeYear\obj\Debug\analyzeYear.csprojResolveAssemblyReference.cache
+D:\all_languages\reddit_challenges\challenge_027\easy\analyzeYear\analyzeYear\obj\Debug\analyzeYear.exe
+D:\all_languages\reddit_challenges\challenge_027\easy\analyzeYear\analyzeYear\obj\Debug\analyzeYear.pdb
