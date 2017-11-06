@@ -1,0 +1,5 @@
+D:\all_languages\reddit_challenges\challenge_028\easy\findDuplicates\findDuplicates\bin\Debug\findDuplicates.exe.config
+D:\all_languages\reddit_challenges\challenge_028\easy\findDuplicates\findDuplicates\bin\Debug\findDuplicates.exe
+D:\all_languages\reddit_challenges\challenge_028\easy\findDuplicates\findDuplicates\bin\Debug\findDuplicates.pdb
+D:\all_languages\reddit_challenges\challenge_028\easy\findDuplicates\findDuplicates\obj\Debug\findDuplicates.exe
+D:\all_languages\reddit_challenges\challenge_028\easy\findDuplicates\findDuplicates\obj\Debug\findDuplicates.pdb
