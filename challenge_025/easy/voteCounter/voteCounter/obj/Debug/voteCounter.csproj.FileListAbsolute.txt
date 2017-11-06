@@ -1,0 +1,6 @@
+D:\all_languages\reddit_challenges\challenge_025\easy\voteCounter\voteCounter\bin\Debug\voteCounter.exe.config
+D:\all_languages\reddit_challenges\challenge_025\easy\voteCounter\voteCounter\bin\Debug\voteCounter.exe
+D:\all_languages\reddit_challenges\challenge_025\easy\voteCounter\voteCounter\bin\Debug\voteCounter.pdb
+D:\all_languages\reddit_challenges\challenge_025\easy\voteCounter\voteCounter\obj\Debug\voteCounter.csprojResolveAssemblyReference.cache
+D:\all_languages\reddit_challenges\challenge_025\easy\voteCounter\voteCounter\obj\Debug\voteCounter.exe
+D:\all_languages\reddit_challenges\challenge_025\easy\voteCounter\voteCounter\obj\Debug\voteCounter.pdb
