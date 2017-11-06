@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace dijkstraAlgorithm {
     class Node {
 
-        public char ID { get; set; }
+        public char ID { get; private set; }
         public int ToRoot { get; set; }
         public Node Parent { get; set; }
         public Dictionary<char, Node> Neighbors { get; set; }

@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="Node.cs" />
     <Compile Include="NodeManager.cs" />
+    <Compile Include="PathFinder.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

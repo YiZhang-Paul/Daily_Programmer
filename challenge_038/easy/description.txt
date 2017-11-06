@@ -1,5 +1,7 @@
 #38[easy] Dijkstra's algorithm
 
+All Done
+
 url: https://www.reddit.com/r/dailyprogrammer/comments/s2no2/4102012_challenge_38_easy/
 
 Implement Dijkstra's algorithm in any way you can :)
