@@ -1,0 +1,6 @@
+D:\all_languages\reddit_challenges\challenge_022\easy\unionSets\unionSets\bin\Debug\unionSets.exe.config
+D:\all_languages\reddit_challenges\challenge_022\easy\unionSets\unionSets\bin\Debug\unionSets.exe
+D:\all_languages\reddit_challenges\challenge_022\easy\unionSets\unionSets\bin\Debug\unionSets.pdb
+D:\all_languages\reddit_challenges\challenge_022\easy\unionSets\unionSets\obj\Debug\unionSets.exe
+D:\all_languages\reddit_challenges\challenge_022\easy\unionSets\unionSets\obj\Debug\unionSets.pdb
+D:\all_languages\reddit_challenges\challenge_022\easy\unionSets\unionSets\obj\Debug\unionSets.csprojResolveAssemblyReference.cache
