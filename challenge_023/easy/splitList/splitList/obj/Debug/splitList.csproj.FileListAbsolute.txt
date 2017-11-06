@@ -1,0 +1,5 @@
+D:\all_languages\reddit_challenges\challenge_023\easy\splitList\splitList\bin\Debug\splitList.exe.config
+D:\all_languages\reddit_challenges\challenge_023\easy\splitList\splitList\bin\Debug\splitList.exe
+D:\all_languages\reddit_challenges\challenge_023\easy\splitList\splitList\bin\Debug\splitList.pdb
+D:\all_languages\reddit_challenges\challenge_023\easy\splitList\splitList\obj\Debug\splitList.exe
+D:\all_languages\reddit_challenges\challenge_023\easy\splitList\splitList\obj\Debug\splitList.pdb
