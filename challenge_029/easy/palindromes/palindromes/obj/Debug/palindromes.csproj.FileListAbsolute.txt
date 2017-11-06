@@ -1,0 +1,6 @@
+D:\all_languages\reddit_challenges\challenge_029\easy\palindromes\palindromes\bin\Debug\palindromes.exe.config
+D:\all_languages\reddit_challenges\challenge_029\easy\palindromes\palindromes\bin\Debug\palindromes.exe
+D:\all_languages\reddit_challenges\challenge_029\easy\palindromes\palindromes\bin\Debug\palindromes.pdb
+D:\all_languages\reddit_challenges\challenge_029\easy\palindromes\palindromes\obj\Debug\palindromes.csprojResolveAssemblyReference.cache
+D:\all_languages\reddit_challenges\challenge_029\easy\palindromes\palindromes\obj\Debug\palindromes.exe
+D:\all_languages\reddit_challenges\challenge_029\easy\palindromes\palindromes\obj\Debug\palindromes.pdb
