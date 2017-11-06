@@ -1,0 +1,6 @@
+D:\all_languages\reddit_challenges\challenge_021\easy\nextInteger\nextInteger\bin\Debug\nextInteger.exe.config
+D:\all_languages\reddit_challenges\challenge_021\easy\nextInteger\nextInteger\bin\Debug\nextInteger.exe
+D:\all_languages\reddit_challenges\challenge_021\easy\nextInteger\nextInteger\bin\Debug\nextInteger.pdb
+D:\all_languages\reddit_challenges\challenge_021\easy\nextInteger\nextInteger\obj\Debug\nextInteger.csprojResolveAssemblyReference.cache
+D:\all_languages\reddit_challenges\challenge_021\easy\nextInteger\nextInteger\obj\Debug\nextInteger.exe
+D:\all_languages\reddit_challenges\challenge_021\easy\nextInteger\nextInteger\obj\Debug\nextInteger.pdb
