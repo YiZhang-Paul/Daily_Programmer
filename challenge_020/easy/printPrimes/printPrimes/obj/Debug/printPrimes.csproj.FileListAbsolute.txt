@@ -1,0 +1,5 @@
+D:\all_languages\reddit_challenges\challenge_020\easy\printPrimes\printPrimes\bin\Debug\printPrimes.exe.config
+D:\all_languages\reddit_challenges\challenge_020\easy\printPrimes\printPrimes\bin\Debug\printPrimes.exe
+D:\all_languages\reddit_challenges\challenge_020\easy\printPrimes\printPrimes\bin\Debug\printPrimes.pdb
+D:\all_languages\reddit_challenges\challenge_020\easy\printPrimes\printPrimes\obj\Debug\printPrimes.exe
+D:\all_languages\reddit_challenges\challenge_020\easy\printPrimes\printPrimes\obj\Debug\printPrimes.pdb
