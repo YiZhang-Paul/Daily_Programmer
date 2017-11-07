@@ -1,0 +1,6 @@
+D:\all_languages\reddit_challenges\challenge_014\easy\reverseBlock\reverseBlock\bin\Debug\reverseBlock.exe.config
+D:\all_languages\reddit_challenges\challenge_014\easy\reverseBlock\reverseBlock\bin\Debug\reverseBlock.exe
+D:\all_languages\reddit_challenges\challenge_014\easy\reverseBlock\reverseBlock\bin\Debug\reverseBlock.pdb
+D:\all_languages\reddit_challenges\challenge_014\easy\reverseBlock\reverseBlock\obj\Debug\reverseBlock.exe
+D:\all_languages\reddit_challenges\challenge_014\easy\reverseBlock\reverseBlock\obj\Debug\reverseBlock.pdb
+D:\all_languages\reddit_challenges\challenge_014\easy\reverseBlock\reverseBlock\obj\Debug\reverseBlock.csprojResolveAssemblyReference.cache
