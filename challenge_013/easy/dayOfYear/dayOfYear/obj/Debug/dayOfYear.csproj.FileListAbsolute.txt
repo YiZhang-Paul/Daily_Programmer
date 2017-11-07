@@ -1,0 +1,6 @@
+D:\all_languages\reddit_challenges\challenge_013\easy\dayOfYear\dayOfYear\bin\Debug\dayOfYear.exe.config
+D:\all_languages\reddit_challenges\challenge_013\easy\dayOfYear\dayOfYear\bin\Debug\dayOfYear.exe
+D:\all_languages\reddit_challenges\challenge_013\easy\dayOfYear\dayOfYear\bin\Debug\dayOfYear.pdb
+D:\all_languages\reddit_challenges\challenge_013\easy\dayOfYear\dayOfYear\obj\Debug\dayOfYear.csprojResolveAssemblyReference.cache
+D:\all_languages\reddit_challenges\challenge_013\easy\dayOfYear\dayOfYear\obj\Debug\dayOfYear.exe
+D:\all_languages\reddit_challenges\challenge_013\easy\dayOfYear\dayOfYear\obj\Debug\dayOfYear.pdb
