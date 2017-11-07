@@ -1,0 +1,6 @@
+D:\all_languages\reddit_challenges\challenge_018\easy\letterToNumber\letterToNumber\bin\Debug\letterToNumber.exe.config
+D:\all_languages\reddit_challenges\challenge_018\easy\letterToNumber\letterToNumber\bin\Debug\letterToNumber.exe
+D:\all_languages\reddit_challenges\challenge_018\easy\letterToNumber\letterToNumber\bin\Debug\letterToNumber.pdb
+D:\all_languages\reddit_challenges\challenge_018\easy\letterToNumber\letterToNumber\obj\Debug\letterToNumber.csprojResolveAssemblyReference.cache
+D:\all_languages\reddit_challenges\challenge_018\easy\letterToNumber\letterToNumber\obj\Debug\letterToNumber.exe
+D:\all_languages\reddit_challenges\challenge_018\easy\letterToNumber\letterToNumber\obj\Debug\letterToNumber.pdb
