@@ -1,0 +1,6 @@
+D:\all_languages\reddit_challenges\challenge_012\easy\permutation\permutation\bin\Debug\permutation.exe.config
+D:\all_languages\reddit_challenges\challenge_012\easy\permutation\permutation\bin\Debug\permutation.exe
+D:\all_languages\reddit_challenges\challenge_012\easy\permutation\permutation\bin\Debug\permutation.pdb
+D:\all_languages\reddit_challenges\challenge_012\easy\permutation\permutation\obj\Debug\permutation.csprojResolveAssemblyReference.cache
+D:\all_languages\reddit_challenges\challenge_012\easy\permutation\permutation\obj\Debug\permutation.exe
+D:\all_languages\reddit_challenges\challenge_012\easy\permutation\permutation\obj\Debug\permutation.pdb
