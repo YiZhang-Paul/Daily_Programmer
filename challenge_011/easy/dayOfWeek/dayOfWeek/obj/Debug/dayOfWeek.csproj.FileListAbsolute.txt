@@ -1,0 +1,5 @@
+D:\all_languages\reddit_challenges\challenge_011\easy\dayOfWeek\dayOfWeek\bin\Debug\dayOfWeek.exe.config
+D:\all_languages\reddit_challenges\challenge_011\easy\dayOfWeek\dayOfWeek\bin\Debug\dayOfWeek.exe
+D:\all_languages\reddit_challenges\challenge_011\easy\dayOfWeek\dayOfWeek\bin\Debug\dayOfWeek.pdb
+D:\all_languages\reddit_challenges\challenge_011\easy\dayOfWeek\dayOfWeek\obj\Debug\dayOfWeek.exe
+D:\all_languages\reddit_challenges\challenge_011\easy\dayOfWeek\dayOfWeek\obj\Debug\dayOfWeek.pdb
