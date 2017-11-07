@@ -1,0 +1,6 @@
+D:\all_languages\reddit_challenges\challenge_019\easy\countCharacters\countCharacters\bin\Debug\countCharacters.exe.config
+D:\all_languages\reddit_challenges\challenge_019\easy\countCharacters\countCharacters\bin\Debug\countCharacters.exe
+D:\all_languages\reddit_challenges\challenge_019\easy\countCharacters\countCharacters\bin\Debug\countCharacters.pdb
+D:\all_languages\reddit_challenges\challenge_019\easy\countCharacters\countCharacters\obj\Debug\countCharacters.csprojResolveAssemblyReference.cache
+D:\all_languages\reddit_challenges\challenge_019\easy\countCharacters\countCharacters\obj\Debug\countCharacters.exe
+D:\all_languages\reddit_challenges\challenge_019\easy\countCharacters\countCharacters\obj\Debug\countCharacters.pdb
