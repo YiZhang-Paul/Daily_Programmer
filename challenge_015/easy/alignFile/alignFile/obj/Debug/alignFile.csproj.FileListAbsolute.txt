@@ -1,0 +1,6 @@
+D:\all_languages\reddit_challenges\challenge_015\easy\alignFile\alignFile\bin\Debug\alignFile.exe.config
+D:\all_languages\reddit_challenges\challenge_015\easy\alignFile\alignFile\bin\Debug\alignFile.exe
+D:\all_languages\reddit_challenges\challenge_015\easy\alignFile\alignFile\bin\Debug\alignFile.pdb
+D:\all_languages\reddit_challenges\challenge_015\easy\alignFile\alignFile\obj\Debug\alignFile.csprojResolveAssemblyReference.cache
+D:\all_languages\reddit_challenges\challenge_015\easy\alignFile\alignFile\obj\Debug\alignFile.exe
+D:\all_languages\reddit_challenges\challenge_015\easy\alignFile\alignFile\obj\Debug\alignFile.pdb
