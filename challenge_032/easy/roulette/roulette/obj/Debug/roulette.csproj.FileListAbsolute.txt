@@ -1,0 +1,6 @@
+D:\all_languages\reddit_challenges\challenge_032\easy\roulette\roulette\bin\Debug\roulette.exe.config
+D:\all_languages\reddit_challenges\challenge_032\easy\roulette\roulette\bin\Debug\roulette.exe
+D:\all_languages\reddit_challenges\challenge_032\easy\roulette\roulette\bin\Debug\roulette.pdb
+D:\all_languages\reddit_challenges\challenge_032\easy\roulette\roulette\obj\Debug\roulette.csprojResolveAssemblyReference.cache
+D:\all_languages\reddit_challenges\challenge_032\easy\roulette\roulette\obj\Debug\roulette.exe
+D:\all_languages\reddit_challenges\challenge_032\easy\roulette\roulette\obj\Debug\roulette.pdb
