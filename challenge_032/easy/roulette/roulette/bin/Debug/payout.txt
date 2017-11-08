@@ -1,21 +1,21 @@
 0,35 to 1
 00,35 to 1
-Straight up,35 to 1
-Row,17 to 1
-Split,17 to 1
-Street,11 to 1           
-Corner,8 to 1
-Top line,6 to 1
-Six line,5 to 1  
+straight up,35 to 1
+row,17 to 1
+split,17 to 1
+street,11 to 1           
+corner,8 to 1
+top line,6 to 1
+six line,5 to 1  
 1st column,2 to 1
 2nd column,2 to 1
 3rd column,2 to 1
 1st dozen,2 to 1
 2nd dozen,2 to 1
 3rd dozen,2 to 1
-Odd,1 to 1
-Even,1 to 1
-Red,1 to 1
-Black,1 to 1
+odd,1 to 1
+even,1 to 1
+red,1 to 1
+black,1 to 1
 1 to 18,1 to 1
 19 to 36,1 to 1

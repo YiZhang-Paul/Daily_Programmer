@@ -55,26 +55,26 @@ namespace roulette {
 
             switch(bet) {
 
-                case "0" : case "00" : case "Straight up" : case "Street" :
-                case "Corner" : case "Six line" : case "Top line" : case "Row" :
+                case "0" : case "00" : case "straight up" : case "street" :
+                case "corner" : case "six line" : case "top line" : case "row" :
                 case "1st column" : case "2nd column" : case "3rd column" :
                     //bet on single/multiple numbers
                     return Rule.HasValue(betValue, spin);
 
-                case "Split" : case "1 to 18" : case "19 to 36" :
+                case "split" : case "1 to 18" : case "19 to 36" :
                 case "1st dozen" : case "2nd dozen" : case "3rd dozen" :
                     //bet on range of numbers
                     return Rule.InRange(betValue, spin);
 
-                case "Odd" : case "Even" :
+                case "odd" : case "even" :
 
                     int spinValue = Int32.Parse(spin);
 
-                    return spinValue == 0 ? false : (bet == "Odd" ? spinValue % 2 == 1 : spinValue % 2 == 0);
+                    return spinValue == 0 ? false : (bet == "odd" ? spinValue % 2 == 1 : spinValue % 2 == 0);
 
-                case "Red" : case "Black" :
+                case "red" : case "black" :
 
-                    return bet == "Red" ? Layout.IsRed(spin) : Layout.IsBlack(spin);
+                    return bet == "red" ? Layout.IsRed(spin) : Layout.IsBlack(spin);
             }
 
             return false;
@@ -94,7 +94,7 @@ namespace roulette {
             return string.Join("\n", new string[] {
             
                 "Your Bet: " + betValue,
-                "Bet Type: " + bet,
+                "Bet Type: " + Formatter.CapitalizeAll(bet),
                 "Odds: " + Odds[bet],
                 "Pay Out: " + Payout[bet],
                 "Spin Result: " + spin,

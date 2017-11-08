@@ -11,8 +11,8 @@ namespace roulette {
         private Layout _layout = new Layout();
         private Dictionary<string, string> _defaultBets = new Dictionary<string, string> { 
         
-            {"Top line", "0-00-1-2-3"},
-            {"Row", "0-00"},
+            {"top line", "0-00-1-2-3"},
+            {"row", "0-00"},
             {"1 to 18", "1-18"},
             {"19 to 36", "19-36"},
             {"1st dozen", "1-12"},

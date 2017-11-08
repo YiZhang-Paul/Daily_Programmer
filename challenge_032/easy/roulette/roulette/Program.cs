@@ -10,7 +10,7 @@ namespace roulette {
 
             var roulette = new Roulette();
 
-            Console.WriteLine(roulette.PlayGame(1.2m, "Split"));
+            Console.WriteLine(roulette.PlayGame(1.2m, "3rd column"));
         }
     }
 }
