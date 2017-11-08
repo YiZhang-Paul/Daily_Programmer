@@ -8,8 +8,9 @@ namespace stringSearching {
     class Program {
         static void Main(string[] args) {
 
-            Console.WriteLine(string.Join(" ", GetPrefixTable("abcdabca")));
-            Console.WriteLine(string.Join(" ", GetPrefixTable("aabaabaaa")));
+            //challenge input
+            Console.WriteLine("String Found at Index " + Search("Double, double, toil and trouble", "il an"));
+            Console.WriteLine("String Found at Index " + Search("abxabcabcaby", "abcaby"));
         }
         /// <summary>
         /// build proper prefix table for a given search pattern
@@ -18,23 +19,45 @@ namespace stringSearching {
         
             int[] prefix = new int[pattern.Length];
 
-            for(int k = 1, j = 0, i = 1; k < pattern.Length; k++) {
+            for(int i = 1, j = 0, k = 1; i < pattern.Length; i++) {
 
-                while(j != 0 && pattern[j] != pattern[i]) {
-
+                while(j != 0 && pattern[j] != pattern[k]) {
+                
                     j = prefix[j - 1];
                 }
 
-                if(pattern[j] == pattern[i]) {
+                if(pattern[j] == pattern[k]) {
 
-                    prefix[k] = j + 1;
+                    prefix[i] = j + 1;
                     j++;
                 }
 
-                i++;
+                k++;
             }
 
             return prefix;
+        }
+        /// <summary>
+        /// search for pattern in a given string
+        /// </summary>
+        public static int Search(string text, string pattern) {
+
+            int[] prefix = GetPrefixTable(pattern);
+
+            for(int i = 0, j = 0; i < text.Length; i++) {
+
+                if(text[i] != pattern[j]) {
+
+                    i -= j == 0 ? 0 : 1;
+                    j = prefix[Math.Max(0, j - 1)];
+                }
+                else if(++j == prefix.Length) {
+                
+                    return i - (j - 1);
+                }
+            }
+
+            return -1;
         }
     }
 }
