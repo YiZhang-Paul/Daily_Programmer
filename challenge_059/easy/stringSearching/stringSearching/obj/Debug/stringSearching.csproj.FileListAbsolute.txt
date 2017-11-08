@@ -1,0 +1,6 @@
+D:\all_languages\reddit_challenges\challenge_059\easy\stringSearching\stringSearching\bin\Debug\stringSearching.exe.config
+D:\all_languages\reddit_challenges\challenge_059\easy\stringSearching\stringSearching\bin\Debug\stringSearching.exe
+D:\all_languages\reddit_challenges\challenge_059\easy\stringSearching\stringSearching\bin\Debug\stringSearching.pdb
+D:\all_languages\reddit_challenges\challenge_059\easy\stringSearching\stringSearching\obj\Debug\stringSearching.csprojResolveAssemblyReference.cache
+D:\all_languages\reddit_challenges\challenge_059\easy\stringSearching\stringSearching\obj\Debug\stringSearching.exe
+D:\all_languages\reddit_challenges\challenge_059\easy\stringSearching\stringSearching\obj\Debug\stringSearching.pdb
