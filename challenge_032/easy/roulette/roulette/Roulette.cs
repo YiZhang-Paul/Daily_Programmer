@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using System.Text.RegularExpressions;
 
 namespace roulette {
     class Roulette {
@@ -15,10 +16,10 @@ namespace roulette {
         public Dictionary<string, string> Payout { get; private set; }
 
         public Roulette() {
-
+            
             Wheel = new Wheel();
             Layout = new Layout();
-            Rule = new Rule();
+            Rule = new Rule(Layout);
             Odds = GetTable("odds.txt");
             Payout = GetTable("payout.txt");
         }
@@ -29,15 +30,9 @@ namespace roulette {
 
             try {
 
-                var table = new Dictionary<string, string>();
-
-                foreach(string record in File.ReadAllLines(fileName)) {
-
-                    string[] information = record.Split(',');
-                    table.Add(information[0], information[1]);
-                }
-
-                return table;
+                return File.ReadAllLines(fileName)
+                           .Select(line => line.Split(','))
+                           .ToDictionary(line => line[0], line => line[1]);
             }
             catch(Exception exception) {
 
@@ -47,58 +42,72 @@ namespace roulette {
 
             return null;
         }
-        
         /// <summary>
         /// check game result
         /// </summary>
-        public bool CheckResult(string bet, string betValue, string spin) {
+        public bool CheckResult(string betName, string winSpace, string pocket) {
 
-            switch(bet) {
+            if(Rule.NumberBets.Contains(betName)) {
+                //bet on single/multiple numbers
+                return Rule.HasPocket(winSpace, pocket);
+            }
 
-                case "0" : case "00" : case "straight up" : case "street" :
-                case "corner" : case "six line" : case "top line" : case "row" :
-                case "1st column" : case "2nd column" : case "3rd column" :
-                    //bet on single/multiple numbers
-                    return Rule.HasValue(betValue, spin);
+            if(Rule.RangeBets.Contains(betName)) {
+                //bet on range of numbers
+                return Rule.InRange(winSpace, pocket);
+            }
 
-                case "split" : case "1 to 18" : case "19 to 36" :
-                case "1st dozen" : case "2nd dozen" : case "3rd dozen" :
-                    //bet on range of numbers
-                    return Rule.InRange(betValue, spin);
+            if(Int32.Parse(pocket) != 0 && (betName == "odd" || betName == "even")) {
 
-                case "odd" : case "even" :
+                return betName == "odd" ? Int32.Parse(pocket) % 2 == 1 : Int32.Parse(pocket) % 2 == 0;
+            }
 
-                    int spinValue = Int32.Parse(spin);
+            if(betName == "red" || betName == "black") {
 
-                    return spinValue == 0 ? false : (bet == "odd" ? spinValue % 2 == 1 : spinValue % 2 == 0);
-
-                case "red" : case "black" :
-
-                    return bet == "red" ? Layout.IsRed(spin) : Layout.IsBlack(spin);
+                return betName == "red" ? Layout.IsRed(pocket) : Layout.IsBlack(pocket);
             }
 
             return false;
         }
         /// <summary>
+        /// calculate total payout/lose
+        /// </summary>
+        public decimal GetPayout(decimal bid, bool win, string betName) { 
+        
+            if(!win) {
+
+                return bid;
+            }
+
+            return bid * Decimal.Parse(Regex.Match(Payout[betName], @"\d*\.?\d+").Value);
+        }
+        /// <summary>
         /// play roulette game
         /// </summary>
-        /// <param name="amount">total amount of money placed for bet</param>
-        /// <param name="bet">bet name</param>
-        /// <param name="betValue">bet value</param>
-        public string PlayGame(decimal amount, string bet, string betValue = null) {
+        /// <param name="bid">total amount of money placed for bet</param>
+        /// <param name="betName">bet name</param>
+        /// <param name="winSpace">bet value</param>
+        public string PlayGame(decimal bid, string betName, string winSpace = null) {
 
-            betValue = betValue ?? Rule.GetBetValue(bet, Layout);
-            string spin = Wheel.Spin();
-            bool result = CheckResult(bet, betValue, spin);
+            if(!Rule.Validate(betName, winSpace)) {
+
+                return "Invalid Bet";
+            }
+
+            winSpace = winSpace ?? Rule.GetWinSpace(betName, Layout);
+            string pocket = Wheel.Spin();
+            bool win = CheckResult(betName, winSpace, pocket);
+            decimal payout = GetPayout(bid, win, betName);
 
             return string.Join("\n", new string[] {
             
-                "Your Bet: " + betValue,
-                "Bet Type: " + Formatter.CapitalizeAll(bet),
-                "Odds: " + Odds[bet],
-                "Pay Out: " + Payout[bet],
-                "Spin Result: " + spin,
-                "You " + (result ? "Win" : "Lose") +"!"
+                "Winning Spaces: " + winSpace,
+                "Bet Name: " + Formatter.CapitalizeAll(betName),
+                "Odds: " + Odds[betName],
+                "Payout: " + Payout[betName],
+                "Pocket: " + pocket,
+                "You " + (win ? "Win" : "Lose") +"!",
+                "Payout: $" + payout + (win ? " Gain" : " Lost") + "!"
             });
         }
     }

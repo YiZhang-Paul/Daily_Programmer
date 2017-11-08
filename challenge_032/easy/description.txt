@@ -1,5 +1,7 @@
 #32[easy] Roulette
 
+All Done
+
 url: https://www.reddit.com/r/dailyprogrammer/comments/rhrmx/3282012_challenge_32_easy/
 
 lets simulate a roulette wheel!

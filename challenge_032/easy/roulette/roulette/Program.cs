@@ -10,7 +10,8 @@ namespace roulette {
 
             var roulette = new Roulette();
 
-            Console.WriteLine(roulette.PlayGame(1.2m, "3rd column"));
+            //challenge input
+            Console.WriteLine(roulette.PlayGame(1.2m, "six line", "31-32-33-34-35-36"));
         }
     }
 }
