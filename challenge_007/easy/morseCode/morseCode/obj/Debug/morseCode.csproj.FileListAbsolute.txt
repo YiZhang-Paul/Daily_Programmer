@@ -1,0 +1,5 @@
+D:\all_languages\reddit_challenges\challenge_007\easy\morseCode\morseCode\bin\Debug\morseCode.exe.config
+D:\all_languages\reddit_challenges\challenge_007\easy\morseCode\morseCode\bin\Debug\morseCode.exe
+D:\all_languages\reddit_challenges\challenge_007\easy\morseCode\morseCode\bin\Debug\morseCode.pdb
+D:\all_languages\reddit_challenges\challenge_007\easy\morseCode\morseCode\obj\Debug\morseCode.exe
+D:\all_languages\reddit_challenges\challenge_007\easy\morseCode\morseCode\obj\Debug\morseCode.pdb
