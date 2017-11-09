@@ -1,0 +1,6 @@
+D:\all_languages\reddit_challenges\challenge_009\easy\arrangeInputs\arrangeInputs\bin\Debug\arrangeInputs.exe.config
+D:\all_languages\reddit_challenges\challenge_009\easy\arrangeInputs\arrangeInputs\bin\Debug\arrangeInputs.exe
+D:\all_languages\reddit_challenges\challenge_009\easy\arrangeInputs\arrangeInputs\bin\Debug\arrangeInputs.pdb
+D:\all_languages\reddit_challenges\challenge_009\easy\arrangeInputs\arrangeInputs\obj\Debug\arrangeInputs.exe
+D:\all_languages\reddit_challenges\challenge_009\easy\arrangeInputs\arrangeInputs\obj\Debug\arrangeInputs.pdb
+D:\all_languages\reddit_challenges\challenge_009\easy\arrangeInputs\arrangeInputs\obj\Debug\arrangeInputs.csprojResolveAssemblyReference.cache
