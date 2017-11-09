@@ -1,0 +1,6 @@
+D:\all_languages\reddit_challenges\challenge_001\easy\userInformation\userInformation\bin\Debug\userInformation.exe.config
+D:\all_languages\reddit_challenges\challenge_001\easy\userInformation\userInformation\bin\Debug\userInformation.exe
+D:\all_languages\reddit_challenges\challenge_001\easy\userInformation\userInformation\bin\Debug\userInformation.pdb
+D:\all_languages\reddit_challenges\challenge_001\easy\userInformation\userInformation\obj\Debug\userInformation.csprojResolveAssemblyReference.cache
+D:\all_languages\reddit_challenges\challenge_001\easy\userInformation\userInformation\obj\Debug\userInformation.exe
+D:\all_languages\reddit_challenges\challenge_001\easy\userInformation\userInformation\obj\Debug\userInformation.pdb
