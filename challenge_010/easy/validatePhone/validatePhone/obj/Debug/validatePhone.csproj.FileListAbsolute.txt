@@ -1,0 +1,6 @@
+D:\all_languages\reddit_challenges\challenge_010\easy\validatePhone\validatePhone\bin\Debug\validatePhone.exe.config
+D:\all_languages\reddit_challenges\challenge_010\easy\validatePhone\validatePhone\bin\Debug\validatePhone.exe
+D:\all_languages\reddit_challenges\challenge_010\easy\validatePhone\validatePhone\bin\Debug\validatePhone.pdb
+D:\all_languages\reddit_challenges\challenge_010\easy\validatePhone\validatePhone\obj\Debug\validatePhone.csprojResolveAssemblyReference.cache
+D:\all_languages\reddit_challenges\challenge_010\easy\validatePhone\validatePhone\obj\Debug\validatePhone.exe
+D:\all_languages\reddit_challenges\challenge_010\easy\validatePhone\validatePhone\obj\Debug\validatePhone.pdb
