@@ -1,0 +1,6 @@
+D:\all_languages\reddit_challenges\challenge_006\easy\calculatePI\calculatePI\bin\Debug\calculatePI.exe.config
+D:\all_languages\reddit_challenges\challenge_006\easy\calculatePI\calculatePI\bin\Debug\calculatePI.exe
+D:\all_languages\reddit_challenges\challenge_006\easy\calculatePI\calculatePI\bin\Debug\calculatePI.pdb
+D:\all_languages\reddit_challenges\challenge_006\easy\calculatePI\calculatePI\obj\Debug\calculatePI.csprojResolveAssemblyReference.cache
+D:\all_languages\reddit_challenges\challenge_006\easy\calculatePI\calculatePI\obj\Debug\calculatePI.exe
+D:\all_languages\reddit_challenges\challenge_006\easy\calculatePI\calculatePI\obj\Debug\calculatePI.pdb
