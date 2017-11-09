@@ -1,0 +1,5 @@
+D:\all_languages\reddit_challenges\challenge_008\easy\printSong\printSong\bin\Debug\printSong.exe.config
+D:\all_languages\reddit_challenges\challenge_008\easy\printSong\printSong\bin\Debug\printSong.exe
+D:\all_languages\reddit_challenges\challenge_008\easy\printSong\printSong\bin\Debug\printSong.pdb
+D:\all_languages\reddit_challenges\challenge_008\easy\printSong\printSong\obj\Debug\printSong.exe
+D:\all_languages\reddit_challenges\challenge_008\easy\printSong\printSong\obj\Debug\printSong.pdb
