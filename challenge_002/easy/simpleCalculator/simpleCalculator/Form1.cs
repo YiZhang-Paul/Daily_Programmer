@@ -100,8 +100,11 @@ namespace simpleCalculator {
 
         private void btnDelete_Click(object sender, EventArgs e) {
 
-            _calculator.NumberBuffer.RemoveLast();
-            ShowNumber();
+            if(!_calculator.Locked && _calculator.NumberBuffer.Show() != "0") {
+            
+                _calculator.NumberBuffer.RemoveLast();
+                ShowNumber();
+            }
         }
 
         private void btnClearLast_Click(object sender, EventArgs e) {

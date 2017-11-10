@@ -15,6 +15,8 @@ namespace simpleCalculator {
         public Stack<decimal> Numbers { get; private set; }
         public Stack<string> Operations { get; private set; }
         public string Result { get { return Numbers.Peek().ToString(); } }
+        public bool Locked { get { return Operations.Count > 0 && Operations.Peek() == "l"; } }
+        public bool CanChangeBuffer { get { return false; } }
 
         public SimpleCalculator() {
 
@@ -31,12 +33,20 @@ namespace simpleCalculator {
             Operations = new Stack<string>();
         }
         /// <summary>
+        /// set lock on result to allow number reuse
+        /// </summary>
+        public void SetLock() {
+
+            Operations.Push("l");
+        }
+        /// <summary>
         /// append new content to current number buffer
         /// </summary>
         public void AddBuffer(string input) {
 
-            if(Operations.Count > 0 && Operations.Peek() == "=") {
+            if(Locked) {
 
+                Operations.Clear();
                 NumberBuffer.Clear();
             }
 
@@ -68,8 +78,10 @@ namespace simpleCalculator {
 
                 Equation.Clear();
                 EvaluateAll();
-                Operations.Push("=");
+                //set result to buffer to allow number reuse
                 NumberBuffer.SetValue(Result);
+                //add lock to detect new number input
+                SetLock();
             }
             else {
 
@@ -93,13 +105,6 @@ namespace simpleCalculator {
             return 0;
         }
         /// <summary>
-        /// evaluate last operation
-        /// </summary>
-        public void EvaluateLast() {
-
-            Numbers.Push(Calculate(Operations.Pop(), Numbers.Pop(), Numbers.Pop()));
-        }
-        /// <summary>
         /// evaluate entire equation
         /// </summary>
         public void EvaluateAll() {
@@ -107,8 +112,8 @@ namespace simpleCalculator {
             while(Operations.Count > 0) {
 
                 string operation = Operations.Pop();
-                //remove placeholder equal signs
-                if(operation == "=") {
+                //remove placeholder locks
+                if(operation == "l") {
                 
                     continue;
                 }
