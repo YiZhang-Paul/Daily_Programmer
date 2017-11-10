@@ -11,89 +11,31 @@ using System.Windows.Forms;
 namespace simpleCalculator {
     public partial class Calculator : Form {
 
-        private Point _mouseCord;
+        private Point _mousePosition;
 
         public Calculator() {
-        
+            
             InitializeComponent();
         }
         /// <summary>
-        /// retrieve mouse co-ordinate
+        /// retrieve current mouse position
         /// </summary>
-        private void GetMouseCord(object sender, MouseEventArgs e) {
+        private void GetMousePosition(object sender, MouseEventArgs e) {
 
-            _mouseCord = e.Location;
+            _mousePosition = e.Location;
         }
         /// <summary>
-        /// mouse drag
+        /// press mouse button and drag mouse
         /// </summary>
-        private void DragMouse(object sender, MouseEventArgs e) {
-
+        private void DragMouse(object sender, MouseEventArgs e) { 
+        
             if(e.Button == MouseButtons.Left) {
 
-                this.Left += e.X - _mouseCord.X;
-                this.Top += e.Y - _mouseCord.Y;
+                this.Left += e.X - _mousePosition.X;
+                this.Top += e.Y - _mousePosition.Y;
             }
         }
-        /** 
-         * all event handlers
-         */
-        private void btnXSquare_Click(object sender, EventArgs e) {
 
-        }
-
-        private void btnSquareRoot_Click(object sender, EventArgs e) {
-
-        }
-
-        private void btnTenToPower_Click(object sender, EventArgs e) {
-
-        }
-
-        private void btnXToPowerY_Click(object sender, EventArgs e) {
-
-        }
-
-        private void btnSine_Click(object sender, EventArgs e) {
-
-        }
-
-        private void btnLog_Click(object sender, EventArgs e) {
-
-        }
-
-        private void btnCosine_Click(object sender, EventArgs e) {
-
-        }
-
-        private void btnExponential_Click(object sender, EventArgs e) {
-
-        }
-
-        private void btnTangent_Click(object sender, EventArgs e) {
-
-        }
-
-        private void btnModulos_Click(object sender, EventArgs e) {
-
-        }
-
-        private void btnDivide_Click(object sender, EventArgs e) {
-
-        }
-
-        private void btnDelete_Click(object sender, EventArgs e) {
-
-        }
-
-        private void button12_Click(object sender, EventArgs e) {
-
-        }
-
-        private void btnClearAll_Click(object sender, EventArgs e) {
-
-        }
-        
         private void btnMinimize_Click(object sender, EventArgs e) {
 
             this.WindowState = FormWindowState.Minimized;
@@ -101,7 +43,7 @@ namespace simpleCalculator {
 
         private void btnMaxNormal_Click(object sender, EventArgs e) {
 
-            this.WindowState = this.WindowState == FormWindowState.Maximized ? FormWindowState.Normal : FormWindowState.Maximized;
+            this.WindowState = this.WindowState == FormWindowState.Maximized ? FormWindowState.Normal : FormWindowState.Maximized; 
         }
 
         private void btnExit_Click(object sender, EventArgs e) {
