@@ -69,6 +69,7 @@
             this.btnMaxNormal = new System.Windows.Forms.Button();
             this.btnExit = new System.Windows.Forms.Button();
             this.numberDisplay = new System.Windows.Forms.Label();
+            this.expressionDisplay = new System.Windows.Forms.Label();
             this.mainLayout.SuspendLayout();
             this.buttonLayout.SuspendLayout();
             this.displayLayout.SuspendLayout();
@@ -261,6 +262,7 @@
             this.btnPlus.TabIndex = 29;
             this.btnPlus.Text = "+";
             this.btnPlus.UseVisualStyleBackColor = false;
+            this.btnPlus.Click += new System.EventHandler(this.btnPlus_Click);
             // 
             // btnThree
             // 
@@ -354,6 +356,7 @@
             this.btnMinus.TabIndex = 24;
             this.btnMinus.Text = "−";
             this.btnMinus.UseVisualStyleBackColor = false;
+            this.btnMinus.Click += new System.EventHandler(this.btnMinus_Click);
             // 
             // btnSix
             // 
@@ -596,6 +599,7 @@
             this.btnClearLast.TabIndex = 11;
             this.btnClearLast.Text = "CE";
             this.btnClearLast.UseVisualStyleBackColor = false;
+            this.btnClearLast.Click += new System.EventHandler(this.btnClearLast_Click);
             // 
             // button11
             // 
@@ -802,14 +806,15 @@
             this.displayLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.displayLayout.Controls.Add(this.topPanel, 0, 0);
             this.displayLayout.Controls.Add(this.numberDisplay, 0, 3);
+            this.displayLayout.Controls.Add(this.expressionDisplay, 0, 2);
             this.displayLayout.Dock = System.Windows.Forms.DockStyle.Fill;
             this.displayLayout.Location = new System.Drawing.Point(0, 0);
             this.displayLayout.Margin = new System.Windows.Forms.Padding(0);
             this.displayLayout.Name = "displayLayout";
             this.displayLayout.RowCount = 6;
             this.displayLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 11.76471F));
-            this.displayLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 11.39706F));
             this.displayLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 13.60294F));
+            this.displayLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 11.39706F));
             this.displayLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 31.98529F));
             this.displayLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 15.44118F));
             this.displayLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 15.07353F));
@@ -941,6 +946,16 @@
             this.numberDisplay.TabIndex = 0;
             this.numberDisplay.Text = "0";
             // 
+            // expressionDisplay
+            // 
+            this.expressionDisplay.AutoSize = true;
+            this.expressionDisplay.Dock = System.Windows.Forms.DockStyle.Right;
+            this.expressionDisplay.Location = new System.Drawing.Point(362, 69);
+            this.expressionDisplay.Name = "expressionDisplay";
+            this.expressionDisplay.Size = new System.Drawing.Size(0, 31);
+            this.expressionDisplay.TabIndex = 2;
+            this.expressionDisplay.TextAlign = System.Drawing.ContentAlignment.BottomRight;
+            // 
             // Calculator
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 17F);
@@ -1016,6 +1031,7 @@
         private System.Windows.Forms.Button btnMaxNormal;
         private System.Windows.Forms.Button btnExit;
         private System.Windows.Forms.Label title;
+        private System.Windows.Forms.Label expressionDisplay;
     }
 }
 

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Text.RegularExpressions;
 
 namespace simpleCalculator {
     public partial class Calculator : Form {
@@ -17,22 +18,45 @@ namespace simpleCalculator {
         public Calculator() {
             
             InitializeComponent();
-            DisplayInput();
+            ShowNumber();
         }
         /// <summary>
         /// display current number on calculator
         /// </summary>
-        private void DisplayInput() {
+        private void ShowNumber() {
 
-            numberDisplay.Text = _calculator.InputBuffer.ToString();
+            numberDisplay.Text = _calculator.NumberBuffer.ToString();
         }
         /// <summary>
-        /// enter user input to calculator
+        /// display current calculation expression
         /// </summary>
-        public void EnterInput(string input) {
+        public void ShowExpression() {
+
+            expressionDisplay.Text = _calculator.Expression.ToString();
+        }
+        /// <summary>
+        /// display current calculation result
+        /// </summary>
+        public void ShowResult() {
+
+            numberDisplay.Text = _calculator.Numbers.Peek().ToString();
+        }
+        /// <summary>
+        /// enter number input to calculator
+        /// </summary>
+        public void EnterNumber(string input) {
 
             _calculator.AppendBuffer(input);
-            DisplayInput();
+            ShowNumber();
+        }
+        /// <summary>
+        /// enter operation for execution to calculator
+        /// </summary>
+        public void EnterOperation(string operation) {
+
+            _calculator.PushBuffer(operation);
+            ShowExpression();
+            ShowResult();
         }
         /// <summary>
         /// retrieve current mouse position
@@ -68,71 +92,88 @@ namespace simpleCalculator {
             Application.Exit();
         }
 
-        private void btnDot_Click(object sender, EventArgs e) {
-
-            EnterInput(".");
-        }
-
-        private void btnZero_Click(object sender, EventArgs e) {
-
-            EnterInput("0");
-        }
-
-        private void btnOne_Click(object sender, EventArgs e) {
-
-            EnterInput("1");
-        }
-
-        private void btnTwo_Click(object sender, EventArgs e) {
-
-            EnterInput("2");
-        }
-
-        private void btnThree_Click(object sender, EventArgs e) {
-
-            EnterInput("3");
-        }
-
-        private void btnFour_Click(object sender, EventArgs e) {
-
-            EnterInput("4");
-        }
-
-        private void btnFive_Click(object sender, EventArgs e) {
-
-            EnterInput("5");
-        }
-
-        private void btnSix_Click(object sender, EventArgs e) {
-
-            EnterInput("6");
-        }
-
-        private void btnSeven_Click(object sender, EventArgs e) {
-
-            EnterInput("7");
-        }
-
-        private void btnEight_Click(object sender, EventArgs e) {
-
-            EnterInput("8");
-        }
-
-        private void btnNine_Click(object sender, EventArgs e) {
-
-            EnterInput("9");
-        }
-
         private void btnClearAll_Click(object sender, EventArgs e) {
 
             _calculator.Reset();
-            DisplayInput();
+            ShowNumber();
+            ShowExpression();
         }
 
         private void btnDelete_Click(object sender, EventArgs e) {
 
             _calculator.RemoveLastInput();
-            DisplayInput();
+            ShowNumber();
+        }
+
+        private void btnClearLast_Click(object sender, EventArgs e) {
+
+            _calculator.ClearBuffer();
+            ShowNumber();
+        }
+
+        private void btnDot_Click(object sender, EventArgs e) {
+
+            EnterNumber(".");
+        }
+
+        private void btnZero_Click(object sender, EventArgs e) {
+
+            EnterNumber("0");
+        }
+
+        private void btnOne_Click(object sender, EventArgs e) {
+
+            EnterNumber("1");
+        }
+
+        private void btnTwo_Click(object sender, EventArgs e) {
+
+            EnterNumber("2");
+        }
+
+        private void btnThree_Click(object sender, EventArgs e) {
+
+            EnterNumber("3");
+        }
+
+        private void btnFour_Click(object sender, EventArgs e) {
+
+            EnterNumber("4");
+        }
+
+        private void btnFive_Click(object sender, EventArgs e) {
+
+            EnterNumber("5");
+        }
+
+        private void btnSix_Click(object sender, EventArgs e) {
+
+            EnterNumber("6");
+        }
+
+        private void btnSeven_Click(object sender, EventArgs e) {
+
+            EnterNumber("7");
+        }
+
+        private void btnEight_Click(object sender, EventArgs e) {
+
+            EnterNumber("8");
+        }
+
+        private void btnNine_Click(object sender, EventArgs e) {
+
+            EnterNumber("9");
+        }
+
+        private void btnPlus_Click(object sender, EventArgs e) {
+
+            EnterOperation("+");
+        }
+
+        private void btnMinus_Click(object sender, EventArgs e) {
+
+            EnterOperation("-");
         }
     }
 }
