@@ -7,7 +7,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Text.RegularExpressions;
 
 namespace simpleCalculator {
     public partial class Calculator : Form {
@@ -25,28 +24,28 @@ namespace simpleCalculator {
         /// </summary>
         private void ShowNumber() {
 
-            numberDisplay.Text = _calculator.NumberBuffer.ToString();
+            numberDisplay.Text = _calculator.NumberBuffer.Show();
         }
         /// <summary>
-        /// display current calculation expression
+        /// display current equation
         /// </summary>
-        public void ShowExpression() {
+        public void ShowEquation() {
 
-            expressionDisplay.Text = _calculator.Expression.ToString();
+            expressionDisplay.Text = _calculator.Equation.Show();
         }
         /// <summary>
         /// display current calculation result
         /// </summary>
         public void ShowResult() {
 
-            numberDisplay.Text = _calculator.Numbers.Peek().ToString();
+            numberDisplay.Text = _calculator.Result;
         }
         /// <summary>
         /// enter number input to calculator
         /// </summary>
         public void EnterNumber(string input) {
 
-            _calculator.AppendBuffer(input);
+            _calculator.AddBuffer(input);
             ShowNumber();
         }
         /// <summary>
@@ -54,9 +53,9 @@ namespace simpleCalculator {
         /// </summary>
         public void EnterOperation(string operation) {
 
-            _calculator.PushBuffer(operation);
-            ShowExpression();
+            _calculator.Process(operation);
             ShowResult();
+            ShowEquation();
         }
         /// <summary>
         /// retrieve current mouse position
@@ -96,18 +95,18 @@ namespace simpleCalculator {
 
             _calculator.Reset();
             ShowNumber();
-            ShowExpression();
+            ShowEquation();
         }
 
         private void btnDelete_Click(object sender, EventArgs e) {
 
-            _calculator.RemoveLastInput();
+            _calculator.NumberBuffer.RemoveLast();
             ShowNumber();
         }
 
         private void btnClearLast_Click(object sender, EventArgs e) {
 
-            _calculator.ClearBuffer();
+            _calculator.NumberBuffer.Clear();
             ShowNumber();
         }
 
@@ -174,6 +173,11 @@ namespace simpleCalculator {
         private void btnMinus_Click(object sender, EventArgs e) {
 
             EnterOperation("-");
+        }
+
+        private void btnEqual_Click(object sender, EventArgs e) {
+
+            EnterOperation("=");
         }
     }
 }

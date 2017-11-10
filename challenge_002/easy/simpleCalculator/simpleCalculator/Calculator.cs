@@ -8,11 +8,13 @@ using System.Text.RegularExpressions;
 namespace simpleCalculator {
     class SimpleCalculator {
 
-        public StringBuilder NumberBuffer { get; private set; }
-        public StringBuilder Expression { get; private set; }
+        private string _binaryOperators = "+-/*^";
+
+        public Equation Equation { get; private set; }
+        public NumberBuffer NumberBuffer { get; private set; }
         public Stack<decimal> Numbers { get; private set; }
-        public Stack<string> Operators { get; private set; }
-        public bool IsDecimal { get { return Regex.IsMatch(NumberBuffer.ToString(), @"\."); } }
+        public Stack<string> Operations { get; private set; }
+        public string Result { get { return Numbers.Peek().ToString(); } }
 
         public SimpleCalculator() {
 
@@ -23,75 +25,63 @@ namespace simpleCalculator {
         /// </summary>
         public void Reset() {
 
-            ClearBuffer();
-            ClearExpression();
+            Equation = new Equation();
+            NumberBuffer = new NumberBuffer();
             Numbers = new Stack<decimal>();
-            Operators = new Stack<string>();
+            Operations = new Stack<string>();
         }
         /// <summary>
-        /// clear number buffer
+        /// append new content to current number buffer
         /// </summary>
-        public void ClearBuffer() {
+        public void AddBuffer(string input) {
 
-            NumberBuffer = new StringBuilder("0");
-        }
-        /// <summary>
-        /// clear current expression
-        /// </summary>
-        public void ClearExpression() {
+            if(Operations.Count > 0 && Operations.Peek() == "=") {
 
-            Expression = new StringBuilder();
-        }
-        /// <summary>
-        /// update current expression
-        /// </summary>
-        public void UpdateExpression(string expression = null) {
-
-            Expression.Append(expression ?? Numbers.Peek() + " " + Operators.Peek() + " ");
-        }
-        /// <summary>
-        /// append digits or decimal point to current number buffer
-        /// </summary>
-        public void AppendBuffer(string input) {
-
-            if(NumberBuffer.ToString() == "0") {
-
-                NumberBuffer = new StringBuilder(input == "." ? "0." : input);
+                NumberBuffer.Clear();
             }
-            else if(input != "." || !IsDecimal) {
 
-                NumberBuffer.Append(input);
-            }
+            NumberBuffer.Add(input);
         }
         /// <summary>
         /// push number buffer into number stack
         /// </summary>
-        public void PushBuffer(string operators) {
+        public void PushBuffer() {
 
-            Numbers.Push(decimal.Parse(NumberBuffer.ToString()));
-            Operators.Push(operators);
-            ClearBuffer();
-            UpdateExpression();
-            TryEvaluateAll();
+            Numbers.Push(decimal.Parse(NumberBuffer.Show()));
+            NumberBuffer.Clear();
         }
         /// <summary>
-        /// remove last input appened to number buffer
+        /// append new content to current equation
         /// </summary>
-        public void RemoveLastInput() {
+        public void AddEquation(string input = null) {
 
-            if(NumberBuffer.Length == 1) {
+            Equation.Add(input ?? Numbers.Peek() + " " + Operations.Peek() + " ");
+        }
+        /// <summary>
+        /// process new operation
+        /// </summary>
+        public void Process(string operation) {
 
-                ClearBuffer();
+            PushBuffer();
+
+            if(operation == "=") {
+
+                Equation.Clear();
+                EvaluateAll();
+                Operations.Push("=");
+                NumberBuffer.SetValue(Result);
             }
             else {
 
-                NumberBuffer.Remove(NumberBuffer.Length - 1, 1);
+                Operations.Push(operation);
+                AddEquation();
+                TryEvaluateAll();
             }
         }
         /// <summary>
-        /// evaluete result of a single operation
+        /// calculate result of a single operation
         /// </summary>
-        public decimal EvaluateOperation(string operation, decimal operand2, decimal operand1) { 
+        public decimal Calculate(string operation, decimal operand2, decimal operand1) { 
         
             switch(operation) {
             
@@ -103,7 +93,40 @@ namespace simpleCalculator {
             return 0;
         }
         /// <summary>
-        /// attempt evaluating expression so far
+        /// evaluate last operation
+        /// </summary>
+        public void EvaluateLast() {
+
+            Numbers.Push(Calculate(Operations.Pop(), Numbers.Pop(), Numbers.Pop()));
+        }
+        /// <summary>
+        /// evaluate entire equation
+        /// </summary>
+        public void EvaluateAll() {
+
+            while(Operations.Count > 0) {
+
+                string operation = Operations.Pop();
+                //remove placeholder equal signs
+                if(operation == "=") {
+                
+                    continue;
+                }
+
+                if(Regex.IsMatch(operation, "[" + _binaryOperators + "]")) {
+
+                    if(Numbers.Count > 1) {
+                    
+                        Numbers.Push(Calculate(operation, Numbers.Pop(), Numbers.Pop()));
+                    }
+                }
+                else {
+
+                }
+            }
+        }
+        /// <summary>
+        /// attempt evaluating equation so far
         /// </summary>
         public void TryEvaluateAll() {
 
@@ -111,16 +134,11 @@ namespace simpleCalculator {
             
 
             }
-            else if(Regex.IsMatch(Operators.Peek(), "[+-]")) {
+            else if(Regex.IsMatch(Operations.Peek(), "[+-]")) {
 
-                string lastOperator = Operators.Pop();
-
-                while(Numbers.Count > 1) {
-
-                    Numbers.Push(EvaluateOperation(Operators.Pop(), Numbers.Pop(), Numbers.Pop()));
-                }
-
-                Operators.Push(lastOperator);
+                string lastOperator = Operations.Pop();
+                EvaluateAll();
+                Operations.Push(lastOperator);
             }
         }
     }

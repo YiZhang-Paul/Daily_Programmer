@@ -170,6 +170,7 @@
             this.btnEqual.TabIndex = 34;
             this.btnEqual.Text = "=";
             this.btnEqual.UseVisualStyleBackColor = false;
+            this.btnEqual.Click += new System.EventHandler(this.btnEqual_Click);
             // 
             // btnDot
             // 
