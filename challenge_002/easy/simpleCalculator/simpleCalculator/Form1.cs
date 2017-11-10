@@ -10,10 +10,34 @@ using System.Windows.Forms;
 
 namespace simpleCalculator {
     public partial class Calculator : Form {
+
+        private Point _mouseCord;
+
         public Calculator() {
+        
             InitializeComponent();
         }
+        /// <summary>
+        /// retrieve mouse co-ordinate
+        /// </summary>
+        private Point GetMouseCord(MouseEventArgs e) {
 
+            return e.Location;
+        }
+        /// <summary>
+        /// mouse drag
+        /// </summary>
+        private void DragMouse(MouseEventArgs e) {
+
+            if(e.Button == MouseButtons.Left) {
+
+                this.Left += e.X - _mouseCord.X;
+                this.Top += e.Y - _mouseCord.Y;
+            }
+        }
+        /** 
+         * all event handlers
+         */
         private void btnXSquare_Click(object sender, EventArgs e) {
 
         }
@@ -68,6 +92,41 @@ namespace simpleCalculator {
 
         private void btnClearAll_Click(object sender, EventArgs e) {
 
+        }
+
+        private void topPanel_MouseDown(object sender, MouseEventArgs e) {
+
+            _mouseCord = GetMouseCord(e);
+        }
+
+        private void topPanel_MouseMove(object sender, MouseEventArgs e) {
+
+            DragMouse(e);
+        }
+
+        private void lblTitle_MouseDown(object sender, MouseEventArgs e) {
+
+            _mouseCord = GetMouseCord(e);
+        }
+
+        private void lblTitle_MouseMove(object sender, MouseEventArgs e) {
+
+            DragMouse(e);
+        }
+
+        private void btnMinimize_Click(object sender, EventArgs e) {
+
+            this.WindowState = FormWindowState.Minimized;
+        }
+
+        private void btnMaxNormal_Click(object sender, EventArgs e) {
+
+            this.WindowState = this.WindowState == FormWindowState.Maximized ? FormWindowState.Normal : FormWindowState.Maximized;
+        }
+
+        private void btnExit_Click(object sender, EventArgs e) {
+
+            Application.Exit();
         }
     }
 }
