@@ -20,14 +20,14 @@ namespace simpleCalculator {
         /// <summary>
         /// retrieve mouse co-ordinate
         /// </summary>
-        private Point GetMouseCord(MouseEventArgs e) {
+        private void GetMouseCord(object sender, MouseEventArgs e) {
 
-            return e.Location;
+            _mouseCord = e.Location;
         }
         /// <summary>
         /// mouse drag
         /// </summary>
-        private void DragMouse(MouseEventArgs e) {
+        private void DragMouse(object sender, MouseEventArgs e) {
 
             if(e.Button == MouseButtons.Left) {
 
@@ -93,27 +93,7 @@ namespace simpleCalculator {
         private void btnClearAll_Click(object sender, EventArgs e) {
 
         }
-
-        private void topPanel_MouseDown(object sender, MouseEventArgs e) {
-
-            _mouseCord = GetMouseCord(e);
-        }
-
-        private void topPanel_MouseMove(object sender, MouseEventArgs e) {
-
-            DragMouse(e);
-        }
-
-        private void lblTitle_MouseDown(object sender, MouseEventArgs e) {
-
-            _mouseCord = GetMouseCord(e);
-        }
-
-        private void lblTitle_MouseMove(object sender, MouseEventArgs e) {
-
-            DragMouse(e);
-        }
-
+        
         private void btnMinimize_Click(object sender, EventArgs e) {
 
             this.WindowState = FormWindowState.Minimized;
