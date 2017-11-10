@@ -17,12 +17,12 @@ namespace simpleCalculator {
         public Calculator() {
             
             InitializeComponent();
-            DisplayNumber();
+            DisplayInput();
         }
         /// <summary>
         /// display current number on calculator
         /// </summary>
-        private void DisplayNumber() {
+        private void DisplayInput() {
 
             numberDisplay.Text = _calculator.InputBuffer.ToString();
         }
@@ -32,7 +32,7 @@ namespace simpleCalculator {
         public void EnterInput(string input) {
 
             _calculator.AppendBuffer(input);
-            DisplayNumber();
+            DisplayInput();
         }
         /// <summary>
         /// retrieve current mouse position
@@ -121,6 +121,18 @@ namespace simpleCalculator {
         private void btnNine_Click(object sender, EventArgs e) {
 
             EnterInput("9");
+        }
+
+        private void btnClearAll_Click(object sender, EventArgs e) {
+
+            _calculator.Reset();
+            DisplayInput();
+        }
+
+        private void btnDelete_Click(object sender, EventArgs e) {
+
+            _calculator.RemoveLastInput();
+            DisplayInput();
         }
     }
 }

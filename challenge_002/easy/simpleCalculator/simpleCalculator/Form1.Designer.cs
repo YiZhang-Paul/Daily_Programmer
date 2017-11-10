@@ -558,6 +558,7 @@
             this.btnDelete.TabIndex = 13;
             this.btnDelete.Text = "Del";
             this.btnDelete.UseVisualStyleBackColor = false;
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
             // btnClearAll
             // 
@@ -576,6 +577,7 @@
             this.btnClearAll.TabIndex = 12;
             this.btnClearAll.Text = "C";
             this.btnClearAll.UseVisualStyleBackColor = false;
+            this.btnClearAll.Click += new System.EventHandler(this.btnClearAll_Click);
             // 
             // btnClearLast
             // 

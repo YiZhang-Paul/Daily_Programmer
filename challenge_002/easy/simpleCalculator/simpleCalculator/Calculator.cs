@@ -40,5 +40,19 @@ namespace simpleCalculator {
                 InputBuffer.Append(input);
             }
         }
+        /// <summary>
+        /// remove last input appened to input buffer
+        /// </summary>
+        public void RemoveLastInput() {
+
+            if(InputBuffer.Length == 1) {
+
+                InputBuffer = new StringBuilder("0");
+            }
+            else {
+
+                InputBuffer.Remove(InputBuffer.Length - 1, 1);
+            }
+        }
     }
 }
