@@ -6,3 +6,4 @@ D:\all_languages\reddit_challenges\challenge_002\easy\simpleCalculator\simpleCal
 D:\all_languages\reddit_challenges\challenge_002\easy\simpleCalculator\simpleCalculator\obj\Debug\simpleCalculator.csproj.GenerateResource.Cache
 D:\all_languages\reddit_challenges\challenge_002\easy\simpleCalculator\simpleCalculator\obj\Debug\simpleCalculator.exe
 D:\all_languages\reddit_challenges\challenge_002\easy\simpleCalculator\simpleCalculator\obj\Debug\simpleCalculator.pdb
+D:\all_languages\reddit_challenges\challenge_002\easy\simpleCalculator\simpleCalculator\obj\Debug\simpleCalculator.csprojResolveAssemblyReference.cache

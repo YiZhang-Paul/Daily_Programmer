@@ -12,10 +12,27 @@ namespace simpleCalculator {
     public partial class Calculator : Form {
 
         private Point _mousePosition;
+        private SimpleCalculator _calculator = new SimpleCalculator();
 
         public Calculator() {
             
             InitializeComponent();
+            DisplayNumber();
+        }
+        /// <summary>
+        /// display current number on calculator
+        /// </summary>
+        private void DisplayNumber() {
+
+            numberDisplay.Text = _calculator.InputBuffer.ToString();
+        }
+        /// <summary>
+        /// enter user input to calculator
+        /// </summary>
+        public void EnterInput(string input) {
+
+            _calculator.AppendBuffer(input);
+            DisplayNumber();
         }
         /// <summary>
         /// retrieve current mouse position
@@ -49,6 +66,61 @@ namespace simpleCalculator {
         private void btnExit_Click(object sender, EventArgs e) {
 
             Application.Exit();
+        }
+
+        private void btnDot_Click(object sender, EventArgs e) {
+
+            EnterInput(".");
+        }
+
+        private void btnZero_Click(object sender, EventArgs e) {
+
+            EnterInput("0");
+        }
+
+        private void btnOne_Click(object sender, EventArgs e) {
+
+            EnterInput("1");
+        }
+
+        private void btnTwo_Click(object sender, EventArgs e) {
+
+            EnterInput("2");
+        }
+
+        private void btnThree_Click(object sender, EventArgs e) {
+
+            EnterInput("3");
+        }
+
+        private void btnFour_Click(object sender, EventArgs e) {
+
+            EnterInput("4");
+        }
+
+        private void btnFive_Click(object sender, EventArgs e) {
+
+            EnterInput("5");
+        }
+
+        private void btnSix_Click(object sender, EventArgs e) {
+
+            EnterInput("6");
+        }
+
+        private void btnSeven_Click(object sender, EventArgs e) {
+
+            EnterInput("7");
+        }
+
+        private void btnEight_Click(object sender, EventArgs e) {
+
+            EnterInput("8");
+        }
+
+        private void btnNine_Click(object sender, EventArgs e) {
+
+            EnterInput("9");
         }
     }
 }
