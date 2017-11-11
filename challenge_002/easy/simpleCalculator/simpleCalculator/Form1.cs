@@ -177,17 +177,38 @@ namespace simpleCalculator {
 
         private void btnPlus_Click(object sender, EventArgs e) {
 
-            EnterOperation("+");
+            try {
+
+                EnterOperation("+");
+            }
+            catch(Exception) {
+
+                ShowError();
+            }
         }
 
         private void btnMinus_Click(object sender, EventArgs e) {
 
-            EnterOperation("-");
+            try {
+
+                EnterOperation("-");
+            }
+            catch(Exception) {
+
+                ShowError();
+            }
         }
 
         private void btnMultiply_Click(object sender, EventArgs e) {
 
-            EnterOperation("*");
+            try {
+
+                EnterOperation("*");
+            }
+            catch(Exception) {
+
+                ShowError();
+            }
         }
 
         private void btnDivide_Click(object sender, EventArgs e) {
