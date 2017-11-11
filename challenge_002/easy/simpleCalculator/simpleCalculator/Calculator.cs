@@ -222,14 +222,17 @@ namespace simpleCalculator {
         /// </summary>
         public void Process(string operation) {
 
+            if(!Locked) {
+
+                SaveInput();
+            }
+
             bool swap = IsBinaryOperator(operation) && Locked && TemporarySave == null;
             SaveOperator(operation, swap);
-            TemporarySave = null;
+            SaveTemporary();
 
             if(!swap) {
-    
-                SaveInput();
-
+            
                 if(!IsBinaryOperator(operation)) {
 
                     TryEvaluateAll();
@@ -252,9 +255,9 @@ namespace simpleCalculator {
 
             SaveTemporary();
             EvaluateAll();
-            Equation.Clear();
-            Numbers = new Stack<decimal>();
-            Operations = new Stack<string>();
+            string result = Result;
+            Reset();
+            Input.Set(result);
         }
         /// <summary>
         /// calculate factorial of a number
