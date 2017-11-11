@@ -19,8 +19,15 @@ namespace simpleCalculator {
         /// clear buffer
         /// </summary>
         public void Clear() {
-
+            
             SetValue("0");
+        }
+        /// <summary>
+        /// get buffer value in decimal
+        /// </summary>
+        public decimal GetValue() {
+
+            return decimal.Parse(Content.ToString());
         }
         /// <summary>
         /// set buffer value
@@ -63,6 +70,13 @@ namespace simpleCalculator {
 
                 Content.Remove(Content.Length - 1, 1);
             }
+        }
+        /// <summary>
+        /// negate current value in buffer
+        /// </summary>
+        public void Negate() {
+
+            SetValue((GetValue() * -1).ToString());
         }
     }
 }

@@ -41,11 +41,18 @@ namespace simpleCalculator {
             numberDisplay.Text = _calculator.Result;
         }
         /// <summary>
+        /// display error message
+        /// </summary>
+        public void ShowError(string message = "Invalid Input") {
+
+            numberDisplay.Text = message;
+        }
+        /// <summary>
         /// enter number input to calculator
         /// </summary>
         public void EnterNumber(string input) {
 
-            _calculator.AddBuffer(input);
+            _calculator.AddToBuffer(input);
             ShowNumber();
         }
         /// <summary>
@@ -178,9 +185,62 @@ namespace simpleCalculator {
             EnterOperation("-");
         }
 
+        private void btnMultiply_Click(object sender, EventArgs e) {
+
+            EnterOperation("*");
+        }
+
+        private void btnDivide_Click(object sender, EventArgs e) {
+
+            try {
+
+                EnterOperation("/");
+            }
+            catch(Exception) {
+
+                ShowError();
+            }
+        }
+
         private void btnEqual_Click(object sender, EventArgs e) {
 
-            EnterOperation("=");
+            try {
+
+                EnterOperation("=");
+            }
+            catch(DivideByZeroException) {
+
+                ShowError("Divide by Zero");
+            }
+            catch(Exception) {
+
+                ShowError();
+            }
+        }
+
+        private void btnFactorial_Click(object sender, EventArgs e) {
+
+            try {
+
+                EnterOperation("!");
+            }
+            catch(Exception) {
+
+                ShowError();
+            }
+        }
+
+        private void btnPI_Click(object sender, EventArgs e) {
+
+            _calculator.NumberBuffer.SetValue(_calculator.PI.ToString());
+            _calculator.SetLock();
+            ShowNumber();
+        }
+
+        private void btnNegate_Click(object sender, EventArgs e) {
+
+            _calculator.Negate();
+            ShowNumber();
         }
     }
 }

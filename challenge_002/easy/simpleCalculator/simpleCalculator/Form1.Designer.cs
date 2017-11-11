@@ -339,6 +339,7 @@
             this.btnNegate.TabIndex = 25;
             this.btnNegate.Text = "±";
             this.btnNegate.UseVisualStyleBackColor = false;
+            this.btnNegate.Click += new System.EventHandler(this.btnNegate_Click);
             // 
             // btnMinus
             // 
@@ -433,6 +434,7 @@
             this.btnFactorial.TabIndex = 20;
             this.btnFactorial.Text = "n!";
             this.btnFactorial.UseVisualStyleBackColor = false;
+            this.btnFactorial.Click += new System.EventHandler(this.btnFactorial_Click);
             // 
             // btnMultiply
             // 
@@ -451,6 +453,7 @@
             this.btnMultiply.TabIndex = 19;
             this.btnMultiply.Text = "×";
             this.btnMultiply.UseVisualStyleBackColor = false;
+            this.btnMultiply.Click += new System.EventHandler(this.btnMultiply_Click);
             // 
             // btnNine
             // 
@@ -526,6 +529,7 @@
             this.btnPI.TabIndex = 15;
             this.btnPI.Text = "π";
             this.btnPI.UseVisualStyleBackColor = false;
+            this.btnPI.Click += new System.EventHandler(this.btnPI_Click);
             // 
             // btnDivide
             // 
@@ -544,6 +548,7 @@
             this.btnDivide.TabIndex = 14;
             this.btnDivide.Text = "÷";
             this.btnDivide.UseVisualStyleBackColor = false;
+            this.btnDivide.Click += new System.EventHandler(this.btnDivide_Click);
             // 
             // btnDelete
             // 

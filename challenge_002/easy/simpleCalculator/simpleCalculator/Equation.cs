@@ -7,6 +7,12 @@ using System.Threading.Tasks;
 namespace simpleCalculator {
     class Equation {
 
+        private Dictionary<string, string> _symbols = new Dictionary<string, string> {
+            
+            {"*", "×"},
+            {"/", "÷"}
+        };
+
         public StringBuilder Content { get; private set; }
 
         public Equation() {
@@ -33,6 +39,13 @@ namespace simpleCalculator {
         public void Add(string input) {
 
             Content.Append(input);
+        }
+        /// <summary>
+        /// translate character to mathematical symbols
+        /// </summary>
+        public string GetSymbol(string operation) {
+
+            return _symbols.ContainsKey(operation) ? _symbols[operation] : operation;
         }
     }
 }
