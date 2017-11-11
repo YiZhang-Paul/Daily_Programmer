@@ -55,7 +55,7 @@ namespace simpleCalculator {
         /// </summary>
         private void Input(string input) {
 
-            if(Regex.IsMatch(input, "[0-9.]")) {
+            if(Regex.IsMatch(input, "^[0-9.]$")) {
 
                 ScientificCalculator.AddInput(input);
             }
@@ -288,12 +288,169 @@ namespace simpleCalculator {
             }
         }
 
+        private void btnXSquare_Click(object sender, EventArgs e) {
+
+            try {
+
+                Input("x2");
+            }
+            catch(DivideByZeroException) {
+
+                ShowError("Divide by Zero");
+            }
+            catch(Exception) {
+
+                ShowError();
+            }
+        }
+
+        private void btnXPowerY_Click(object sender, EventArgs e) {
+
+            try {
+
+                Input("^");
+            }
+            catch(DivideByZeroException) {
+
+                ShowError("Divide by Zero");
+            }
+            catch(Exception) {
+
+                ShowError();
+            }
+        }
+
+        private void btnSine_Click(object sender, EventArgs e) {
+
+            try {
+
+                Input("sin");
+            }
+            catch(DivideByZeroException) {
+
+                ShowError("Divide by Zero");
+            }
+            catch(Exception) {
+
+                ShowError();
+            }
+        }
+
+        private void btnCosine_Click(object sender, EventArgs e) {
+
+            try {
+
+                Input("cos");
+            }
+            catch(DivideByZeroException) {
+
+                ShowError("Divide by Zero");
+            }
+            catch(Exception) {
+
+                ShowError();
+            }
+        }
+
+        private void btnTangent_Click(object sender, EventArgs e) {
+
+            try {
+
+                Input("tan");
+            }
+            catch(DivideByZeroException) {
+
+                ShowError("Divide by Zero");
+            }
+            catch(Exception) {
+
+                ShowError();
+            }
+        }
+
+        private void btnSquareRoot_Click(object sender, EventArgs e) {
+
+            try {
+
+                Input("sqrt");
+            }
+            catch(DivideByZeroException) {
+
+                ShowError("Divide by Zero");
+            }
+            catch(Exception) {
+
+                ShowError();
+            }
+        }
+
+        private void btnTenPowerX_Click(object sender, EventArgs e) {
+
+            try {
+
+                Input("10x");
+            }
+            catch(DivideByZeroException) {
+
+                ShowError("Divide by Zero");
+            }
+            catch(Exception) {
+
+                ShowError();
+            }
+        }
+
+        private void btnLog_Click(object sender, EventArgs e) {
+
+            try {
+
+                Input("log10");
+            }
+            catch(DivideByZeroException) {
+
+                ShowError("Divide by Zero");
+            }
+            catch(Exception) {
+
+                ShowError();
+            }
+        }
+
+        private void btnExponential_Click(object sender, EventArgs e) {
+
+            try {
+
+                Input("exp");
+            }
+            catch(DivideByZeroException) {
+
+                ShowError("Divide by Zero");
+            }
+            catch(Exception) {
+
+                ShowError();
+            }
+        }
+
+        private void btnModulos_Click(object sender, EventArgs e) {
+
+            try {
+
+                Input("mod");
+            }
+            catch(DivideByZeroException) {
+
+                ShowError("Divide by Zero");
+            }
+            catch(Exception) {
+
+                ShowError();
+            }
+        }
+
         private void btnPI_Click(object sender, EventArgs e) {
 
-            string value = ScientificCalculator.PI.ToString();
-            ScientificCalculator.Input.Set(value);
-            ScientificCalculator.TemporarySave = value;
-            ScientificCalculator.SetLock();
+            ScientificCalculator.LoadPI();
             ShowNumber();
         }
 

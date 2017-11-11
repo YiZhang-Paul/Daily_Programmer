@@ -642,6 +642,7 @@
             this.btnModulos.TabIndex = 9;
             this.btnModulos.Text = "Mod";
             this.btnModulos.UseVisualStyleBackColor = false;
+            this.btnModulos.Click += new System.EventHandler(this.btnModulos_Click);
             // 
             // btnExponential
             // 
@@ -660,6 +661,7 @@
             this.btnExponential.TabIndex = 8;
             this.btnExponential.Text = "Exp";
             this.btnExponential.UseVisualStyleBackColor = false;
+            this.btnExponential.Click += new System.EventHandler(this.btnExponential_Click);
             // 
             // btnLog
             // 
@@ -678,6 +680,7 @@
             this.btnLog.TabIndex = 7;
             this.btnLog.Text = "log";
             this.btnLog.UseVisualStyleBackColor = false;
+            this.btnLog.Click += new System.EventHandler(this.btnLog_Click);
             // 
             // btnTenPowerX
             // 
@@ -696,6 +699,7 @@
             this.btnTenPowerX.TabIndex = 6;
             this.btnTenPowerX.Text = "10ˣ";
             this.btnTenPowerX.UseVisualStyleBackColor = false;
+            this.btnTenPowerX.Click += new System.EventHandler(this.btnTenPowerX_Click);
             // 
             // btnSquareRoot
             // 
@@ -714,6 +718,7 @@
             this.btnSquareRoot.TabIndex = 5;
             this.btnSquareRoot.Text = "√";
             this.btnSquareRoot.UseVisualStyleBackColor = false;
+            this.btnSquareRoot.Click += new System.EventHandler(this.btnSquareRoot_Click);
             // 
             // btnTangent
             // 
@@ -732,6 +737,7 @@
             this.btnTangent.TabIndex = 4;
             this.btnTangent.Text = "tan";
             this.btnTangent.UseVisualStyleBackColor = false;
+            this.btnTangent.Click += new System.EventHandler(this.btnTangent_Click);
             // 
             // btnCosine
             // 
@@ -750,6 +756,7 @@
             this.btnCosine.TabIndex = 3;
             this.btnCosine.Text = "cos";
             this.btnCosine.UseVisualStyleBackColor = false;
+            this.btnCosine.Click += new System.EventHandler(this.btnCosine_Click);
             // 
             // btnSine
             // 
@@ -768,6 +775,7 @@
             this.btnSine.TabIndex = 2;
             this.btnSine.Text = "sin";
             this.btnSine.UseVisualStyleBackColor = false;
+            this.btnSine.Click += new System.EventHandler(this.btnSine_Click);
             // 
             // btnXPowerY
             // 
@@ -786,6 +794,7 @@
             this.btnXPowerY.TabIndex = 1;
             this.btnXPowerY.Text = "xʸ";
             this.btnXPowerY.UseVisualStyleBackColor = false;
+            this.btnXPowerY.Click += new System.EventHandler(this.btnXPowerY_Click);
             // 
             // btnXSquare
             // 
@@ -804,6 +813,7 @@
             this.btnXSquare.TabIndex = 0;
             this.btnXSquare.Text = "x²";
             this.btnXSquare.UseVisualStyleBackColor = false;
+            this.btnXSquare.Click += new System.EventHandler(this.btnXSquare_Click);
             // 
             // displayLayout
             // 

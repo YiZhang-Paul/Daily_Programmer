@@ -9,7 +9,7 @@ namespace simpleCalculator {
     class ScientificCalculator {
 
         private const string _lock = "l";
-        private const string _binaryOperator = "+-/*^";
+        private const string _binaryOperator = "[+-/*^]|mod";
         private const decimal _pi = 3.1415926535897932384626433832m;
         //assets
         public Equation Equation { get; private set; }
@@ -79,6 +79,11 @@ namespace simpleCalculator {
 
                 Unlock();
                 Input.Clear();
+
+                if(Operations.Count == 0) {
+
+                    Numbers.Clear();
+                }
             }
 
             TemporarySave = null;
@@ -122,7 +127,7 @@ namespace simpleCalculator {
         /// </summary>
         public bool IsBinaryOperator(string operation) {
 
-            return Regex.IsMatch(operation, "[" + _binaryOperator + "]");
+            return Regex.IsMatch(operation, _binaryOperator);
         }
         /// <summary>
         /// calculate result of an operation
@@ -139,18 +144,54 @@ namespace simpleCalculator {
 
                     return former * latter;
 
-                case "/" :
+                case "/" : case "mod" :
 
                     if(latter == 0) {
 
                         throw new DivideByZeroException();
                     }
 
-                    return former / latter;
+                    return operation == "/" ? former / latter : former % latter;
 
                 case "!" :
 
                     return Factorial(latter);
+
+                case "sqrt" :
+
+                    return (decimal)Math.Sqrt((double)latter);
+
+                case "x2" :
+
+                    return latter * latter;
+
+                case "sin" :
+
+                    return (decimal)Math.Sin(ToRadians(latter));
+
+                case "cos" :
+
+                    return (decimal)Math.Cos(ToRadians(latter));
+
+                case "tan" :
+
+                    return (decimal)Math.Tan(ToRadians(latter));
+
+                case "log10" :
+
+                    return (decimal)Math.Log10((double)latter);
+
+                case "exp" :
+
+                    return (decimal)Math.Exp((double)latter);
+
+                case "10x" :
+
+                    return (decimal)Math.Pow(10, (double)latter);
+
+                case "^" :
+
+                    return (decimal)Math.Pow((double)former, (double)latter);
             }
 
             return latter;
@@ -255,9 +296,8 @@ namespace simpleCalculator {
 
             SaveTemporary();
             EvaluateAll();
-            string result = Result;
-            Reset();
-            Input.Set(result);
+            Input.Set(Result);
+            Equation = new Equation();
         }
         /// <summary>
         /// calculate factorial of a number
@@ -277,11 +317,32 @@ namespace simpleCalculator {
             return number * Factorial(number - 1);
         }
         /// <summary>
+        /// load PI into calculator
+        /// </summary>
+        public void LoadPI() {
+
+            Input.Set(PI.ToString());
+            TemporarySave = PI.ToString();
+            SetLock();
+        }
+        /// <summary>
         /// negate input buffer value
         /// </summary>
         public void Negate() {
 
             Input.Negate();
+
+            if(Numbers.Count > 0) {
+            
+                Numbers.Push(Numbers.Pop() * -1);
+            }
+        }
+        /// <summary>
+        /// convert degree to radians
+        /// </summary>
+        public double ToRadians(decimal degree) {
+
+            return (double)degree / 180 * Math.PI;
         }
     }
 }
