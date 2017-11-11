@@ -69,7 +69,7 @@
             this.btnMaxNormal = new System.Windows.Forms.Button();
             this.btnExit = new System.Windows.Forms.Button();
             this.numberDisplay = new System.Windows.Forms.Label();
-            this.expressionDisplay = new System.Windows.Forms.Label();
+            this.equationDisplay = new System.Windows.Forms.Label();
             this.mainLayout.SuspendLayout();
             this.buttonLayout.SuspendLayout();
             this.displayLayout.SuspendLayout();
@@ -567,7 +567,7 @@
             this.btnDelete.TabIndex = 13;
             this.btnDelete.Text = "Del";
             this.btnDelete.UseVisualStyleBackColor = false;
-            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
+            this.btnDelete.Click += new System.EventHandler(this.ClearLastInput);
             // 
             // btnClearAll
             // 
@@ -586,7 +586,7 @@
             this.btnClearAll.TabIndex = 12;
             this.btnClearAll.Text = "C";
             this.btnClearAll.UseVisualStyleBackColor = false;
-            this.btnClearAll.Click += new System.EventHandler(this.btnClearAll_Click);
+            this.btnClearAll.Click += new System.EventHandler(this.ClearAll);
             // 
             // btnClearLast
             // 
@@ -605,7 +605,7 @@
             this.btnClearLast.TabIndex = 11;
             this.btnClearLast.Text = "CE";
             this.btnClearLast.UseVisualStyleBackColor = false;
-            this.btnClearLast.Click += new System.EventHandler(this.btnClearLast_Click);
+            this.btnClearLast.Click += new System.EventHandler(this.ClearLastEntry);
             // 
             // button11
             // 
@@ -812,7 +812,7 @@
             this.displayLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.displayLayout.Controls.Add(this.topPanel, 0, 0);
             this.displayLayout.Controls.Add(this.numberDisplay, 0, 3);
-            this.displayLayout.Controls.Add(this.expressionDisplay, 0, 2);
+            this.displayLayout.Controls.Add(this.equationDisplay, 0, 2);
             this.displayLayout.Dock = System.Windows.Forms.DockStyle.Fill;
             this.displayLayout.Location = new System.Drawing.Point(0, 0);
             this.displayLayout.Margin = new System.Windows.Forms.Padding(0);
@@ -852,8 +852,8 @@
             this.dragPanel.Name = "dragPanel";
             this.dragPanel.Size = new System.Drawing.Size(225, 32);
             this.dragPanel.TabIndex = 0;
-            this.dragPanel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.GetMousePosition);
-            this.dragPanel.MouseMove += new System.Windows.Forms.MouseEventHandler(this.DragMouse);
+            this.dragPanel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.GetMouseXY);
+            this.dragPanel.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Drag);
             // 
             // title
             // 
@@ -866,8 +866,8 @@
             this.title.Size = new System.Drawing.Size(83, 29);
             this.title.TabIndex = 0;
             this.title.Text = "Calculator";
-            this.title.MouseDown += new System.Windows.Forms.MouseEventHandler(this.GetMousePosition);
-            this.title.MouseMove += new System.Windows.Forms.MouseEventHandler(this.DragMouse);
+            this.title.MouseDown += new System.Windows.Forms.MouseEventHandler(this.GetMouseXY);
+            this.title.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Drag);
             // 
             // controlPanel
             // 
@@ -903,7 +903,7 @@
             this.btnMinimize.TabIndex = 0;
             this.btnMinimize.Text = "➖";
             this.btnMinimize.UseVisualStyleBackColor = true;
-            this.btnMinimize.Click += new System.EventHandler(this.btnMinimize_Click);
+            this.btnMinimize.Click += new System.EventHandler(this.Minimize);
             // 
             // btnMaxNormal
             // 
@@ -921,7 +921,7 @@
             this.btnMaxNormal.TabIndex = 1;
             this.btnMaxNormal.Text = "⬜";
             this.btnMaxNormal.UseVisualStyleBackColor = true;
-            this.btnMaxNormal.Click += new System.EventHandler(this.btnMaxNormal_Click);
+            this.btnMaxNormal.Click += new System.EventHandler(this.ToggleSize);
             // 
             // btnExit
             // 
@@ -939,7 +939,7 @@
             this.btnExit.TabIndex = 2;
             this.btnExit.Text = "✕";
             this.btnExit.UseVisualStyleBackColor = true;
-            this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
+            this.btnExit.Click += new System.EventHandler(this.Exit);
             // 
             // numberDisplay
             // 
@@ -952,15 +952,15 @@
             this.numberDisplay.TabIndex = 0;
             this.numberDisplay.Text = "0";
             // 
-            // expressionDisplay
+            // equationDisplay
             // 
-            this.expressionDisplay.AutoSize = true;
-            this.expressionDisplay.Dock = System.Windows.Forms.DockStyle.Right;
-            this.expressionDisplay.Location = new System.Drawing.Point(362, 69);
-            this.expressionDisplay.Name = "expressionDisplay";
-            this.expressionDisplay.Size = new System.Drawing.Size(0, 31);
-            this.expressionDisplay.TabIndex = 2;
-            this.expressionDisplay.TextAlign = System.Drawing.ContentAlignment.BottomRight;
+            this.equationDisplay.AutoSize = true;
+            this.equationDisplay.Dock = System.Windows.Forms.DockStyle.Right;
+            this.equationDisplay.Location = new System.Drawing.Point(362, 69);
+            this.equationDisplay.Name = "equationDisplay";
+            this.equationDisplay.Size = new System.Drawing.Size(0, 31);
+            this.equationDisplay.TabIndex = 2;
+            this.equationDisplay.TextAlign = System.Drawing.ContentAlignment.BottomRight;
             // 
             // Calculator
             // 
@@ -1037,7 +1037,7 @@
         private System.Windows.Forms.Button btnMaxNormal;
         private System.Windows.Forms.Button btnExit;
         private System.Windows.Forms.Label title;
-        private System.Windows.Forms.Label expressionDisplay;
+        private System.Windows.Forms.Label equationDisplay;
     }
 }
 

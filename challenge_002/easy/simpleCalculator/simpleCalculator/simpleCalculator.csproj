@@ -54,7 +54,8 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="GammaFunction.cs" />
-    <Compile Include="NumberBuffer.cs" />
+    <Compile Include="Input.cs" />
+    <Compile Include="InputBuffer.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.resx">

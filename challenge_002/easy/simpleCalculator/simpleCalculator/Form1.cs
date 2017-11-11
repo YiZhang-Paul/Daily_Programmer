@@ -7,179 +7,198 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Text.RegularExpressions;
 
 namespace simpleCalculator {
     public partial class Calculator : Form {
 
-        private Point _mousePosition;
-        private SimpleCalculator _calculator = new SimpleCalculator();
+        private Point MouseXY { get; set; }
+        private ScientificCalculator ScientificCalculator { get; set; }
 
         public Calculator() {
             
             InitializeComponent();
+            LoadCalculators();
             ShowNumber();
         }
         /// <summary>
-        /// display current number on calculator
+        /// load all calculators
+        /// </summary>
+        private void LoadCalculators() {
+
+            ScientificCalculator = new ScientificCalculator();
+        }
+        /// <summary>
+        /// display current number input/result on calculator
         /// </summary>
         private void ShowNumber() {
 
-            numberDisplay.Text = _calculator.NumberBuffer.Show();
+            numberDisplay.Text = ScientificCalculator.Input.Content;
         }
         /// <summary>
         /// display current equation
         /// </summary>
-        public void ShowEquation() {
+        private void ShowEquation() {
 
-            expressionDisplay.Text = _calculator.Equation.Show();
-        }
-        /// <summary>
-        /// display current calculation result
-        /// </summary>
-        public void ShowResult() {
-
-            numberDisplay.Text = _calculator.Result;
+            equationDisplay.Text = string.Join(" ", ScientificCalculator.Numbers) + " " + string.Join(" ", ScientificCalculator.Operations);
+            //equationDisplay.Text = ScientificCalculator.Equation.Content;
         }
         /// <summary>
         /// display error message
         /// </summary>
-        public void ShowError(string message = "Invalid Input") {
+        private void ShowError(string message = "Invalid Input") {
 
             numberDisplay.Text = message;
         }
         /// <summary>
-        /// enter number input to calculator
+        /// add user input tp calculator
         /// </summary>
-        public void EnterNumber(string input) {
+        private void Input(string input) {
 
-            _calculator.AddToBuffer(input);
+            if(Regex.IsMatch(input, "[0-9.]")) {
+
+                ScientificCalculator.AddInput(input);
+            }
+            else {
+
+                ScientificCalculator.Process(input);
+            }
+
             ShowNumber();
-        }
-        /// <summary>
-        /// enter operation for execution to calculator
-        /// </summary>
-        public void EnterOperation(string operation) {
-
-            _calculator.Process(operation);
-            ShowResult();
             ShowEquation();
         }
         /// <summary>
-        /// retrieve current mouse position
+        /// retrieve mouse pointer position
         /// </summary>
-        private void GetMousePosition(object sender, MouseEventArgs e) {
+        private void GetMouseXY(object sender, MouseEventArgs e) {
 
-            _mousePosition = e.Location;
+            MouseXY = e.Location;
         }
         /// <summary>
-        /// press mouse button and drag mouse
+        /// drag mouse while left button is pressed down
         /// </summary>
-        private void DragMouse(object sender, MouseEventArgs e) { 
+        private void Drag(object sender, MouseEventArgs e) { 
         
             if(e.Button == MouseButtons.Left) {
 
-                this.Left += e.X - _mousePosition.X;
-                this.Top += e.Y - _mousePosition.Y;
+                this.Left += e.X - MouseXY.X;
+                this.Top += e.Y - MouseXY.Y;
             }
         }
-
-        private void btnMinimize_Click(object sender, EventArgs e) {
+        /// <summary>
+        /// minimize application window
+        /// </summary>
+        private void Minimize(object sender, EventArgs e) {
 
             this.WindowState = FormWindowState.Minimized;
         }
+        /// <summary>
+        /// toggle application window size
+        /// </summary>
+        private void ToggleSize(object sender, EventArgs e) {
 
-        private void btnMaxNormal_Click(object sender, EventArgs e) {
-
-            this.WindowState = this.WindowState == FormWindowState.Maximized ? FormWindowState.Normal : FormWindowState.Maximized; 
+            this.WindowState = this.WindowState == FormWindowState.Maximized ? FormWindowState.Normal : FormWindowState.Maximized;
         }
-
-        private void btnExit_Click(object sender, EventArgs e) {
+        /// <summary>
+        /// exit application
+        /// </summary>
+        private void Exit(object sender, EventArgs e) {
 
             Application.Exit();
         }
+        /// <summary>
+        /// clear all inputs on calculator
+        /// </summary>
+        private void ClearAll(object sender, EventArgs e) {
 
-        private void btnClearAll_Click(object sender, EventArgs e) {
-
-            _calculator.Reset();
+            ScientificCalculator.Reset();
             ShowNumber();
             ShowEquation();
         }
+        /// <summary>
+        /// delete last input
+        /// </summary>
+        private void ClearLastInput(object sender, EventArgs e) {
 
-        private void btnDelete_Click(object sender, EventArgs e) {
-
-            if(!_calculator.Locked && _calculator.NumberBuffer.Show() != "0") {
+            if(ScientificCalculator.TemporarySave == null) {
             
-                _calculator.NumberBuffer.RemoveLast();
+                ScientificCalculator.Input.RemoveLast();
                 ShowNumber();
             }
         }
+        /// <summary>
+        /// clear last entry
+        /// </summary>
+        private void ClearLastEntry(object sender, EventArgs e) {
 
-        private void btnClearLast_Click(object sender, EventArgs e) {
-
-            _calculator.NumberBuffer.Clear();
+            ScientificCalculator.Input.Set("0");
             ShowNumber();
         }
 
         private void btnDot_Click(object sender, EventArgs e) {
 
-            EnterNumber(".");
+            Input(".");
         }
 
         private void btnZero_Click(object sender, EventArgs e) {
 
-            EnterNumber("0");
+            Input("0");
         }
 
         private void btnOne_Click(object sender, EventArgs e) {
 
-            EnterNumber("1");
+            Input("1");
         }
 
         private void btnTwo_Click(object sender, EventArgs e) {
 
-            EnterNumber("2");
+            Input("2");
         }
 
         private void btnThree_Click(object sender, EventArgs e) {
 
-            EnterNumber("3");
+            Input("3");
         }
 
         private void btnFour_Click(object sender, EventArgs e) {
 
-            EnterNumber("4");
+            Input("4");
         }
 
         private void btnFive_Click(object sender, EventArgs e) {
 
-            EnterNumber("5");
+            Input("5");
         }
 
         private void btnSix_Click(object sender, EventArgs e) {
 
-            EnterNumber("6");
+            Input("6");
         }
 
         private void btnSeven_Click(object sender, EventArgs e) {
 
-            EnterNumber("7");
+            Input("7");
         }
 
         private void btnEight_Click(object sender, EventArgs e) {
 
-            EnterNumber("8");
+            Input("8");
         }
 
         private void btnNine_Click(object sender, EventArgs e) {
 
-            EnterNumber("9");
+            Input("9");
         }
 
         private void btnPlus_Click(object sender, EventArgs e) {
 
             try {
 
-                EnterOperation("+");
+                Input("+");
+            }
+            catch(DivideByZeroException) {
+
+                ShowError("Divide by Zero");
             }
             catch(Exception) {
 
@@ -191,7 +210,11 @@ namespace simpleCalculator {
 
             try {
 
-                EnterOperation("-");
+                Input("-");
+            }
+            catch(DivideByZeroException) {
+
+                ShowError("Divide by Zero");
             }
             catch(Exception) {
 
@@ -203,7 +226,11 @@ namespace simpleCalculator {
 
             try {
 
-                EnterOperation("*");
+                Input("*");
+            }
+            catch(DivideByZeroException) {
+
+                ShowError("Divide by Zero");
             }
             catch(Exception) {
 
@@ -215,7 +242,11 @@ namespace simpleCalculator {
 
             try {
 
-                EnterOperation("/");
+                Input("/");
+            }
+            catch(DivideByZeroException) {
+
+                ShowError("Divide by Zero");
             }
             catch(Exception) {
 
@@ -227,7 +258,9 @@ namespace simpleCalculator {
 
             try {
 
-                EnterOperation("=");
+                ScientificCalculator.GetFinalResult();
+                ShowNumber();
+                ShowEquation();
             }
             catch(DivideByZeroException) {
 
@@ -243,7 +276,11 @@ namespace simpleCalculator {
 
             try {
 
-                EnterOperation("!");
+                Input("!");
+            }
+            catch(DivideByZeroException) {
+
+                ShowError("Divide by Zero");
             }
             catch(Exception) {
 
@@ -253,14 +290,16 @@ namespace simpleCalculator {
 
         private void btnPI_Click(object sender, EventArgs e) {
 
-            _calculator.NumberBuffer.SetValue(_calculator.PI.ToString());
-            _calculator.SetLock();
+            string value = ScientificCalculator.PI.ToString();
+            ScientificCalculator.Input.Set(value);
+            ScientificCalculator.TemporarySave = value;
+            ScientificCalculator.SetLock();
             ShowNumber();
         }
 
         private void btnNegate_Click(object sender, EventArgs e) {
 
-            _calculator.Negate();
+            ScientificCalculator.Negate();
             ShowNumber();
         }
     }
