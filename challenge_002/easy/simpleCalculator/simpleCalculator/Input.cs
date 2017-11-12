@@ -8,18 +8,21 @@ using System.Text.RegularExpressions;
 namespace simpleCalculator {
     class Input : InputBuffer {
 
+        public Formatter Formatter { get; private set; }
         public decimal Value { get { return decimal.Parse(Content); } }
+        public string Formatted { get { return Formatter.Format(Value, IsDecimal); } }
         public bool IsDecimal { get { return Regex.IsMatch(Content, @"\."); } }
 
         public Input() {
 
-            Set("0");           
+            Set("0");
+            Formatter = new Formatter();
         }
         /// <summary>
         /// append new digit or decimal to buffer
         /// </summary>
-        public override void Add(string input) { 
-        
+        public override void Add(string input) {
+
             if(Content == "0") {
 
                 Set(input == "." ? "0." : input);

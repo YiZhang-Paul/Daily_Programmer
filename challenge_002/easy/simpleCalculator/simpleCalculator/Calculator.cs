@@ -20,7 +20,7 @@ namespace simpleCalculator {
         public GammaFunction GammaFunction { get; private set; }
         public string TemporarySave { get; set; }
         public decimal PI { get; private set; }
-        public string Result { get { return Numbers.Peek() == 0 ? "0" : Numbers.Peek().ToString(); } }
+        public string Result { get { return Numbers.Peek().ToString(); } }
         public bool Locked { get { return Operations.Count > 0 && Operations.Peek() == _lock; } }
 
         public ScientificCalculator() {

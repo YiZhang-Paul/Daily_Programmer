@@ -33,7 +33,7 @@ namespace simpleCalculator {
         /// </summary>
         private void ShowNumber() {
 
-            numberDisplay.Text = ScientificCalculator.Input.Content;
+            numberDisplay.Text = ScientificCalculator.Input.Formatted;
         }
         /// <summary>
         /// display current equation
