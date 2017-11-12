@@ -21,15 +21,18 @@ namespace simpleCalculator {
         /// <summary>
         /// append new digit or decimal to buffer
         /// </summary>
-        public override void Add(string input) {
+        public override void Add(string input) { 
+        
+            if(Content.Length < (IsDecimal ? 30 : 29)) {
+            
+                if(Content == "0") {
 
-            if(Content == "0") {
+                    Set(input == "." ? "0." : input);
+                }
+                else if(input != "." || !IsDecimal) {
 
-                Set(input == "." ? "0." : input);
-            }
-            else if(input != "." || !IsDecimal) {
-
-                Buffer.Append(input);
+                    Buffer.Append(input);
+                }
             }
         }
         /// <summary>
