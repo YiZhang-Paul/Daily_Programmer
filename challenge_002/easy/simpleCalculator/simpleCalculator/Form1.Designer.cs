@@ -70,12 +70,14 @@
             this.btnExit = new System.Windows.Forms.Button();
             this.numberDisplay = new System.Windows.Forms.Label();
             this.equationDisplay = new System.Windows.Forms.Label();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.mainLayout.SuspendLayout();
             this.buttonLayout.SuspendLayout();
             this.displayLayout.SuspendLayout();
             this.topPanel.SuspendLayout();
             this.dragPanel.SuspendLayout();
             this.controlPanel.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // mainLayout
@@ -92,7 +94,7 @@
             this.mainLayout.RowCount = 2;
             this.mainLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 43.33333F));
             this.mainLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 56.66667F));
-            this.mainLayout.Size = new System.Drawing.Size(365, 630);
+            this.mainLayout.Size = new System.Drawing.Size(363, 628);
             this.mainLayout.TabIndex = 0;
             // 
             // buttonLayout
@@ -150,7 +152,7 @@
             this.buttonLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.28571F));
             this.buttonLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.28571F));
             this.buttonLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.28571F));
-            this.buttonLayout.Size = new System.Drawing.Size(359, 352);
+            this.buttonLayout.Size = new System.Drawing.Size(357, 350);
             this.buttonLayout.TabIndex = 0;
             // 
             // btnEqual
@@ -162,15 +164,17 @@
             this.btnEqual.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(67)))), ((int)(((byte)(67)))));
             this.btnEqual.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(58)))), ((int)(((byte)(58)))), ((int)(((byte)(58)))));
             this.btnEqual.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnEqual.Font = new System.Drawing.Font("Segoe UI Light", 21F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnEqual.Location = new System.Drawing.Point(286, 302);
+            this.btnEqual.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnEqual.Location = new System.Drawing.Point(286, 296);
             this.btnEqual.Margin = new System.Windows.Forms.Padding(2);
             this.btnEqual.Name = "btnEqual";
-            this.btnEqual.Size = new System.Drawing.Size(71, 48);
+            this.btnEqual.Size = new System.Drawing.Size(69, 52);
             this.btnEqual.TabIndex = 34;
             this.btnEqual.Text = "=";
             this.btnEqual.UseVisualStyleBackColor = false;
             this.btnEqual.Click += new System.EventHandler(this.btnEqual_Click);
+            this.btnEqual.MouseEnter += new System.EventHandler(this.ButtonMouseEnter);
+            this.btnEqual.MouseLeave += new System.EventHandler(this.ButtonMouseLeave);
             // 
             // btnDot
             // 
@@ -182,14 +186,16 @@
             this.btnDot.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(58)))), ((int)(((byte)(58)))), ((int)(((byte)(58)))));
             this.btnDot.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnDot.Font = new System.Drawing.Font("Segoe UI Semibold", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDot.Location = new System.Drawing.Point(215, 302);
+            this.btnDot.Location = new System.Drawing.Point(215, 296);
             this.btnDot.Margin = new System.Windows.Forms.Padding(2);
             this.btnDot.Name = "btnDot";
-            this.btnDot.Size = new System.Drawing.Size(67, 48);
+            this.btnDot.Size = new System.Drawing.Size(67, 52);
             this.btnDot.TabIndex = 33;
             this.btnDot.Text = "∙";
             this.btnDot.UseVisualStyleBackColor = false;
             this.btnDot.Click += new System.EventHandler(this.btnDot_Click);
+            this.btnDot.MouseEnter += new System.EventHandler(this.ButtonMouseEnter);
+            this.btnDot.MouseLeave += new System.EventHandler(this.ButtonMouseLeave);
             // 
             // btnZero
             // 
@@ -201,14 +207,16 @@
             this.btnZero.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(58)))), ((int)(((byte)(58)))), ((int)(((byte)(58)))));
             this.btnZero.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnZero.Font = new System.Drawing.Font("Segoe UI Semibold", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnZero.Location = new System.Drawing.Point(144, 302);
+            this.btnZero.Location = new System.Drawing.Point(144, 296);
             this.btnZero.Margin = new System.Windows.Forms.Padding(2);
             this.btnZero.Name = "btnZero";
-            this.btnZero.Size = new System.Drawing.Size(67, 48);
+            this.btnZero.Size = new System.Drawing.Size(67, 52);
             this.btnZero.TabIndex = 32;
             this.btnZero.Text = "0";
             this.btnZero.UseVisualStyleBackColor = false;
             this.btnZero.Click += new System.EventHandler(this.btnZero_Click);
+            this.btnZero.MouseEnter += new System.EventHandler(this.ButtonMouseEnter);
+            this.btnZero.MouseLeave += new System.EventHandler(this.ButtonMouseLeave);
             // 
             // btnRightParentheses
             // 
@@ -220,13 +228,15 @@
             this.btnRightParentheses.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(58)))), ((int)(((byte)(58)))), ((int)(((byte)(58)))));
             this.btnRightParentheses.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnRightParentheses.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnRightParentheses.Location = new System.Drawing.Point(73, 302);
+            this.btnRightParentheses.Location = new System.Drawing.Point(73, 296);
             this.btnRightParentheses.Margin = new System.Windows.Forms.Padding(2);
             this.btnRightParentheses.Name = "btnRightParentheses";
-            this.btnRightParentheses.Size = new System.Drawing.Size(67, 48);
+            this.btnRightParentheses.Size = new System.Drawing.Size(67, 52);
             this.btnRightParentheses.TabIndex = 31;
             this.btnRightParentheses.Text = ")";
             this.btnRightParentheses.UseVisualStyleBackColor = false;
+            this.btnRightParentheses.MouseEnter += new System.EventHandler(this.ButtonMouseEnter);
+            this.btnRightParentheses.MouseLeave += new System.EventHandler(this.ButtonMouseLeave);
             // 
             // btnLeftParentheses
             // 
@@ -238,13 +248,15 @@
             this.btnLeftParentheses.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(58)))), ((int)(((byte)(58)))), ((int)(((byte)(58)))));
             this.btnLeftParentheses.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnLeftParentheses.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnLeftParentheses.Location = new System.Drawing.Point(2, 302);
+            this.btnLeftParentheses.Location = new System.Drawing.Point(2, 296);
             this.btnLeftParentheses.Margin = new System.Windows.Forms.Padding(2);
             this.btnLeftParentheses.Name = "btnLeftParentheses";
-            this.btnLeftParentheses.Size = new System.Drawing.Size(67, 48);
+            this.btnLeftParentheses.Size = new System.Drawing.Size(67, 52);
             this.btnLeftParentheses.TabIndex = 30;
             this.btnLeftParentheses.Text = "(";
             this.btnLeftParentheses.UseVisualStyleBackColor = false;
+            this.btnLeftParentheses.MouseEnter += new System.EventHandler(this.ButtonMouseEnter);
+            this.btnLeftParentheses.MouseLeave += new System.EventHandler(this.ButtonMouseLeave);
             // 
             // btnPlus
             // 
@@ -255,15 +267,17 @@
             this.btnPlus.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(67)))), ((int)(((byte)(67)))));
             this.btnPlus.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(58)))), ((int)(((byte)(58)))), ((int)(((byte)(58)))));
             this.btnPlus.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnPlus.Font = new System.Drawing.Font("Segoe UI Light", 21F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnPlus.Location = new System.Drawing.Point(286, 252);
+            this.btnPlus.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnPlus.Location = new System.Drawing.Point(286, 247);
             this.btnPlus.Margin = new System.Windows.Forms.Padding(2);
             this.btnPlus.Name = "btnPlus";
-            this.btnPlus.Size = new System.Drawing.Size(71, 46);
+            this.btnPlus.Size = new System.Drawing.Size(69, 45);
             this.btnPlus.TabIndex = 29;
             this.btnPlus.Text = "+";
             this.btnPlus.UseVisualStyleBackColor = false;
             this.btnPlus.Click += new System.EventHandler(this.btnPlus_Click);
+            this.btnPlus.MouseEnter += new System.EventHandler(this.ButtonMouseEnter);
+            this.btnPlus.MouseLeave += new System.EventHandler(this.ButtonMouseLeave);
             // 
             // btnThree
             // 
@@ -275,14 +289,16 @@
             this.btnThree.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(58)))), ((int)(((byte)(58)))), ((int)(((byte)(58)))));
             this.btnThree.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnThree.Font = new System.Drawing.Font("Segoe UI Semibold", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnThree.Location = new System.Drawing.Point(215, 252);
+            this.btnThree.Location = new System.Drawing.Point(215, 247);
             this.btnThree.Margin = new System.Windows.Forms.Padding(2);
             this.btnThree.Name = "btnThree";
-            this.btnThree.Size = new System.Drawing.Size(67, 46);
+            this.btnThree.Size = new System.Drawing.Size(67, 45);
             this.btnThree.TabIndex = 28;
             this.btnThree.Text = "3";
             this.btnThree.UseVisualStyleBackColor = false;
             this.btnThree.Click += new System.EventHandler(this.btnThree_Click);
+            this.btnThree.MouseEnter += new System.EventHandler(this.ButtonMouseEnter);
+            this.btnThree.MouseLeave += new System.EventHandler(this.ButtonMouseLeave);
             // 
             // btnTwo
             // 
@@ -294,14 +310,16 @@
             this.btnTwo.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(58)))), ((int)(((byte)(58)))), ((int)(((byte)(58)))));
             this.btnTwo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnTwo.Font = new System.Drawing.Font("Segoe UI Semibold", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnTwo.Location = new System.Drawing.Point(144, 252);
+            this.btnTwo.Location = new System.Drawing.Point(144, 247);
             this.btnTwo.Margin = new System.Windows.Forms.Padding(2);
             this.btnTwo.Name = "btnTwo";
-            this.btnTwo.Size = new System.Drawing.Size(67, 46);
+            this.btnTwo.Size = new System.Drawing.Size(67, 45);
             this.btnTwo.TabIndex = 27;
             this.btnTwo.Text = "2";
             this.btnTwo.UseVisualStyleBackColor = false;
             this.btnTwo.Click += new System.EventHandler(this.btnTwo_Click);
+            this.btnTwo.MouseEnter += new System.EventHandler(this.ButtonMouseEnter);
+            this.btnTwo.MouseLeave += new System.EventHandler(this.ButtonMouseLeave);
             // 
             // btnOne
             // 
@@ -313,14 +331,16 @@
             this.btnOne.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(58)))), ((int)(((byte)(58)))), ((int)(((byte)(58)))));
             this.btnOne.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnOne.Font = new System.Drawing.Font("Segoe UI Semibold", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnOne.Location = new System.Drawing.Point(73, 252);
+            this.btnOne.Location = new System.Drawing.Point(73, 247);
             this.btnOne.Margin = new System.Windows.Forms.Padding(2);
             this.btnOne.Name = "btnOne";
-            this.btnOne.Size = new System.Drawing.Size(67, 46);
+            this.btnOne.Size = new System.Drawing.Size(67, 45);
             this.btnOne.TabIndex = 26;
             this.btnOne.Text = "1";
             this.btnOne.UseVisualStyleBackColor = false;
             this.btnOne.Click += new System.EventHandler(this.btnOne_Click);
+            this.btnOne.MouseEnter += new System.EventHandler(this.ButtonMouseEnter);
+            this.btnOne.MouseLeave += new System.EventHandler(this.ButtonMouseLeave);
             // 
             // btnNegate
             // 
@@ -332,14 +352,16 @@
             this.btnNegate.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(58)))), ((int)(((byte)(58)))), ((int)(((byte)(58)))));
             this.btnNegate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnNegate.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnNegate.Location = new System.Drawing.Point(2, 252);
+            this.btnNegate.Location = new System.Drawing.Point(2, 247);
             this.btnNegate.Margin = new System.Windows.Forms.Padding(2);
             this.btnNegate.Name = "btnNegate";
-            this.btnNegate.Size = new System.Drawing.Size(67, 46);
+            this.btnNegate.Size = new System.Drawing.Size(67, 45);
             this.btnNegate.TabIndex = 25;
             this.btnNegate.Text = "±";
             this.btnNegate.UseVisualStyleBackColor = false;
             this.btnNegate.Click += new System.EventHandler(this.btnNegate_Click);
+            this.btnNegate.MouseEnter += new System.EventHandler(this.ButtonMouseEnter);
+            this.btnNegate.MouseLeave += new System.EventHandler(this.ButtonMouseLeave);
             // 
             // btnMinus
             // 
@@ -350,15 +372,17 @@
             this.btnMinus.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(67)))), ((int)(((byte)(67)))));
             this.btnMinus.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(58)))), ((int)(((byte)(58)))), ((int)(((byte)(58)))));
             this.btnMinus.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnMinus.Font = new System.Drawing.Font("Segoe UI Light", 21F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnMinus.Location = new System.Drawing.Point(286, 202);
+            this.btnMinus.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnMinus.Location = new System.Drawing.Point(286, 198);
             this.btnMinus.Margin = new System.Windows.Forms.Padding(2);
             this.btnMinus.Name = "btnMinus";
-            this.btnMinus.Size = new System.Drawing.Size(71, 46);
+            this.btnMinus.Size = new System.Drawing.Size(69, 45);
             this.btnMinus.TabIndex = 24;
             this.btnMinus.Text = "−";
             this.btnMinus.UseVisualStyleBackColor = false;
             this.btnMinus.Click += new System.EventHandler(this.btnMinus_Click);
+            this.btnMinus.MouseEnter += new System.EventHandler(this.ButtonMouseEnter);
+            this.btnMinus.MouseLeave += new System.EventHandler(this.ButtonMouseLeave);
             // 
             // btnSix
             // 
@@ -370,14 +394,16 @@
             this.btnSix.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(58)))), ((int)(((byte)(58)))), ((int)(((byte)(58)))));
             this.btnSix.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSix.Font = new System.Drawing.Font("Segoe UI Semibold", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSix.Location = new System.Drawing.Point(215, 202);
+            this.btnSix.Location = new System.Drawing.Point(215, 198);
             this.btnSix.Margin = new System.Windows.Forms.Padding(2);
             this.btnSix.Name = "btnSix";
-            this.btnSix.Size = new System.Drawing.Size(67, 46);
+            this.btnSix.Size = new System.Drawing.Size(67, 45);
             this.btnSix.TabIndex = 23;
             this.btnSix.Text = "6";
             this.btnSix.UseVisualStyleBackColor = false;
             this.btnSix.Click += new System.EventHandler(this.btnSix_Click);
+            this.btnSix.MouseEnter += new System.EventHandler(this.ButtonMouseEnter);
+            this.btnSix.MouseLeave += new System.EventHandler(this.ButtonMouseLeave);
             // 
             // btnFive
             // 
@@ -389,14 +415,16 @@
             this.btnFive.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(58)))), ((int)(((byte)(58)))), ((int)(((byte)(58)))));
             this.btnFive.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnFive.Font = new System.Drawing.Font("Segoe UI Semibold", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnFive.Location = new System.Drawing.Point(144, 202);
+            this.btnFive.Location = new System.Drawing.Point(144, 198);
             this.btnFive.Margin = new System.Windows.Forms.Padding(2);
             this.btnFive.Name = "btnFive";
-            this.btnFive.Size = new System.Drawing.Size(67, 46);
+            this.btnFive.Size = new System.Drawing.Size(67, 45);
             this.btnFive.TabIndex = 22;
             this.btnFive.Text = "5";
             this.btnFive.UseVisualStyleBackColor = false;
             this.btnFive.Click += new System.EventHandler(this.btnFive_Click);
+            this.btnFive.MouseEnter += new System.EventHandler(this.ButtonMouseEnter);
+            this.btnFive.MouseLeave += new System.EventHandler(this.ButtonMouseLeave);
             // 
             // btnFour
             // 
@@ -408,14 +436,16 @@
             this.btnFour.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(58)))), ((int)(((byte)(58)))), ((int)(((byte)(58)))));
             this.btnFour.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnFour.Font = new System.Drawing.Font("Segoe UI Semibold", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnFour.Location = new System.Drawing.Point(73, 202);
+            this.btnFour.Location = new System.Drawing.Point(73, 198);
             this.btnFour.Margin = new System.Windows.Forms.Padding(2);
             this.btnFour.Name = "btnFour";
-            this.btnFour.Size = new System.Drawing.Size(67, 46);
+            this.btnFour.Size = new System.Drawing.Size(67, 45);
             this.btnFour.TabIndex = 21;
             this.btnFour.Text = "4";
             this.btnFour.UseVisualStyleBackColor = false;
             this.btnFour.Click += new System.EventHandler(this.btnFour_Click);
+            this.btnFour.MouseEnter += new System.EventHandler(this.ButtonMouseEnter);
+            this.btnFour.MouseLeave += new System.EventHandler(this.ButtonMouseLeave);
             // 
             // btnFactorial
             // 
@@ -427,14 +457,16 @@
             this.btnFactorial.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(58)))), ((int)(((byte)(58)))), ((int)(((byte)(58)))));
             this.btnFactorial.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnFactorial.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnFactorial.Location = new System.Drawing.Point(2, 202);
+            this.btnFactorial.Location = new System.Drawing.Point(2, 198);
             this.btnFactorial.Margin = new System.Windows.Forms.Padding(2);
             this.btnFactorial.Name = "btnFactorial";
-            this.btnFactorial.Size = new System.Drawing.Size(67, 46);
+            this.btnFactorial.Size = new System.Drawing.Size(67, 45);
             this.btnFactorial.TabIndex = 20;
             this.btnFactorial.Text = "n!";
             this.btnFactorial.UseVisualStyleBackColor = false;
             this.btnFactorial.Click += new System.EventHandler(this.btnFactorial_Click);
+            this.btnFactorial.MouseEnter += new System.EventHandler(this.ButtonMouseEnter);
+            this.btnFactorial.MouseLeave += new System.EventHandler(this.ButtonMouseLeave);
             // 
             // btnMultiply
             // 
@@ -445,15 +477,17 @@
             this.btnMultiply.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(67)))), ((int)(((byte)(67)))));
             this.btnMultiply.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(58)))), ((int)(((byte)(58)))), ((int)(((byte)(58)))));
             this.btnMultiply.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnMultiply.Font = new System.Drawing.Font("Segoe UI Light", 21F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnMultiply.Location = new System.Drawing.Point(286, 152);
+            this.btnMultiply.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnMultiply.Location = new System.Drawing.Point(286, 149);
             this.btnMultiply.Margin = new System.Windows.Forms.Padding(2);
             this.btnMultiply.Name = "btnMultiply";
-            this.btnMultiply.Size = new System.Drawing.Size(71, 46);
+            this.btnMultiply.Size = new System.Drawing.Size(69, 45);
             this.btnMultiply.TabIndex = 19;
             this.btnMultiply.Text = "×";
             this.btnMultiply.UseVisualStyleBackColor = false;
             this.btnMultiply.Click += new System.EventHandler(this.btnMultiply_Click);
+            this.btnMultiply.MouseEnter += new System.EventHandler(this.ButtonMouseEnter);
+            this.btnMultiply.MouseLeave += new System.EventHandler(this.ButtonMouseLeave);
             // 
             // btnNine
             // 
@@ -465,14 +499,16 @@
             this.btnNine.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(58)))), ((int)(((byte)(58)))), ((int)(((byte)(58)))));
             this.btnNine.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnNine.Font = new System.Drawing.Font("Segoe UI Semibold", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnNine.Location = new System.Drawing.Point(215, 152);
+            this.btnNine.Location = new System.Drawing.Point(215, 149);
             this.btnNine.Margin = new System.Windows.Forms.Padding(2);
             this.btnNine.Name = "btnNine";
-            this.btnNine.Size = new System.Drawing.Size(67, 46);
+            this.btnNine.Size = new System.Drawing.Size(67, 45);
             this.btnNine.TabIndex = 18;
             this.btnNine.Text = "9";
             this.btnNine.UseVisualStyleBackColor = false;
             this.btnNine.Click += new System.EventHandler(this.btnNine_Click);
+            this.btnNine.MouseEnter += new System.EventHandler(this.ButtonMouseEnter);
+            this.btnNine.MouseLeave += new System.EventHandler(this.ButtonMouseLeave);
             // 
             // btnEight
             // 
@@ -484,14 +520,16 @@
             this.btnEight.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(58)))), ((int)(((byte)(58)))), ((int)(((byte)(58)))));
             this.btnEight.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnEight.Font = new System.Drawing.Font("Segoe UI Semibold", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnEight.Location = new System.Drawing.Point(144, 152);
+            this.btnEight.Location = new System.Drawing.Point(144, 149);
             this.btnEight.Margin = new System.Windows.Forms.Padding(2);
             this.btnEight.Name = "btnEight";
-            this.btnEight.Size = new System.Drawing.Size(67, 46);
+            this.btnEight.Size = new System.Drawing.Size(67, 45);
             this.btnEight.TabIndex = 17;
             this.btnEight.Text = "8";
             this.btnEight.UseVisualStyleBackColor = false;
             this.btnEight.Click += new System.EventHandler(this.btnEight_Click);
+            this.btnEight.MouseEnter += new System.EventHandler(this.ButtonMouseEnter);
+            this.btnEight.MouseLeave += new System.EventHandler(this.ButtonMouseLeave);
             // 
             // btnSeven
             // 
@@ -503,14 +541,16 @@
             this.btnSeven.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(58)))), ((int)(((byte)(58)))), ((int)(((byte)(58)))));
             this.btnSeven.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSeven.Font = new System.Drawing.Font("Segoe UI Semibold", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSeven.Location = new System.Drawing.Point(73, 152);
+            this.btnSeven.Location = new System.Drawing.Point(73, 149);
             this.btnSeven.Margin = new System.Windows.Forms.Padding(2);
             this.btnSeven.Name = "btnSeven";
-            this.btnSeven.Size = new System.Drawing.Size(67, 46);
+            this.btnSeven.Size = new System.Drawing.Size(67, 45);
             this.btnSeven.TabIndex = 16;
             this.btnSeven.Text = "7";
             this.btnSeven.UseVisualStyleBackColor = false;
             this.btnSeven.Click += new System.EventHandler(this.btnSeven_Click);
+            this.btnSeven.MouseEnter += new System.EventHandler(this.ButtonMouseEnter);
+            this.btnSeven.MouseLeave += new System.EventHandler(this.ButtonMouseLeave);
             // 
             // btnPI
             // 
@@ -522,14 +562,16 @@
             this.btnPI.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(58)))), ((int)(((byte)(58)))), ((int)(((byte)(58)))));
             this.btnPI.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnPI.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnPI.Location = new System.Drawing.Point(2, 152);
+            this.btnPI.Location = new System.Drawing.Point(2, 149);
             this.btnPI.Margin = new System.Windows.Forms.Padding(2);
             this.btnPI.Name = "btnPI";
-            this.btnPI.Size = new System.Drawing.Size(67, 46);
+            this.btnPI.Size = new System.Drawing.Size(67, 45);
             this.btnPI.TabIndex = 15;
             this.btnPI.Text = "π";
             this.btnPI.UseVisualStyleBackColor = false;
             this.btnPI.Click += new System.EventHandler(this.btnPI_Click);
+            this.btnPI.MouseEnter += new System.EventHandler(this.ButtonMouseEnter);
+            this.btnPI.MouseLeave += new System.EventHandler(this.ButtonMouseLeave);
             // 
             // btnDivide
             // 
@@ -540,15 +582,17 @@
             this.btnDivide.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(67)))), ((int)(((byte)(67)))));
             this.btnDivide.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(58)))), ((int)(((byte)(58)))), ((int)(((byte)(58)))));
             this.btnDivide.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnDivide.Font = new System.Drawing.Font("Segoe UI Light", 21F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDivide.Location = new System.Drawing.Point(286, 102);
+            this.btnDivide.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnDivide.Location = new System.Drawing.Point(286, 100);
             this.btnDivide.Margin = new System.Windows.Forms.Padding(2);
             this.btnDivide.Name = "btnDivide";
-            this.btnDivide.Size = new System.Drawing.Size(71, 46);
+            this.btnDivide.Size = new System.Drawing.Size(69, 45);
             this.btnDivide.TabIndex = 14;
             this.btnDivide.Text = "÷";
             this.btnDivide.UseVisualStyleBackColor = false;
             this.btnDivide.Click += new System.EventHandler(this.btnDivide_Click);
+            this.btnDivide.MouseEnter += new System.EventHandler(this.ButtonMouseEnter);
+            this.btnDivide.MouseLeave += new System.EventHandler(this.ButtonMouseLeave);
             // 
             // btnDelete
             // 
@@ -560,14 +604,16 @@
             this.btnDelete.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(58)))), ((int)(((byte)(58)))), ((int)(((byte)(58)))));
             this.btnDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnDelete.Font = new System.Drawing.Font("Segoe UI", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDelete.Location = new System.Drawing.Point(215, 102);
+            this.btnDelete.Location = new System.Drawing.Point(215, 100);
             this.btnDelete.Margin = new System.Windows.Forms.Padding(2);
             this.btnDelete.Name = "btnDelete";
-            this.btnDelete.Size = new System.Drawing.Size(67, 46);
+            this.btnDelete.Size = new System.Drawing.Size(67, 45);
             this.btnDelete.TabIndex = 13;
             this.btnDelete.Text = "Del";
             this.btnDelete.UseVisualStyleBackColor = false;
             this.btnDelete.Click += new System.EventHandler(this.ClearLastInput);
+            this.btnDelete.MouseEnter += new System.EventHandler(this.ButtonMouseEnter);
+            this.btnDelete.MouseLeave += new System.EventHandler(this.ButtonMouseLeave);
             // 
             // btnClearAll
             // 
@@ -579,14 +625,16 @@
             this.btnClearAll.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(58)))), ((int)(((byte)(58)))), ((int)(((byte)(58)))));
             this.btnClearAll.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnClearAll.Font = new System.Drawing.Font("Segoe UI", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnClearAll.Location = new System.Drawing.Point(144, 102);
+            this.btnClearAll.Location = new System.Drawing.Point(144, 100);
             this.btnClearAll.Margin = new System.Windows.Forms.Padding(2);
             this.btnClearAll.Name = "btnClearAll";
-            this.btnClearAll.Size = new System.Drawing.Size(67, 46);
+            this.btnClearAll.Size = new System.Drawing.Size(67, 45);
             this.btnClearAll.TabIndex = 12;
             this.btnClearAll.Text = "C";
             this.btnClearAll.UseVisualStyleBackColor = false;
             this.btnClearAll.Click += new System.EventHandler(this.ClearAll);
+            this.btnClearAll.MouseEnter += new System.EventHandler(this.ButtonMouseEnter);
+            this.btnClearAll.MouseLeave += new System.EventHandler(this.ButtonMouseLeave);
             // 
             // btnClearLast
             // 
@@ -598,14 +646,16 @@
             this.btnClearLast.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(58)))), ((int)(((byte)(58)))), ((int)(((byte)(58)))));
             this.btnClearLast.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnClearLast.Font = new System.Drawing.Font("Segoe UI", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnClearLast.Location = new System.Drawing.Point(73, 102);
+            this.btnClearLast.Location = new System.Drawing.Point(73, 100);
             this.btnClearLast.Margin = new System.Windows.Forms.Padding(2);
             this.btnClearLast.Name = "btnClearLast";
-            this.btnClearLast.Size = new System.Drawing.Size(67, 46);
+            this.btnClearLast.Size = new System.Drawing.Size(67, 45);
             this.btnClearLast.TabIndex = 11;
             this.btnClearLast.Text = "CE";
             this.btnClearLast.UseVisualStyleBackColor = false;
             this.btnClearLast.Click += new System.EventHandler(this.ClearLastEntry);
+            this.btnClearLast.MouseEnter += new System.EventHandler(this.ButtonMouseEnter);
+            this.btnClearLast.MouseLeave += new System.EventHandler(this.ButtonMouseLeave);
             // 
             // button11
             // 
@@ -617,13 +667,15 @@
             this.button11.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(58)))), ((int)(((byte)(58)))), ((int)(((byte)(58)))));
             this.button11.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button11.Font = new System.Drawing.Font("Segoe UI", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button11.Location = new System.Drawing.Point(2, 102);
+            this.button11.Location = new System.Drawing.Point(2, 100);
             this.button11.Margin = new System.Windows.Forms.Padding(2);
             this.button11.Name = "button11";
-            this.button11.Size = new System.Drawing.Size(67, 46);
+            this.button11.Size = new System.Drawing.Size(67, 45);
             this.button11.TabIndex = 10;
             this.button11.Text = "N/A";
             this.button11.UseVisualStyleBackColor = false;
+            this.button11.MouseEnter += new System.EventHandler(this.ButtonMouseEnter);
+            this.button11.MouseLeave += new System.EventHandler(this.ButtonMouseLeave);
             // 
             // btnModulos
             // 
@@ -635,14 +687,16 @@
             this.btnModulos.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(58)))), ((int)(((byte)(58)))), ((int)(((byte)(58)))));
             this.btnModulos.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnModulos.Font = new System.Drawing.Font("Segoe UI", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnModulos.Location = new System.Drawing.Point(286, 52);
+            this.btnModulos.Location = new System.Drawing.Point(286, 51);
             this.btnModulos.Margin = new System.Windows.Forms.Padding(2);
             this.btnModulos.Name = "btnModulos";
-            this.btnModulos.Size = new System.Drawing.Size(71, 46);
+            this.btnModulos.Size = new System.Drawing.Size(69, 45);
             this.btnModulos.TabIndex = 9;
             this.btnModulos.Text = "Mod";
             this.btnModulos.UseVisualStyleBackColor = false;
             this.btnModulos.Click += new System.EventHandler(this.btnModulos_Click);
+            this.btnModulos.MouseEnter += new System.EventHandler(this.ButtonMouseEnter);
+            this.btnModulos.MouseLeave += new System.EventHandler(this.ButtonMouseLeave);
             // 
             // btnExponential
             // 
@@ -654,14 +708,16 @@
             this.btnExponential.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(58)))), ((int)(((byte)(58)))), ((int)(((byte)(58)))));
             this.btnExponential.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnExponential.Font = new System.Drawing.Font("Segoe UI", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnExponential.Location = new System.Drawing.Point(215, 52);
+            this.btnExponential.Location = new System.Drawing.Point(215, 51);
             this.btnExponential.Margin = new System.Windows.Forms.Padding(2);
             this.btnExponential.Name = "btnExponential";
-            this.btnExponential.Size = new System.Drawing.Size(67, 46);
+            this.btnExponential.Size = new System.Drawing.Size(67, 45);
             this.btnExponential.TabIndex = 8;
             this.btnExponential.Text = "Exp";
             this.btnExponential.UseVisualStyleBackColor = false;
             this.btnExponential.Click += new System.EventHandler(this.btnExponential_Click);
+            this.btnExponential.MouseEnter += new System.EventHandler(this.ButtonMouseEnter);
+            this.btnExponential.MouseLeave += new System.EventHandler(this.ButtonMouseLeave);
             // 
             // btnLog
             // 
@@ -673,14 +729,16 @@
             this.btnLog.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(58)))), ((int)(((byte)(58)))), ((int)(((byte)(58)))));
             this.btnLog.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnLog.Font = new System.Drawing.Font("Segoe UI", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnLog.Location = new System.Drawing.Point(144, 52);
+            this.btnLog.Location = new System.Drawing.Point(144, 51);
             this.btnLog.Margin = new System.Windows.Forms.Padding(2);
             this.btnLog.Name = "btnLog";
-            this.btnLog.Size = new System.Drawing.Size(67, 46);
+            this.btnLog.Size = new System.Drawing.Size(67, 45);
             this.btnLog.TabIndex = 7;
             this.btnLog.Text = "log";
             this.btnLog.UseVisualStyleBackColor = false;
             this.btnLog.Click += new System.EventHandler(this.btnLog_Click);
+            this.btnLog.MouseEnter += new System.EventHandler(this.ButtonMouseEnter);
+            this.btnLog.MouseLeave += new System.EventHandler(this.ButtonMouseLeave);
             // 
             // btnTenPowerX
             // 
@@ -692,14 +750,16 @@
             this.btnTenPowerX.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(58)))), ((int)(((byte)(58)))), ((int)(((byte)(58)))));
             this.btnTenPowerX.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnTenPowerX.Font = new System.Drawing.Font("Segoe UI", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnTenPowerX.Location = new System.Drawing.Point(73, 52);
+            this.btnTenPowerX.Location = new System.Drawing.Point(73, 51);
             this.btnTenPowerX.Margin = new System.Windows.Forms.Padding(2);
             this.btnTenPowerX.Name = "btnTenPowerX";
-            this.btnTenPowerX.Size = new System.Drawing.Size(67, 46);
+            this.btnTenPowerX.Size = new System.Drawing.Size(67, 45);
             this.btnTenPowerX.TabIndex = 6;
             this.btnTenPowerX.Text = "10ˣ";
             this.btnTenPowerX.UseVisualStyleBackColor = false;
             this.btnTenPowerX.Click += new System.EventHandler(this.btnTenPowerX_Click);
+            this.btnTenPowerX.MouseEnter += new System.EventHandler(this.ButtonMouseEnter);
+            this.btnTenPowerX.MouseLeave += new System.EventHandler(this.ButtonMouseLeave);
             // 
             // btnSquareRoot
             // 
@@ -711,14 +771,16 @@
             this.btnSquareRoot.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(58)))), ((int)(((byte)(58)))), ((int)(((byte)(58)))));
             this.btnSquareRoot.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSquareRoot.Font = new System.Drawing.Font("Segoe UI", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSquareRoot.Location = new System.Drawing.Point(2, 52);
+            this.btnSquareRoot.Location = new System.Drawing.Point(2, 51);
             this.btnSquareRoot.Margin = new System.Windows.Forms.Padding(2);
             this.btnSquareRoot.Name = "btnSquareRoot";
-            this.btnSquareRoot.Size = new System.Drawing.Size(67, 46);
+            this.btnSquareRoot.Size = new System.Drawing.Size(67, 45);
             this.btnSquareRoot.TabIndex = 5;
             this.btnSquareRoot.Text = "√";
             this.btnSquareRoot.UseVisualStyleBackColor = false;
             this.btnSquareRoot.Click += new System.EventHandler(this.btnSquareRoot_Click);
+            this.btnSquareRoot.MouseEnter += new System.EventHandler(this.ButtonMouseEnter);
+            this.btnSquareRoot.MouseLeave += new System.EventHandler(this.ButtonMouseLeave);
             // 
             // btnTangent
             // 
@@ -733,11 +795,13 @@
             this.btnTangent.Location = new System.Drawing.Point(286, 2);
             this.btnTangent.Margin = new System.Windows.Forms.Padding(2);
             this.btnTangent.Name = "btnTangent";
-            this.btnTangent.Size = new System.Drawing.Size(71, 46);
+            this.btnTangent.Size = new System.Drawing.Size(69, 45);
             this.btnTangent.TabIndex = 4;
             this.btnTangent.Text = "tan";
             this.btnTangent.UseVisualStyleBackColor = false;
             this.btnTangent.Click += new System.EventHandler(this.btnTangent_Click);
+            this.btnTangent.MouseEnter += new System.EventHandler(this.ButtonMouseEnter);
+            this.btnTangent.MouseLeave += new System.EventHandler(this.ButtonMouseLeave);
             // 
             // btnCosine
             // 
@@ -752,11 +816,13 @@
             this.btnCosine.Location = new System.Drawing.Point(215, 2);
             this.btnCosine.Margin = new System.Windows.Forms.Padding(2);
             this.btnCosine.Name = "btnCosine";
-            this.btnCosine.Size = new System.Drawing.Size(67, 46);
+            this.btnCosine.Size = new System.Drawing.Size(67, 45);
             this.btnCosine.TabIndex = 3;
             this.btnCosine.Text = "cos";
             this.btnCosine.UseVisualStyleBackColor = false;
             this.btnCosine.Click += new System.EventHandler(this.btnCosine_Click);
+            this.btnCosine.MouseEnter += new System.EventHandler(this.ButtonMouseEnter);
+            this.btnCosine.MouseLeave += new System.EventHandler(this.ButtonMouseLeave);
             // 
             // btnSine
             // 
@@ -771,11 +837,13 @@
             this.btnSine.Location = new System.Drawing.Point(144, 2);
             this.btnSine.Margin = new System.Windows.Forms.Padding(2);
             this.btnSine.Name = "btnSine";
-            this.btnSine.Size = new System.Drawing.Size(67, 46);
+            this.btnSine.Size = new System.Drawing.Size(67, 45);
             this.btnSine.TabIndex = 2;
             this.btnSine.Text = "sin";
             this.btnSine.UseVisualStyleBackColor = false;
             this.btnSine.Click += new System.EventHandler(this.btnSine_Click);
+            this.btnSine.MouseEnter += new System.EventHandler(this.ButtonMouseEnter);
+            this.btnSine.MouseLeave += new System.EventHandler(this.ButtonMouseLeave);
             // 
             // btnXPowerY
             // 
@@ -790,11 +858,13 @@
             this.btnXPowerY.Location = new System.Drawing.Point(73, 2);
             this.btnXPowerY.Margin = new System.Windows.Forms.Padding(2);
             this.btnXPowerY.Name = "btnXPowerY";
-            this.btnXPowerY.Size = new System.Drawing.Size(67, 46);
+            this.btnXPowerY.Size = new System.Drawing.Size(67, 45);
             this.btnXPowerY.TabIndex = 1;
             this.btnXPowerY.Text = "xʸ";
             this.btnXPowerY.UseVisualStyleBackColor = false;
             this.btnXPowerY.Click += new System.EventHandler(this.btnXPowerY_Click);
+            this.btnXPowerY.MouseEnter += new System.EventHandler(this.ButtonMouseEnter);
+            this.btnXPowerY.MouseLeave += new System.EventHandler(this.ButtonMouseLeave);
             // 
             // btnXSquare
             // 
@@ -809,11 +879,13 @@
             this.btnXSquare.Location = new System.Drawing.Point(2, 2);
             this.btnXSquare.Margin = new System.Windows.Forms.Padding(2);
             this.btnXSquare.Name = "btnXSquare";
-            this.btnXSquare.Size = new System.Drawing.Size(67, 46);
+            this.btnXSquare.Size = new System.Drawing.Size(67, 45);
             this.btnXSquare.TabIndex = 0;
             this.btnXSquare.Text = "x²";
             this.btnXSquare.UseVisualStyleBackColor = false;
             this.btnXSquare.Click += new System.EventHandler(this.btnXSquare_Click);
+            this.btnXSquare.MouseEnter += new System.EventHandler(this.ButtonMouseEnter);
+            this.btnXSquare.MouseLeave += new System.EventHandler(this.ButtonMouseLeave);
             // 
             // displayLayout
             // 
@@ -834,7 +906,7 @@
             this.displayLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 31.98529F));
             this.displayLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 15.44118F));
             this.displayLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 15.07353F));
-            this.displayLayout.Size = new System.Drawing.Size(365, 272);
+            this.displayLayout.Size = new System.Drawing.Size(363, 272);
             this.displayLayout.TabIndex = 1;
             // 
             // topPanel
@@ -850,7 +922,7 @@
             this.topPanel.Name = "topPanel";
             this.topPanel.RowCount = 1;
             this.topPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.topPanel.Size = new System.Drawing.Size(365, 32);
+            this.topPanel.Size = new System.Drawing.Size(363, 32);
             this.topPanel.TabIndex = 1;
             // 
             // dragPanel
@@ -860,7 +932,7 @@
             this.dragPanel.Location = new System.Drawing.Point(0, 0);
             this.dragPanel.Margin = new System.Windows.Forms.Padding(0);
             this.dragPanel.Name = "dragPanel";
-            this.dragPanel.Size = new System.Drawing.Size(225, 32);
+            this.dragPanel.Size = new System.Drawing.Size(223, 32);
             this.dragPanel.TabIndex = 0;
             this.dragPanel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.GetMouseXY);
             this.dragPanel.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Drag);
@@ -889,7 +961,7 @@
             this.controlPanel.Controls.Add(this.btnMaxNormal, 1, 0);
             this.controlPanel.Controls.Add(this.btnExit, 2, 0);
             this.controlPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.controlPanel.Location = new System.Drawing.Point(225, 0);
+            this.controlPanel.Location = new System.Drawing.Point(223, 0);
             this.controlPanel.Margin = new System.Windows.Forms.Padding(0);
             this.controlPanel.Name = "controlPanel";
             this.controlPanel.RowCount = 1;
@@ -956,7 +1028,7 @@
             this.numberDisplay.AutoSize = true;
             this.numberDisplay.Dock = System.Windows.Forms.DockStyle.Right;
             this.numberDisplay.Font = new System.Drawing.Font("Segoe UI Semibold", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.numberDisplay.Location = new System.Drawing.Point(307, 100);
+            this.numberDisplay.Location = new System.Drawing.Point(305, 100);
             this.numberDisplay.Name = "numberDisplay";
             this.numberDisplay.Size = new System.Drawing.Size(55, 87);
             this.numberDisplay.TabIndex = 0;
@@ -966,26 +1038,37 @@
             // 
             this.equationDisplay.AutoSize = true;
             this.equationDisplay.Dock = System.Windows.Forms.DockStyle.Right;
-            this.equationDisplay.Location = new System.Drawing.Point(362, 69);
+            this.equationDisplay.Location = new System.Drawing.Point(360, 69);
             this.equationDisplay.Name = "equationDisplay";
             this.equationDisplay.Size = new System.Drawing.Size(0, 31);
             this.equationDisplay.TabIndex = 2;
             this.equationDisplay.TextAlign = System.Drawing.ContentAlignment.BottomRight;
+            // 
+            // panel1
+            // 
+            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
+            this.panel1.Controls.Add(this.mainLayout);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel1.Location = new System.Drawing.Point(1, 1);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(363, 628);
+            this.panel1.TabIndex = 1;
             // 
             // Calculator
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(55)))), ((int)(((byte)(55)))), ((int)(((byte)(55)))));
             this.ClientSize = new System.Drawing.Size(365, 630);
-            this.Controls.Add(this.mainLayout);
+            this.Controls.Add(this.panel1);
             this.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Calculator";
             this.Opacity = 0.98D;
+            this.Padding = new System.Windows.Forms.Padding(1);
             this.Text = "Calculator";
             this.mainLayout.ResumeLayout(false);
             this.buttonLayout.ResumeLayout(false);
@@ -995,6 +1078,7 @@
             this.dragPanel.ResumeLayout(false);
             this.dragPanel.PerformLayout();
             this.controlPanel.ResumeLayout(false);
+            this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -1048,6 +1132,7 @@
         private System.Windows.Forms.Button btnExit;
         private System.Windows.Forms.Label title;
         private System.Windows.Forms.Label equationDisplay;
+        private System.Windows.Forms.Panel panel1;
     }
 }
 

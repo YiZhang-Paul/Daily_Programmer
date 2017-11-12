@@ -459,5 +459,20 @@ namespace simpleCalculator {
             ScientificCalculator.Negate();
             ShowNumber();
         }
+        /**
+         * form visual effects
+         */
+        private void ButtonMouseEnter(object sender, EventArgs e) {
+
+            var button = (Button)sender;
+            button.FlatAppearance.BorderSize = 2;
+            button.FlatAppearance.BorderColor = Color.FromArgb(72, 72, 72);
+        }
+
+        private void ButtonMouseLeave(object sender, EventArgs e) {
+
+            var button = (Button)sender;
+            button.FlatAppearance.BorderSize = 0;
+        }
     }
 }

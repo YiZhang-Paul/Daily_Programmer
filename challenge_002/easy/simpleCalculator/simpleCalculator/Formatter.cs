@@ -13,9 +13,9 @@ namespace simpleCalculator {
 
             decimal integer = Math.Truncate(number);
             decimal decimals = number - integer;
-            string decimalString = decimals == 0 ? "" : decimals.ToString().Substring(2);
+            string tail = decimals == 0 ? "" : decimals.ToString().Substring(2);
 
-            return AddComma(integer.ToString()) + (isDecimal ? "." : "") + decimalString;
+            return AddComma(integer.ToString()) + (isDecimal ? "." : "") + tail;
         }
         /// <summary>
         /// add comma to numbers
@@ -29,7 +29,7 @@ namespace simpleCalculator {
                 result.Append(number[i] + ((number.Length - i) % 3 == 0 && i != 0 ? "," : ""));
             }
 
-            return string.Join("", result.ToString().Reverse());
+            return result.ToString();
         }
     }
 }

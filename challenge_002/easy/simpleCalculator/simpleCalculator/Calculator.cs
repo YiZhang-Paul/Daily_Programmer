@@ -123,13 +123,6 @@ namespace simpleCalculator {
             SetLock();
         }
         /// <summary>
-        /// check if an operator is binary operator
-        /// </summary>
-        public bool IsBinaryOperator(string operation) {
-
-            return Regex.IsMatch(operation, _binaryOperator);
-        }
-        /// <summary>
         /// calculate result of an operation
         /// </summary>
         public decimal Calculate(string operation, decimal latter, decimal former) {
@@ -195,6 +188,13 @@ namespace simpleCalculator {
             }
 
             return latter;
+        }
+        /// <summary>
+        /// check if an operator is binary operator
+        /// </summary>
+        public bool IsBinaryOperator(string operation) {
+
+            return Regex.IsMatch(operation, _binaryOperator);
         }
         /// <summary>
         /// evaluate last operation
