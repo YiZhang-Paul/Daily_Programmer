@@ -40,7 +40,7 @@ namespace simpleCalculator {
         /// </summary>
         private void ShowEquation() {
 
-            equationDisplay.Text = string.Join(" ", ScientificCalculator.Numbers) + " " + string.Join(" ", ScientificCalculator.Operations);
+            equationDisplay.Text = string.Join(" ", ScientificCalculator.Numbers) + " " + string.Join(" ", ScientificCalculator.Operations.Select(operation => ScientificCalculator.Equation.GetSymbol(operation)));
             //equationDisplay.Text = ScientificCalculator.Equation.Content;
         }
         /// <summary>

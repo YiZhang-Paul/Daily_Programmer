@@ -10,7 +10,8 @@ namespace simpleCalculator {
         private Dictionary<string, string> _symbols = new Dictionary<string, string> {
             
             {"*", "×"},
-            {"/", "÷"}
+            {"/", "÷"},
+            {"mod", "Mod"}
         };
         /// <summary>
         /// translate character to mathemetical symbols

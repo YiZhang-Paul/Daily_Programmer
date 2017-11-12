@@ -229,7 +229,7 @@ namespace simpleCalculator {
         /// <summary>
         /// attempt evaluating equation so far
         /// </summary>
-        public void TryEvaluateAll() { 
+        public void TryEvaluateAll(bool toTemporary = false) { 
         
             while(Operations.Count > 0 && !Regex.IsMatch(Operations.Peek(), "[+-]")) {
 
@@ -238,6 +238,11 @@ namespace simpleCalculator {
             //set result to buffer for reuse
             Input.Set(Result);
             SetLock();
+
+            if(toTemporary) {
+
+                TemporarySave = Numbers.Pop().ToString();
+            }
         }
         /// <summary>
         /// handle binary operators
@@ -276,7 +281,7 @@ namespace simpleCalculator {
             
                 if(!IsBinaryOperator(operation)) {
 
-                    TryEvaluateAll();
+                    TryEvaluateAll(true);
                 }
                 else {
 
