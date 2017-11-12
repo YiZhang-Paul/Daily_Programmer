@@ -78,7 +78,7 @@ namespace simpleCalculator {
             if(Locked) {
 
                 Unlock();
-                Input.Clear();
+                Input.Set("0");
 
                 if(Operations.Count == 0) {
 
@@ -241,7 +241,7 @@ namespace simpleCalculator {
 
             if(Numbers.Count == 1 && Operations.Count > 0) {
             
-                Operations.Clear();
+                Operations.Pop();
             }
             //set result to buffer for reuse
             Input.Set(Result);
