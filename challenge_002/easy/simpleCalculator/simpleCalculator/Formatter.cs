@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Text.RegularExpressions;
 
 namespace simpleCalculator {
     class Formatter {
@@ -26,10 +27,10 @@ namespace simpleCalculator {
 
             for(int i = number.Length - 1; i >= 0; i--) {
 
-                result.Append(number[i] + ((number.Length - i) % 3 == 0 && i != 0 ? "," : ""));
+                result.Append(number[i] + ((number.Length - i) % 3 == 0 ? "," : ""));
             }
 
-            return string.Join("", result.ToString().Reverse());
+            return Regex.Replace(string.Join("", result.ToString().Reverse()), "^,|(?<=-),", "");
         }
     }
 }
