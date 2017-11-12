@@ -13,11 +13,13 @@ namespace simpleCalculator {
     public partial class Calculator : Form {
 
         private Point MouseXY { get; set; }
+        private Resizer Resizer { get; set; }
         private ScientificCalculator ScientificCalculator { get; set; }
 
         public Calculator() {
             
             InitializeComponent();
+            Resizer = new Resizer(this);
             LoadCalculators();
             ShowNumber();
         }
@@ -475,51 +477,46 @@ namespace simpleCalculator {
             button.FlatAppearance.BorderSize = 0;
         }
 
-
-
-
-
-
-
-        private const int
-    HTLEFT = 10,
-    HTRIGHT = 11,
-    HTTOP = 12,
-    HTTOPLEFT = 13,
-    HTTOPRIGHT = 14,
-    HTBOTTOM = 15,
-    HTBOTTOMLEFT = 16,
-    HTBOTTOMRIGHT = 17;
-
-        const int _ = 50; // you can rename this variable if you like
-
-        Rectangle TopRect { get { return new Rectangle(0, 0, this.ClientSize.Width, _); } }
-        Rectangle LeftRect { get { return new Rectangle(0, 0, _, this.ClientSize.Height); } }
-        Rectangle BottomRect { get { return new Rectangle(0, this.ClientSize.Height - _, this.ClientSize.Width, _); } }
-        Rectangle RightRect { get { return new Rectangle(this.ClientSize.Width - _, 0, _, this.ClientSize.Height); } }
-
-        Rectangle TopLeft { get { return new Rectangle(0, 0, _, _); } }
-        Rectangle TopRight { get { return new Rectangle(this.ClientSize.Width - _, 0, _, _); } }
-        Rectangle BottomLeft { get { return new Rectangle(0, this.ClientSize.Height - _, _, _); } }
-        Rectangle BottomRight { get { return new Rectangle(this.ClientSize.Width - _, this.ClientSize.Height - _, _, _); } }
-
-
         protected override void WndProc(ref Message message) {
+
             base.WndProc(ref message);
 
-            if(message.Msg == 0x84) // WM_NCHITTEST
-    {
+            if(message.Msg == 0x84) { // WM_NCHITTEST
+
                 var cursor = this.PointToClient(Cursor.Position);
 
-                if(TopLeft.Contains(cursor)) message.Result = (IntPtr)HTTOPLEFT;
-                else if(TopRight.Contains(cursor)) message.Result = (IntPtr)HTTOPRIGHT;
-                else if(BottomLeft.Contains(cursor)) message.Result = (IntPtr)HTBOTTOMLEFT;
-                else if(BottomRight.Contains(cursor)) message.Result = (IntPtr)HTBOTTOMRIGHT;
+                if(Resizer.TopLeft.Contains(cursor)) {
 
-                else if(TopRect.Contains(cursor)) message.Result = (IntPtr)HTTOP;
-                else if(LeftRect.Contains(cursor)) message.Result = (IntPtr)HTLEFT;
-                else if(RightRect.Contains(cursor)) message.Result = (IntPtr)HTRIGHT;
-                else if(BottomRect.Contains(cursor)) message.Result = (IntPtr)HTBOTTOM;
+                    message.Result = (IntPtr)Resizer.HtTopLeft;
+                }
+                else if(Resizer.TopRight.Contains(cursor)) {
+
+                    message.Result = (IntPtr)Resizer.HtTopRight;
+                }
+                else if(Resizer.BottomLeft.Contains(cursor)) {
+
+                    message.Result = (IntPtr)Resizer.HtBottomLeft;
+                }
+                else if(Resizer.BottomRight.Contains(cursor)) {
+
+                    message.Result = (IntPtr)Resizer.HtBottomRight;
+                }
+                else if(Resizer.Top.Contains(cursor)) {
+
+                    message.Result = (IntPtr)Resizer.HtTop;
+                }
+                else if(Resizer.Left.Contains(cursor)) {
+
+                    message.Result = (IntPtr)Resizer.HtLeft;
+                }
+                else if(Resizer.Right.Contains(cursor)) {
+
+                    message.Result = (IntPtr)Resizer.HtRight;
+                }
+                else if(Resizer.Bottom.Contains(cursor)) {
+
+                    message.Result = (IntPtr)Resizer.HtBottom;
+                }
             }
         }
     }
