@@ -56,7 +56,7 @@ namespace simpleCalculator {
         /// <summary>
         /// set lock on result to allow number reuse
         /// </summary>
-        public void SetLock() {
+        public void Lock() {
 
             Operations.Push(_lock);
         }
@@ -120,7 +120,7 @@ namespace simpleCalculator {
             }
 
             Operations.Push(operation);
-            SetLock();
+            Lock();
         }
         /// <summary>
         /// calculate result of an operation
@@ -224,7 +224,7 @@ namespace simpleCalculator {
             }
             //set result to buffer for reuse
             Input.Set(Result);
-            SetLock();
+            Lock();
         }
         /// <summary>
         /// attempt evaluating equation so far
@@ -237,7 +237,7 @@ namespace simpleCalculator {
             }
             //set result to buffer for reuse
             Input.Set(Result);
-            SetLock();
+            Lock();
 
             if(toTemporary) {
 
@@ -328,7 +328,7 @@ namespace simpleCalculator {
 
             Input.Set(PI.ToString());
             TemporarySave = PI.ToString();
-            SetLock();
+            Lock();
         }
         /// <summary>
         /// negate input buffer value

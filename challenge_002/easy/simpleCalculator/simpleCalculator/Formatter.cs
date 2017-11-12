@@ -12,7 +12,7 @@ namespace simpleCalculator {
         public string Format(decimal number, bool isDecimal) {
 
             decimal integer = Math.Truncate(number);
-            decimal decimals = number - integer;
+            decimal decimals = Math.Abs(number - integer);
             string tail = decimals == 0 ? "" : decimals.ToString().Substring(2);
 
             return AddComma(integer.ToString()) + (isDecimal ? "." : "") + tail;
@@ -29,7 +29,7 @@ namespace simpleCalculator {
                 result.Append(number[i] + ((number.Length - i) % 3 == 0 && i != 0 ? "," : ""));
             }
 
-            return result.ToString();
+            return string.Join("", result.ToString().Reverse());
         }
     }
 }
