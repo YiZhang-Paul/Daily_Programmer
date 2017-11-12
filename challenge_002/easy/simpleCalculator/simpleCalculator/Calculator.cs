@@ -238,6 +238,11 @@ namespace simpleCalculator {
 
                 EvaluateLast();
             }
+
+            if(Numbers.Count == 1 && Operations.Count > 0) {
+            
+                Operations.Clear();
+            }
             //set result to buffer for reuse
             Input.Set(Result);
             Lock();
