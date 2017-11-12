@@ -202,15 +202,18 @@ namespace simpleCalculator {
         public void EvaluateLast() {
 
             Unlock(); //remove locks 
-            
-            if(!IsBinaryOperator(Operations.Peek()) || Numbers.Count == 1) {
 
-                decimal operand = Numbers.Pop();
-                Numbers.Push(Calculate(Operations.Pop(), operand, operand));
-            }
-            else {
+            if(Operations.Count > 0) {
             
-                Numbers.Push(Calculate(Operations.Pop(), Numbers.Pop(), Numbers.Pop()));
+                if(!IsBinaryOperator(Operations.Peek()) || Numbers.Count == 1) {
+
+                    decimal operand = Numbers.Pop();
+                    Numbers.Push(Calculate(Operations.Pop(), operand, operand));
+                }
+                else {
+            
+                    Numbers.Push(Calculate(Operations.Pop(), Numbers.Pop(), Numbers.Pop()));
+                }
             }
         }
         /// <summary>
