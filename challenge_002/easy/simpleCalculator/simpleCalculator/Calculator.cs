@@ -304,7 +304,6 @@ namespace simpleCalculator {
 
             SaveTemporary();
             EvaluateAll();
-            Input.Set(Result);
             Equation = new Equation();
         }
         /// <summary>
@@ -340,8 +339,16 @@ namespace simpleCalculator {
 
             Input.Negate();
 
-            if(Numbers.Count > 0) {
-            
+            if(TemporarySave != null) {
+
+                TemporarySave = (decimal.Parse(TemporarySave) * -1).ToString();
+            }
+            else if(Locked && Operations.Count > 1) {
+
+                TemporarySave = Input.Content;
+            }
+            else if(Locked) {
+
                 Numbers.Push(Numbers.Pop() * -1);
             }
         }
