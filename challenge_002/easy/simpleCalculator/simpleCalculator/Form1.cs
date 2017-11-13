@@ -307,6 +307,11 @@ namespace simpleCalculator {
             ScientificCalculator.Negate();
             ShowNumber();
         }
+
+        private void ToggleExtension(object sender, EventArgs e) {
+
+            this.advancedKeyPanel.Visible = !this.advancedKeyPanel.Visible;
+        }
         /**
          * form visual effects
          */
