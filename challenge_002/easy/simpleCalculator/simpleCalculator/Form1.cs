@@ -14,12 +14,14 @@ namespace simpleCalculator {
 
         private Point MouseXY { get; set; }
         private Resizer Resizer { get; set; }
+        private Formatter Formatter { get; set; }
         private ScientificCalculator ScientificCalculator { get; set; }
 
         public Calculator() {
             
             InitializeComponent();
             Resizer = new Resizer(this);
+            Formatter = new Formatter();
             LoadCalculators();
             ShowNumber();
         }
@@ -35,7 +37,14 @@ namespace simpleCalculator {
         /// </summary>
         private void ShowNumber() {
 
-            numberDisplay.Text = ScientificCalculator.Input.Formatted;
+            if(!ScientificCalculator.Input.IsEmpty) {
+            
+                numberDisplay.Text = ScientificCalculator.Input.Formatted;
+            }
+            else {
+
+                numberDisplay.Text = Formatter.Format(ScientificCalculator.RunningTotal);
+            }
         }
         /// <summary>
         /// display current equation
@@ -57,17 +66,32 @@ namespace simpleCalculator {
         /// </summary>
         private void Input(string input) {
 
-            if(Regex.IsMatch(input, "^[0-9.]$")) {
+            try {
 
-                ScientificCalculator.AddInput(input);
+                if(Regex.IsMatch(input, "^[0-9.]$")) {
+
+                    ScientificCalculator.AddInput(input);
+                }
+                else if(input == "=") {
+                
+                    ScientificCalculator.GetTotal();
+                }
+                else {
+
+                    ScientificCalculator.GetRunningTotal(input);
+                }
+
+                ShowNumber();
+                ShowEquation();
             }
-            else {
+            catch(DivideByZeroException) {
 
-                ScientificCalculator.Process(input);
+                ShowError("Divide by Zero");
+            }   
+            catch(Exception) {
+
+                ShowError();
             }
-
-            ShowNumber();
-            ShowEquation();
         }
         /// <summary>
         /// retrieve mouse pointer position
@@ -122,7 +146,7 @@ namespace simpleCalculator {
         /// </summary>
         private void ClearLastInput(object sender, EventArgs e) {
 
-            if(ScientificCalculator.TemporarySave == null) {
+            if(!ScientificCalculator.Locked && !ScientificCalculator.Input.IsEmpty) {
             
                 ScientificCalculator.Input.RemoveLast();
                 ShowNumber();
@@ -194,260 +218,82 @@ namespace simpleCalculator {
 
         private void btnPlus_Click(object sender, EventArgs e) {
 
-            try {
-
-                Input("+");
-            }
-            catch(DivideByZeroException) {
-
-                ShowError("Divide by Zero");
-            }
-            catch(Exception) {
-
-                ShowError();
-            }
+            Input("+");
         }
 
         private void btnMinus_Click(object sender, EventArgs e) {
 
-            try {
-
-                Input("-");
-            }
-            catch(DivideByZeroException) {
-
-                ShowError("Divide by Zero");
-            }
-            catch(Exception) {
-
-                ShowError();
-            }
+            Input("-");
         }
 
         private void btnMultiply_Click(object sender, EventArgs e) {
 
-            try {
-
-                Input("*");
-            }
-            catch(DivideByZeroException) {
-
-                ShowError("Divide by Zero");
-            }
-            catch(Exception) {
-
-                ShowError();
-            }
+            Input("*");
         }
 
         private void btnDivide_Click(object sender, EventArgs e) {
 
-            try {
-
-                Input("/");
-            }
-            catch(DivideByZeroException) {
-
-                ShowError("Divide by Zero");
-            }
-            catch(Exception) {
-
-                ShowError();
-            }
+            Input("/");
         }
 
         private void btnEqual_Click(object sender, EventArgs e) {
 
-            try {
-
-                ScientificCalculator.GetFinalResult();
-                ShowNumber();
-                ShowEquation();
-            }
-            catch(DivideByZeroException) {
-
-                ShowError("Divide by Zero");
-            }
-            catch(Exception) {
-
-                ShowError();
-            }
+            Input("=");
         }
 
         private void btnFactorial_Click(object sender, EventArgs e) {
 
-            try {
-
-                Input("!");
-            }
-            catch(DivideByZeroException) {
-
-                ShowError("Divide by Zero");
-            }
-            catch(Exception) {
-
-                ShowError();
-            }
+            Input("!");
         }
 
         private void btnXSquare_Click(object sender, EventArgs e) {
 
-            try {
-
-                Input("x2");
-            }
-            catch(DivideByZeroException) {
-
-                ShowError("Divide by Zero");
-            }
-            catch(Exception) {
-
-                ShowError();
-            }
+            Input("x2");
         }
 
         private void btnXPowerY_Click(object sender, EventArgs e) {
 
-            try {
-
-                Input("^");
-            }
-            catch(DivideByZeroException) {
-
-                ShowError("Divide by Zero");
-            }
-            catch(Exception) {
-
-                ShowError();
-            }
+            Input("^");
         }
 
         private void btnSine_Click(object sender, EventArgs e) {
 
-            try {
-
-                Input("sin");
-            }
-            catch(DivideByZeroException) {
-
-                ShowError("Divide by Zero");
-            }
-            catch(Exception) {
-
-                ShowError();
-            }
+            Input("sin");
         }
 
         private void btnCosine_Click(object sender, EventArgs e) {
 
-            try {
-
-                Input("cos");
-            }
-            catch(DivideByZeroException) {
-
-                ShowError("Divide by Zero");
-            }
-            catch(Exception) {
-
-                ShowError();
-            }
+            Input("cos");
         }
 
         private void btnTangent_Click(object sender, EventArgs e) {
 
-            try {
-
-                Input("tan");
-            }
-            catch(DivideByZeroException) {
-
-                ShowError("Divide by Zero");
-            }
-            catch(Exception) {
-
-                ShowError();
-            }
+            Input("tan");
         }
 
         private void btnSquareRoot_Click(object sender, EventArgs e) {
 
-            try {
-
-                Input("sqrt");
-            }
-            catch(DivideByZeroException) {
-
-                ShowError("Divide by Zero");
-            }
-            catch(Exception) {
-
-                ShowError();
-            }
+            Input("sqrt");
         }
 
         private void btnTenPowerX_Click(object sender, EventArgs e) {
 
-            try {
-
-                Input("10x");
-            }
-            catch(DivideByZeroException) {
-
-                ShowError("Divide by Zero");
-            }
-            catch(Exception) {
-
-                ShowError();
-            }
+            Input("10x");
         }
 
         private void btnLog_Click(object sender, EventArgs e) {
 
-            try {
-
-                Input("log10");
-            }
-            catch(DivideByZeroException) {
-
-                ShowError("Divide by Zero");
-            }
-            catch(Exception) {
-
-                ShowError();
-            }
+            Input("log10");
         }
 
         private void btnExponential_Click(object sender, EventArgs e) {
 
-            try {
-
-                Input("exp");
-            }
-            catch(DivideByZeroException) {
-
-                ShowError("Divide by Zero");
-            }
-            catch(Exception) {
-
-                ShowError();
-            }
+            Input("exp");
         }
 
         private void btnModulos_Click(object sender, EventArgs e) {
 
-            try {
-
-                Input("mod");
-            }
-            catch(DivideByZeroException) {
-
-                ShowError("Divide by Zero");
-            }
-            catch(Exception) {
-
-                ShowError();
-            }
+            Input("mod");
         }
 
         private void btnPI_Click(object sender, EventArgs e) {
@@ -487,35 +333,35 @@ namespace simpleCalculator {
 
                 if(Resizer.TopLeft.Contains(cursor)) {
 
-                    message.Result = (IntPtr)Resizer.HtTopLeft;
+                    message.Result = (IntPtr)Resizer.htTopLeft;
                 }
                 else if(Resizer.TopRight.Contains(cursor)) {
 
-                    message.Result = (IntPtr)Resizer.HtTopRight;
+                    message.Result = (IntPtr)Resizer.htTopRight;
                 }
                 else if(Resizer.BottomLeft.Contains(cursor)) {
 
-                    message.Result = (IntPtr)Resizer.HtBottomLeft;
+                    message.Result = (IntPtr)Resizer.htBottomLeft;
                 }
                 else if(Resizer.BottomRight.Contains(cursor)) {
 
-                    message.Result = (IntPtr)Resizer.HtBottomRight;
+                    message.Result = (IntPtr)Resizer.htBottomRight;
                 }
                 else if(Resizer.Top.Contains(cursor)) {
 
-                    message.Result = (IntPtr)Resizer.HtTop;
+                    message.Result = (IntPtr)Resizer.htTop;
                 }
                 else if(Resizer.Left.Contains(cursor)) {
 
-                    message.Result = (IntPtr)Resizer.HtLeft;
+                    message.Result = (IntPtr)Resizer.htLeft;
                 }
                 else if(Resizer.Right.Contains(cursor)) {
 
-                    message.Result = (IntPtr)Resizer.HtRight;
+                    message.Result = (IntPtr)Resizer.htRight;
                 }
                 else if(Resizer.Bottom.Contains(cursor)) {
 
-                    message.Result = (IntPtr)Resizer.HtBottom;
+                    message.Result = (IntPtr)Resizer.htBottom;
                 }
             }
         }

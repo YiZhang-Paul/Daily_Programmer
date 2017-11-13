@@ -10,11 +10,12 @@ namespace simpleCalculator {
         /// <summary>
         /// format number for proper display
         /// </summary>
-        public string Format(decimal number, bool isDecimal) {
+        public string Format(decimal number, bool isDecimal = false) {
 
             decimal integer = Math.Truncate(number);
             decimal decimals = Math.Abs(number - integer);
             string tail = decimals == 0 ? "" : decimals.ToString().Substring(2);
+            isDecimal = isDecimal ? true : decimals != 0;
 
             return AddComma(integer.ToString()) + (isDecimal ? "." : "") + tail;
         }

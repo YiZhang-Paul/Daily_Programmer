@@ -95,8 +95,8 @@
             this.mainLayout.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.mainLayout.ColumnCount = 1;
             this.mainLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.mainLayout.Controls.Add(this.buttonLayout, 0, 1);
             this.mainLayout.Controls.Add(this.displayLayout, 0, 0);
+            this.mainLayout.Controls.Add(this.buttonLayout, 0, 1);
             this.mainLayout.Dock = System.Windows.Forms.DockStyle.Fill;
             this.mainLayout.Location = new System.Drawing.Point(0, 0);
             this.mainLayout.Margin = new System.Windows.Forms.Padding(0);

@@ -8,20 +8,17 @@ using System.Text.RegularExpressions;
 namespace simpleCalculator {
     class ScientificCalculator {
 
-        private const string _lock = "l";
         private const string _binaryOperator = "[+-/*^]|mod";
         private const decimal _pi = 3.1415926535897932384626433832m;
         //assets
-        public Equation Equation { get; private set; }
         public Input Input { get; private set; }
+        public Equation Equation { get; private set; }
         public Stack<decimal> Numbers { get; private set; }
         public Stack<string> Operations { get; private set; }
         //constants and utility properties
-        public GammaFunction GammaFunction { get; private set; }
-        public string TemporarySave { get; set; }
-        public decimal PI { get; private set; }
-        public string Result { get { return Numbers.Peek().ToString(); } }
-        public bool Locked { get { return Operations.Count > 0 && Operations.Peek() == _lock; } }
+        public GammaFunction Gamma { get; private set; }
+        public decimal RunningTotal { get { return Numbers.Peek(); } }
+        public bool Locked { get; private set; }
 
         public ScientificCalculator() {
 
@@ -32,8 +29,8 @@ namespace simpleCalculator {
         /// </summary>
         public void LoadAssets() {
 
-            Equation = new Equation();
             Input = new Input();
+            Equation = new Equation();
             Numbers = new Stack<decimal>();
             Operations = new Stack<string>();
         }
@@ -42,8 +39,7 @@ namespace simpleCalculator {
         /// </summary>
         public void LoadUtilities() {
 
-            GammaFunction = new GammaFunction();
-            PI = _pi;
+            Gamma = new GammaFunction();
         }
         /// <summary>
         /// reset calculator
@@ -54,40 +50,30 @@ namespace simpleCalculator {
             LoadUtilities();
         }
         /// <summary>
-        /// set lock on result to allow number reuse
-        /// </summary>
-        public void Lock() {
-
-            Operations.Push(_lock);
-        }
-        /// <summary>
-        /// remove lock on current result
-        /// </summary>
-        public void Unlock() {
- 
-            while(Operations.Count > 0 && Operations.Peek() == _lock) {
-
-                Operations.Pop();
-            }
-        }
-        /// <summary>
         /// append new content to input buffer
         /// </summary>
         public void AddInput(string input) {
  
             if(Locked) {
 
-                Unlock();
-                Input.Set("0");
+                Locked = false;
+                Input.Clear();
 
-                if(Operations.Count == 0) {
+                if(Operations.Count == 0 && Numbers.Count > 0) {
 
                     Numbers.Clear();
                 }
             }
 
-            TemporarySave = null;
             Input.Add(input);
+        }
+        /// <summary>
+        /// set input buffer value
+        /// </summary>
+        public void SetInput(decimal input) {
+
+            Input.Set(input.ToString());
+            Locked = true;
         }
         /// <summary>
         /// save input buffer in number stack
@@ -95,32 +81,137 @@ namespace simpleCalculator {
         public void SaveInput() {
 
             Numbers.Push(Input.Value);
+            Input.Clear();
+            Locked = true;
         }
         /// <summary>
-        /// save temporary value in number stack
+        /// swap last operator with another
         /// </summary>
-        public void SaveTemporary() {
+        public void SwapOperator(string operation) {
 
-            if(TemporarySave != null) {
+            Operations.Pop();
+            Operations.Push(operation);
+        }
+        /// <summary>
+        /// check if an operator is binary operator
+        /// </summary>
+        public bool IsBinaryOperator(string operation) {
+
+            return Regex.IsMatch(operation, _binaryOperator);
+        }
+        /// <summary>
+        /// check for extra operators in the stack
+        /// </summary>
+        public bool HasExtraOperator() {
+
+            return Numbers.Count > 0 && Numbers.Count == Operations.Count;
+        }
+        /// <summary>
+        /// evaluate last operation
+        /// </summary>
+        public void EvaluateLast() {
+
+            if(Operations.Count > 0) {
             
-                Numbers.Push(decimal.Parse(TemporarySave));
-                TemporarySave = null;
+                if(!IsBinaryOperator(Operations.Peek()) || Numbers.Count == 1) {
+
+                    Numbers.Push(Calculate(Operations.Pop(), Numbers.Peek(), Numbers.Pop()));
+                }
+                else {
+            
+                    Numbers.Push(Calculate(Operations.Pop(), Numbers.Pop(), Numbers.Pop()));
+                }
             }
         }
         /// <summary>
-        /// save/swap last operator in operation stack
+        /// evaluate entire equation
         /// </summary>
-        public void SaveOperator(string operation, bool swap = false) {
+        public void EvaluateAll() { 
+        
+            while(Operations.Count > 0) {
 
-            Unlock();
+                EvaluateLast();
+            }
+        }
+        /// <summary>
+        /// attempt evaluating equation so far
+        /// </summary>
+        public void TryEvaluateAll() { 
+        
+            while(Operations.Count > 0 && !Regex.IsMatch(Operations.Peek(), "[+-]")) {
 
-            if(swap && Operations.Count > 0) {
+                EvaluateLast();
+            }
+        }
+        /// <summary>
+        /// process unary operators
+        /// </summary>
+        public void ProcessUnaryOperator(string operation) {
 
-                Operations.Pop();
+            if(HasExtraOperator()) {
+
+                Numbers.Push(Numbers.Peek());
             }
 
             Operations.Push(operation);
-            Lock();
+            EvaluateLast();
+            SetInput(Numbers.Pop());
+        }
+        /// <summary>
+        /// process binary operators
+        /// </summary>
+        public void ProcessBinaryOperator(string operation) {
+
+            if(Regex.IsMatch(operation, "[+-]")) {
+
+                EvaluateAll();
+            }
+            else {
+
+                TryEvaluateAll();
+            }
+
+            Operations.Push(operation);
+        }
+        /// <summary>
+        /// calculate running total
+        /// </summary>
+        public void GetRunningTotal(string operation) {
+
+            if(!Input.IsEmpty) {
+
+                SaveInput();
+            }
+
+            if(!IsBinaryOperator(operation)) {
+
+                ProcessUnaryOperator(operation);
+            }
+            else if(!HasExtraOperator()) {
+
+                ProcessBinaryOperator(operation);
+            }
+            else {
+
+                SwapOperator(operation);
+            }
+        }
+        /// <summary>
+        /// calculate final result
+        /// </summary>
+        public void GetTotal() {
+
+            if(!Input.IsEmpty) {
+
+                SaveInput();
+            }
+            else if(HasExtraOperator()) {
+
+                Numbers.Push(RunningTotal);
+            }
+
+            EvaluateAll();
+            Equation = new Equation();
         }
         /// <summary>
         /// calculate result of an operation
@@ -128,7 +219,7 @@ namespace simpleCalculator {
         public decimal Calculate(string operation, decimal latter, decimal former) {
 
             switch(operation) {
-            
+
                 case "+" : case "-" :
 
                     return former + latter * (operation == "+" ? 1 : -1);
@@ -190,128 +281,6 @@ namespace simpleCalculator {
             return latter;
         }
         /// <summary>
-        /// check if an operator is binary operator
-        /// </summary>
-        public bool IsBinaryOperator(string operation) {
-
-            return Regex.IsMatch(operation, _binaryOperator);
-        }
-        /// <summary>
-        /// evaluate last operation
-        /// </summary>
-        public void EvaluateLast() {
-
-            Unlock(); //remove locks 
-
-            if(Operations.Count > 0) {
-            
-                if(!IsBinaryOperator(Operations.Peek()) || Numbers.Count == 1) {
-
-                    decimal operand = Numbers.Pop();
-                    Numbers.Push(Calculate(Operations.Pop(), operand, operand));
-                }
-                else {
-            
-                    Numbers.Push(Calculate(Operations.Pop(), Numbers.Pop(), Numbers.Pop()));
-                }
-            }
-        }
-        /// <summary>
-        /// evaluate entire equation
-        /// </summary>
-        public void EvaluateAll() { 
-        
-            while(Operations.Count > 0) {
-
-                EvaluateLast();
-            }
-            //set result to buffer for reuse
-            Input.Set(Result);
-            Lock();
-        }
-        /// <summary>
-        /// attempt evaluating equation so far
-        /// </summary>
-        public void TryEvaluateAll(bool toTemporary = false) { 
-        
-            while(Operations.Count > 0 && !Regex.IsMatch(Operations.Peek(), "[+-]")) {
-
-                EvaluateLast();
-            }
-
-            if(Numbers.Count == 1 && Operations.Count > 0) {
-            
-                Operations.Pop();
-            }
-            //set result to buffer for reuse
-            Input.Set(Result);
-            Lock();
-
-            if(toTemporary) {
-
-                TemporarySave = Numbers.Pop().ToString();
-            }
-        }
-        /// <summary>
-        /// handle binary operators
-        /// </summary>
-        public void HandleBinaryOperator(string operation) {
-
-            Unlock();
-            Operations.Pop();
-
-            if(Regex.IsMatch(operation, "[+-]")) {
-
-                EvaluateAll();
-            }
-            else {
-
-                TryEvaluateAll();
-            }
-
-            SaveOperator(operation);
-        }
-        /// <summary>
-        /// process intermediate arithmetic operations
-        /// </summary>
-        public void Process(string operation) {
-
-            if(!Locked) {
-
-                SaveInput();
-            }
-
-            bool swap = IsBinaryOperator(operation) && Locked && TemporarySave == null;
-            SaveOperator(operation, swap);
-            SaveTemporary();
-
-            if(!swap) {
-            
-                if(!IsBinaryOperator(operation)) {
-
-                    TryEvaluateAll(true);
-                }
-                else {
-
-                    HandleBinaryOperator(operation);
-                }
-            }
-        }
-        /// <summary>
-        /// calculate final result
-        /// </summary>
-        public void GetFinalResult() {
-
-            if(!Locked) {
-
-                SaveInput();
-            }
-
-            SaveTemporary();
-            EvaluateAll();
-            Equation = new Equation();
-        }
-        /// <summary>
         /// calculate factorial of a number
         /// </summary>
         public decimal Factorial(decimal number) { 
@@ -323,7 +292,7 @@ namespace simpleCalculator {
 
             if(number <= 1) {
 
-                return number == 1 ? number : (decimal)GammaFunction.Gamma((double)number + 1).Real;
+                return number == 1 ? number : (decimal)Gamma.Gamma((double)number + 1).Real;
             }
 
             return number * Factorial(number - 1);
@@ -333,28 +302,24 @@ namespace simpleCalculator {
         /// </summary>
         public void LoadPI() {
 
-            Input.Set(PI.ToString());
-            TemporarySave = PI.ToString();
-            Lock();
+            SetInput(_pi);
         }
         /// <summary>
         /// negate input buffer value
         /// </summary>
         public void Negate() {
 
-            Input.Negate();
+            if(!Input.IsEmpty) {
 
-            if(TemporarySave != null) {
-
-                TemporarySave = (decimal.Parse(TemporarySave) * -1).ToString();
+                Input.Negate();
             }
-            else if(Locked && Operations.Count > 1) {
-
-                TemporarySave = Input.Content;
-            }
-            else if(Locked) {
+            else if(Operations.Count == 0) {
 
                 Numbers.Push(Numbers.Pop() * -1);
+            }
+            else {
+
+                SetInput(RunningTotal * -1);
             }
         }
         /// <summary>

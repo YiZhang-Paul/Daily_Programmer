@@ -9,6 +9,7 @@ namespace simpleCalculator {
 
         public StringBuilder Buffer { get; private set; }
         public string Content { get { return Buffer.ToString(); } }
+        public bool IsEmpty { get { return Content == ""; } }
 
         public InputBuffer() {
 

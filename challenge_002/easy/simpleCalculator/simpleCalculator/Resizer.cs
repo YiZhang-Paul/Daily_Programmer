@@ -11,14 +11,14 @@ namespace simpleCalculator {
 
         private const int _thickness = 15;
 
-        public const int HtLeft = 10;
-        public const int HtRight = 11;
-        public const int HtTop = 12;
-        public const int HtTopLeft = 13;
-        public const int HtTopRight = 14;
-        public const int HtBottom = 15;
-        public const int HtBottomLeft = 16;
-        public const int HtBottomRight = 17;
+        public const int htLeft = 10;
+        public const int htRight = 11;
+        public const int htTop = 12;
+        public const int htTopLeft = 13;
+        public const int htTopRight = 14;
+        public const int htBottom = 15;
+        public const int htBottomLeft = 16;
+        public const int htBottomRight = 17;
 
         public Form Form { get; private set; }
         public Rectangle Top { get { return new Rectangle(0, 0, Form.ClientSize.Width, _thickness); } }

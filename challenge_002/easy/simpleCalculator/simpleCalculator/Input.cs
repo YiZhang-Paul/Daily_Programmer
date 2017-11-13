@@ -10,8 +10,8 @@ namespace simpleCalculator {
 
         public Formatter Formatter { get; private set; }
         public decimal Value { get { return decimal.Parse(Content); } }
-        public string Formatted { get { return Formatter.Format(Value, IsDecimal); } }
         public bool IsDecimal { get { return Regex.IsMatch(Content, @"\."); } }
+        public string Formatted { get { return Formatter.Format(Value, IsDecimal); } }
 
         public Input() {
 
@@ -25,7 +25,7 @@ namespace simpleCalculator {
         
             if(Content.Length < (IsDecimal ? 30 : 29)) {
             
-                if(Content == "0") {
+                if(Content == "0" || IsEmpty) {
 
                     Set(input == "." ? "0." : input);
                 }
@@ -40,7 +40,7 @@ namespace simpleCalculator {
         /// </summary>
         public void RemoveLast() {
 
-            if(Buffer.Length == 1) {
+            if(Math.Abs(Value).ToString().Length == 1) {
 
                 Set("0");
             }
