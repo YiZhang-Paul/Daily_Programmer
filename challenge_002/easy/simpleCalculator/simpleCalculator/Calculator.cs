@@ -10,12 +10,27 @@ namespace simpleCalculator {
 
         private const string _binaryOperator = "[+-/*^]|mod";
         private const decimal _pi = 3.1415926535897932384626433832m;
+        //arithmetic calculation functions; op1: operand 1, op2: operand 2
+        private Dictionary<string, Func<decimal, decimal, decimal>> _expressions = new Dictionary<string, Func<decimal, decimal, decimal>> {
+
+            {"+", (op1, op2) => op1 + op2},
+            {"-", (op1, op2) => op1 - op2},
+            {"*", (op1, op2) => op1 * op2},
+            {"/", (op1, op2) => op1 / op2},
+            {"x2", (op1, op2) => op2 * op2},
+            {"mod", (op1, op2) => op1 % op2},
+            {"exp", (op1, op2) => (decimal)Math.Exp((double)op2)},
+            {"sqrt", (op1, op2) => (decimal)Math.Sqrt((double)op2)},
+            {"10x", (op1, op2) => (decimal)Math.Pow(10, (double)op2)},
+            {"log10", (op1, op2) => (decimal)Math.Log10((double)op2)},
+            {"^", (op1, op2) => (decimal)Math.Pow((double)op1, (double)op2)}
+        };
         //assets
         public Input Input { get; private set; }
         public Equation Equation { get; private set; }
         public Stack<decimal> Numbers { get; private set; }
         public Stack<string> Operations { get; private set; }
-        //constants and utility properties
+        //utility classes and properties
         public GammaFunction Gamma { get; private set; }
         public decimal RunningTotal { get { return Numbers.Peek(); } }
         public bool Locked { get; private set; }
@@ -218,64 +233,32 @@ namespace simpleCalculator {
         /// </summary>
         public decimal Calculate(string operation, decimal latter, decimal former) {
 
-            switch(operation) {
+            if(_expressions.ContainsKey(operation)) {
 
-                case "+" : case "-" :
+                return _expressions[operation].Invoke(former, latter);
+            }
 
-                    return former + latter * (operation == "+" ? 1 : -1);
+            if(operation == "!") {
 
-                case "*" :
+                return Factorial(latter);
+            }
 
-                    return former * latter;
+            if(Regex.IsMatch(operation, "sin|cos|tan")) {
 
-                case "/" : case "mod" :
+                double radians = ToRadians(latter);
 
-                    if(latter == 0) {
-
-                        throw new DivideByZeroException();
-                    }
-
-                    return operation == "/" ? former / latter : former % latter;
-
-                case "!" :
-
-                    return Factorial(latter);
-
-                case "sqrt" :
-
-                    return (decimal)Math.Sqrt((double)latter);
-
-                case "x2" :
-
-                    return latter * latter;
-
-                case "sin" :
-
+                if(operation == "sin") {
+                
                     return (decimal)Math.Sin(ToRadians(latter));
-
-                case "cos" :
+                }
+                else if(operation == "cos") {
 
                     return (decimal)Math.Cos(ToRadians(latter));
-
-                case "tan" :
+                }
+                else {
 
                     return (decimal)Math.Tan(ToRadians(latter));
-
-                case "log10" :
-
-                    return (decimal)Math.Log10((double)latter);
-
-                case "exp" :
-
-                    return (decimal)Math.Exp((double)latter);
-
-                case "10x" :
-
-                    return (decimal)Math.Pow(10, (double)latter);
-
-                case "^" :
-
-                    return (decimal)Math.Pow((double)former, (double)latter);
+                }
             }
 
             return latter;
