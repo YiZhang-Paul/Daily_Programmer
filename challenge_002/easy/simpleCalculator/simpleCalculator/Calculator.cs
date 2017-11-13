@@ -8,7 +8,7 @@ using System.Text.RegularExpressions;
 namespace simpleCalculator {
     class ScientificCalculator {
 
-        private const string _binaryOperator = "[+-/*^]|mod";
+        private const string _binaryOperator = "[+-/*^]|mod|exp";
         private const decimal _pi = 3.1415926535897932384626433832m;
         //arithmetic calculation functions; op1: operand 1, op2: operand 2
         private Dictionary<string, Func<decimal, decimal, decimal>> _expressions = new Dictionary<string, Func<decimal, decimal, decimal>> {
@@ -19,7 +19,7 @@ namespace simpleCalculator {
             {"/", (op1, op2) => op1 / op2},
             {"x2", (op1, op2) => op2 * op2},
             {"mod", (op1, op2) => op1 % op2},
-            {"exp", (op1, op2) => (decimal)Math.Exp((double)op2)},
+            {"exp", (op1, op2) => op1 * (decimal)Math.Pow(10, (double)op2)},
             {"sqrt", (op1, op2) => (decimal)Math.Sqrt((double)op2)},
             {"10x", (op1, op2) => (decimal)Math.Pow(10, (double)op2)},
             {"log10", (op1, op2) => (decimal)Math.Log10((double)op2)},
