@@ -17,7 +17,7 @@ namespace simpleCalculator {
             string tail = decimals == 0 ? "" : decimals.ToString().Substring(2);
             isDecimal = isDecimal ? true : decimals != 0;
 
-            return AddComma(integer.ToString()) + (isDecimal ? "." : "") + tail;
+            return AddComma(integer.ToString()) + (isDecimal ? "." : "") + Regex.Replace(tail, "0*$", "");
         }
         /// <summary>
         /// add comma to numbers

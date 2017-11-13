@@ -8,7 +8,7 @@ using System.Text.RegularExpressions;
 namespace simpleCalculator {
     class ScientificCalculator {
 
-        private const string _binaryOperator = "[+-/*^]|mod|exp";
+        private const string _binaryOperator = "[+-/*^]|mod|exp|yrtx";
         private const decimal _pi = 3.1415926535897932384626433832m;
         //arithmetic calculation functions; op1: operand 1, op2: operand 2
         private Dictionary<string, Func<decimal, decimal, decimal>> _expressions = new Dictionary<string, Func<decimal, decimal, decimal>> {
@@ -19,11 +19,16 @@ namespace simpleCalculator {
             {"/", (op1, op2) => op1 / op2},
             {"x2", (op1, op2) => op2 * op2},
             {"mod", (op1, op2) => op1 % op2},
-            {"exp", (op1, op2) => op1 * (decimal)Math.Pow(10, (double)op2)},
+            {"1/x", (op1, op2) => 1 / (decimal)op1},
+            {"ex", (op1, op2) => (decimal)Math.Exp((double)op1)},
+            {"x3", (op1, op2) => (decimal)Math.Pow((double)op1, 3)},
             {"sqrt", (op1, op2) => (decimal)Math.Sqrt((double)op2)},
             {"10x", (op1, op2) => (decimal)Math.Pow(10, (double)op2)},
             {"log10", (op1, op2) => (decimal)Math.Log10((double)op2)},
-            {"^", (op1, op2) => (decimal)Math.Pow((double)op1, (double)op2)}
+            {"exp", (op1, op2) => op1 * (decimal)Math.Pow(10, (double)op2)},
+            {"^", (op1, op2) => (decimal)Math.Pow((double)op1, (double)op2)},
+            {"yrtx", (op1, op2) => (decimal)Math.Pow((double)op1, 1 / (double)op2)},
+            {"ln", (op1, op2) => (decimal)(Math.Log((double)op1) / Math.Log(Math.E))}
         };
         //assets
         public Input Input { get; private set; }
@@ -112,7 +117,7 @@ namespace simpleCalculator {
         /// </summary>
         public bool IsBinaryOperator(string operation) {
 
-            return Regex.IsMatch(operation, _binaryOperator);
+            return Regex.IsMatch(operation, "^" + _binaryOperator + "$");
         }
         /// <summary>
         /// check for extra operators in the stack
@@ -243,6 +248,11 @@ namespace simpleCalculator {
                 return Factorial(latter);
             }
 
+            if(operation == "dms" || operation == "deg") {
+            
+                return operation == "dms" ? DegreeToDms(latter) : DmsToDegree(latter);
+            }
+
             if(Regex.IsMatch(operation, "sin|cos|tan")) {
 
                 double radians = ToRadians(latter);
@@ -304,6 +314,39 @@ namespace simpleCalculator {
 
                 SetInput(RunningTotal * -1);
             }
+        }
+        /// <summary>
+        /// convert degrees, minutes and seconds to degrees and decimals
+        /// </summary>
+        public decimal DmsToDegree(decimal dms) {
+
+            decimal integer = Math.Truncate(dms);
+            decimal decimals = Math.Abs(dms - integer);
+            string tail = decimals == 0 ? "0000" : decimals.ToString().Substring(2).PadRight(4, '0');
+            decimal minute = decimal.Parse(tail.Substring(0, 2));
+            decimal second = decimal.Parse(tail.Substring(2));
+
+            return (((minute + second / 60) / 60) + Math.Abs(integer)) * (dms < 0 ? -1 : 1);
+        }
+        /// <summary>
+        /// convert degree and decimals to degrees, minutes and seconds
+        /// </summary>
+        public decimal DegreeToDms(decimal degree) {
+
+            decimal integer = Math.Truncate(degree);
+            decimal decimals = Math.Abs(degree - integer) * 60;
+            decimal minutes = Math.Truncate(decimals);
+            decimals = (decimals - minutes) * 60;
+            decimal seconds = Math.Truncate(decimals);
+            decimal remain = decimals - seconds;
+
+            return decimal.Parse(string.Join("", new string[] {
+            
+                integer.ToString() + ".",
+                minutes.ToString().PadLeft(2, '0'),
+                seconds.ToString().PadLeft(2, '0'),
+                remain.ToString().Substring(2)
+            }));
         }
         /// <summary>
         /// convert degree to radians

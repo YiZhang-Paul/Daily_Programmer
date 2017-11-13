@@ -286,7 +286,7 @@ namespace simpleCalculator {
             Input("log10");
         }
 
-        private void btnExponential_Click(object sender, EventArgs e) {
+        private void btnExp_Click(object sender, EventArgs e) {
 
             Input("exp");
         }
@@ -306,6 +306,53 @@ namespace simpleCalculator {
 
             ScientificCalculator.Negate();
             ShowNumber();
+        }
+
+        private void btnXCube_Click(object sender, EventArgs e) {
+
+            Input("x3");
+        }
+
+        private void btnYthRoot_Click(object sender, EventArgs e) {
+
+            Input("yrtx");
+        }
+
+        private void btnSineMinusOne_Click(object sender, EventArgs e) {
+            
+        }
+
+        private void btnCosineMinusOne_Click(object sender, EventArgs e) {
+
+        }
+
+        private void btnTangentMinusOne_Click(object sender, EventArgs e) {
+
+        }
+
+        private void btnReciprocal_Click(object sender, EventArgs e) {
+
+            Input("1/x");
+        }
+
+        private void btnExponential_Click(object sender, EventArgs e) {
+
+            Input("ex");
+        }
+
+        private void btnLn_Click(object sender, EventArgs e) {
+
+            Input("ln");
+        }
+
+        private void btnDms_Click(object sender, EventArgs e) {
+
+            Input("dms");
+        }
+
+        private void btnDegrees_Click(object sender, EventArgs e) {
+
+            Input("deg");
         }
 
         private void ToggleExtension(object sender, EventArgs e) {
