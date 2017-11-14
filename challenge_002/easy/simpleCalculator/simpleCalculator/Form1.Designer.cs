@@ -91,6 +91,7 @@
             this.btnXCube = new System.Windows.Forms.Button();
             this.timerOpenClose = new System.Windows.Forms.Timer(this.components);
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.focusLable = new System.Windows.Forms.Label();
             this.mainPanel.SuspendLayout();
             this.mainLayout.SuspendLayout();
             this.displayLayout.SuspendLayout();
@@ -175,6 +176,7 @@
             // dragPanel
             // 
             this.dragPanel.Controls.Add(this.title);
+            this.dragPanel.Controls.Add(this.focusLable);
             this.dragPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dragPanel.Location = new System.Drawing.Point(0, 0);
             this.dragPanel.Margin = new System.Windows.Forms.Padding(0);
@@ -1406,12 +1408,23 @@
             // 
             this.timer1.Interval = 1;
             // 
+            // focusLable
+            // 
+            this.focusLable.AutoSize = true;
+            this.focusLable.Location = new System.Drawing.Point(173, 8);
+            this.focusLable.Name = "focusLable";
+            this.focusLable.Size = new System.Drawing.Size(0, 17);
+            this.focusLable.TabIndex = 3;
+            this.focusLable.DoubleClick += new System.EventHandler(this.ToggleSize);
+            this.focusLable.MouseDown += new System.Windows.Forms.MouseEventHandler(this.GetMouseXY);
+            this.focusLable.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Drag);
+            // 
             // Calculator
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.AutoValidate = System.Windows.Forms.AutoValidate.Disable;
+            this.AutoValidate = System.Windows.Forms.AutoValidate.EnablePreventFocusChange;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(75)))), ((int)(((byte)(75)))));
             this.ClientSize = new System.Drawing.Size(355, 630);
             this.Controls.Add(this.mainPanel);
@@ -1514,6 +1527,7 @@
         private System.Windows.Forms.Panel keySetsPanel;
         private System.Windows.Forms.Timer timerOpenClose;
         private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Label focusLable;
 
 
 

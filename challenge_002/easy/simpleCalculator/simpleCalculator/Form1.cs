@@ -84,6 +84,7 @@ namespace simpleCalculator {
                     ScientificCalculator.GetRunningTotal(input);
                 }
 
+                this.focusLable.Focus();
                 ReEnableKeys();
                 ShowNumber();
                 ShowEquation();
@@ -129,6 +130,7 @@ namespace simpleCalculator {
         /// </summary>
         private void ToggleSize(object sender, EventArgs e) {
 
+            this.focusLable.Focus();
             this.WindowState = this.WindowState == FormWindowState.Maximized ? FormWindowState.Normal : FormWindowState.Maximized;
         }
         /// <summary>
@@ -151,6 +153,7 @@ namespace simpleCalculator {
                 ToggleKeyStatus();
             }
 
+            this.focusLable.Focus();
             ScientificCalculator.Reset();
             ShowNumber();
             ShowEquation();
@@ -159,6 +162,8 @@ namespace simpleCalculator {
         /// delete last input
         /// </summary>
         private void ClearLastInput(object sender, EventArgs e) {
+
+            this.focusLable.Focus();
 
             if(Disabled) {
 
@@ -177,6 +182,7 @@ namespace simpleCalculator {
         /// </summary>
         private void ClearLastEntry(object sender, EventArgs e) {
 
+            this.focusLable.Focus();
             ReEnableKeys();
             ScientificCalculator.Input.Set("0");
             ShowNumber();
@@ -319,12 +325,14 @@ namespace simpleCalculator {
 
         private void btnPI_Click(object sender, EventArgs e) {
 
+            this.focusLable.Focus();
             ScientificCalculator.LoadPI();
             ShowNumber();
         }
 
         private void btnNegate_Click(object sender, EventArgs e) {
 
+            this.focusLable.Focus();
             ScientificCalculator.Negate();
             ShowNumber();
         }
@@ -416,7 +424,7 @@ namespace simpleCalculator {
         private void ToggleExtension(object sender, EventArgs e) {
 
             var button = (Button)sender;
-
+            
             if(this.advancedKeyPanel.Visible) {
 
                 button.Paint += this.DrawUnderline;
@@ -427,6 +435,7 @@ namespace simpleCalculator {
                 button.Paint -= this.DrawUnderline;
             }
 
+            this.focusLable.Focus();
             this.advancedKeyPanel.Visible = !this.advancedKeyPanel.Visible;
         }
         /**
