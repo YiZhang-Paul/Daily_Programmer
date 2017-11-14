@@ -236,23 +236,37 @@ namespace simpleCalculator {
             Equation = new Equation();
         }
         /// <summary>
+        /// round result when necessary
+        /// </summary>
+        public decimal Round(decimal number) { 
+
+            decimal integer = Math.Truncate(number);
+
+            if(integer == 0 || number - integer == 0) {
+            
+                return integer == 0 ? number : integer;
+            }
+
+            return Regex.IsMatch(number.ToString(), @"\.0{11}") ? integer : number; 
+        }
+        /// <summary>
         /// calculate result of an operation
         /// </summary>
         public decimal Calculate(string operation, decimal latter, decimal former) {
 
+            decimal result = 0;
+
             if(_expressions.ContainsKey(operation)) {
 
-                return _expressions[operation].Invoke(former, latter);
+                result = _expressions[operation].Invoke(former, latter);
             }
+            else if(operation == "!") {
 
-            if(operation == "!") {
-
-                return Factorial(latter);
+                result = Factorial(latter);
             }
+            else if(operation == "dms" || operation == "deg") {
 
-            if(operation == "dms" || operation == "deg") {
-            
-                return operation == "dms" ? Converter.DegreeToDms(latter) : Converter.DmsToDegree(latter);
+                result = operation == "dms" ? Converter.DegreeToDms(latter) : Converter.DmsToDegree(latter);
             }
 
             if(Regex.IsMatch(operation, "^(sin|cos|tan)$")) {
@@ -261,15 +275,15 @@ namespace simpleCalculator {
 
                 if(operation == "sin") {
 
-                    return (decimal)Math.Sin((double)radians);
+                    result = (decimal)Math.Sin((double)radians);
                 }
                 else if(operation == "cos") {
 
-                    return (decimal)Math.Cos((double)radians);
+                    result = (decimal)Math.Cos((double)radians);
                 }
                 else {
 
-                    return (decimal)Math.Tan((double)radians);
+                    result = (decimal)Math.Tan((double)radians);
                 }
             }
 
@@ -277,19 +291,19 @@ namespace simpleCalculator {
             
                 if(operation == "asin") {
 
-                    return Converter.ToDegrees((decimal)Math.Asin((double)latter));
+                    result = Converter.ToDegrees((decimal)Math.Asin((double)latter));
                 }
                 else if(operation == "acos") {
 
-                    return Converter.ToDegrees((decimal)Math.Acos((double)latter));
+                    result = Converter.ToDegrees((decimal)Math.Acos((double)latter));
                 }
                 else {
 
-                    return Converter.ToDegrees((decimal)Math.Atan((double)latter));
+                    result = Converter.ToDegrees((decimal)Math.Atan((double)latter));
                 }
             }
 
-            return latter;
+            return Round(result);
         }
         /// <summary>
         /// calculate factorial of a number

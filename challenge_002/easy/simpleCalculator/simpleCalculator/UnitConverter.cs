@@ -8,25 +8,18 @@ using System.Text.RegularExpressions;
 namespace simpleCalculator {
     class UnitConverter {
         /// <summary>
-        /// round result when necessary
-        /// </summary>
-        public decimal Round(decimal number) { 
-        
-            return Regex.IsMatch(number.ToString(), @"\.0{6}") ? Math.Round(number) : number;
-        }
-        /// <summary>
         /// convert degrees to radians
         /// </summary>
         public decimal ToRadians(decimal degree) {
 
-            return Round(degree / 180 * (decimal)Math.PI);
+            return degree / 180 * (decimal)Math.PI;
         }
         /// <summary>
         /// convert radians to degrees
         /// </summary>
         public decimal ToDegrees(decimal radian) {
 
-            return Round(radian * 180 / (decimal)Math.PI);
+            return radian * 180 / (decimal)Math.PI;
         }
         /// <summary>
         /// convert degrees, minutes and seconds to degrees and decimals

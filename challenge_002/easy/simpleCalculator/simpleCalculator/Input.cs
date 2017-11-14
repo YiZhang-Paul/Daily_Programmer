@@ -11,7 +11,7 @@ namespace simpleCalculator {
         public Formatter Formatter { get; private set; }
         public decimal Value { get { return decimal.Parse(Content); } }
         public bool IsDecimal { get { return Regex.IsMatch(Content, @"\."); } }
-        public string Formatted { get { return Formatter.Format(Value, IsDecimal); } }
+        public string Formatted { get { return Formatter.Format(Content, IsDecimal); } }
 
         public Input() {
 

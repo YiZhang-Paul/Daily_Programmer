@@ -10,14 +10,13 @@ namespace simpleCalculator {
         /// <summary>
         /// format number for proper display
         /// </summary>
-        public string Format(decimal number, bool isDecimal = false) {
+        public string Format(string digits, bool keepDecimal = false) {
 
-            decimal integer = Math.Truncate(number);
-            decimal decimals = Math.Abs(number - integer);
-            string tail = decimals == 0 ? "" : decimals.ToString().Substring(2);
-            isDecimal = isDecimal ? true : decimals != 0;
+            bool isDecimal = Regex.IsMatch(digits, @"\.");
+            string integer = isDecimal ? digits.Split('.')[0] : digits;
+            string decimals = isDecimal ? digits.Split('.')[1] : "";
 
-            return AddComma(integer.ToString()) + (isDecimal ? "." : "") + Regex.Replace(tail, "0*$", "");
+            return AddComma(integer) + (keepDecimal || isDecimal ? "." : "") + decimals;
         }
         /// <summary>
         /// add comma to numbers

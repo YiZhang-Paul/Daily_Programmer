@@ -38,12 +38,12 @@ namespace simpleCalculator {
         private void ShowNumber() {
 
             if(!ScientificCalculator.Input.IsEmpty) {
-            
+
                 numberDisplay.Text = ScientificCalculator.Input.Formatted;
             }
             else {
 
-                numberDisplay.Text = Formatter.Format(ScientificCalculator.RunningTotal);
+                numberDisplay.Text = Formatter.Format(ScientificCalculator.RunningTotal.ToString());
             }
         }
         /// <summary>
