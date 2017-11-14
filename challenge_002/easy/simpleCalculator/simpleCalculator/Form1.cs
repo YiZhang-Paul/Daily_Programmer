@@ -102,6 +102,29 @@ namespace simpleCalculator {
             }
         }
         /// <summary>
+        /// retrieve current client center coordinates
+        /// </summary>
+        private void GetClientCenter() {
+
+            ClientCenter = this.PointToScreen(new Point(this.Width / 2, this.Height / 2));
+        }
+        /// <summary>
+        /// retrieve default client dimension
+        /// </summary>
+        private void GetDefaultDimension() {
+
+            DefaultWidth = this.Width;
+            DefaultHeight = this.Height;
+        }
+        /// <summary>
+        /// adjust client location to match given center point
+        /// </summary>
+        private void ToCenterPoint() {
+
+            this.Top = ClientCenter.Y - this.Height / 2;
+            this.Left = ClientCenter.X - this.Width / 2;
+        }
+        /// <summary>
         /// retrieve mouse pointer position
         /// </summary>
         private void GetMouseXY(object sender, MouseEventArgs e) {
@@ -124,6 +147,7 @@ namespace simpleCalculator {
         /// </summary>
         private void Minimize(object sender, EventArgs e) {
 
+            this.focusLable.Focus();
             this.WindowState = FormWindowState.Minimized;
         }
         /// <summary>
@@ -139,7 +163,7 @@ namespace simpleCalculator {
         /// </summary>
         private void Exit(object sender, EventArgs e) {
 
-            this.timerOpenClose.Tick -= this.LoadUI;
+            this.focusLable.Focus();
             this.timerOpenClose.Tick += this.CloseUI;
             this.timerOpenClose.Start();
         }
@@ -446,8 +470,7 @@ namespace simpleCalculator {
 
             this.Width += (int)(DefaultWidth * 0.004);
             this.Height += (int)(DefaultHeight * 0.004);
-            this.Top = ClientCenter.Y - this.Height / 2;
-            this.Left = ClientCenter.X - this.Width / 2;
+            ToCenterPoint();
 
             if(this.Width >= DefaultWidth || this.Height >= DefaultHeight) {
 
@@ -485,20 +508,17 @@ namespace simpleCalculator {
 
                 this.Opacity = 1;
                 this.timerOpenClose.Tick -= this.FinishLoadUI;
-                this.timerOpenClose.Tick += this.CloseUI;
                 this.timerOpenClose.Stop();
             }
         }
 
         private void LoadUI(object sender, EventArgs e) {
 
-            ClientCenter = this.PointToScreen(new Point(this.Width / 2, this.Height / 2));
-            DefaultWidth = this.Width;
-            DefaultHeight = this.Height;
+            GetClientCenter();
+            GetDefaultDimension();
             this.Width = (int)(DefaultWidth * 0.97);
             this.Height = (int)(DefaultHeight * 0.97);
-            this.Top = ClientCenter.Y - this.Height / 2;
-            this.Left = ClientCenter.X - this.Width / 2;
+            ToCenterPoint();
             this.mainLayout.Visible = false;
             this.mainPanel.BackColor = Color.FromArgb(62, 62, 62);
             this.timerOpenClose.Tick += this.ZoomIn;
