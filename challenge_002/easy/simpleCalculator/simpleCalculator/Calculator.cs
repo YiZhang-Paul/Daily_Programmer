@@ -37,6 +37,7 @@ namespace simpleCalculator {
         public Stack<string> Operations { get; private set; }
         //utility classes and properties
         public GammaFunction Gamma { get; private set; }
+        public UnitConverter Converter { get; private set; }
         public decimal RunningTotal { get { return Numbers.Peek(); } }
         public bool Locked { get; private set; }
 
@@ -60,6 +61,7 @@ namespace simpleCalculator {
         public void LoadUtilities() {
 
             Gamma = new GammaFunction();
+            Converter = new UnitConverter();
         }
         /// <summary>
         /// reset calculator
@@ -170,7 +172,7 @@ namespace simpleCalculator {
 
             if(HasExtraOperator()) {
 
-                Numbers.Push(Numbers.Peek());
+                Numbers.Push(RunningTotal);
             }
 
             Operations.Push(operation);
@@ -250,24 +252,24 @@ namespace simpleCalculator {
 
             if(operation == "dms" || operation == "deg") {
             
-                return operation == "dms" ? DegreeToDms(latter) : DmsToDegree(latter);
+                return operation == "dms" ? Converter.DegreeToDms(latter) : Converter.DmsToDegree(latter);
             }
 
             if(Regex.IsMatch(operation, "sin|cos|tan")) {
 
-                double radians = ToRadians(latter);
+                double radians = Converter.ToRadians(latter);
 
                 if(operation == "sin") {
-                
-                    return (decimal)Math.Sin(ToRadians(latter));
+
+                    return (decimal)Math.Sin(radians);
                 }
                 else if(operation == "cos") {
 
-                    return (decimal)Math.Cos(ToRadians(latter));
+                    return (decimal)Math.Cos(radians);
                 }
                 else {
 
-                    return (decimal)Math.Tan(ToRadians(latter));
+                    return (decimal)Math.Tan(radians);
                 }
             }
 
@@ -314,46 +316,6 @@ namespace simpleCalculator {
 
                 SetInput(RunningTotal * -1);
             }
-        }
-        /// <summary>
-        /// convert degrees, minutes and seconds to degrees and decimals
-        /// </summary>
-        public decimal DmsToDegree(decimal dms) {
-
-            decimal integer = Math.Truncate(dms);
-            decimal decimals = Math.Abs(dms - integer);
-            string tail = decimals == 0 ? "0000" : decimals.ToString().Substring(2).PadRight(4, '0');
-            decimal minute = decimal.Parse(tail.Substring(0, 2));
-            decimal second = decimal.Parse(tail.Substring(2));
-
-            return (((minute + second / 60) / 60) + Math.Abs(integer)) * (dms < 0 ? -1 : 1);
-        }
-        /// <summary>
-        /// convert degree and decimals to degrees, minutes and seconds
-        /// </summary>
-        public decimal DegreeToDms(decimal degree) {
-
-            decimal integer = Math.Truncate(degree);
-            decimal decimals = Math.Abs(degree - integer) * 60;
-            decimal minutes = Math.Truncate(decimals);
-            decimals = (decimals - minutes) * 60;
-            decimal seconds = Math.Truncate(decimals);
-            decimal remain = decimals - seconds;
-
-            return decimal.Parse(string.Join("", new string[] {
-            
-                integer.ToString() + ".",
-                minutes.ToString().PadLeft(2, '0'),
-                seconds.ToString().PadLeft(2, '0'),
-                remain.ToString().Substring(2)
-            }));
-        }
-        /// <summary>
-        /// convert degree to radians
-        /// </summary>
-        public double ToRadians(decimal degree) {
-
-            return (double)degree / 180 * Math.PI;
         }
     }
 }
