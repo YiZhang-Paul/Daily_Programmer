@@ -90,7 +90,6 @@
             this.btnYthRoot = new System.Windows.Forms.Button();
             this.btnXCube = new System.Windows.Forms.Button();
             this.timerOpenClose = new System.Windows.Forms.Timer(this.components);
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.focusLable = new System.Windows.Forms.Label();
             this.mainPanel.SuspendLayout();
             this.mainLayout.SuspendLayout();
@@ -1404,10 +1403,6 @@
             this.timerOpenClose.Enabled = true;
             this.timerOpenClose.Interval = 1;
             // 
-            // timer1
-            // 
-            this.timer1.Interval = 1;
-            // 
             // focusLable
             // 
             this.focusLable.AutoSize = true;
@@ -1437,7 +1432,7 @@
             this.Padding = new System.Windows.Forms.Padding(1);
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Calculator";
-            this.Load += new System.EventHandler(this.Calculator_Load);
+            this.Load += new System.EventHandler(this.LoadUI);
             this.mainPanel.ResumeLayout(false);
             this.mainLayout.ResumeLayout(false);
             this.displayLayout.ResumeLayout(false);
@@ -1526,7 +1521,6 @@
         private System.Windows.Forms.Button btnXCube;
         private System.Windows.Forms.Panel keySetsPanel;
         private System.Windows.Forms.Timer timerOpenClose;
-        private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Label focusLable;
 
 

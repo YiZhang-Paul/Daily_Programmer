@@ -16,6 +16,7 @@ namespace simpleCalculator {
         private int DefaultWidth { get; set; }
         private int DefaultHeight { get; set; }
         private Point MouseXY { get; set; }
+        private Point ClientCenter { get; set; }
         private Resizer Resizer { get; set; }
         private Formatter Formatter { get; set; }
         private ScientificCalculator ScientificCalculator { get; set; }
@@ -441,33 +442,67 @@ namespace simpleCalculator {
         /**
          * form visual effects
          */
-        private void Calculator_Load(object sender, EventArgs e) {
+        private void ZoomIn(object sender, EventArgs e) {
 
-            this.Opacity = 0.75;
-            this.mainLayout.Visible = false;
-            this.mainPanel.BackColor = Color.FromArgb(80, 80, 80);
-            this.timerOpenClose.Tick += this.LoadUI;
-            this.timerOpenClose.Start();
+            this.Width += (int)(DefaultWidth * 0.004);
+            this.Height += (int)(DefaultHeight * 0.004);
+            this.Top = ClientCenter.Y - this.Height / 2;
+            this.Left = ClientCenter.X - this.Width / 2;
+
+            if(this.Width >= DefaultWidth || this.Height >= DefaultHeight) {
+
+                this.Width = DefaultWidth;
+                this.Height = DefaultHeight;
+                this.timerOpenClose.Tick -= this.ZoomIn;
+                this.timerOpenClose.Tick += this.ShowKeys;
+            }
         }
 
-        private void LoadUI(object sender, EventArgs e) {
+        private void ShowKeys(object sender, EventArgs e) {
 
-            this.Opacity += 0.015;
-            byte R = (byte)(this.mainPanel.BackColor.R - 1);
-            byte G = (byte)(this.mainPanel.BackColor.G - 1);
-            byte B = (byte)(this.mainPanel.BackColor.B - 1);
-            this.mainPanel.BackColor = Color.FromArgb(R, G, B);
+            if(this.mainPanel.BackColor.R < 70) {
+
+                byte R = (byte)(this.mainPanel.BackColor.R + 4);
+                byte G = (byte)(this.mainPanel.BackColor.G + 4);
+                byte B = (byte)(this.mainPanel.BackColor.B + 4);
+                this.mainPanel.BackColor = Color.FromArgb(R, G, B);
+            }
+            else {
+
+                this.Opacity = 0.7;
+                this.mainLayout.Visible = true;
+                this.mainPanel.BackColor = Color.FromArgb(32, 32, 32);
+                this.timerOpenClose.Tick -= this.ShowKeys;
+                this.timerOpenClose.Tick += this.FinishLoadUI;
+            }
+        }
+
+        private void FinishLoadUI(object sender, EventArgs e) {
+
+            this.Opacity += 0.02;
 
             if(this.Opacity >= 1) {
 
                 this.Opacity = 1;
+                this.timerOpenClose.Tick -= this.FinishLoadUI;
+                this.timerOpenClose.Tick += this.CloseUI;
                 this.timerOpenClose.Stop();
             }
-            else if(this.Opacity >= 0.95) {
+        }
 
-                this.mainLayout.Visible = true;
-                this.mainPanel.BackColor = Color.FromArgb(32, 32, 32);
-            }
+        private void LoadUI(object sender, EventArgs e) {
+
+            ClientCenter = this.PointToScreen(new Point(this.Width / 2, this.Height / 2));
+            DefaultWidth = this.Width;
+            DefaultHeight = this.Height;
+            this.Width = (int)(DefaultWidth * 0.97);
+            this.Height = (int)(DefaultHeight * 0.97);
+            this.Top = ClientCenter.Y - this.Height / 2;
+            this.Left = ClientCenter.X - this.Width / 2;
+            this.mainLayout.Visible = false;
+            this.mainPanel.BackColor = Color.FromArgb(62, 62, 62);
+            this.timerOpenClose.Tick += this.ZoomIn;
+            this.timerOpenClose.Start();
         }
 
         private void CloseUI(object sender, EventArgs e) {
