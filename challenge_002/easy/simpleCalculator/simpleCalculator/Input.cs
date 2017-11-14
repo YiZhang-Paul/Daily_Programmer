@@ -10,6 +10,7 @@ namespace simpleCalculator {
 
         public Formatter Formatter { get; private set; }
         public decimal Value { get { return decimal.Parse(Content); } }
+        public bool IsNegative { get { return Content[0] == '-'; } }
         public bool IsDecimal { get { return Regex.IsMatch(Content, @"\."); } }
         public string Formatted { get { return Formatter.Format(Content, IsDecimal); } }
 
@@ -54,7 +55,7 @@ namespace simpleCalculator {
         /// </summary>
         public void Negate() {
 
-            Set((Value * -1).ToString());
+            Set(IsNegative ? Content.Substring(1) : "-" + Content);
         }
     }
 }
