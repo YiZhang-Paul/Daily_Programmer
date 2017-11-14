@@ -12,6 +12,9 @@ using System.Text.RegularExpressions;
 namespace simpleCalculator {
     public partial class Calculator : Form {
 
+        private bool Disabled { get; set; }
+        private int DefaultWidth { get; set; }
+        private int DefaultHeight { get; set; }
         private Point MouseXY { get; set; }
         private Resizer Resizer { get; set; }
         private Formatter Formatter { get; set; }
@@ -36,7 +39,7 @@ namespace simpleCalculator {
         /// display current number input/result on calculator
         /// </summary>
         private void ShowNumber() {
-
+            
             if(!ScientificCalculator.Input.IsEmpty) {
 
                 numberDisplay.Text = ScientificCalculator.Input.Formatted;
@@ -81,15 +84,18 @@ namespace simpleCalculator {
                     ScientificCalculator.GetRunningTotal(input);
                 }
 
+                ReEnableKeys();
                 ShowNumber();
                 ShowEquation();
             }
             catch(DivideByZeroException) {
 
+                ToggleKeyStatus();
                 ShowError("Divide by Zero");
             }   
             catch(Exception) {
 
+                ToggleKeyStatus();
                 ShowError();
             }
         }
@@ -139,6 +145,12 @@ namespace simpleCalculator {
         /// </summary>
         private void ClearAll(object sender, EventArgs e) {
 
+            
+            if(Disabled) {
+            
+                ToggleKeyStatus();
+            }
+
             ScientificCalculator.Reset();
             ShowNumber();
             ShowEquation();
@@ -147,6 +159,12 @@ namespace simpleCalculator {
         /// delete last input
         /// </summary>
         private void ClearLastInput(object sender, EventArgs e) {
+
+            if(Disabled) {
+
+                ReEnableKeys();
+                ShowNumber();
+            }
 
             if(!ScientificCalculator.Locked && !ScientificCalculator.Input.IsEmpty) {
             
@@ -159,6 +177,7 @@ namespace simpleCalculator {
         /// </summary>
         private void ClearLastEntry(object sender, EventArgs e) {
 
+            ReEnableKeys();
             ScientificCalculator.Input.Set("0");
             ShowNumber();
         }
@@ -358,6 +377,40 @@ namespace simpleCalculator {
         private void btnDegrees_Click(object sender, EventArgs e) {
 
             Input("deg");
+        }
+        /// <summary>
+        /// retrieve a collection of all input keys
+        /// </summary>
+        private Button[] GetAllKeys() {
+
+            return new List<Button>().Concat(this.basicKeyLayout.Controls.OfType<Button>())
+                                     .Concat(this.advancedKeyLayout.Controls.OfType<Button>())
+                                     .Concat(this.extensionKeyLayout.Controls.OfType<Button>())
+                                     .ToArray();
+        }
+        /// <summary>
+        /// enable/disable input keys
+        /// </summary>
+        private void ToggleKeyStatus() {
+
+            Disabled = !Disabled;
+
+            foreach(var button in GetAllKeys()) {
+
+                if(!Regex.IsMatch(button.Text, @"^(\d|=|CE|C|⌫)$")) {
+
+                    button.Enabled = !button.Enabled;
+                }
+            }
+        }
+
+        private void ReEnableKeys() { 
+        
+            if(Disabled) {
+
+                ToggleKeyStatus();
+                ScientificCalculator.Reset();
+            }
         }
 
         private void ToggleExtension(object sender, EventArgs e) {
