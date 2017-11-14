@@ -362,6 +362,18 @@ namespace simpleCalculator {
 
         private void ToggleExtension(object sender, EventArgs e) {
 
+            var button = (Button)sender;
+
+            if(this.advancedKeyPanel.Visible) {
+
+                button.Paint += this.DrawUnderline;
+                button.Refresh();
+            }
+            else {
+
+                button.Paint -= this.DrawUnderline;
+            }
+
             this.advancedKeyPanel.Visible = !this.advancedKeyPanel.Visible;
         }
         /**
@@ -404,6 +416,14 @@ namespace simpleCalculator {
             
                 Application.Exit();
             }
+        }
+
+        private void DrawUnderline(object sender, PaintEventArgs e) {
+
+            var button = (Button)sender;
+            var color = Color.FromArgb(65, 65, 65);
+            int height = (int)(button.Height * 0.1);
+            e.Graphics.FillRectangle(new SolidBrush(color), 0, button.Height - height, button.Width, height);
         }
 
         private void ButtonMouseEnter(object sender, EventArgs e) {
