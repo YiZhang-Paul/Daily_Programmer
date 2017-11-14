@@ -3,15 +3,30 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Text.RegularExpressions;
 
 namespace simpleCalculator {
     class UnitConverter {
         /// <summary>
-        /// convert degree to radians
+        /// round result when necessary
         /// </summary>
-        public double ToRadians(decimal degree) {
+        public decimal Round(decimal number) { 
+        
+            return Regex.IsMatch(number.ToString(), @"\.0{6}") ? Math.Round(number) : number;
+        }
+        /// <summary>
+        /// convert degrees to radians
+        /// </summary>
+        public decimal ToRadians(decimal degree) {
 
-            return (double)degree / 180 * Math.PI;
+            return Round(degree / 180 * (decimal)Math.PI);
+        }
+        /// <summary>
+        /// convert radians to degrees
+        /// </summary>
+        public decimal ToDegrees(decimal radian) {
+
+            return Round(radian * 180 / (decimal)Math.PI);
         }
         /// <summary>
         /// convert degrees, minutes and seconds to degrees and decimals

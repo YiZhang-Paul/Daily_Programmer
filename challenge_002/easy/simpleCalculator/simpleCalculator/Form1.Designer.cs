@@ -71,9 +71,9 @@
             this.btnExponential = new System.Windows.Forms.Button();
             this.btnDegrees = new System.Windows.Forms.Button();
             this.btnDms = new System.Windows.Forms.Button();
-            this.btnCosineMinusOne = new System.Windows.Forms.Button();
-            this.btnTangentMinusOne = new System.Windows.Forms.Button();
-            this.btnSineMinusOne = new System.Windows.Forms.Button();
+            this.btnArcCosine = new System.Windows.Forms.Button();
+            this.btnArcTangent = new System.Windows.Forms.Button();
+            this.btnArcSine = new System.Windows.Forms.Button();
             this.btnYthRoot = new System.Windows.Forms.Button();
             this.btnXCube = new System.Windows.Forms.Button();
             this.advancedKeyPanel = new System.Windows.Forms.Panel();
@@ -917,9 +917,9 @@
             this.extensionKeyLayout.Controls.Add(this.btnExponential, 0, 1);
             this.extensionKeyLayout.Controls.Add(this.btnDegrees, 0, 1);
             this.extensionKeyLayout.Controls.Add(this.btnDms, 0, 1);
-            this.extensionKeyLayout.Controls.Add(this.btnCosineMinusOne, 3, 0);
-            this.extensionKeyLayout.Controls.Add(this.btnTangentMinusOne, 4, 0);
-            this.extensionKeyLayout.Controls.Add(this.btnSineMinusOne, 2, 0);
+            this.extensionKeyLayout.Controls.Add(this.btnArcCosine, 3, 0);
+            this.extensionKeyLayout.Controls.Add(this.btnArcTangent, 4, 0);
+            this.extensionKeyLayout.Controls.Add(this.btnArcSine, 2, 0);
             this.extensionKeyLayout.Controls.Add(this.btnYthRoot, 1, 0);
             this.extensionKeyLayout.Controls.Add(this.btnXCube, 0, 0);
             this.extensionKeyLayout.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -1038,71 +1038,71 @@
             this.btnDms.MouseEnter += new System.EventHandler(this.ButtonMouseEnter);
             this.btnDms.MouseLeave += new System.EventHandler(this.ButtonMouseLeave);
             // 
-            // btnCosineMinusOne
+            // btnArcCosine
             // 
-            this.btnCosineMinusOne.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnCosineMinusOne.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
-            this.btnCosineMinusOne.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnCosineMinusOne.FlatAppearance.BorderSize = 0;
-            this.btnCosineMinusOne.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(67)))), ((int)(((byte)(67)))));
-            this.btnCosineMinusOne.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(58)))), ((int)(((byte)(58)))), ((int)(((byte)(58)))));
-            this.btnCosineMinusOne.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCosineMinusOne.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCosineMinusOne.Location = new System.Drawing.Point(209, 2);
-            this.btnCosineMinusOne.Margin = new System.Windows.Forms.Padding(2);
-            this.btnCosineMinusOne.Name = "btnCosineMinusOne";
-            this.btnCosineMinusOne.Size = new System.Drawing.Size(65, 45);
-            this.btnCosineMinusOne.TabIndex = 1;
-            this.btnCosineMinusOne.Text = "cos⁻¹";
-            this.btnCosineMinusOne.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnCosineMinusOne.UseVisualStyleBackColor = false;
-            this.btnCosineMinusOne.Click += new System.EventHandler(this.btnCosineMinusOne_Click);
-            this.btnCosineMinusOne.MouseEnter += new System.EventHandler(this.ButtonMouseEnter);
-            this.btnCosineMinusOne.MouseLeave += new System.EventHandler(this.ButtonMouseLeave);
+            this.btnArcCosine.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnArcCosine.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
+            this.btnArcCosine.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnArcCosine.FlatAppearance.BorderSize = 0;
+            this.btnArcCosine.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(67)))), ((int)(((byte)(67)))));
+            this.btnArcCosine.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(58)))), ((int)(((byte)(58)))), ((int)(((byte)(58)))));
+            this.btnArcCosine.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnArcCosine.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnArcCosine.Location = new System.Drawing.Point(209, 2);
+            this.btnArcCosine.Margin = new System.Windows.Forms.Padding(2);
+            this.btnArcCosine.Name = "btnArcCosine";
+            this.btnArcCosine.Size = new System.Drawing.Size(65, 45);
+            this.btnArcCosine.TabIndex = 1;
+            this.btnArcCosine.Text = "cos⁻¹";
+            this.btnArcCosine.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnArcCosine.UseVisualStyleBackColor = false;
+            this.btnArcCosine.Click += new System.EventHandler(this.btnArcCosine_Click);
+            this.btnArcCosine.MouseEnter += new System.EventHandler(this.ButtonMouseEnter);
+            this.btnArcCosine.MouseLeave += new System.EventHandler(this.ButtonMouseLeave);
             // 
-            // btnTangentMinusOne
+            // btnArcTangent
             // 
-            this.btnTangentMinusOne.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnTangentMinusOne.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
-            this.btnTangentMinusOne.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnTangentMinusOne.FlatAppearance.BorderSize = 0;
-            this.btnTangentMinusOne.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(67)))), ((int)(((byte)(67)))));
-            this.btnTangentMinusOne.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(58)))), ((int)(((byte)(58)))), ((int)(((byte)(58)))));
-            this.btnTangentMinusOne.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnTangentMinusOne.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnTangentMinusOne.Location = new System.Drawing.Point(278, 2);
-            this.btnTangentMinusOne.Margin = new System.Windows.Forms.Padding(2);
-            this.btnTangentMinusOne.Name = "btnTangentMinusOne";
-            this.btnTangentMinusOne.Size = new System.Drawing.Size(65, 45);
-            this.btnTangentMinusOne.TabIndex = 4;
-            this.btnTangentMinusOne.Text = "tan⁻¹";
-            this.btnTangentMinusOne.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnTangentMinusOne.UseVisualStyleBackColor = false;
-            this.btnTangentMinusOne.Click += new System.EventHandler(this.btnTangentMinusOne_Click);
-            this.btnTangentMinusOne.MouseEnter += new System.EventHandler(this.ButtonMouseEnter);
-            this.btnTangentMinusOne.MouseLeave += new System.EventHandler(this.ButtonMouseLeave);
+            this.btnArcTangent.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnArcTangent.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
+            this.btnArcTangent.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnArcTangent.FlatAppearance.BorderSize = 0;
+            this.btnArcTangent.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(67)))), ((int)(((byte)(67)))));
+            this.btnArcTangent.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(58)))), ((int)(((byte)(58)))), ((int)(((byte)(58)))));
+            this.btnArcTangent.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnArcTangent.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnArcTangent.Location = new System.Drawing.Point(278, 2);
+            this.btnArcTangent.Margin = new System.Windows.Forms.Padding(2);
+            this.btnArcTangent.Name = "btnArcTangent";
+            this.btnArcTangent.Size = new System.Drawing.Size(65, 45);
+            this.btnArcTangent.TabIndex = 4;
+            this.btnArcTangent.Text = "tan⁻¹";
+            this.btnArcTangent.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnArcTangent.UseVisualStyleBackColor = false;
+            this.btnArcTangent.Click += new System.EventHandler(this.btnArcTangent_Click);
+            this.btnArcTangent.MouseEnter += new System.EventHandler(this.ButtonMouseEnter);
+            this.btnArcTangent.MouseLeave += new System.EventHandler(this.ButtonMouseLeave);
             // 
-            // btnSineMinusOne
+            // btnArcSine
             // 
-            this.btnSineMinusOne.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnSineMinusOne.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
-            this.btnSineMinusOne.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnSineMinusOne.FlatAppearance.BorderSize = 0;
-            this.btnSineMinusOne.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(67)))), ((int)(((byte)(67)))));
-            this.btnSineMinusOne.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(58)))), ((int)(((byte)(58)))), ((int)(((byte)(58)))));
-            this.btnSineMinusOne.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSineMinusOne.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSineMinusOne.Location = new System.Drawing.Point(140, 2);
-            this.btnSineMinusOne.Margin = new System.Windows.Forms.Padding(2);
-            this.btnSineMinusOne.Name = "btnSineMinusOne";
-            this.btnSineMinusOne.Size = new System.Drawing.Size(65, 45);
-            this.btnSineMinusOne.TabIndex = 3;
-            this.btnSineMinusOne.Text = "sin⁻¹";
-            this.btnSineMinusOne.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnSineMinusOne.UseVisualStyleBackColor = false;
-            this.btnSineMinusOne.Click += new System.EventHandler(this.btnSineMinusOne_Click);
-            this.btnSineMinusOne.MouseEnter += new System.EventHandler(this.ButtonMouseEnter);
-            this.btnSineMinusOne.MouseLeave += new System.EventHandler(this.ButtonMouseLeave);
+            this.btnArcSine.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnArcSine.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
+            this.btnArcSine.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnArcSine.FlatAppearance.BorderSize = 0;
+            this.btnArcSine.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(67)))), ((int)(((byte)(67)))));
+            this.btnArcSine.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(58)))), ((int)(((byte)(58)))), ((int)(((byte)(58)))));
+            this.btnArcSine.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnArcSine.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnArcSine.Location = new System.Drawing.Point(140, 2);
+            this.btnArcSine.Margin = new System.Windows.Forms.Padding(2);
+            this.btnArcSine.Name = "btnArcSine";
+            this.btnArcSine.Size = new System.Drawing.Size(65, 45);
+            this.btnArcSine.TabIndex = 3;
+            this.btnArcSine.Text = "sin⁻¹";
+            this.btnArcSine.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnArcSine.UseVisualStyleBackColor = false;
+            this.btnArcSine.Click += new System.EventHandler(this.btnArcSine_Click);
+            this.btnArcSine.MouseEnter += new System.EventHandler(this.ButtonMouseEnter);
+            this.btnArcSine.MouseLeave += new System.EventHandler(this.ButtonMouseLeave);
             // 
             // btnYthRoot
             // 
@@ -1493,9 +1493,9 @@
         private System.Windows.Forms.Button btnExponential;
         private System.Windows.Forms.Button btnDegrees;
         private System.Windows.Forms.Button btnDms;
-        private System.Windows.Forms.Button btnCosineMinusOne;
-        private System.Windows.Forms.Button btnTangentMinusOne;
-        private System.Windows.Forms.Button btnSineMinusOne;
+        private System.Windows.Forms.Button btnArcCosine;
+        private System.Windows.Forms.Button btnArcTangent;
+        private System.Windows.Forms.Button btnArcSine;
         private System.Windows.Forms.Button btnYthRoot;
         private System.Windows.Forms.Button btnXCube;
         private System.Windows.Forms.Panel panel1;

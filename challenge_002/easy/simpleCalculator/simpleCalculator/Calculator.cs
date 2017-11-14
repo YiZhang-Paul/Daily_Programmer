@@ -255,21 +255,37 @@ namespace simpleCalculator {
                 return operation == "dms" ? Converter.DegreeToDms(latter) : Converter.DmsToDegree(latter);
             }
 
-            if(Regex.IsMatch(operation, "sin|cos|tan")) {
+            if(Regex.IsMatch(operation, "^(sin|cos|tan)$")) {
 
-                double radians = Converter.ToRadians(latter);
+                decimal radians = Converter.ToRadians(latter);
 
                 if(operation == "sin") {
 
-                    return (decimal)Math.Sin(radians);
+                    return (decimal)Math.Sin((double)radians);
                 }
                 else if(operation == "cos") {
 
-                    return (decimal)Math.Cos(radians);
+                    return (decimal)Math.Cos((double)radians);
                 }
                 else {
 
-                    return (decimal)Math.Tan(radians);
+                    return (decimal)Math.Tan((double)radians);
+                }
+            }
+
+            if(Regex.IsMatch(operation, "^(asin|acos|atan)$")) {
+            
+                if(operation == "asin") {
+
+                    return Converter.ToDegrees((decimal)Math.Asin((double)latter));
+                }
+                else if(operation == "acos") {
+
+                    return Converter.ToDegrees((decimal)Math.Acos((double)latter));
+                }
+                else {
+
+                    return Converter.ToDegrees((decimal)Math.Atan((double)latter));
                 }
             }
 

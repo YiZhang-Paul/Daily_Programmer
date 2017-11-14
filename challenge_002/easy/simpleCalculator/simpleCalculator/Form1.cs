@@ -318,16 +318,19 @@ namespace simpleCalculator {
             Input("yrtx");
         }
 
-        private void btnSineMinusOne_Click(object sender, EventArgs e) {
-            
+        private void btnArcSine_Click(object sender, EventArgs e) {
+
+            Input("asin");
         }
 
-        private void btnCosineMinusOne_Click(object sender, EventArgs e) {
+        private void btnArcCosine_Click(object sender, EventArgs e) {
 
+            Input("acos");
         }
 
-        private void btnTangentMinusOne_Click(object sender, EventArgs e) {
+        private void btnArcTangent_Click(object sender, EventArgs e) {
 
+            Input("atan");
         }
 
         private void btnReciprocal_Click(object sender, EventArgs e) {
