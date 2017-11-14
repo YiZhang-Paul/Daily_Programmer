@@ -130,7 +130,9 @@ namespace simpleCalculator {
         /// </summary>
         private void Exit(object sender, EventArgs e) {
 
-            Application.Exit();
+            this.timerOpenClose.Tick -= this.LoadUI;
+            this.timerOpenClose.Tick += this.CloseUI;
+            this.timerOpenClose.Start();
         }
         /// <summary>
         /// clear all inputs on calculator
@@ -370,6 +372,7 @@ namespace simpleCalculator {
             this.Opacity = 0.75;
             this.mainLayout.Visible = false;
             this.mainPanel.BackColor = Color.FromArgb(80, 80, 80);
+            this.timerOpenClose.Tick += this.LoadUI;
             this.timerOpenClose.Start();
         }
 
@@ -390,6 +393,16 @@ namespace simpleCalculator {
 
                 this.mainLayout.Visible = true;
                 this.mainPanel.BackColor = Color.FromArgb(32, 32, 32);
+            }
+        }
+
+        private void CloseUI(object sender, EventArgs e) {
+            
+            this.Opacity -= 0.05;
+
+            if(this.Opacity <= 0.6) {
+            
+                Application.Exit();
             }
         }
 

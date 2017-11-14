@@ -90,6 +90,7 @@
             this.btnYthRoot = new System.Windows.Forms.Button();
             this.btnXCube = new System.Windows.Forms.Button();
             this.timerOpenClose = new System.Windows.Forms.Timer(this.components);
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.mainPanel.SuspendLayout();
             this.mainLayout.SuspendLayout();
             this.displayLayout.SuspendLayout();
@@ -1400,7 +1401,10 @@
             // 
             this.timerOpenClose.Enabled = true;
             this.timerOpenClose.Interval = 1;
-            this.timerOpenClose.Tick += new System.EventHandler(this.LoadUI);
+            // 
+            // timer1
+            // 
+            this.timer1.Interval = 1;
             // 
             // Calculator
             // 
@@ -1508,6 +1512,7 @@
         private System.Windows.Forms.Button btnXCube;
         private System.Windows.Forms.Panel keySetsPanel;
         private System.Windows.Forms.Timer timerOpenClose;
+        private System.Windows.Forms.Timer timer1;
 
 
 
