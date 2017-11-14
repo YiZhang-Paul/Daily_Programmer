@@ -164,6 +164,7 @@ namespace simpleCalculator {
         private void Exit(object sender, EventArgs e) {
 
             this.focusLable.Focus();
+            GetClientCenter();
             this.timerOpenClose.Tick += this.CloseUI;
             this.timerOpenClose.Start();
         }
@@ -526,11 +527,14 @@ namespace simpleCalculator {
         }
 
         private void CloseUI(object sender, EventArgs e) {
-            
+
             this.Opacity -= 0.05;
 
-            if(this.Opacity <= 0.6) {
+            if(this.Opacity <= 0.7) {
             
+                this.Width -= (int)(DefaultWidth * 0.005);
+                this.Height -= (int)(DefaultHeight * 0.005);
+                ToCenterPoint();
                 Application.Exit();
             }
         }
