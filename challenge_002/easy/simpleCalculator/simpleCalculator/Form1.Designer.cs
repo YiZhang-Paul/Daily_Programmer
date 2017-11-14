@@ -23,6 +23,7 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
+            this.components = new System.ComponentModel.Container();
             this.mainPanel = new System.Windows.Forms.Panel();
             this.mainLayout = new System.Windows.Forms.TableLayoutPanel();
             this.displayLayout = new System.Windows.Forms.TableLayoutPanel();
@@ -63,19 +64,7 @@
             this.btnOne = new System.Windows.Forms.Button();
             this.btnFour = new System.Windows.Forms.Button();
             this.btnSeven = new System.Windows.Forms.Button();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.extensionKeyPanel = new System.Windows.Forms.Panel();
-            this.extensionKeyLayout = new System.Windows.Forms.TableLayoutPanel();
-            this.btnReciprocal = new System.Windows.Forms.Button();
-            this.btnLn = new System.Windows.Forms.Button();
-            this.btnExponential = new System.Windows.Forms.Button();
-            this.btnDegrees = new System.Windows.Forms.Button();
-            this.btnDms = new System.Windows.Forms.Button();
-            this.btnArcCosine = new System.Windows.Forms.Button();
-            this.btnArcTangent = new System.Windows.Forms.Button();
-            this.btnArcSine = new System.Windows.Forms.Button();
-            this.btnYthRoot = new System.Windows.Forms.Button();
-            this.btnXCube = new System.Windows.Forms.Button();
+            this.keySetsPanel = new System.Windows.Forms.Panel();
             this.advancedKeyPanel = new System.Windows.Forms.Panel();
             this.advancedKeyLayout = new System.Windows.Forms.TableLayoutPanel();
             this.btnTangent = new System.Windows.Forms.Button();
@@ -88,6 +77,19 @@
             this.btnSquareRoot = new System.Windows.Forms.Button();
             this.btnSine = new System.Windows.Forms.Button();
             this.btnTenPowerX = new System.Windows.Forms.Button();
+            this.extensionKeyPanel = new System.Windows.Forms.Panel();
+            this.extensionKeyLayout = new System.Windows.Forms.TableLayoutPanel();
+            this.btnReciprocal = new System.Windows.Forms.Button();
+            this.btnLn = new System.Windows.Forms.Button();
+            this.btnExponential = new System.Windows.Forms.Button();
+            this.btnDegrees = new System.Windows.Forms.Button();
+            this.btnDms = new System.Windows.Forms.Button();
+            this.btnArcCosine = new System.Windows.Forms.Button();
+            this.btnArcTangent = new System.Windows.Forms.Button();
+            this.btnArcSine = new System.Windows.Forms.Button();
+            this.btnYthRoot = new System.Windows.Forms.Button();
+            this.btnXCube = new System.Windows.Forms.Button();
+            this.timerOpenClose = new System.Windows.Forms.Timer(this.components);
             this.mainPanel.SuspendLayout();
             this.mainLayout.SuspendLayout();
             this.displayLayout.SuspendLayout();
@@ -97,11 +99,11 @@
             this.buttonLayout.SuspendLayout();
             this.basicKeyPanel.SuspendLayout();
             this.basicKeyLayout.SuspendLayout();
-            this.panel1.SuspendLayout();
-            this.extensionKeyPanel.SuspendLayout();
-            this.extensionKeyLayout.SuspendLayout();
+            this.keySetsPanel.SuspendLayout();
             this.advancedKeyPanel.SuspendLayout();
             this.advancedKeyLayout.SuspendLayout();
+            this.extensionKeyPanel.SuspendLayout();
+            this.extensionKeyLayout.SuspendLayout();
             this.SuspendLayout();
             // 
             // mainPanel
@@ -111,7 +113,7 @@
             this.mainPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.mainPanel.Location = new System.Drawing.Point(1, 1);
             this.mainPanel.Name = "mainPanel";
-            this.mainPanel.Size = new System.Drawing.Size(351, 628);
+            this.mainPanel.Size = new System.Drawing.Size(353, 628);
             this.mainPanel.TabIndex = 0;
             // 
             // mainLayout
@@ -128,7 +130,7 @@
             this.mainLayout.RowCount = 2;
             this.mainLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 43.33333F));
             this.mainLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 56.66667F));
-            this.mainLayout.Size = new System.Drawing.Size(351, 628);
+            this.mainLayout.Size = new System.Drawing.Size(353, 628);
             this.mainLayout.TabIndex = 1;
             // 
             // displayLayout
@@ -150,7 +152,7 @@
             this.displayLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 31.98529F));
             this.displayLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 15.44118F));
             this.displayLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 15.07353F));
-            this.displayLayout.Size = new System.Drawing.Size(351, 272);
+            this.displayLayout.Size = new System.Drawing.Size(353, 272);
             this.displayLayout.TabIndex = 1;
             // 
             // topPanel
@@ -166,7 +168,7 @@
             this.topPanel.Name = "topPanel";
             this.topPanel.RowCount = 1;
             this.topPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.topPanel.Size = new System.Drawing.Size(351, 32);
+            this.topPanel.Size = new System.Drawing.Size(353, 32);
             this.topPanel.TabIndex = 1;
             // 
             // dragPanel
@@ -176,7 +178,7 @@
             this.dragPanel.Location = new System.Drawing.Point(0, 0);
             this.dragPanel.Margin = new System.Windows.Forms.Padding(0);
             this.dragPanel.Name = "dragPanel";
-            this.dragPanel.Size = new System.Drawing.Size(216, 32);
+            this.dragPanel.Size = new System.Drawing.Size(217, 32);
             this.dragPanel.TabIndex = 0;
             this.dragPanel.DoubleClick += new System.EventHandler(this.ToggleSize);
             this.dragPanel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.GetMouseXY);
@@ -207,12 +209,12 @@
             this.controlPanel.Controls.Add(this.btnMaxNormal, 1, 0);
             this.controlPanel.Controls.Add(this.btnExit, 2, 0);
             this.controlPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.controlPanel.Location = new System.Drawing.Point(216, 0);
+            this.controlPanel.Location = new System.Drawing.Point(217, 0);
             this.controlPanel.Margin = new System.Windows.Forms.Padding(0);
             this.controlPanel.Name = "controlPanel";
             this.controlPanel.RowCount = 1;
             this.controlPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.controlPanel.Size = new System.Drawing.Size(135, 32);
+            this.controlPanel.Size = new System.Drawing.Size(136, 32);
             this.controlPanel.TabIndex = 1;
             // 
             // btnMinimize
@@ -263,7 +265,7 @@
             this.btnExit.Location = new System.Drawing.Point(90, 0);
             this.btnExit.Margin = new System.Windows.Forms.Padding(0);
             this.btnExit.Name = "btnExit";
-            this.btnExit.Size = new System.Drawing.Size(45, 32);
+            this.btnExit.Size = new System.Drawing.Size(46, 32);
             this.btnExit.TabIndex = 2;
             this.btnExit.Text = "✕";
             this.btnExit.UseVisualStyleBackColor = true;
@@ -274,7 +276,7 @@
             this.numberDisplay.AutoSize = true;
             this.numberDisplay.Dock = System.Windows.Forms.DockStyle.Right;
             this.numberDisplay.Font = new System.Drawing.Font("Segoe UI Semibold", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.numberDisplay.Location = new System.Drawing.Point(293, 100);
+            this.numberDisplay.Location = new System.Drawing.Point(295, 100);
             this.numberDisplay.Name = "numberDisplay";
             this.numberDisplay.Size = new System.Drawing.Size(55, 87);
             this.numberDisplay.TabIndex = 0;
@@ -284,7 +286,7 @@
             // 
             this.equationDisplay.AutoSize = true;
             this.equationDisplay.Dock = System.Windows.Forms.DockStyle.Right;
-            this.equationDisplay.Location = new System.Drawing.Point(348, 69);
+            this.equationDisplay.Location = new System.Drawing.Point(350, 69);
             this.equationDisplay.Name = "equationDisplay";
             this.equationDisplay.Size = new System.Drawing.Size(0, 31);
             this.equationDisplay.TabIndex = 2;
@@ -295,14 +297,14 @@
             this.buttonLayout.ColumnCount = 1;
             this.buttonLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.buttonLayout.Controls.Add(this.basicKeyPanel, 0, 1);
-            this.buttonLayout.Controls.Add(this.panel1, 0, 0);
+            this.buttonLayout.Controls.Add(this.keySetsPanel, 0, 0);
             this.buttonLayout.Dock = System.Windows.Forms.DockStyle.Fill;
             this.buttonLayout.Location = new System.Drawing.Point(3, 275);
             this.buttonLayout.Name = "buttonLayout";
             this.buttonLayout.RowCount = 2;
             this.buttonLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 28.57F));
             this.buttonLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 71.43F));
-            this.buttonLayout.Size = new System.Drawing.Size(345, 350);
+            this.buttonLayout.Size = new System.Drawing.Size(347, 350);
             this.buttonLayout.TabIndex = 2;
             // 
             // basicKeyPanel
@@ -312,7 +314,7 @@
             this.basicKeyPanel.Location = new System.Drawing.Point(0, 99);
             this.basicKeyPanel.Margin = new System.Windows.Forms.Padding(0);
             this.basicKeyPanel.Name = "basicKeyPanel";
-            this.basicKeyPanel.Size = new System.Drawing.Size(345, 251);
+            this.basicKeyPanel.Size = new System.Drawing.Size(347, 251);
             this.basicKeyPanel.TabIndex = 0;
             // 
             // basicKeyLayout
@@ -357,7 +359,7 @@
             this.basicKeyLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
             this.basicKeyLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
             this.basicKeyLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.basicKeyLayout.Size = new System.Drawing.Size(345, 251);
+            this.basicKeyLayout.Size = new System.Drawing.Size(347, 251);
             this.basicKeyLayout.TabIndex = 0;
             // 
             // btnExtend
@@ -394,7 +396,7 @@
             this.btnDivide.Location = new System.Drawing.Point(278, 2);
             this.btnDivide.Margin = new System.Windows.Forms.Padding(2);
             this.btnDivide.Name = "btnDivide";
-            this.btnDivide.Size = new System.Drawing.Size(65, 46);
+            this.btnDivide.Size = new System.Drawing.Size(67, 46);
             this.btnDivide.TabIndex = 14;
             this.btnDivide.Text = "÷";
             this.btnDivide.UseVisualStyleBackColor = false;
@@ -415,7 +417,7 @@
             this.btnMultiply.Location = new System.Drawing.Point(278, 52);
             this.btnMultiply.Margin = new System.Windows.Forms.Padding(2);
             this.btnMultiply.Name = "btnMultiply";
-            this.btnMultiply.Size = new System.Drawing.Size(65, 46);
+            this.btnMultiply.Size = new System.Drawing.Size(67, 46);
             this.btnMultiply.TabIndex = 19;
             this.btnMultiply.Text = "×";
             this.btnMultiply.UseVisualStyleBackColor = false;
@@ -436,7 +438,7 @@
             this.btnMinus.Location = new System.Drawing.Point(278, 102);
             this.btnMinus.Margin = new System.Windows.Forms.Padding(2);
             this.btnMinus.Name = "btnMinus";
-            this.btnMinus.Size = new System.Drawing.Size(65, 46);
+            this.btnMinus.Size = new System.Drawing.Size(67, 46);
             this.btnMinus.TabIndex = 24;
             this.btnMinus.Text = "−";
             this.btnMinus.UseVisualStyleBackColor = false;
@@ -457,7 +459,7 @@
             this.btnPlus.Location = new System.Drawing.Point(278, 152);
             this.btnPlus.Margin = new System.Windows.Forms.Padding(2);
             this.btnPlus.Name = "btnPlus";
-            this.btnPlus.Size = new System.Drawing.Size(65, 46);
+            this.btnPlus.Size = new System.Drawing.Size(67, 46);
             this.btnPlus.TabIndex = 29;
             this.btnPlus.Text = "+";
             this.btnPlus.UseVisualStyleBackColor = false;
@@ -478,7 +480,7 @@
             this.btnEqual.Location = new System.Drawing.Point(278, 202);
             this.btnEqual.Margin = new System.Windows.Forms.Padding(2);
             this.btnEqual.Name = "btnEqual";
-            this.btnEqual.Size = new System.Drawing.Size(65, 47);
+            this.btnEqual.Size = new System.Drawing.Size(67, 47);
             this.btnEqual.TabIndex = 34;
             this.btnEqual.Text = "=";
             this.btnEqual.UseVisualStyleBackColor = false;
@@ -883,268 +885,16 @@
             this.btnSeven.MouseEnter += new System.EventHandler(this.ButtonMouseEnter);
             this.btnSeven.MouseLeave += new System.EventHandler(this.ButtonMouseLeave);
             // 
-            // panel1
+            // keySetsPanel
             // 
-            this.panel1.Controls.Add(this.extensionKeyPanel);
-            this.panel1.Controls.Add(this.advancedKeyPanel);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Margin = new System.Windows.Forms.Padding(0);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(345, 99);
-            this.panel1.TabIndex = 1;
-            // 
-            // extensionKeyPanel
-            // 
-            this.extensionKeyPanel.Controls.Add(this.extensionKeyLayout);
-            this.extensionKeyPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.extensionKeyPanel.Location = new System.Drawing.Point(0, 0);
-            this.extensionKeyPanel.Margin = new System.Windows.Forms.Padding(0);
-            this.extensionKeyPanel.Name = "extensionKeyPanel";
-            this.extensionKeyPanel.Size = new System.Drawing.Size(345, 99);
-            this.extensionKeyPanel.TabIndex = 3;
-            // 
-            // extensionKeyLayout
-            // 
-            this.extensionKeyLayout.ColumnCount = 5;
-            this.extensionKeyLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.extensionKeyLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.extensionKeyLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.extensionKeyLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.extensionKeyLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.extensionKeyLayout.Controls.Add(this.btnReciprocal, 0, 1);
-            this.extensionKeyLayout.Controls.Add(this.btnLn, 0, 1);
-            this.extensionKeyLayout.Controls.Add(this.btnExponential, 0, 1);
-            this.extensionKeyLayout.Controls.Add(this.btnDegrees, 0, 1);
-            this.extensionKeyLayout.Controls.Add(this.btnDms, 0, 1);
-            this.extensionKeyLayout.Controls.Add(this.btnArcCosine, 3, 0);
-            this.extensionKeyLayout.Controls.Add(this.btnArcTangent, 4, 0);
-            this.extensionKeyLayout.Controls.Add(this.btnArcSine, 2, 0);
-            this.extensionKeyLayout.Controls.Add(this.btnYthRoot, 1, 0);
-            this.extensionKeyLayout.Controls.Add(this.btnXCube, 0, 0);
-            this.extensionKeyLayout.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.extensionKeyLayout.Location = new System.Drawing.Point(0, 0);
-            this.extensionKeyLayout.Name = "extensionKeyLayout";
-            this.extensionKeyLayout.RowCount = 2;
-            this.extensionKeyLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.extensionKeyLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.extensionKeyLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.extensionKeyLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.extensionKeyLayout.Size = new System.Drawing.Size(345, 99);
-            this.extensionKeyLayout.TabIndex = 0;
-            // 
-            // btnReciprocal
-            // 
-            this.btnReciprocal.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnReciprocal.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
-            this.btnReciprocal.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnReciprocal.FlatAppearance.BorderSize = 0;
-            this.btnReciprocal.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(67)))), ((int)(((byte)(67)))));
-            this.btnReciprocal.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(58)))), ((int)(((byte)(58)))), ((int)(((byte)(58)))));
-            this.btnReciprocal.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnReciprocal.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnReciprocal.Location = new System.Drawing.Point(2, 51);
-            this.btnReciprocal.Margin = new System.Windows.Forms.Padding(2);
-            this.btnReciprocal.Name = "btnReciprocal";
-            this.btnReciprocal.Size = new System.Drawing.Size(65, 46);
-            this.btnReciprocal.TabIndex = 10;
-            this.btnReciprocal.Text = "¹⁄ x";
-            this.btnReciprocal.UseVisualStyleBackColor = false;
-            this.btnReciprocal.Click += new System.EventHandler(this.btnReciprocal_Click);
-            this.btnReciprocal.MouseEnter += new System.EventHandler(this.ButtonMouseEnter);
-            this.btnReciprocal.MouseLeave += new System.EventHandler(this.ButtonMouseLeave);
-            // 
-            // btnLn
-            // 
-            this.btnLn.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnLn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
-            this.btnLn.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnLn.FlatAppearance.BorderSize = 0;
-            this.btnLn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(67)))), ((int)(((byte)(67)))));
-            this.btnLn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(58)))), ((int)(((byte)(58)))), ((int)(((byte)(58)))));
-            this.btnLn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnLn.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnLn.Location = new System.Drawing.Point(140, 51);
-            this.btnLn.Margin = new System.Windows.Forms.Padding(2);
-            this.btnLn.Name = "btnLn";
-            this.btnLn.Size = new System.Drawing.Size(65, 46);
-            this.btnLn.TabIndex = 9;
-            this.btnLn.Text = "ln";
-            this.btnLn.UseVisualStyleBackColor = false;
-            this.btnLn.Click += new System.EventHandler(this.btnLn_Click);
-            this.btnLn.MouseEnter += new System.EventHandler(this.ButtonMouseEnter);
-            this.btnLn.MouseLeave += new System.EventHandler(this.ButtonMouseLeave);
-            // 
-            // btnExponential
-            // 
-            this.btnExponential.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnExponential.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
-            this.btnExponential.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnExponential.FlatAppearance.BorderSize = 0;
-            this.btnExponential.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(67)))), ((int)(((byte)(67)))));
-            this.btnExponential.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(58)))), ((int)(((byte)(58)))), ((int)(((byte)(58)))));
-            this.btnExponential.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnExponential.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnExponential.Location = new System.Drawing.Point(71, 51);
-            this.btnExponential.Margin = new System.Windows.Forms.Padding(2);
-            this.btnExponential.Name = "btnExponential";
-            this.btnExponential.Size = new System.Drawing.Size(65, 46);
-            this.btnExponential.TabIndex = 8;
-            this.btnExponential.Text = "eˣ";
-            this.btnExponential.UseVisualStyleBackColor = false;
-            this.btnExponential.Click += new System.EventHandler(this.btnExponential_Click);
-            this.btnExponential.MouseEnter += new System.EventHandler(this.ButtonMouseEnter);
-            this.btnExponential.MouseLeave += new System.EventHandler(this.ButtonMouseLeave);
-            // 
-            // btnDegrees
-            // 
-            this.btnDegrees.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnDegrees.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
-            this.btnDegrees.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnDegrees.FlatAppearance.BorderSize = 0;
-            this.btnDegrees.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(67)))), ((int)(((byte)(67)))));
-            this.btnDegrees.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(58)))), ((int)(((byte)(58)))), ((int)(((byte)(58)))));
-            this.btnDegrees.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnDegrees.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDegrees.Location = new System.Drawing.Point(278, 51);
-            this.btnDegrees.Margin = new System.Windows.Forms.Padding(2);
-            this.btnDegrees.Name = "btnDegrees";
-            this.btnDegrees.Size = new System.Drawing.Size(65, 46);
-            this.btnDegrees.TabIndex = 7;
-            this.btnDegrees.Text = "deg";
-            this.btnDegrees.UseVisualStyleBackColor = false;
-            this.btnDegrees.Click += new System.EventHandler(this.btnDegrees_Click);
-            this.btnDegrees.MouseEnter += new System.EventHandler(this.ButtonMouseEnter);
-            this.btnDegrees.MouseLeave += new System.EventHandler(this.ButtonMouseLeave);
-            // 
-            // btnDms
-            // 
-            this.btnDms.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnDms.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
-            this.btnDms.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnDms.FlatAppearance.BorderSize = 0;
-            this.btnDms.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(67)))), ((int)(((byte)(67)))));
-            this.btnDms.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(58)))), ((int)(((byte)(58)))), ((int)(((byte)(58)))));
-            this.btnDms.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnDms.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDms.Location = new System.Drawing.Point(209, 51);
-            this.btnDms.Margin = new System.Windows.Forms.Padding(2);
-            this.btnDms.Name = "btnDms";
-            this.btnDms.Size = new System.Drawing.Size(65, 46);
-            this.btnDms.TabIndex = 5;
-            this.btnDms.Text = "dms";
-            this.btnDms.UseVisualStyleBackColor = false;
-            this.btnDms.Click += new System.EventHandler(this.btnDms_Click);
-            this.btnDms.MouseEnter += new System.EventHandler(this.ButtonMouseEnter);
-            this.btnDms.MouseLeave += new System.EventHandler(this.ButtonMouseLeave);
-            // 
-            // btnArcCosine
-            // 
-            this.btnArcCosine.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnArcCosine.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
-            this.btnArcCosine.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnArcCosine.FlatAppearance.BorderSize = 0;
-            this.btnArcCosine.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(67)))), ((int)(((byte)(67)))));
-            this.btnArcCosine.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(58)))), ((int)(((byte)(58)))), ((int)(((byte)(58)))));
-            this.btnArcCosine.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnArcCosine.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnArcCosine.Location = new System.Drawing.Point(209, 2);
-            this.btnArcCosine.Margin = new System.Windows.Forms.Padding(2);
-            this.btnArcCosine.Name = "btnArcCosine";
-            this.btnArcCosine.Size = new System.Drawing.Size(65, 45);
-            this.btnArcCosine.TabIndex = 1;
-            this.btnArcCosine.Text = "cos⁻¹";
-            this.btnArcCosine.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnArcCosine.UseVisualStyleBackColor = false;
-            this.btnArcCosine.Click += new System.EventHandler(this.btnArcCosine_Click);
-            this.btnArcCosine.MouseEnter += new System.EventHandler(this.ButtonMouseEnter);
-            this.btnArcCosine.MouseLeave += new System.EventHandler(this.ButtonMouseLeave);
-            // 
-            // btnArcTangent
-            // 
-            this.btnArcTangent.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnArcTangent.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
-            this.btnArcTangent.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnArcTangent.FlatAppearance.BorderSize = 0;
-            this.btnArcTangent.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(67)))), ((int)(((byte)(67)))));
-            this.btnArcTangent.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(58)))), ((int)(((byte)(58)))), ((int)(((byte)(58)))));
-            this.btnArcTangent.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnArcTangent.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnArcTangent.Location = new System.Drawing.Point(278, 2);
-            this.btnArcTangent.Margin = new System.Windows.Forms.Padding(2);
-            this.btnArcTangent.Name = "btnArcTangent";
-            this.btnArcTangent.Size = new System.Drawing.Size(65, 45);
-            this.btnArcTangent.TabIndex = 4;
-            this.btnArcTangent.Text = "tan⁻¹";
-            this.btnArcTangent.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnArcTangent.UseVisualStyleBackColor = false;
-            this.btnArcTangent.Click += new System.EventHandler(this.btnArcTangent_Click);
-            this.btnArcTangent.MouseEnter += new System.EventHandler(this.ButtonMouseEnter);
-            this.btnArcTangent.MouseLeave += new System.EventHandler(this.ButtonMouseLeave);
-            // 
-            // btnArcSine
-            // 
-            this.btnArcSine.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnArcSine.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
-            this.btnArcSine.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnArcSine.FlatAppearance.BorderSize = 0;
-            this.btnArcSine.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(67)))), ((int)(((byte)(67)))));
-            this.btnArcSine.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(58)))), ((int)(((byte)(58)))), ((int)(((byte)(58)))));
-            this.btnArcSine.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnArcSine.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnArcSine.Location = new System.Drawing.Point(140, 2);
-            this.btnArcSine.Margin = new System.Windows.Forms.Padding(2);
-            this.btnArcSine.Name = "btnArcSine";
-            this.btnArcSine.Size = new System.Drawing.Size(65, 45);
-            this.btnArcSine.TabIndex = 3;
-            this.btnArcSine.Text = "sin⁻¹";
-            this.btnArcSine.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnArcSine.UseVisualStyleBackColor = false;
-            this.btnArcSine.Click += new System.EventHandler(this.btnArcSine_Click);
-            this.btnArcSine.MouseEnter += new System.EventHandler(this.ButtonMouseEnter);
-            this.btnArcSine.MouseLeave += new System.EventHandler(this.ButtonMouseLeave);
-            // 
-            // btnYthRoot
-            // 
-            this.btnYthRoot.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnYthRoot.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
-            this.btnYthRoot.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnYthRoot.FlatAppearance.BorderSize = 0;
-            this.btnYthRoot.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(67)))), ((int)(((byte)(67)))));
-            this.btnYthRoot.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(58)))), ((int)(((byte)(58)))), ((int)(((byte)(58)))));
-            this.btnYthRoot.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnYthRoot.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnYthRoot.Location = new System.Drawing.Point(71, 2);
-            this.btnYthRoot.Margin = new System.Windows.Forms.Padding(2);
-            this.btnYthRoot.Name = "btnYthRoot";
-            this.btnYthRoot.Size = new System.Drawing.Size(65, 45);
-            this.btnYthRoot.TabIndex = 2;
-            this.btnYthRoot.Text = "ʸ√x";
-            this.btnYthRoot.UseVisualStyleBackColor = false;
-            this.btnYthRoot.Click += new System.EventHandler(this.btnYthRoot_Click);
-            this.btnYthRoot.MouseEnter += new System.EventHandler(this.ButtonMouseEnter);
-            this.btnYthRoot.MouseLeave += new System.EventHandler(this.ButtonMouseLeave);
-            // 
-            // btnXCube
-            // 
-            this.btnXCube.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnXCube.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
-            this.btnXCube.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnXCube.FlatAppearance.BorderSize = 0;
-            this.btnXCube.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(67)))), ((int)(((byte)(67)))));
-            this.btnXCube.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(58)))), ((int)(((byte)(58)))), ((int)(((byte)(58)))));
-            this.btnXCube.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnXCube.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnXCube.Location = new System.Drawing.Point(2, 2);
-            this.btnXCube.Margin = new System.Windows.Forms.Padding(2);
-            this.btnXCube.Name = "btnXCube";
-            this.btnXCube.Size = new System.Drawing.Size(65, 45);
-            this.btnXCube.TabIndex = 6;
-            this.btnXCube.Text = "x³";
-            this.btnXCube.UseVisualStyleBackColor = false;
-            this.btnXCube.Click += new System.EventHandler(this.btnXCube_Click);
-            this.btnXCube.MouseEnter += new System.EventHandler(this.ButtonMouseEnter);
-            this.btnXCube.MouseLeave += new System.EventHandler(this.ButtonMouseLeave);
+            this.keySetsPanel.Controls.Add(this.advancedKeyPanel);
+            this.keySetsPanel.Controls.Add(this.extensionKeyPanel);
+            this.keySetsPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.keySetsPanel.Location = new System.Drawing.Point(0, 0);
+            this.keySetsPanel.Margin = new System.Windows.Forms.Padding(0);
+            this.keySetsPanel.Name = "keySetsPanel";
+            this.keySetsPanel.Size = new System.Drawing.Size(347, 99);
+            this.keySetsPanel.TabIndex = 1;
             // 
             // advancedKeyPanel
             // 
@@ -1153,7 +903,7 @@
             this.advancedKeyPanel.Location = new System.Drawing.Point(0, 0);
             this.advancedKeyPanel.Margin = new System.Windows.Forms.Padding(0);
             this.advancedKeyPanel.Name = "advancedKeyPanel";
-            this.advancedKeyPanel.Size = new System.Drawing.Size(345, 99);
+            this.advancedKeyPanel.Size = new System.Drawing.Size(347, 99);
             this.advancedKeyPanel.TabIndex = 1;
             // 
             // advancedKeyLayout
@@ -1181,7 +931,7 @@
             this.advancedKeyLayout.RowCount = 2;
             this.advancedKeyLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.advancedKeyLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.advancedKeyLayout.Size = new System.Drawing.Size(345, 99);
+            this.advancedKeyLayout.Size = new System.Drawing.Size(347, 99);
             this.advancedKeyLayout.TabIndex = 0;
             // 
             // btnTangent
@@ -1197,7 +947,7 @@
             this.btnTangent.Location = new System.Drawing.Point(278, 2);
             this.btnTangent.Margin = new System.Windows.Forms.Padding(2);
             this.btnTangent.Name = "btnTangent";
-            this.btnTangent.Size = new System.Drawing.Size(65, 45);
+            this.btnTangent.Size = new System.Drawing.Size(67, 45);
             this.btnTangent.TabIndex = 4;
             this.btnTangent.Text = "tan";
             this.btnTangent.UseVisualStyleBackColor = false;
@@ -1218,7 +968,7 @@
             this.btnModulos.Location = new System.Drawing.Point(278, 51);
             this.btnModulos.Margin = new System.Windows.Forms.Padding(2);
             this.btnModulos.Name = "btnModulos";
-            this.btnModulos.Size = new System.Drawing.Size(65, 46);
+            this.btnModulos.Size = new System.Drawing.Size(67, 46);
             this.btnModulos.TabIndex = 9;
             this.btnModulos.Text = "Mod";
             this.btnModulos.UseVisualStyleBackColor = false;
@@ -1394,13 +1144,271 @@
             this.btnTenPowerX.MouseEnter += new System.EventHandler(this.ButtonMouseEnter);
             this.btnTenPowerX.MouseLeave += new System.EventHandler(this.ButtonMouseLeave);
             // 
+            // extensionKeyPanel
+            // 
+            this.extensionKeyPanel.Controls.Add(this.extensionKeyLayout);
+            this.extensionKeyPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.extensionKeyPanel.Location = new System.Drawing.Point(0, 0);
+            this.extensionKeyPanel.Margin = new System.Windows.Forms.Padding(0);
+            this.extensionKeyPanel.Name = "extensionKeyPanel";
+            this.extensionKeyPanel.Size = new System.Drawing.Size(347, 99);
+            this.extensionKeyPanel.TabIndex = 3;
+            // 
+            // extensionKeyLayout
+            // 
+            this.extensionKeyLayout.ColumnCount = 5;
+            this.extensionKeyLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.extensionKeyLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.extensionKeyLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.extensionKeyLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.extensionKeyLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.extensionKeyLayout.Controls.Add(this.btnReciprocal, 0, 1);
+            this.extensionKeyLayout.Controls.Add(this.btnLn, 0, 1);
+            this.extensionKeyLayout.Controls.Add(this.btnExponential, 0, 1);
+            this.extensionKeyLayout.Controls.Add(this.btnDegrees, 0, 1);
+            this.extensionKeyLayout.Controls.Add(this.btnDms, 0, 1);
+            this.extensionKeyLayout.Controls.Add(this.btnArcCosine, 3, 0);
+            this.extensionKeyLayout.Controls.Add(this.btnArcTangent, 4, 0);
+            this.extensionKeyLayout.Controls.Add(this.btnArcSine, 2, 0);
+            this.extensionKeyLayout.Controls.Add(this.btnYthRoot, 1, 0);
+            this.extensionKeyLayout.Controls.Add(this.btnXCube, 0, 0);
+            this.extensionKeyLayout.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.extensionKeyLayout.Location = new System.Drawing.Point(0, 0);
+            this.extensionKeyLayout.Name = "extensionKeyLayout";
+            this.extensionKeyLayout.RowCount = 2;
+            this.extensionKeyLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.extensionKeyLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.extensionKeyLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.extensionKeyLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.extensionKeyLayout.Size = new System.Drawing.Size(347, 99);
+            this.extensionKeyLayout.TabIndex = 0;
+            // 
+            // btnReciprocal
+            // 
+            this.btnReciprocal.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnReciprocal.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
+            this.btnReciprocal.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnReciprocal.FlatAppearance.BorderSize = 0;
+            this.btnReciprocal.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(67)))), ((int)(((byte)(67)))));
+            this.btnReciprocal.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(58)))), ((int)(((byte)(58)))), ((int)(((byte)(58)))));
+            this.btnReciprocal.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnReciprocal.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnReciprocal.Location = new System.Drawing.Point(2, 51);
+            this.btnReciprocal.Margin = new System.Windows.Forms.Padding(2);
+            this.btnReciprocal.Name = "btnReciprocal";
+            this.btnReciprocal.Size = new System.Drawing.Size(65, 46);
+            this.btnReciprocal.TabIndex = 10;
+            this.btnReciprocal.Text = "¹⁄ x";
+            this.btnReciprocal.UseVisualStyleBackColor = false;
+            this.btnReciprocal.Click += new System.EventHandler(this.btnReciprocal_Click);
+            this.btnReciprocal.MouseEnter += new System.EventHandler(this.ButtonMouseEnter);
+            this.btnReciprocal.MouseLeave += new System.EventHandler(this.ButtonMouseLeave);
+            // 
+            // btnLn
+            // 
+            this.btnLn.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnLn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
+            this.btnLn.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnLn.FlatAppearance.BorderSize = 0;
+            this.btnLn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(67)))), ((int)(((byte)(67)))));
+            this.btnLn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(58)))), ((int)(((byte)(58)))), ((int)(((byte)(58)))));
+            this.btnLn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnLn.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnLn.Location = new System.Drawing.Point(140, 51);
+            this.btnLn.Margin = new System.Windows.Forms.Padding(2);
+            this.btnLn.Name = "btnLn";
+            this.btnLn.Size = new System.Drawing.Size(65, 46);
+            this.btnLn.TabIndex = 9;
+            this.btnLn.Text = "ln";
+            this.btnLn.UseVisualStyleBackColor = false;
+            this.btnLn.Click += new System.EventHandler(this.btnLn_Click);
+            this.btnLn.MouseEnter += new System.EventHandler(this.ButtonMouseEnter);
+            this.btnLn.MouseLeave += new System.EventHandler(this.ButtonMouseLeave);
+            // 
+            // btnExponential
+            // 
+            this.btnExponential.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnExponential.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
+            this.btnExponential.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnExponential.FlatAppearance.BorderSize = 0;
+            this.btnExponential.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(67)))), ((int)(((byte)(67)))));
+            this.btnExponential.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(58)))), ((int)(((byte)(58)))), ((int)(((byte)(58)))));
+            this.btnExponential.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnExponential.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnExponential.Location = new System.Drawing.Point(71, 51);
+            this.btnExponential.Margin = new System.Windows.Forms.Padding(2);
+            this.btnExponential.Name = "btnExponential";
+            this.btnExponential.Size = new System.Drawing.Size(65, 46);
+            this.btnExponential.TabIndex = 8;
+            this.btnExponential.Text = "eˣ";
+            this.btnExponential.UseVisualStyleBackColor = false;
+            this.btnExponential.Click += new System.EventHandler(this.btnExponential_Click);
+            this.btnExponential.MouseEnter += new System.EventHandler(this.ButtonMouseEnter);
+            this.btnExponential.MouseLeave += new System.EventHandler(this.ButtonMouseLeave);
+            // 
+            // btnDegrees
+            // 
+            this.btnDegrees.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnDegrees.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
+            this.btnDegrees.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnDegrees.FlatAppearance.BorderSize = 0;
+            this.btnDegrees.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(67)))), ((int)(((byte)(67)))));
+            this.btnDegrees.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(58)))), ((int)(((byte)(58)))), ((int)(((byte)(58)))));
+            this.btnDegrees.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnDegrees.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnDegrees.Location = new System.Drawing.Point(278, 51);
+            this.btnDegrees.Margin = new System.Windows.Forms.Padding(2);
+            this.btnDegrees.Name = "btnDegrees";
+            this.btnDegrees.Size = new System.Drawing.Size(67, 46);
+            this.btnDegrees.TabIndex = 7;
+            this.btnDegrees.Text = "deg";
+            this.btnDegrees.UseVisualStyleBackColor = false;
+            this.btnDegrees.Click += new System.EventHandler(this.btnDegrees_Click);
+            this.btnDegrees.MouseEnter += new System.EventHandler(this.ButtonMouseEnter);
+            this.btnDegrees.MouseLeave += new System.EventHandler(this.ButtonMouseLeave);
+            // 
+            // btnDms
+            // 
+            this.btnDms.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnDms.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
+            this.btnDms.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnDms.FlatAppearance.BorderSize = 0;
+            this.btnDms.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(67)))), ((int)(((byte)(67)))));
+            this.btnDms.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(58)))), ((int)(((byte)(58)))), ((int)(((byte)(58)))));
+            this.btnDms.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnDms.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnDms.Location = new System.Drawing.Point(209, 51);
+            this.btnDms.Margin = new System.Windows.Forms.Padding(2);
+            this.btnDms.Name = "btnDms";
+            this.btnDms.Size = new System.Drawing.Size(65, 46);
+            this.btnDms.TabIndex = 5;
+            this.btnDms.Text = "dms";
+            this.btnDms.UseVisualStyleBackColor = false;
+            this.btnDms.Click += new System.EventHandler(this.btnDms_Click);
+            this.btnDms.MouseEnter += new System.EventHandler(this.ButtonMouseEnter);
+            this.btnDms.MouseLeave += new System.EventHandler(this.ButtonMouseLeave);
+            // 
+            // btnArcCosine
+            // 
+            this.btnArcCosine.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnArcCosine.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
+            this.btnArcCosine.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnArcCosine.FlatAppearance.BorderSize = 0;
+            this.btnArcCosine.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(67)))), ((int)(((byte)(67)))));
+            this.btnArcCosine.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(58)))), ((int)(((byte)(58)))), ((int)(((byte)(58)))));
+            this.btnArcCosine.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnArcCosine.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnArcCosine.Location = new System.Drawing.Point(209, 2);
+            this.btnArcCosine.Margin = new System.Windows.Forms.Padding(2);
+            this.btnArcCosine.Name = "btnArcCosine";
+            this.btnArcCosine.Size = new System.Drawing.Size(65, 45);
+            this.btnArcCosine.TabIndex = 1;
+            this.btnArcCosine.Text = "cos⁻¹";
+            this.btnArcCosine.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnArcCosine.UseVisualStyleBackColor = false;
+            this.btnArcCosine.Click += new System.EventHandler(this.btnArcCosine_Click);
+            this.btnArcCosine.MouseEnter += new System.EventHandler(this.ButtonMouseEnter);
+            this.btnArcCosine.MouseLeave += new System.EventHandler(this.ButtonMouseLeave);
+            // 
+            // btnArcTangent
+            // 
+            this.btnArcTangent.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnArcTangent.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
+            this.btnArcTangent.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnArcTangent.FlatAppearance.BorderSize = 0;
+            this.btnArcTangent.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(67)))), ((int)(((byte)(67)))));
+            this.btnArcTangent.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(58)))), ((int)(((byte)(58)))), ((int)(((byte)(58)))));
+            this.btnArcTangent.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnArcTangent.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnArcTangent.Location = new System.Drawing.Point(278, 2);
+            this.btnArcTangent.Margin = new System.Windows.Forms.Padding(2);
+            this.btnArcTangent.Name = "btnArcTangent";
+            this.btnArcTangent.Size = new System.Drawing.Size(67, 45);
+            this.btnArcTangent.TabIndex = 4;
+            this.btnArcTangent.Text = "tan⁻¹";
+            this.btnArcTangent.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnArcTangent.UseVisualStyleBackColor = false;
+            this.btnArcTangent.Click += new System.EventHandler(this.btnArcTangent_Click);
+            this.btnArcTangent.MouseEnter += new System.EventHandler(this.ButtonMouseEnter);
+            this.btnArcTangent.MouseLeave += new System.EventHandler(this.ButtonMouseLeave);
+            // 
+            // btnArcSine
+            // 
+            this.btnArcSine.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnArcSine.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
+            this.btnArcSine.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnArcSine.FlatAppearance.BorderSize = 0;
+            this.btnArcSine.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(67)))), ((int)(((byte)(67)))));
+            this.btnArcSine.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(58)))), ((int)(((byte)(58)))), ((int)(((byte)(58)))));
+            this.btnArcSine.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnArcSine.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnArcSine.Location = new System.Drawing.Point(140, 2);
+            this.btnArcSine.Margin = new System.Windows.Forms.Padding(2);
+            this.btnArcSine.Name = "btnArcSine";
+            this.btnArcSine.Size = new System.Drawing.Size(65, 45);
+            this.btnArcSine.TabIndex = 3;
+            this.btnArcSine.Text = "sin⁻¹";
+            this.btnArcSine.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnArcSine.UseVisualStyleBackColor = false;
+            this.btnArcSine.Click += new System.EventHandler(this.btnArcSine_Click);
+            this.btnArcSine.MouseEnter += new System.EventHandler(this.ButtonMouseEnter);
+            this.btnArcSine.MouseLeave += new System.EventHandler(this.ButtonMouseLeave);
+            // 
+            // btnYthRoot
+            // 
+            this.btnYthRoot.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnYthRoot.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
+            this.btnYthRoot.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnYthRoot.FlatAppearance.BorderSize = 0;
+            this.btnYthRoot.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(67)))), ((int)(((byte)(67)))));
+            this.btnYthRoot.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(58)))), ((int)(((byte)(58)))), ((int)(((byte)(58)))));
+            this.btnYthRoot.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnYthRoot.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnYthRoot.Location = new System.Drawing.Point(71, 2);
+            this.btnYthRoot.Margin = new System.Windows.Forms.Padding(2);
+            this.btnYthRoot.Name = "btnYthRoot";
+            this.btnYthRoot.Size = new System.Drawing.Size(65, 45);
+            this.btnYthRoot.TabIndex = 2;
+            this.btnYthRoot.Text = "ʸ√x";
+            this.btnYthRoot.UseVisualStyleBackColor = false;
+            this.btnYthRoot.Click += new System.EventHandler(this.btnYthRoot_Click);
+            this.btnYthRoot.MouseEnter += new System.EventHandler(this.ButtonMouseEnter);
+            this.btnYthRoot.MouseLeave += new System.EventHandler(this.ButtonMouseLeave);
+            // 
+            // btnXCube
+            // 
+            this.btnXCube.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnXCube.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
+            this.btnXCube.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnXCube.FlatAppearance.BorderSize = 0;
+            this.btnXCube.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(67)))), ((int)(((byte)(67)))));
+            this.btnXCube.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(58)))), ((int)(((byte)(58)))), ((int)(((byte)(58)))));
+            this.btnXCube.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnXCube.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnXCube.Location = new System.Drawing.Point(2, 2);
+            this.btnXCube.Margin = new System.Windows.Forms.Padding(2);
+            this.btnXCube.Name = "btnXCube";
+            this.btnXCube.Size = new System.Drawing.Size(65, 45);
+            this.btnXCube.TabIndex = 6;
+            this.btnXCube.Text = "x³";
+            this.btnXCube.UseVisualStyleBackColor = false;
+            this.btnXCube.Click += new System.EventHandler(this.btnXCube_Click);
+            this.btnXCube.MouseEnter += new System.EventHandler(this.ButtonMouseEnter);
+            this.btnXCube.MouseLeave += new System.EventHandler(this.ButtonMouseLeave);
+            // 
+            // timerOpenClose
+            // 
+            this.timerOpenClose.Enabled = true;
+            this.timerOpenClose.Interval = 1;
+            this.timerOpenClose.Tick += new System.EventHandler(this.LoadUI);
+            // 
             // Calculator
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(75)))), ((int)(((byte)(75)))));
-            this.ClientSize = new System.Drawing.Size(353, 630);
+            this.ClientSize = new System.Drawing.Size(355, 630);
             this.Controls.Add(this.mainPanel);
             this.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ForeColor = System.Drawing.SystemColors.ControlLightLight;
@@ -1408,10 +1416,10 @@
             this.Margin = new System.Windows.Forms.Padding(4);
             this.MinimumSize = new System.Drawing.Size(270, 510);
             this.Name = "Calculator";
-            this.Opacity = 0.99D;
             this.Padding = new System.Windows.Forms.Padding(1);
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Calculator";
+            this.Load += new System.EventHandler(this.Calculator_Load);
             this.mainPanel.ResumeLayout(false);
             this.mainLayout.ResumeLayout(false);
             this.displayLayout.ResumeLayout(false);
@@ -1423,11 +1431,11 @@
             this.buttonLayout.ResumeLayout(false);
             this.basicKeyPanel.ResumeLayout(false);
             this.basicKeyLayout.ResumeLayout(false);
-            this.panel1.ResumeLayout(false);
-            this.extensionKeyPanel.ResumeLayout(false);
-            this.extensionKeyLayout.ResumeLayout(false);
+            this.keySetsPanel.ResumeLayout(false);
             this.advancedKeyPanel.ResumeLayout(false);
             this.advancedKeyLayout.ResumeLayout(false);
+            this.extensionKeyPanel.ResumeLayout(false);
+            this.extensionKeyLayout.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -1498,7 +1506,8 @@
         private System.Windows.Forms.Button btnArcSine;
         private System.Windows.Forms.Button btnYthRoot;
         private System.Windows.Forms.Button btnXCube;
-        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel keySetsPanel;
+        private System.Windows.Forms.Timer timerOpenClose;
 
 
 

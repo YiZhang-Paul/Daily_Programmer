@@ -365,6 +365,34 @@ namespace simpleCalculator {
         /**
          * form visual effects
          */
+        private void Calculator_Load(object sender, EventArgs e) {
+
+            this.Opacity = 0.75;
+            this.mainLayout.Visible = false;
+            this.mainPanel.BackColor = Color.FromArgb(80, 80, 80);
+            this.timerOpenClose.Start();
+        }
+
+        private void LoadUI(object sender, EventArgs e) {
+
+            this.Opacity += 0.015;
+            byte R = (byte)(this.mainPanel.BackColor.R - 1);
+            byte G = (byte)(this.mainPanel.BackColor.G - 1);
+            byte B = (byte)(this.mainPanel.BackColor.B - 1);
+            this.mainPanel.BackColor = Color.FromArgb(R, G, B);
+
+            if(this.Opacity >= 1) {
+
+                this.Opacity = 1;
+                this.timerOpenClose.Stop();
+            }
+            else if(this.Opacity >= 0.95) {
+
+                this.mainLayout.Visible = true;
+                this.mainPanel.BackColor = Color.FromArgb(32, 32, 32);
+            }
+        }
+
         private void ButtonMouseEnter(object sender, EventArgs e) {
 
             var button = (Button)sender;
