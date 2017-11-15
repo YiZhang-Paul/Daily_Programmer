@@ -95,6 +95,18 @@
             this.btnXCube = new System.Windows.Forms.Button();
             this.timerOpenClose = new System.Windows.Forms.Timer(this.components);
             this.timerLoadKeys = new System.Windows.Forms.Timer(this.components);
+            this.memoryLayout = new System.Windows.Forms.TableLayoutPanel();
+            this.btnMemoryPlus = new System.Windows.Forms.Button();
+            this.btnMemoryRecall = new System.Windows.Forms.Button();
+            this.btnMemoryClear = new System.Windows.Forms.Button();
+            this.btnMemory = new System.Windows.Forms.Button();
+            this.btnMemorySave = new System.Windows.Forms.Button();
+            this.btnMemoryMinus = new System.Windows.Forms.Button();
+            this.extraKeysLayout = new System.Windows.Forms.TableLayoutPanel();
+            this.formatLayout = new System.Windows.Forms.TableLayoutPanel();
+            this.btnDegRadGrad = new System.Windows.Forms.Button();
+            this.btnHypotenuse = new System.Windows.Forms.Button();
+            this.btnScientificFormat = new System.Windows.Forms.Button();
             this.mainPanel.SuspendLayout();
             this.mainLayout.SuspendLayout();
             this.displayLayout.SuspendLayout();
@@ -110,6 +122,9 @@
             this.advancedKeyLayout.SuspendLayout();
             this.extensionKeyPanel.SuspendLayout();
             this.extensionKeyLayout.SuspendLayout();
+            this.memoryLayout.SuspendLayout();
+            this.extraKeysLayout.SuspendLayout();
+            this.formatLayout.SuspendLayout();
             this.SuspendLayout();
             // 
             // mainPanel
@@ -148,6 +163,8 @@
             this.displayLayout.Controls.Add(this.numberDisplay, 0, 3);
             this.displayLayout.Controls.Add(this.equationDisplay, 0, 2);
             this.displayLayout.Controls.Add(this.menuBarLayout, 0, 1);
+            this.displayLayout.Controls.Add(this.memoryLayout, 0, 5);
+            this.displayLayout.Controls.Add(this.extraKeysLayout, 0, 4);
             this.displayLayout.Dock = System.Windows.Forms.DockStyle.Fill;
             this.displayLayout.Location = new System.Drawing.Point(0, 0);
             this.displayLayout.Margin = new System.Windows.Forms.Padding(0);
@@ -156,11 +173,12 @@
             this.displayLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 11.76471F));
             this.displayLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 17.64706F));
             this.displayLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10.29412F));
-            this.displayLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 29.04412F));
+            this.displayLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 29.41176F));
             this.displayLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 15.44118F));
-            this.displayLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 15.07353F));
+            this.displayLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.70588F));
             this.displayLayout.Size = new System.Drawing.Size(353, 272);
             this.displayLayout.TabIndex = 1;
+            this.displayLayout.Paint += new System.Windows.Forms.PaintEventHandler(this.displayLayout_Paint);
             // 
             // topPanel
             // 
@@ -297,7 +315,7 @@
             this.numberDisplay.Font = new System.Drawing.Font("Segoe UI Semibold", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.numberDisplay.Location = new System.Drawing.Point(295, 108);
             this.numberDisplay.Name = "numberDisplay";
-            this.numberDisplay.Size = new System.Drawing.Size(55, 79);
+            this.numberDisplay.Size = new System.Drawing.Size(55, 80);
             this.numberDisplay.TabIndex = 0;
             this.numberDisplay.Text = "0";
             // 
@@ -1472,6 +1490,243 @@
             this.timerLoadKeys.Enabled = true;
             this.timerLoadKeys.Interval = 1;
             // 
+            // memoryLayout
+            // 
+            this.memoryLayout.ColumnCount = 6;
+            this.memoryLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
+            this.memoryLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
+            this.memoryLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
+            this.memoryLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
+            this.memoryLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
+            this.memoryLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
+            this.memoryLayout.Controls.Add(this.btnMemoryMinus, 0, 0);
+            this.memoryLayout.Controls.Add(this.btnMemorySave, 0, 0);
+            this.memoryLayout.Controls.Add(this.btnMemory, 0, 0);
+            this.memoryLayout.Controls.Add(this.btnMemoryClear, 0, 0);
+            this.memoryLayout.Controls.Add(this.btnMemoryRecall, 0, 0);
+            this.memoryLayout.Controls.Add(this.btnMemoryPlus, 0, 0);
+            this.memoryLayout.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.memoryLayout.Location = new System.Drawing.Point(3, 233);
+            this.memoryLayout.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
+            this.memoryLayout.Name = "memoryLayout";
+            this.memoryLayout.RowCount = 1;
+            this.memoryLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.memoryLayout.Size = new System.Drawing.Size(347, 39);
+            this.memoryLayout.TabIndex = 6;
+            // 
+            // btnMemoryPlus
+            // 
+            this.btnMemoryPlus.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnMemoryPlus.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
+            this.btnMemoryPlus.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnMemoryPlus.FlatAppearance.BorderSize = 0;
+            this.btnMemoryPlus.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(77)))), ((int)(((byte)(77)))));
+            this.btnMemoryPlus.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(69)))), ((int)(((byte)(69)))), ((int)(((byte)(69)))));
+            this.btnMemoryPlus.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnMemoryPlus.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnMemoryPlus.Location = new System.Drawing.Point(116, 2);
+            this.btnMemoryPlus.Margin = new System.Windows.Forms.Padding(2);
+            this.btnMemoryPlus.Name = "btnMemoryPlus";
+            this.btnMemoryPlus.Size = new System.Drawing.Size(53, 35);
+            this.btnMemoryPlus.TabIndex = 1;
+            this.btnMemoryPlus.Text = "M+";
+            this.btnMemoryPlus.UseVisualStyleBackColor = false;
+            this.btnMemoryPlus.MouseEnter += new System.EventHandler(this.ButtonMouseEnter);
+            this.btnMemoryPlus.MouseLeave += new System.EventHandler(this.ButtonMouseLeave);
+            // 
+            // btnMemoryRecall
+            // 
+            this.btnMemoryRecall.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnMemoryRecall.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
+            this.btnMemoryRecall.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnMemoryRecall.FlatAppearance.BorderSize = 0;
+            this.btnMemoryRecall.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(77)))), ((int)(((byte)(77)))));
+            this.btnMemoryRecall.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(69)))), ((int)(((byte)(69)))), ((int)(((byte)(69)))));
+            this.btnMemoryRecall.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnMemoryRecall.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnMemoryRecall.Location = new System.Drawing.Point(59, 2);
+            this.btnMemoryRecall.Margin = new System.Windows.Forms.Padding(2);
+            this.btnMemoryRecall.Name = "btnMemoryRecall";
+            this.btnMemoryRecall.Size = new System.Drawing.Size(53, 35);
+            this.btnMemoryRecall.TabIndex = 2;
+            this.btnMemoryRecall.Text = "MR";
+            this.btnMemoryRecall.UseVisualStyleBackColor = false;
+            this.btnMemoryRecall.MouseEnter += new System.EventHandler(this.ButtonMouseEnter);
+            this.btnMemoryRecall.MouseLeave += new System.EventHandler(this.ButtonMouseLeave);
+            // 
+            // btnMemoryClear
+            // 
+            this.btnMemoryClear.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnMemoryClear.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
+            this.btnMemoryClear.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnMemoryClear.FlatAppearance.BorderSize = 0;
+            this.btnMemoryClear.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(77)))), ((int)(((byte)(77)))));
+            this.btnMemoryClear.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(69)))), ((int)(((byte)(69)))), ((int)(((byte)(69)))));
+            this.btnMemoryClear.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnMemoryClear.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnMemoryClear.Location = new System.Drawing.Point(2, 2);
+            this.btnMemoryClear.Margin = new System.Windows.Forms.Padding(2);
+            this.btnMemoryClear.Name = "btnMemoryClear";
+            this.btnMemoryClear.Size = new System.Drawing.Size(53, 35);
+            this.btnMemoryClear.TabIndex = 3;
+            this.btnMemoryClear.Text = "MC";
+            this.btnMemoryClear.UseVisualStyleBackColor = false;
+            this.btnMemoryClear.MouseEnter += new System.EventHandler(this.ButtonMouseEnter);
+            this.btnMemoryClear.MouseLeave += new System.EventHandler(this.ButtonMouseLeave);
+            // 
+            // btnMemory
+            // 
+            this.btnMemory.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnMemory.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
+            this.btnMemory.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnMemory.FlatAppearance.BorderSize = 0;
+            this.btnMemory.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(77)))), ((int)(((byte)(77)))));
+            this.btnMemory.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(69)))), ((int)(((byte)(69)))), ((int)(((byte)(69)))));
+            this.btnMemory.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnMemory.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnMemory.Location = new System.Drawing.Point(287, 2);
+            this.btnMemory.Margin = new System.Windows.Forms.Padding(2);
+            this.btnMemory.Name = "btnMemory";
+            this.btnMemory.Size = new System.Drawing.Size(58, 35);
+            this.btnMemory.TabIndex = 4;
+            this.btnMemory.Text = "M▾";
+            this.btnMemory.UseVisualStyleBackColor = false;
+            this.btnMemory.MouseEnter += new System.EventHandler(this.ButtonMouseEnter);
+            this.btnMemory.MouseLeave += new System.EventHandler(this.ButtonMouseLeave);
+            // 
+            // btnMemorySave
+            // 
+            this.btnMemorySave.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnMemorySave.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
+            this.btnMemorySave.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnMemorySave.FlatAppearance.BorderSize = 0;
+            this.btnMemorySave.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(77)))), ((int)(((byte)(77)))));
+            this.btnMemorySave.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(69)))), ((int)(((byte)(69)))), ((int)(((byte)(69)))));
+            this.btnMemorySave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnMemorySave.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnMemorySave.Location = new System.Drawing.Point(230, 2);
+            this.btnMemorySave.Margin = new System.Windows.Forms.Padding(2);
+            this.btnMemorySave.Name = "btnMemorySave";
+            this.btnMemorySave.Size = new System.Drawing.Size(53, 35);
+            this.btnMemorySave.TabIndex = 5;
+            this.btnMemorySave.Text = "MS";
+            this.btnMemorySave.UseVisualStyleBackColor = false;
+            this.btnMemorySave.MouseEnter += new System.EventHandler(this.ButtonMouseEnter);
+            this.btnMemorySave.MouseLeave += new System.EventHandler(this.ButtonMouseLeave);
+            // 
+            // btnMemoryMinus
+            // 
+            this.btnMemoryMinus.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnMemoryMinus.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
+            this.btnMemoryMinus.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnMemoryMinus.FlatAppearance.BorderSize = 0;
+            this.btnMemoryMinus.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(77)))), ((int)(((byte)(77)))));
+            this.btnMemoryMinus.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(69)))), ((int)(((byte)(69)))), ((int)(((byte)(69)))));
+            this.btnMemoryMinus.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnMemoryMinus.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnMemoryMinus.Location = new System.Drawing.Point(173, 2);
+            this.btnMemoryMinus.Margin = new System.Windows.Forms.Padding(2);
+            this.btnMemoryMinus.Name = "btnMemoryMinus";
+            this.btnMemoryMinus.Size = new System.Drawing.Size(53, 35);
+            this.btnMemoryMinus.TabIndex = 6;
+            this.btnMemoryMinus.Text = "M-";
+            this.btnMemoryMinus.UseVisualStyleBackColor = false;
+            this.btnMemoryMinus.MouseEnter += new System.EventHandler(this.ButtonMouseEnter);
+            this.btnMemoryMinus.MouseLeave += new System.EventHandler(this.ButtonMouseLeave);
+            // 
+            // extraKeysLayout
+            // 
+            this.extraKeysLayout.ColumnCount = 2;
+            this.extraKeysLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 49.57507F));
+            this.extraKeysLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.42493F));
+            this.extraKeysLayout.Controls.Add(this.formatLayout, 0, 0);
+            this.extraKeysLayout.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.extraKeysLayout.Location = new System.Drawing.Point(3, 191);
+            this.extraKeysLayout.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
+            this.extraKeysLayout.Name = "extraKeysLayout";
+            this.extraKeysLayout.RowCount = 1;
+            this.extraKeysLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.extraKeysLayout.Size = new System.Drawing.Size(347, 39);
+            this.extraKeysLayout.TabIndex = 7;
+            // 
+            // formatLayout
+            // 
+            this.formatLayout.ColumnCount = 3;
+            this.formatLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.formatLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.formatLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.formatLayout.Controls.Add(this.btnScientificFormat, 0, 0);
+            this.formatLayout.Controls.Add(this.btnHypotenuse, 0, 0);
+            this.formatLayout.Controls.Add(this.btnDegRadGrad, 0, 0);
+            this.formatLayout.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.formatLayout.Location = new System.Drawing.Point(0, 0);
+            this.formatLayout.Margin = new System.Windows.Forms.Padding(0);
+            this.formatLayout.Name = "formatLayout";
+            this.formatLayout.RowCount = 1;
+            this.formatLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.formatLayout.Size = new System.Drawing.Size(172, 39);
+            this.formatLayout.TabIndex = 0;
+            // 
+            // btnDegRadGrad
+            // 
+            this.btnDegRadGrad.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnDegRadGrad.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
+            this.btnDegRadGrad.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnDegRadGrad.FlatAppearance.BorderSize = 0;
+            this.btnDegRadGrad.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(77)))), ((int)(((byte)(77)))));
+            this.btnDegRadGrad.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(69)))), ((int)(((byte)(69)))), ((int)(((byte)(69)))));
+            this.btnDegRadGrad.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnDegRadGrad.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnDegRadGrad.Location = new System.Drawing.Point(2, 2);
+            this.btnDegRadGrad.Margin = new System.Windows.Forms.Padding(2);
+            this.btnDegRadGrad.Name = "btnDegRadGrad";
+            this.btnDegRadGrad.Size = new System.Drawing.Size(53, 35);
+            this.btnDegRadGrad.TabIndex = 4;
+            this.btnDegRadGrad.Text = "DEG";
+            this.btnDegRadGrad.UseVisualStyleBackColor = false;
+            this.btnDegRadGrad.MouseEnter += new System.EventHandler(this.ButtonMouseEnter);
+            this.btnDegRadGrad.MouseLeave += new System.EventHandler(this.ButtonMouseLeave);
+            // 
+            // btnHypotenuse
+            // 
+            this.btnHypotenuse.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnHypotenuse.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
+            this.btnHypotenuse.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnHypotenuse.FlatAppearance.BorderSize = 0;
+            this.btnHypotenuse.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(77)))), ((int)(((byte)(77)))));
+            this.btnHypotenuse.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(69)))), ((int)(((byte)(69)))), ((int)(((byte)(69)))));
+            this.btnHypotenuse.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnHypotenuse.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnHypotenuse.Location = new System.Drawing.Point(59, 2);
+            this.btnHypotenuse.Margin = new System.Windows.Forms.Padding(2);
+            this.btnHypotenuse.Name = "btnHypotenuse";
+            this.btnHypotenuse.Size = new System.Drawing.Size(53, 35);
+            this.btnHypotenuse.TabIndex = 5;
+            this.btnHypotenuse.Text = "HYP";
+            this.btnHypotenuse.UseVisualStyleBackColor = false;
+            this.btnHypotenuse.MouseEnter += new System.EventHandler(this.ButtonMouseEnter);
+            this.btnHypotenuse.MouseLeave += new System.EventHandler(this.ButtonMouseLeave);
+            // 
+            // btnScientificFormat
+            // 
+            this.btnScientificFormat.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnScientificFormat.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
+            this.btnScientificFormat.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnScientificFormat.FlatAppearance.BorderSize = 0;
+            this.btnScientificFormat.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(77)))), ((int)(((byte)(77)))));
+            this.btnScientificFormat.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(69)))), ((int)(((byte)(69)))), ((int)(((byte)(69)))));
+            this.btnScientificFormat.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnScientificFormat.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnScientificFormat.Location = new System.Drawing.Point(116, 2);
+            this.btnScientificFormat.Margin = new System.Windows.Forms.Padding(2);
+            this.btnScientificFormat.Name = "btnScientificFormat";
+            this.btnScientificFormat.Size = new System.Drawing.Size(54, 35);
+            this.btnScientificFormat.TabIndex = 6;
+            this.btnScientificFormat.Text = "F-E";
+            this.btnScientificFormat.UseVisualStyleBackColor = false;
+            this.btnScientificFormat.MouseEnter += new System.EventHandler(this.ButtonMouseEnter);
+            this.btnScientificFormat.MouseLeave += new System.EventHandler(this.ButtonMouseLeave);
+            // 
             // Calculator
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 17F);
@@ -1508,6 +1763,9 @@
             this.advancedKeyLayout.ResumeLayout(false);
             this.extensionKeyPanel.ResumeLayout(false);
             this.extensionKeyLayout.ResumeLayout(false);
+            this.memoryLayout.ResumeLayout(false);
+            this.extraKeysLayout.ResumeLayout(false);
+            this.formatLayout.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -1585,6 +1843,18 @@
         private System.Windows.Forms.Label calculatorTypeLabel;
         private System.Windows.Forms.TableLayoutPanel menuBarLayout;
         private System.Windows.Forms.Button btnChangeCalculator;
+        private System.Windows.Forms.TableLayoutPanel memoryLayout;
+        private System.Windows.Forms.Button btnMemoryMinus;
+        private System.Windows.Forms.Button btnMemorySave;
+        private System.Windows.Forms.Button btnMemory;
+        private System.Windows.Forms.Button btnMemoryClear;
+        private System.Windows.Forms.Button btnMemoryRecall;
+        private System.Windows.Forms.Button btnMemoryPlus;
+        private System.Windows.Forms.TableLayoutPanel extraKeysLayout;
+        private System.Windows.Forms.TableLayoutPanel formatLayout;
+        private System.Windows.Forms.Button btnScientificFormat;
+        private System.Windows.Forms.Button btnHypotenuse;
+        private System.Windows.Forms.Button btnDegRadGrad;
 
 
 

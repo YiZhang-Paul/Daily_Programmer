@@ -632,5 +632,9 @@ namespace simpleCalculator {
                 }
             }
         }
+
+        private void displayLayout_Paint(object sender, PaintEventArgs e) {
+
+        }
     }
 }
