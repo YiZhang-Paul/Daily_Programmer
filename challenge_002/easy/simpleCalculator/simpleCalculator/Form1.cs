@@ -493,11 +493,41 @@ namespace simpleCalculator {
             }
             else {
 
+                LoadKeys();
                 this.Opacity = 0.7;
                 this.mainLayout.Visible = true;
                 this.mainPanel.BackColor = Color.FromArgb(32, 32, 32);
                 this.timerOpenClose.Tick -= this.ShowKeys;
                 this.timerOpenClose.Tick += this.FinishLoadUI;
+            }
+        }
+
+        private void LoadKeys() {
+
+            this.buttonLayout.Dock = DockStyle.None;
+            this.buttonLayout.Anchor = AnchorStyles.None;
+            int width = this.buttonLayout.Width;
+            int height = this.buttonLayout.Height;
+            var center = this.buttonLayout.PointToScreen(new Point(width, height));
+            this.buttonLayout.Width = (int)(width * 0.99);
+            this.buttonLayout.Height = (int)(height * 0.99);
+            this.buttonLayout.Top = center.Y - this.buttonLayout.Height / 2;
+            this.buttonLayout.Left = center.X - this.buttonLayout.Width / 2;
+            this.timerLoadKeys.Tick += this.FinishLoadKeys;
+            this.timerLoadKeys.Start();
+        }
+
+        private void FinishLoadKeys(object sender, EventArgs e) {
+
+            double scale = 1.02;
+            this.buttonLayout.Width = (int)(this.buttonLayout.Width * scale);
+            this.buttonLayout.Height = (int)(this.buttonLayout.Height * scale);
+            var cell = this.mainLayout.GetCellPosition(this.buttonLayout);
+
+            if((int)(this.buttonLayout.Width * scale) >= this.mainLayout.GetColumnWidths()[cell.Column]) {
+            
+                this.buttonLayout.Dock = DockStyle.Fill;
+                this.timerLoadKeys.Stop();
             }
         }
 
@@ -551,7 +581,7 @@ namespace simpleCalculator {
 
             var button = (Button)sender;
             button.FlatAppearance.BorderSize = 2;
-            button.FlatAppearance.BorderColor = Color.FromArgb(75, 75, 75);
+            button.FlatAppearance.BorderColor = Color.FromArgb(90, 90, 90);
         }
 
         private void ButtonMouseLeave(object sender, EventArgs e) {
