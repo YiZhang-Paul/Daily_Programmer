@@ -1,9 +1,0 @@
-D:\all_languages\reddit_challenges\challenge_002\easy\simpleCalculator\simpleCalculator\bin\Debug\simpleCalculator.exe.config
-D:\all_languages\reddit_challenges\challenge_002\easy\simpleCalculator\simpleCalculator\bin\Debug\simpleCalculator.exe
-D:\all_languages\reddit_challenges\challenge_002\easy\simpleCalculator\simpleCalculator\bin\Debug\simpleCalculator.pdb
-D:\all_languages\reddit_challenges\challenge_002\easy\simpleCalculator\simpleCalculator\obj\Debug\simpleCalculator.Calculator.resources
-D:\all_languages\reddit_challenges\challenge_002\easy\simpleCalculator\simpleCalculator\obj\Debug\simpleCalculator.Properties.Resources.resources
-D:\all_languages\reddit_challenges\challenge_002\easy\simpleCalculator\simpleCalculator\obj\Debug\simpleCalculator.csproj.GenerateResource.Cache
-D:\all_languages\reddit_challenges\challenge_002\easy\simpleCalculator\simpleCalculator\obj\Debug\simpleCalculator.exe
-D:\all_languages\reddit_challenges\challenge_002\easy\simpleCalculator\simpleCalculator\obj\Debug\simpleCalculator.pdb
-D:\all_languages\reddit_challenges\challenge_002\easy\simpleCalculator\simpleCalculator\obj\Debug\simpleCalculator.csprojResolveAssemblyReference.cache
