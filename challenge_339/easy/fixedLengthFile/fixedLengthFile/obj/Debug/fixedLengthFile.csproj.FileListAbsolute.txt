@@ -1,0 +1,6 @@
+D:\all_languages\reddit_challenges\challenge_339\easy\fixedLengthFile\fixedLengthFile\bin\Debug\fixedLengthFile.exe.config
+D:\all_languages\reddit_challenges\challenge_339\easy\fixedLengthFile\fixedLengthFile\bin\Debug\fixedLengthFile.exe
+D:\all_languages\reddit_challenges\challenge_339\easy\fixedLengthFile\fixedLengthFile\bin\Debug\fixedLengthFile.pdb
+D:\all_languages\reddit_challenges\challenge_339\easy\fixedLengthFile\fixedLengthFile\obj\Debug\fixedLengthFile.csprojResolveAssemblyReference.cache
+D:\all_languages\reddit_challenges\challenge_339\easy\fixedLengthFile\fixedLengthFile\obj\Debug\fixedLengthFile.exe
+D:\all_languages\reddit_challenges\challenge_339\easy\fixedLengthFile\fixedLengthFile\obj\Debug\fixedLengthFile.pdb
