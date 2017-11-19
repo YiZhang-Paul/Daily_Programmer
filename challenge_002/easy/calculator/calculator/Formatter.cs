@@ -12,12 +12,16 @@ namespace calculator {
         /// </summary>
         public string Format(decimal number, bool keepDecimal = false) {
 
+            string integer = Math.Truncate(number).ToString();
             string digits = number.ToString();
-            bool isDecimal = Regex.IsMatch(digits, @"\.");
-            string integer = isDecimal ? digits.Split('.')[0] : digits;
-            string decimals = isDecimal ? digits.Split('.')[1] : "";
+            string decimals = Regex.IsMatch(digits, @"\.") ? digits.Split('.')[1] : "";
 
-            return AddComma(integer) + (keepDecimal || isDecimal ? "." : "") + decimals;
+            if(decimals != "" && decimal.Parse(decimals) == 0 && !keepDecimal) {
+
+                decimals = "";
+            }
+
+            return AddComma(integer) + (keepDecimal || decimals != "" ? "." : "") + decimals;
         }
         /// <summary>
         /// add commas to integer part of a number
