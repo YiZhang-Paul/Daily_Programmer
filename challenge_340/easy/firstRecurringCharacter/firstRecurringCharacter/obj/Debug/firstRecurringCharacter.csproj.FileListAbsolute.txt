@@ -1,0 +1,6 @@
+D:\all_languages\reddit_challenges\challenge_340\easy\firstRecurringCharacter\firstRecurringCharacter\bin\Debug\firstRecurringCharacter.exe.config
+D:\all_languages\reddit_challenges\challenge_340\easy\firstRecurringCharacter\firstRecurringCharacter\bin\Debug\firstRecurringCharacter.exe
+D:\all_languages\reddit_challenges\challenge_340\easy\firstRecurringCharacter\firstRecurringCharacter\bin\Debug\firstRecurringCharacter.pdb
+D:\all_languages\reddit_challenges\challenge_340\easy\firstRecurringCharacter\firstRecurringCharacter\obj\Debug\firstRecurringCharacter.csprojResolveAssemblyReference.cache
+D:\all_languages\reddit_challenges\challenge_340\easy\firstRecurringCharacter\firstRecurringCharacter\obj\Debug\firstRecurringCharacter.exe
+D:\all_languages\reddit_challenges\challenge_340\easy\firstRecurringCharacter\firstRecurringCharacter\obj\Debug\firstRecurringCharacter.pdb
