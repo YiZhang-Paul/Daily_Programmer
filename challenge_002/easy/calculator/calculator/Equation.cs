@@ -47,7 +47,7 @@ namespace calculator {
 
                 if(swap) {
 
-                    Set(Regex.Replace(Content, @"\S+ (?!.)", operation));
+                    Set(Regex.Replace(Content, @"\S+\s(?!.)", operation));
                 }
                 else {
                 

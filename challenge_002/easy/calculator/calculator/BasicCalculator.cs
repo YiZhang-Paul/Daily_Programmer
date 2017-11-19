@@ -51,11 +51,7 @@ namespace calculator {
         /// </summary>
         public void AddInput(string input) {
 
-            if(Numbers.Count == 1 && Operations.Count == 0) {
-
-                Numbers.Clear();
-            }
-
+            ClearExtraNumber();
             Buffer.Add(input);
         }
         /// <summary>
@@ -110,6 +106,16 @@ namespace calculator {
         public bool HasExtraOperator() {
 
             return Numbers.Count > 0 && Numbers.Count == Operations.Count;
+        }
+        /// <summary>
+        /// clear out extra number in number stack when necessary
+        /// </summary>
+        public void ClearExtraNumber() {
+
+            if(Numbers.Count == 1 && Operations.Count == 0) {
+
+                Numbers.Clear();
+            }
         }
 
         public void HandleBinaryOperator(string operation) {
@@ -211,11 +217,7 @@ namespace calculator {
             if(Buffer.IsEmpty) {
 
                 Buffer.Set(Result);
-
-                if(Numbers.Count == 1 && Operations.Count == 0) {
-
-                    Numbers.Clear();
-                }
+                ClearExtraNumber();
             }
 
             Buffer.Negate();
