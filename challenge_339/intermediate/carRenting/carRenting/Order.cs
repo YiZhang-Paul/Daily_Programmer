@@ -16,18 +16,18 @@ namespace carRenting {
             End = end;
         }
 
-        public static bool operator <(Order order1, Order order2) {
+        public static bool operator < (Order order1, Order order2) {
 
             return order1.End < order2.Start;
         }
 
-        public static bool operator >(Order order1, Order order2) {
+        public static bool operator > (Order order1, Order order2) {
 
             return order1.Start > order2.End;
         }
 
         public override string ToString() {
-            
+
             return "(" + Start + "," + End + ")";
         }
     }

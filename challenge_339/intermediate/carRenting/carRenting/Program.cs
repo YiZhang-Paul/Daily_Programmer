@@ -14,13 +14,15 @@ namespace carRenting {
             //challenge input
             Console.WriteLine(ShowResult(GetMaxFeasableRequest(days)));
         }
-
+        /// <summary>
+        /// retrieve all orders in ascending order by start date
+        /// </summary>
         private static List<Order> GetOrders(string days) {
 
             var orders = new List<Order>();
-            var startAndEnd = days.Split('\n').Select(line => line.Trim());
-            int[] starts = startAndEnd.First().Split(' ').Select(Int32.Parse).ToArray();
-            int[] ends = startAndEnd.Last().Split(' ').Select(Int32.Parse).ToArray();
+            var startEnd = days.Split('\n').Select(line => line.Trim());
+            int[] starts = startEnd.First().Split(' ').Select(Int32.Parse).ToArray();
+            int[] ends = startEnd.Last().Split(' ').Select(Int32.Parse).ToArray();
 
             for(int i = 0; i < starts.Length; i++) {
 
@@ -29,47 +31,56 @@ namespace carRenting {
 
             return orders.OrderBy(order => order.Start).ToList();
         }
-
-        private static List<List<Order>> GetMaxFeasableRequest(string days) {
+        /// <summary>
+        /// determine maximum number of requests to serve
+        /// </summary>
+        private static List<Order[]> GetMaxFeasableRequest(string days) {
 
             var orders = GetOrders(days);
-            var solutions = new Dictionary<int, List<List<int>>> { 
-            
-                {1, new List<List<int>>(orders.Select((order, index) => new List<int> { index }))}
+            var solutions = new Dictionary<int, List<int[]>> {
+
+                {1, new List<int[]>(orders.Select((order, index) => new int[] { index }))}
             };
 
             for(int i = 2; i <= orders.Count; i++) {
 
-                var subSolutions = new List<List<int>>();
+                var subSolution = new List<int[]>();
 
                 foreach(var solution in solutions[i - 1]) {
-                
-                    int lastIndex = solution.Last();
-                    int nextIndex = orders.Skip(lastIndex).ToList().FindIndex(order => order > orders[lastIndex]);
+
+                    int endIndex = solution.Last();
+                    int nextIndex = orders.Skip(endIndex).ToList().FindIndex(order => order > orders[endIndex]);
 
                     if(nextIndex != -1) {
-                    
-                        foreach(var index in Enumerable.Range(lastIndex + nextIndex, orders.Count - lastIndex - nextIndex)) {
-                    
-                            subSolutions.Add(solution.Concat(new List<int> { index }).ToList());
+
+                        for(int j = endIndex + nextIndex; j < orders.Count; j++) {
+
+                            subSolution.Add(solution.Concat(new int[] { j }).ToArray());
                         }
                     }
                 }
 
-                if(subSolutions.Count == 0) {
+                if(subSolution.Count == 0) {
 
                     break;
                 }
 
-                solutions.Add(i, subSolutions);
+                solutions.Add(i, subSolution);
             }
 
-            return solutions[solutions.Max(pair => pair.Key)].Select(solution => solution.Select(index => orders[index]).ToList()).ToList();
+            return solutions[solutions.Max(pair => pair.Key)].Select(solution => {
+
+                return solution.Select(index => orders[index]).ToArray();
+
+            }).ToList();
         }
 
-        private static string ShowResult(List<List<Order>> solutions) {
+        private static string ShowResult(List<Order[]> solutions) {
 
-            return string.Join("\n", solutions.Select(solution => string.Join(" ", solution.Select(order => order.ToString()))));
+            return string.Join("\n", solutions.Select(solution => {
+
+                return solution.Aggregate("", (acc, val) => acc + val.ToString() + " ");
+            }));
         }
     }
 }
