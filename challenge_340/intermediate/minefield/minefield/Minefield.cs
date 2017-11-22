@@ -24,22 +24,6 @@ namespace minefield {
             return (int)Math.Pow(Math.Ceiling((double)dimension / 3), 2);
         }
         /// <summary>
-        /// generate minefield of given dimension
-        /// </summary>
-        public char[][] GetField(int dimension, int mines) { 
-        
-            var field = new char[dimension][];
-
-            for(int i = 0; i < field.Length; i++) {
-
-                field[i] = Enumerable.Repeat('0', dimension).ToArray();
-            }
-
-            PlaceMines(field, mines);
-
-            return field;
-        }
-        /// <summary>
         /// retrieve top-left coordinate of all 3x3 blocks
         /// </summary>
         public LinkedList<Point> GetBlocks(int dimension, int total) { 
@@ -97,6 +81,36 @@ namespace minefield {
 
                 field[minePosition.Y][minePosition.X] = '*';
             }
+        }
+        
+        public char[][] AddBorder(char[][] field) {
+
+            var newField = new List<char[]> { Enumerable.Repeat('+', field.Length + 2).ToArray() };
+
+            for(int i = 0; i < field.Length; i++) {
+
+                char[] left = new char[] { i == field.Length - 1 ? '0' : '+' };
+                char[] right = new char[] { i == 0 ? '0' : '+' };
+                newField.Add(left.Concat(field[i]).Concat(right).ToArray());
+            }
+
+            return newField.Concat(new List<char[]> { newField.First().ToArray() }).ToArray();
+        }
+        /// <summary>
+        /// generate minefield of given dimension
+        /// </summary>
+        public char[][] GetField(int dimension, int mines) {
+
+            var field = new char[dimension][];
+
+            for(int i = 0; i < field.Length; i++) {
+
+                field[i] = Enumerable.Repeat('0', dimension).ToArray();
+            }
+
+            PlaceMines(field, mines);
+
+            return AddBorder(field);
         }
 
         public string Show() {
