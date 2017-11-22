@@ -32,6 +32,22 @@ namespace carRenting {
             return orders.OrderBy(order => order.Start).ToList();
         }
         /// <summary>
+        /// retrieve indexes of all non-overlapping requests
+        /// </summary>
+        private static int[] GetValidIndexes(List<Order> orders, int lastIndex) {
+
+            int nextIndex = orders.Skip(lastIndex).ToList().FindIndex(order => order > orders[lastIndex]);
+
+            if(nextIndex != -1) {
+
+                int startIndex = lastIndex + nextIndex;
+
+                return Enumerable.Range(startIndex, orders.Count - startIndex).ToArray();
+            }
+
+            return new int[0];
+        }
+        /// <summary>
         /// determine maximum number of requests to serve
         /// </summary>
         private static List<Order[]> GetMaxFeasableRequest(string days) {
@@ -48,15 +64,9 @@ namespace carRenting {
 
                 foreach(var solution in solutions[i - 1]) {
 
-                    int endIndex = solution.Last();
-                    int nextIndex = orders.Skip(endIndex).ToList().FindIndex(order => order > orders[endIndex]);
+                    foreach(int index in GetValidIndexes(orders, solution.Last())) {
 
-                    if(nextIndex != -1) {
-
-                        for(int j = endIndex + nextIndex; j < orders.Count; j++) {
-
-                            subSolution.Add(solution.Concat(new int[] { j }).ToArray());
-                        }
+                        subSolution.Add(solution.Concat(new int[] { index }).ToArray());
                     }
                 }
 
