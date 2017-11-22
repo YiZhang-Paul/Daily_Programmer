@@ -89,7 +89,7 @@ namespace minefield {
 
             for(int i = 0; i < field.Length; i++) {
 
-                char[] left = new char[] { i == field.Length - 1 ? '0' : '+' };
+                char[] left = new char[] { i == field.Length - 1 ? 'M' : '+' };
                 char[] right = new char[] { i == 0 ? '0' : '+' };
                 newField.Add(left.Concat(field[i]).Concat(right).ToArray());
             }
