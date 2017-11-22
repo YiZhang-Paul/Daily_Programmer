@@ -17,8 +17,12 @@ namespace minefield {
             Console.WriteLine(minefield.Show());
             //prompt for robot commands
             string command = GetCommand();
+            //get result
+            Console.WriteLine(new Robot().GetResult(minefield, command));
         }
-
+        /// <summary>
+        /// retrieve minefield dimension
+        /// </summary>
         private static int GetDimension() {
 
             int dimension;
@@ -31,7 +35,9 @@ namespace minefield {
 
             return GetDimension();
         }
-
+        /// <summary>
+        /// retrieve total number of mines on minefield
+        /// </summary>
         private static int GetTotalMines(int limit) {
 
             int total;
@@ -44,7 +50,9 @@ namespace minefield {
 
             return GetTotalMines(limit);
         }
-
+        /// <summary>
+        /// retrieve robot command
+        /// </summary>
         private static string GetCommand() {
 
             Console.WriteLine("Please Enter Desired Robot Command:");

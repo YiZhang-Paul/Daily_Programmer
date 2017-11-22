@@ -10,11 +10,11 @@ namespace minefield {
 
         private Random _random = new Random();
 
-        public char[][] Field { get; private set; }
+        public char[][] Layout { get; private set; }
 
         public Minefield(int dimension, int mines) {
 
-            Field = GetField(dimension, mines);
+            Layout = GetField(dimension, mines);
         }
         /// <summary>
         /// calculate total number of 3x3 blocks on minefield
@@ -22,6 +22,16 @@ namespace minefield {
         public static int GetBlockCount(int dimension) {
 
             return (int)Math.Pow(Math.Ceiling((double)dimension / 3), 2);
+        }
+
+        public char GetSquare(Point position) {
+
+            return Layout[position.Y][position.X];
+        }
+
+        public void SetSquare(Point position, char content) { 
+        
+            Layout[position.Y][position.X] = content;
         }
         /// <summary>
         /// retrieve top-left coordinate of all 3x3 blocks
@@ -115,7 +125,7 @@ namespace minefield {
 
         public string Show() {
 
-            return string.Join("\n", Field.Select(row => string.Join("", row)));
+            return string.Join("\n", Layout.Select(row => string.Join("", row)));
         }
     }
 }
