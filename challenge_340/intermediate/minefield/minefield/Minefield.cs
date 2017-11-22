@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Drawing;
 
 namespace minefield {
     class Minefield {
@@ -16,9 +17,9 @@ namespace minefield {
             Field = GetField(dimension, mines);
         }
         /// <summary>
-        /// calculate maximum number of mines allowed on minefield
+        /// calculate total number of 3x3 blocks on minefield
         /// </summary>
-        public static int GetMaxMines(int dimension) {
+        public static int GetBlockCount(int dimension) {
 
             return (int)Math.Pow(Math.Ceiling((double)dimension / 3), 2);
         }
@@ -38,15 +39,16 @@ namespace minefield {
 
             return field;
         }
-
-        public LinkedList<Tuple<int, int>> GetSubArea(int dimension) { 
+        /// <summary>
+        /// retrieve top-left coordinate of all 3x3 blocks
+        /// </summary>
+        public LinkedList<Point> GetBlocks(int dimension, int total) { 
         
-            int totalArea = GetMaxMines(dimension);
-            var areas = new LinkedList<Tuple<int, int>>();
+            var blocks = new LinkedList<Point>();
 
-            for(int i = 0, row = 0, column = 0; i < totalArea; i++) {
+            for(int i = 0, row = 0, column = 0; i < total; i++) {
 
-                areas.AddLast(new Tuple<int, int>(row, column));
+                blocks.AddLast(new Point(column, row));
                 column += 3;
 
                 if(column > dimension - 1) {
@@ -56,7 +58,45 @@ namespace minefield {
                 }
             }
 
-            return areas;
+            return blocks;
+        }
+        /// <summary>
+        /// randomly pick a given number of blocks to place mines
+        /// </summary>
+        public LinkedList<Point> PickBlocks(int dimension, int mines) {
+
+            int blockCount = GetBlockCount(dimension);
+            var blocks = GetBlocks(dimension, blockCount);
+
+            for(int i = 0; i < blockCount - mines; i++) {
+
+                int index = _random.Next(0, blocks.Count);
+                blocks.Remove(blocks.ElementAt(index));
+            }
+
+            return blocks;
+        }
+
+        public void PlaceMines(char[][] field, int mines) {
+
+            int dimension = field.Length;
+            var start = new Point(dimension - 1, 0);
+            var end = new Point(0, dimension - 1);
+
+            foreach(var block in PickBlocks(dimension, mines)) {
+
+                Point minePosition;
+
+                do {
+
+                    int row = Math.Min(block.Y + _random.Next(0, 3), dimension - 1);
+                    int column = Math.Min(block.X + _random.Next(0, 3), dimension - 1);
+                    minePosition = new Point(column, row);
+
+                } while(minePosition == start || minePosition == end);
+
+                field[minePosition.Y][minePosition.X] = '*';
+            }
         }
 
         public string Show() {
