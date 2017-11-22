@@ -1,1 +1,6 @@
 D:\all_languages\reddit_challenges\challenge_340\intermediate\minefield\minefield\bin\Debug\minefield.exe.config
+D:\all_languages\reddit_challenges\challenge_340\intermediate\minefield\minefield\bin\Debug\minefield.exe
+D:\all_languages\reddit_challenges\challenge_340\intermediate\minefield\minefield\bin\Debug\minefield.pdb
+D:\all_languages\reddit_challenges\challenge_340\intermediate\minefield\minefield\obj\Debug\minefield.csprojResolveAssemblyReference.cache
+D:\all_languages\reddit_challenges\challenge_340\intermediate\minefield\minefield\obj\Debug\minefield.exe
+D:\all_languages\reddit_challenges\challenge_340\intermediate\minefield\minefield\obj\Debug\minefield.pdb
