@@ -1,0 +1,6 @@
+D:\all_languages\reddit_challenges\challenge_341\easy\repeatingNumbers\repeatingNumbers\bin\Debug\repeatingNumbers.exe.config
+D:\all_languages\reddit_challenges\challenge_341\easy\repeatingNumbers\repeatingNumbers\bin\Debug\repeatingNumbers.exe
+D:\all_languages\reddit_challenges\challenge_341\easy\repeatingNumbers\repeatingNumbers\bin\Debug\repeatingNumbers.pdb
+D:\all_languages\reddit_challenges\challenge_341\easy\repeatingNumbers\repeatingNumbers\obj\Debug\repeatingNumbers.csprojResolveAssemblyReference.cache
+D:\all_languages\reddit_challenges\challenge_341\easy\repeatingNumbers\repeatingNumbers\obj\Debug\repeatingNumbers.exe
+D:\all_languages\reddit_challenges\challenge_341\easy\repeatingNumbers\repeatingNumbers\obj\Debug\repeatingNumbers.pdb
