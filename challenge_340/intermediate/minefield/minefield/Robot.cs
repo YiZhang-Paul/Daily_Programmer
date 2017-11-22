@@ -67,14 +67,14 @@ namespace minefield {
 
             char neighbor = field.GetSquare(destination);
             //move when neighbor is a mine or empty square
-            if(neighbor == '*' || neighbor == '0') {
+            if(Running && (neighbor == '*' || neighbor == '0')) {
 
                 Position = destination;
                 field.SetSquare(destination, neighbor == '0' ? 'M' : '!');
 
                 return neighbor == '0';
             }
-            //hold position when neighbor is wall
+            //hold position when neighbor is wall or engine not started
             return true;
         }
 
