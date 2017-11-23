@@ -29,8 +29,12 @@ namespace minefield {
 
         public bool IsValidDestination(Minefield field, Point destination) {
 
-            return destination.Y >= 0 && destination.Y < field.Layout.Length &&
-                   destination.X >= 0 && destination.X < field.Layout.Length;
+            return field.IsValidPosition(destination);
+        }
+
+        public bool IsEscaped(Minefield field) { 
+        
+            return !Running && Position == new Point(field.Layout.Length - 1, 1);
         }
         /// <summary>
         /// retrieve starting position on minefield
@@ -67,12 +71,12 @@ namespace minefield {
 
             char neighbor = field.GetSquare(destination);
             //move when neighbor is a mine or empty square
-            if(Running && (neighbor == '*' || neighbor == '0')) {
+            if(neighbor == '*' || neighbor == '0' || neighbor == 'M') {
 
                 Position = destination;
-                field.SetSquare(destination, neighbor == '0' ? 'M' : '!');
+                field.SetSquare(destination, neighbor != '*' ? 'M' : '!');
 
-                return neighbor == '0';
+                return neighbor != '*';
             }
             //hold position when neighbor is wall or engine not started
             return true;
@@ -94,7 +98,7 @@ namespace minefield {
                 return true;
             }
 
-            return Move(field, operation);
+            return Running ? Move(field, operation) : true;
         }
         /// <summary>
         /// execute entire command sequence
@@ -121,7 +125,7 @@ namespace minefield {
 
             ExecuteAllCommand(field, command);
 
-            return field.Show();
+            return "Path:\n" + field.Show() + "\n\nResult: " + (IsEscaped(field) ? "Success!" : "Failed.");
         }
     }
 }

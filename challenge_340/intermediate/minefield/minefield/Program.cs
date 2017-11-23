@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 namespace minefield {
     class Program {
         static void Main(string[] args) {
+            Console.WriteLine(new Minefield(5, 5).Show());
             //prompt for minefield dimension and total number of mines
             int dimension = GetDimension();
             int mineLimit = Minefield.GetBlockCount(dimension);
@@ -18,7 +19,7 @@ namespace minefield {
             //prompt for robot commands
             string command = GetCommand();
             //get result
-            Console.WriteLine(new Robot().GetResult(minefield, command));
+            Console.WriteLine("\n" + new Robot().GetResult(minefield, command));
         }
         /// <summary>
         /// retrieve minefield dimension
