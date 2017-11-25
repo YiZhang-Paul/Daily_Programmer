@@ -10,13 +10,14 @@ namespace textAdventure {
 
         private Random _random = new Random();
 
+        public override int Damage { get; set; }
+
         public Monster() {
 
-            Name = GetName();
-            var that = this;
+            Damage = 10;
         }
 
-        public string GetName() {
+        public override string GetName() {
 
             try {
 
@@ -25,17 +26,12 @@ namespace textAdventure {
                 return names[_random.Next(0, names.Length)];
             }
             catch(Exception exception) {
-                
+
                 Console.WriteLine("File not Found.");
                 Console.WriteLine(exception.Message);
             }
 
             return null;
-        }
-
-        public int DropPotions() {
-
-            return _random.Next(0, 3);
         }
     }
 }

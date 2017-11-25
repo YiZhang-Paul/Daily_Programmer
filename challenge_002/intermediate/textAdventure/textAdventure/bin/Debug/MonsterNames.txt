@@ -21,7 +21,7 @@ Balzhak
 Bari Moqqu
 Barrucus
 Bashface the Truncheon
-Bashiok (Monster)
+Bashiok
 Battlerage the Plagued
 Beast
 Belagg Pierceflesh
@@ -31,13 +31,13 @@ Blarg the Imp
 Blighter
 Blightrot
 Bloater
-Blood Hawk (Diablo III)
+Blood Hawk
 Bloodfeather
 Bloodmaw
 Bludgeonskull the Mauler
 Bone Reaver
 Bone Warlock
-Boneripper (Diablo III)
+Boneripper
 Boneslag the Berserker
 Bonesplinter
 Bradshaw the Behemoth
@@ -47,7 +47,7 @@ Bramok the Overlord
 Brimstone
 Brother Karel
 Brother Moek
-Brute (Diablo III)
+Brute
 Burrow Bile
 Busaw
 Cadhul the Deathcaller
@@ -62,7 +62,7 @@ Carrion Nest
 Celik
 Chancellor Eamon
 Charged Sentinel
-Charger (Monster)
+Charger
 Chiltara
 Cold Snap
 Colossal Firewing
@@ -88,7 +88,6 @@ Demonic Hellflyer
 Demonic Tremor
 Demonika the Wicked
 Dervish Lord
-Diablo III Bestiary
 Direclaw the Demonflyer
 Dragus
 Dreadclaw the Leaper
@@ -125,7 +124,7 @@ Ghas
 Ghezrim
 Gholash
 Ghostly Orb
-Ghoul (Diablo III)
+Ghoul
 Gilgamesh the Fiend
 Glidewing
 Gnarled Walker
@@ -137,7 +136,7 @@ Gorog the Bruiser
 Goz'turr the Torturer
 Grand Inquisitor
 Graveljaw the Devourer
-Greed (Demon)
+Greed
 Greelode the Unforgiving
 Grimmaw
 Grimnight the Soulless
