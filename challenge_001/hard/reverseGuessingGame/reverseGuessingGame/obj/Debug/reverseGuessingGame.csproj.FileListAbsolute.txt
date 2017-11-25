@@ -1,0 +1,5 @@
+D:\all_languages\reddit_challenges\challenge_001\hard\reverseGuessingGame\reverseGuessingGame\bin\Debug\reverseGuessingGame.exe.config
+D:\all_languages\reddit_challenges\challenge_001\hard\reverseGuessingGame\reverseGuessingGame\bin\Debug\reverseGuessingGame.exe
+D:\all_languages\reddit_challenges\challenge_001\hard\reverseGuessingGame\reverseGuessingGame\bin\Debug\reverseGuessingGame.pdb
+D:\all_languages\reddit_challenges\challenge_001\hard\reverseGuessingGame\reverseGuessingGame\obj\Debug\reverseGuessingGame.exe
+D:\all_languages\reddit_challenges\challenge_001\hard\reverseGuessingGame\reverseGuessingGame\obj\Debug\reverseGuessingGame.pdb
