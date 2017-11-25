@@ -27,7 +27,7 @@ namespace textAdventure {
             
                 "Show All Commands - man",
                 "End Current Game - q",
-                "Get in the Door - f",
+                "Get in the Room - f",
                 "Attack Monster - a",
                 "Use Potion - h",
                 "Escape - e",
@@ -42,7 +42,7 @@ namespace textAdventure {
             Console.WriteLine("> Hello, {0}! Welcome to Text Adventure Game!", User.Name);
             Console.WriteLine("> To Check All Available Commands, Enter \"man\" During the Game.\n");
             ShowCommands();
-            Console.WriteLine("> There are {0} Rooms Ahead. Your Goal is to Get Through All Doors and Survive.", Rooms);
+            Console.WriteLine("> There are {0} Rooms Ahead. Your Goal is to Get Through All Doors and Survive.\n", Rooms);
         }
 
         public void Initialize() {
@@ -64,7 +64,7 @@ namespace textAdventure {
         public void EndGame() {
 
             Running = false;
-            Console.WriteLine("> Game Terminated.");
+            Console.WriteLine("\n> Game Terminated.");
         }
 
         public void HandleGenericCommands(string command) {
@@ -75,6 +75,36 @@ namespace textAdventure {
             else if(command == "c") User.ShowStats();
         }
 
+        public void TryAttack() {
+
+            User.Attack(Monster);
+
+            if(!Monster.IsAlive) {
+
+                EndCombat();
+            }
+            else {
+
+                Monster.Attack(User);
+            }
+        }
+
+        public void TryEscape() {
+
+            User.InCombat = !User.Escape(Monster);
+            Console.WriteLine(User.InCombat ? "Cannot Escape!" : "Escaped!");
+
+            if(!User.InCombat) {
+
+                Console.WriteLine("You Barely Escaped from the Monster and Left the Room.");
+                Console.WriteLine("There are {0} More Rooms Ahead!", --Rooms);
+            }
+            else {
+
+                Monster.Attack(User);
+            }
+        }
+
         public void HandleCombatCommands(string command) { 
 
             if(!User.InCombat) {
@@ -83,32 +113,11 @@ namespace textAdventure {
             }
             else if(command == "a") {
 
-                User.Attack(Monster);
-                
-                if(!Monster.IsAlive) {
-
-                    RewardPotions(0);
-                    Console.WriteLine("There are {0} More Rooms Ahead!", --Rooms);
-                }
-                else {
-
-                    Monster.Attack(User);
-                }
+                TryAttack();
             }
             else {
 
-                User.InCombat = !User.Escape(Monster);
-                Console.WriteLine(User.InCombat ? "Cannot Escape!" : "Escaped!");
-
-                if(!User.InCombat) {
-
-                    Console.WriteLine("You Barely Escaped from the Monster and Leave the Room.");
-                    Console.WriteLine("There are {0} More Rooms Ahead!", --Rooms);
-                }
-                else {
-
-                    Monster.Attack(User);
-                }
+                TryEscape();
             }
         }
 
@@ -120,7 +129,7 @@ namespace textAdventure {
             
                 User.Potion += potions;
                 Console.WriteLine("You Found {0} Potion{1}!", potions, potions > 1 ? "s" : "");
-                Console.WriteLine("You Picked up the Potions and Leaved the Room.");
+                Console.WriteLine("You Picked up the Potions and Left the Room.");
             }
         }
 
@@ -129,6 +138,14 @@ namespace textAdventure {
             User.InCombat = true;
             Monster = new Monster();
             Console.WriteLine("{0} Awaits! The Battle has Started!", Monster.Name);
+        }
+
+        public void EndCombat() {
+
+            User.InCombat = false;
+            Console.WriteLine("{0} is Slain!", Monster.Name);
+            RewardPotions(0);
+            Console.WriteLine("There are {0} More Rooms Ahead!", --Rooms);
         }
 
         public void GetInRoom() {
@@ -169,7 +186,7 @@ namespace textAdventure {
             while(Running) {
 
                 string move = GetInput();
-
+                //handle user inputs
                 if(Regex.IsMatch(move, "^[qhc]|man$")) {
                 
                     HandleGenericCommands(move);
