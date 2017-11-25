@@ -9,8 +9,8 @@ namespace textAdventure {
     class Program {
         static void Main(string[] args) {
 
-            var user = new User();
-            var monster = new Monster();
+            var game = new Game();
+            game.Run();
         }
     }
 }
