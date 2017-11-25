@@ -8,7 +8,11 @@ using System.Text.RegularExpressions;
 namespace textAdventure {
     class Game {
 
+        private Random _random = new Random();
+
         public User User { get; private set; }
+        public Monster Monster { get; private set; }
+        public int Rooms { get; private set; }
         public bool Running { get; private set; }
 
         public Game() {
@@ -37,12 +41,13 @@ namespace textAdventure {
             Console.WriteLine("> Hello, {0}! Welcome to Text Adventure Game!", User.Name);
             Console.WriteLine("> To Check All Available Commands, Enter \"man\" During the Game.\n");
             ShowCommands();
-            Console.WriteLine("> There are 10 Rooms Ahead. Your Goal is to Get Through All Doors and Survive.");
+            Console.WriteLine("> There are {0} Rooms Ahead. Your Goal is to Get Through All Doors and Survive.", Rooms);
         }
 
         public void Initialize() {
 
             User = new User();
+            Rooms = 10;
             ShowIntroduction();
             Running = true;
         }
@@ -69,6 +74,38 @@ namespace textAdventure {
             else if(command == "c") User.ShowStats();
         }
 
+        public void RewardPotions() {
+
+            int potions = _random.Next(1, 4);
+            User.Potion += potions;
+            Console.WriteLine("You Found {0} Potion{1}!", potions, potions > 1 ? "s" : "");
+        }
+
+        public void StartCombat() {
+
+            User.InCombat = true;
+            Monster = new Monster();
+            Console.WriteLine("{0} Awaits! The Battle has Started!", Monster.Name);
+        }
+
+        public void GetInRoom() {
+
+            if(User.InCombat) {
+
+                Console.WriteLine("Currently in Combat.");
+            }
+            else if(_random.Next(0, 100) < 10) {
+
+                RewardPotions();
+                Console.WriteLine("You Picked up the Potions and Leaved the Room.");
+                Console.WriteLine("There are {0} More Rooms Ahead!", --Rooms);
+            }
+            else {
+
+                StartCombat();
+            }
+        }
+
         public void Run() {
 
             while(Running) {
@@ -78,6 +115,14 @@ namespace textAdventure {
                 if(Regex.IsMatch(move, "^[qhc]|man$")) {
                 
                     HandleGenericCommands(move);
+                }
+                else if(Regex.IsMatch(move, "^[ae]$")) {
+
+                    //HandleCombatCommands(move);
+                }
+                else {
+
+                    GetInRoom();
                 }
             }
         }

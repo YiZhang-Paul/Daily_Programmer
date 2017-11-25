@@ -9,7 +9,7 @@ namespace textAdventure {
 
         public override int Damage { get; set; }
         public int Potion { get; set; }
-        public bool InCombat { get; private set; }
+        public bool InCombat { get; set; }
 
         public User() {
 
