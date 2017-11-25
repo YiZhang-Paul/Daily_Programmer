@@ -24,6 +24,8 @@ namespace textAdventure {
         public void Attack(Player enemy) {
 
             enemy.Health = Math.Max(0, enemy.Health - Damage);
+            Console.WriteLine("{0} Dealt {1} Damage to {2}!", Name, Damage, enemy.Name);
+            Console.WriteLine("{0}'s Health: {1}; {2}'s Health: {3}", Name, Health, enemy.Name, enemy.Health);
         }
     }
 }

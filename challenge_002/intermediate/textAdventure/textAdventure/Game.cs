@@ -74,6 +74,33 @@ namespace textAdventure {
             else if(command == "c") User.ShowStats();
         }
 
+        public void HandleCombatCommands(string command) { 
+
+            if(!User.InCombat) {
+
+                Console.WriteLine("Currently not in Combat.");
+            }
+            else if(command == "a") {
+            
+
+            }
+            else {
+
+                User.InCombat = !User.Escape(Monster);
+                Console.WriteLine(User.InCombat ? "Cannot Escape!" : "Escaped!");
+
+                if(!User.InCombat) {
+
+                    Console.WriteLine("You Barely Escaped from the Monster and Leave the Room.");
+                    Console.WriteLine("There are {0} More Rooms Ahead!", --Rooms);
+                }
+                else {
+
+                    Monster.Attack(User);
+                }
+            }
+        }
+
         public void RewardPotions() {
 
             int potions = _random.Next(1, 4);
@@ -118,7 +145,13 @@ namespace textAdventure {
                 }
                 else if(Regex.IsMatch(move, "^[ae]$")) {
 
-                    //HandleCombatCommands(move);
+                    HandleCombatCommands(move);
+
+                    if(!User.IsAlive) {
+
+                        Console.WriteLine("You Died!");
+                        EndGame();
+                    }
                 }
                 else {
 

@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 namespace textAdventure {
     class User : Player {
 
+        private Random _random = new Random();
+
         public override int Damage { get; set; }
         public int Potion { get; set; }
         public bool InCombat { get; set; }
@@ -46,6 +48,16 @@ namespace textAdventure {
                 Health = Math.Min(Health + 40, 100);
                 Console.WriteLine("Health Restored to {0}; Potions Remain: {1}", Health, Potion);
             }
+        }
+
+        public bool Escape(Monster monster) { 
+        
+            if(Health >= monster.Health) {
+
+                return _random.Next(0, 100) < 40;
+            }
+
+            return _random.Next(0, 100) < Math.Truncate((double)Health / monster.Health * 30);
         }
     }
 }
