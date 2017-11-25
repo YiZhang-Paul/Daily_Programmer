@@ -1,1 +1,6 @@
 D:\all_languages\reddit_challenges\challenge_002\intermediate\textAdventure\textAdventure\bin\Debug\textAdventure.exe.config
+D:\all_languages\reddit_challenges\challenge_002\intermediate\textAdventure\textAdventure\bin\Debug\textAdventure.exe
+D:\all_languages\reddit_challenges\challenge_002\intermediate\textAdventure\textAdventure\bin\Debug\textAdventure.pdb
+D:\all_languages\reddit_challenges\challenge_002\intermediate\textAdventure\textAdventure\obj\Debug\textAdventure.csprojResolveAssemblyReference.cache
+D:\all_languages\reddit_challenges\challenge_002\intermediate\textAdventure\textAdventure\obj\Debug\textAdventure.exe
+D:\all_languages\reddit_challenges\challenge_002\intermediate\textAdventure\textAdventure\obj\Debug\textAdventure.pdb
