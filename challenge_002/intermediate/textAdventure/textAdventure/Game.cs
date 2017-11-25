@@ -14,6 +14,7 @@ namespace textAdventure {
         public Monster Monster { get; private set; }
         public int Rooms { get; private set; }
         public bool Running { get; private set; }
+        public bool Winning { get { return User.IsAlive && Rooms == 0 && !User.InCombat; } }
 
         public Game() {
 
@@ -81,8 +82,18 @@ namespace textAdventure {
                 Console.WriteLine("Currently not in Combat.");
             }
             else if(command == "a") {
-            
 
+                User.Attack(Monster);
+                
+                if(!Monster.IsAlive) {
+
+                    RewardPotions(0);
+                    Console.WriteLine("There are {0} More Rooms Ahead!", --Rooms);
+                }
+                else {
+
+                    Monster.Attack(User);
+                }
             }
             else {
 
@@ -101,11 +112,16 @@ namespace textAdventure {
             }
         }
 
-        public void RewardPotions() {
+        public void RewardPotions(int min = 1, int max = 4) {
 
-            int potions = _random.Next(1, 4);
-            User.Potion += potions;
-            Console.WriteLine("You Found {0} Potion{1}!", potions, potions > 1 ? "s" : "");
+            int potions = _random.Next(min, max);
+
+            if(potions > 0) {
+            
+                User.Potion += potions;
+                Console.WriteLine("You Found {0} Potion{1}!", potions, potions > 1 ? "s" : "");
+                Console.WriteLine("You Picked up the Potions and Leaved the Room.");
+            }
         }
 
         public void StartCombat() {
@@ -124,7 +140,6 @@ namespace textAdventure {
             else if(_random.Next(0, 100) < 10) {
 
                 RewardPotions();
-                Console.WriteLine("You Picked up the Potions and Leaved the Room.");
                 Console.WriteLine("There are {0} More Rooms Ahead!", --Rooms);
             }
             else {
@@ -132,7 +147,23 @@ namespace textAdventure {
                 StartCombat();
             }
         }
+        /// <summary>
+        /// check current game status
+        /// </summary>
+        public bool CheckGameStatus() {
 
+            if(!User.IsAlive || Winning) {
+
+                Console.WriteLine(Winning ? "You Won!" : "You Died!");
+
+                return true;
+            }
+
+            return false;
+        }
+        /// <summary>
+        /// main game loop
+        /// </summary>
         public void Run() {
 
             while(Running) {
@@ -146,16 +177,15 @@ namespace textAdventure {
                 else if(Regex.IsMatch(move, "^[ae]$")) {
 
                     HandleCombatCommands(move);
-
-                    if(!User.IsAlive) {
-
-                        Console.WriteLine("You Died!");
-                        EndGame();
-                    }
                 }
                 else {
 
                     GetInRoom();
+                }
+                //check game end
+                if(CheckGameStatus()) {
+                
+                    EndGame();
                 }
             }
         }

@@ -26,7 +26,9 @@ namespace textAdventure {
 
             return name != "" ? name : GetName();
         }
-
+        /// <summary>
+        /// show current health and remaining potions
+        /// </summary>
         public void ShowStats() {
 
             Console.WriteLine("Health: {0}; Potions: {1}", Health, Potion);
@@ -34,13 +36,9 @@ namespace textAdventure {
 
         public void UsePotion() { 
         
-            if(Potion == 0) {
+            if(Potion == 0 || HealthFull) {
 
-                Console.WriteLine("Not Enough Potion.");
-            }
-            else if(HealthFull) {
-
-                Console.WriteLine("Health Already Full.");
+                Console.WriteLine(Potion == 0 ? "Not Enough Potion." : "Health Already Full.");
             }
             else {
 
@@ -49,7 +47,9 @@ namespace textAdventure {
                 Console.WriteLine("Health Restored to {0}; Potions Remain: {1}", Health, Potion);
             }
         }
-
+        /// <summary>
+        /// attempt escaping from monster and return result
+        /// </summary>
         public bool Escape(Monster monster) { 
         
             if(Health >= monster.Health) {
