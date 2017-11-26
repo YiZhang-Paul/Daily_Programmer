@@ -12,6 +12,7 @@ namespace eventOrganizer {
     public partial class EventOrganizer : Form {
 
         private ButtonManager Buttons { get; set; }
+        private Dictionary<string, List<UserEvent>> UserEvents { get; set; }
 
         public EventOrganizer() {
 
@@ -21,8 +22,17 @@ namespace eventOrganizer {
         private void LoadUI(object sender, EventArgs e) {
 
             Buttons = new ButtonManager(new Button[] { Add, Edit, Delete });
+            UserEvents = new Dictionary<string, List<UserEvent>>();
             ToggleModificationKeys();
             ResizeListHeader();
+        }
+
+        private void ToggleModificationKeys() { 
+        
+            foreach(var button in new Button[] { Edit, Delete }) {
+
+                Buttons.Toggle(button);
+            }
         }
 
         private void ResizeListHeader() {
@@ -35,17 +45,30 @@ namespace eventOrganizer {
             }
         }
 
-        private void ToggleModificationKeys() { 
+        public bool HasEvent(UserEvent userEvent) { 
         
-            foreach(var button in new Button[] { Edit, Delete }) {
+            string date = userEvent.Date.ToShortDateString();
+            string title = userEvent.Title.ToLower();
 
-                Buttons.Toggle(button);
+            if(!UserEvents.ContainsKey(date)) {
+
+                return false;
             }
+
+            return UserEvents[date].Any(curEvent => curEvent.Title.ToLower() == title);
+        }
+
+        public void AddEvent(UserEvent userEvent) {
+
+            string date = userEvent.Date.ToShortDateString();
+            UserEvents[date] = UserEvents.ContainsKey(date) ? UserEvents[date] : new List<UserEvent>();
+            UserEvents[date].Add(userEvent);
         }
 
         private void Add_Click(object sender, EventArgs e) {
 
             var addEventForm = new AddEventForm();
+            addEventForm.ParentForm = this;
             addEventForm.Show();
         }
     }

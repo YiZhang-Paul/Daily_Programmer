@@ -13,6 +13,8 @@ namespace eventOrganizer {
 
         private Point MouseXY { get; set; }
 
+        public EventOrganizer ParentForm { get; set; }
+
         public AddEventForm() {
 
             InitializeComponent();
@@ -32,6 +34,20 @@ namespace eventOrganizer {
             }
         }
 
+        private void TryAddEvent(UserEvent userEvent) {
+
+            if(ParentForm.HasEvent(userEvent)) {
+
+                MessageBox.Show("Event with Same Title and Date Already Exists.");
+            }
+            else {
+
+                ParentForm.AddEvent(userEvent);
+                CloseTimer.Tick += this.CloseForm;
+                CloseTimer.Start();
+            }
+        }
+
         private void Add_Click(object sender, EventArgs e) {
 
             string title = EventTitle.Text.Trim();
@@ -42,14 +58,24 @@ namespace eventOrganizer {
 
             if(!TitleErrorLabel.Visible && !DateErrorLabel.Visible) {
 
-                var userEvent = new UserEvent(title, date, EventDetail.Text.Trim());
-                this.Close();
+                TryAddEvent(new UserEvent(title, date, EventDetail.Text.Trim()));
             }
         }
 
         private void Cancel_Click(object sender, EventArgs e) {
 
-            this.Close();
+            CloseTimer.Tick += this.CloseForm;
+            CloseTimer.Start();
+        }
+
+        private void CloseForm(object sender, EventArgs e) {
+
+            this.Opacity -= 0.05;
+
+            if(this.Opacity <= 0.85) {
+
+                this.Close();
+            }
         }
     }
 }

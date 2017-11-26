@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace eventOrganizer {
-    class UserEvent {
+    public class UserEvent {
 
         public string Title { get; private set; }
         public DateTime Date { get; private set; }

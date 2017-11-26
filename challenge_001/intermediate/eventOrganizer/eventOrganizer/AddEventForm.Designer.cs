@@ -44,7 +44,7 @@
             this.EventDetailLabel = new System.Windows.Forms.Label();
             this.TitleErrorLayout = new System.Windows.Forms.TableLayoutPanel();
             this.TitleErrorLabel = new System.Windows.Forms.Label();
-            this.TextFadeTimer = new System.Windows.Forms.Timer(this.components);
+            this.CloseTimer = new System.Windows.Forms.Timer(this.components);
             this.MainPanel.SuspendLayout();
             this.MainLayout.SuspendLayout();
             this.ButtonLayout.SuspendLayout();
@@ -343,10 +343,10 @@
             this.TitleErrorLabel.Text = "* title cannot be empty";
             this.TitleErrorLabel.Visible = false;
             // 
-            // TextFadeTimer
+            // CloseTimer
             // 
-            this.TextFadeTimer.Enabled = true;
-            this.TextFadeTimer.Interval = 17;
+            this.CloseTimer.Enabled = true;
+            this.CloseTimer.Interval = 17;
             // 
             // AddEventForm
             // 
@@ -404,7 +404,7 @@
         private System.Windows.Forms.TableLayoutPanel DateErrorLayout;
         private System.Windows.Forms.Label DateErrorLabel;
         private System.Windows.Forms.Label TitleErrorLabel;
-        private System.Windows.Forms.Timer TextFadeTimer;
+        private System.Windows.Forms.Timer CloseTimer;
 
     }
 }
