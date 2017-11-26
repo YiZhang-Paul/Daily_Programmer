@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ButtonManager.cs" />
     <Compile Include="EventOrganizer.cs">
       <SubType>Form</SubType>
     </Compile>

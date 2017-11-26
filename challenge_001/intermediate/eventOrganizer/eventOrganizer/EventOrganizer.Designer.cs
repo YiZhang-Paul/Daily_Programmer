@@ -23,9 +23,7 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
-            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem(new string[] {
-            "Finish UI",
-            "Today"}, -1);
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
             this.MainPanel = new System.Windows.Forms.Panel();
             this.MainLayout = new System.Windows.Forms.TableLayoutPanel();
             this.ControlLayout = new System.Windows.Forms.TableLayoutPanel();
@@ -34,13 +32,14 @@
             this.Delete = new System.Windows.Forms.Button();
             this.DisplayLayout = new System.Windows.Forms.TableLayoutPanel();
             this.Title = new System.Windows.Forms.Label();
-            this.EventList = new System.Windows.Forms.ListView();
-            this.EventTitle = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.EventDate = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.EventList = new System.Windows.Forms.DataGridView();
+            this.EventTitle = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.EventDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.MainPanel.SuspendLayout();
             this.MainLayout.SuspendLayout();
             this.ControlLayout.SuspendLayout();
             this.DisplayLayout.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.EventList)).BeginInit();
             this.SuspendLayout();
             // 
             // MainPanel
@@ -83,51 +82,57 @@
             this.ControlLayout.Name = "ControlLayout";
             this.ControlLayout.RowCount = 5;
             this.ControlLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 55F));
-            this.ControlLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 8.823529F));
-            this.ControlLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 8.823529F));
-            this.ControlLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 8.823529F));
-            this.ControlLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 73.52941F));
+            this.ControlLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 11F));
+            this.ControlLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 11F));
+            this.ControlLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 11F));
+            this.ControlLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 67F));
             this.ControlLayout.Size = new System.Drawing.Size(77, 377);
             this.ControlLayout.TabIndex = 0;
             // 
             // Add
             // 
-            this.Add.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
+            this.Add.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(12)))), ((int)(((byte)(12)))), ((int)(((byte)(12)))));
             this.Add.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Add.FlatAppearance.BorderSize = 0;
+            this.Add.FlatAppearance.BorderColor = System.Drawing.Color.Gray;
+            this.Add.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DodgerBlue;
+            this.Add.FlatAppearance.MouseOverBackColor = System.Drawing.Color.RoyalBlue;
             this.Add.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.Add.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Add.Location = new System.Drawing.Point(3, 58);
             this.Add.Name = "Add";
-            this.Add.Size = new System.Drawing.Size(71, 22);
+            this.Add.Size = new System.Drawing.Size(71, 29);
             this.Add.TabIndex = 0;
             this.Add.Text = "Add";
             this.Add.UseVisualStyleBackColor = false;
             // 
             // Edit
             // 
-            this.Edit.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
+            this.Edit.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(12)))), ((int)(((byte)(12)))), ((int)(((byte)(12)))));
             this.Edit.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Edit.FlatAppearance.BorderSize = 0;
+            this.Edit.FlatAppearance.BorderColor = System.Drawing.Color.Gray;
+            this.Edit.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DodgerBlue;
+            this.Edit.FlatAppearance.MouseOverBackColor = System.Drawing.Color.RoyalBlue;
             this.Edit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.Edit.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Edit.Location = new System.Drawing.Point(3, 86);
+            this.Edit.Location = new System.Drawing.Point(3, 93);
             this.Edit.Name = "Edit";
-            this.Edit.Size = new System.Drawing.Size(71, 22);
+            this.Edit.Size = new System.Drawing.Size(71, 29);
             this.Edit.TabIndex = 1;
             this.Edit.Text = "Edit";
             this.Edit.UseVisualStyleBackColor = false;
             // 
             // Delete
             // 
-            this.Delete.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
+            this.Delete.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(12)))), ((int)(((byte)(12)))), ((int)(((byte)(12)))));
             this.Delete.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Delete.FlatAppearance.BorderSize = 0;
+            this.Delete.FlatAppearance.BorderColor = System.Drawing.Color.Gray;
+            this.Delete.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DodgerBlue;
+            this.Delete.FlatAppearance.MouseOverBackColor = System.Drawing.Color.RoyalBlue;
             this.Delete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.Delete.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Delete.Location = new System.Drawing.Point(3, 114);
+            this.Delete.Location = new System.Drawing.Point(3, 128);
             this.Delete.Name = "Delete";
-            this.Delete.Size = new System.Drawing.Size(71, 22);
+            this.Delete.Size = new System.Drawing.Size(71, 29);
             this.Delete.TabIndex = 2;
             this.Delete.Text = "Delete";
             this.Delete.UseVisualStyleBackColor = false;
@@ -163,39 +168,42 @@
             // 
             // EventList
             // 
-            this.EventList.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(80)))), ((int)(((byte)(80)))));
+            dataGridViewCellStyle8.BackColor = System.Drawing.Color.DarkGray;
+            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.EventList.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle8;
+            this.EventList.BackgroundColor = System.Drawing.SystemColors.ControlDarkDark;
             this.EventList.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.EventList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.EventList.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
+            this.EventList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.EventList.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.EventTitle,
             this.EventDate});
             this.EventList.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.EventList.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.EventList.GridLines = true;
-            this.EventList.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
-            this.EventList.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem1});
+            this.EventList.GridColor = System.Drawing.Color.LightSkyBlue;
             this.EventList.Location = new System.Drawing.Point(8, 41);
             this.EventList.Margin = new System.Windows.Forms.Padding(8);
             this.EventList.Name = "EventList";
-            this.EventList.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.EventList.RowHeadersVisible = false;
             this.EventList.Size = new System.Drawing.Size(289, 285);
             this.EventList.TabIndex = 3;
-            this.EventList.UseCompatibleStateImageBehavior = false;
-            this.EventList.View = System.Windows.Forms.View.Details;
             // 
             // EventTitle
             // 
-            this.EventTitle.Text = "Title";
+            this.EventTitle.HeaderText = "Title";
+            this.EventTitle.Name = "EventTitle";
+            this.EventTitle.ReadOnly = true;
             // 
             // EventDate
             // 
-            this.EventDate.Text = "Date";
+            this.EventDate.HeaderText = "Date";
+            this.EventDate.Name = "EventDate";
+            this.EventDate.ReadOnly = true;
             // 
             // EventOrganizer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 21F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(37)))), ((int)(((byte)(37)))));
             this.ClientSize = new System.Drawing.Size(382, 377);
             this.Controls.Add(this.MainPanel);
             this.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -206,11 +214,13 @@
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "EventOrganizer";
+            this.Load += new System.EventHandler(this.LoadUI);
             this.MainPanel.ResumeLayout(false);
             this.MainLayout.ResumeLayout(false);
             this.ControlLayout.ResumeLayout(false);
             this.DisplayLayout.ResumeLayout(false);
             this.DisplayLayout.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.EventList)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -225,9 +235,9 @@
         private System.Windows.Forms.Button Delete;
         private System.Windows.Forms.TableLayoutPanel DisplayLayout;
         private System.Windows.Forms.Label Title;
-        private System.Windows.Forms.ListView EventList;
-        private System.Windows.Forms.ColumnHeader EventTitle;
-        private System.Windows.Forms.ColumnHeader EventDate;
+        private System.Windows.Forms.DataGridView EventList;
+        private System.Windows.Forms.DataGridViewTextBoxColumn EventTitle;
+        private System.Windows.Forms.DataGridViewTextBoxColumn EventDate;
     }
 }
 
