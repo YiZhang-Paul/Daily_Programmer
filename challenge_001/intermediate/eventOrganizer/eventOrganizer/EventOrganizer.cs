@@ -16,7 +16,6 @@ namespace eventOrganizer {
         public EventOrganizer() {
 
             InitializeComponent();
-            
         }
 
         private void LoadUI(object sender, EventArgs e) {
@@ -24,7 +23,6 @@ namespace eventOrganizer {
             Buttons = new ButtonManager(new Button[] { Add, Edit, Delete });
             ToggleModificationKeys();
             ResizeListHeader();
-            RemoveFocus();
         }
 
         private void ResizeListHeader() {
@@ -35,11 +33,6 @@ namespace eventOrganizer {
 
                 column.Width = EventList.Width / columns.Count;
             }
-        }
-
-        private void RemoveFocus() {
-
-            Title.Focus();
         }
 
         private void ToggleModificationKeys() { 

@@ -30,10 +30,22 @@
             this.Cancel = new System.Windows.Forms.Button();
             this.TopPanel = new System.Windows.Forms.Panel();
             this.Title = new System.Windows.Forms.Label();
+            this.InputLayout = new System.Windows.Forms.TableLayoutPanel();
+            this.TitleInputLayout = new System.Windows.Forms.TableLayoutPanel();
+            this.DateInputLayout = new System.Windows.Forms.TableLayoutPanel();
+            this.EventDetail = new System.Windows.Forms.RichTextBox();
+            this.EventDetailLabel = new System.Windows.Forms.Label();
+            this.DateLabel = new System.Windows.Forms.Label();
+            this.TitleLabel = new System.Windows.Forms.Label();
+            this.EventTitle = new System.Windows.Forms.TextBox();
+            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.MainPanel.SuspendLayout();
             this.MainLayout.SuspendLayout();
             this.ButtonLayout.SuspendLayout();
             this.TopPanel.SuspendLayout();
+            this.InputLayout.SuspendLayout();
+            this.TitleInputLayout.SuspendLayout();
+            this.DateInputLayout.SuspendLayout();
             this.SuspendLayout();
             // 
             // MainPanel
@@ -44,7 +56,7 @@
             this.MainPanel.Location = new System.Drawing.Point(1, 1);
             this.MainPanel.Margin = new System.Windows.Forms.Padding(0);
             this.MainPanel.Name = "MainPanel";
-            this.MainPanel.Size = new System.Drawing.Size(352, 298);
+            this.MainPanel.Size = new System.Drawing.Size(352, 451);
             this.MainPanel.TabIndex = 0;
             // 
             // MainLayout
@@ -53,15 +65,16 @@
             this.MainLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.MainLayout.Controls.Add(this.ButtonLayout, 0, 2);
             this.MainLayout.Controls.Add(this.TopPanel, 0, 0);
+            this.MainLayout.Controls.Add(this.InputLayout, 0, 1);
             this.MainLayout.Dock = System.Windows.Forms.DockStyle.Fill;
             this.MainLayout.Location = new System.Drawing.Point(0, 0);
             this.MainLayout.Margin = new System.Windows.Forms.Padding(0);
             this.MainLayout.Name = "MainLayout";
             this.MainLayout.RowCount = 3;
             this.MainLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            this.MainLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 81.34328F));
-            this.MainLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 18.65672F));
-            this.MainLayout.Size = new System.Drawing.Size(352, 298);
+            this.MainLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 88.59857F));
+            this.MainLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 11.40143F));
+            this.MainLayout.Size = new System.Drawing.Size(352, 451);
             this.MainLayout.TabIndex = 1;
             // 
             // ButtonLayout
@@ -74,12 +87,12 @@
             this.ButtonLayout.Controls.Add(this.Add, 1, 0);
             this.ButtonLayout.Controls.Add(this.Cancel, 2, 0);
             this.ButtonLayout.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ButtonLayout.Location = new System.Drawing.Point(0, 247);
+            this.ButtonLayout.Location = new System.Drawing.Point(0, 402);
             this.ButtonLayout.Margin = new System.Windows.Forms.Padding(0);
             this.ButtonLayout.Name = "ButtonLayout";
             this.ButtonLayout.RowCount = 1;
             this.ButtonLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.ButtonLayout.Size = new System.Drawing.Size(352, 51);
+            this.ButtonLayout.Size = new System.Drawing.Size(352, 49);
             this.ButtonLayout.TabIndex = 1;
             // 
             // Add
@@ -92,7 +105,7 @@
             this.Add.Location = new System.Drawing.Point(96, 8);
             this.Add.Margin = new System.Windows.Forms.Padding(8);
             this.Add.Name = "Add";
-            this.Add.Size = new System.Drawing.Size(72, 35);
+            this.Add.Size = new System.Drawing.Size(72, 33);
             this.Add.TabIndex = 0;
             this.Add.Text = "Add";
             this.Add.UseVisualStyleBackColor = true;
@@ -108,7 +121,7 @@
             this.Cancel.Location = new System.Drawing.Point(184, 8);
             this.Cancel.Margin = new System.Windows.Forms.Padding(8);
             this.Cancel.Name = "Cancel";
-            this.Cancel.Size = new System.Drawing.Size(72, 35);
+            this.Cancel.Size = new System.Drawing.Size(72, 33);
             this.Cancel.TabIndex = 1;
             this.Cancel.Text = "Cancel";
             this.Cancel.UseVisualStyleBackColor = true;
@@ -128,23 +141,146 @@
             // 
             // Title
             // 
-            this.Title.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.Title.AutoSize = true;
             this.Title.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Title.Location = new System.Drawing.Point(6, 8);
+            this.Title.Location = new System.Drawing.Point(125, 8);
             this.Title.Name = "Title";
-            this.Title.Size = new System.Drawing.Size(88, 15);
+            this.Title.Size = new System.Drawing.Size(105, 15);
             this.Title.TabIndex = 0;
-            this.Title.Text = "Add New Event";
+            this.Title.Text = "Adding New Event";
+            this.Title.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.Title.MouseDown += new System.Windows.Forms.MouseEventHandler(this.GetMousePosition);
             this.Title.MouseMove += new System.Windows.Forms.MouseEventHandler(this.DragMouse);
+            // 
+            // InputLayout
+            // 
+            this.InputLayout.ColumnCount = 1;
+            this.InputLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.InputLayout.Controls.Add(this.TitleInputLayout, 0, 1);
+            this.InputLayout.Controls.Add(this.DateInputLayout, 0, 3);
+            this.InputLayout.Controls.Add(this.EventDetail, 0, 5);
+            this.InputLayout.Controls.Add(this.EventDetailLabel, 0, 4);
+            this.InputLayout.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.InputLayout.Location = new System.Drawing.Point(0, 30);
+            this.InputLayout.Margin = new System.Windows.Forms.Padding(0);
+            this.InputLayout.Name = "InputLayout";
+            this.InputLayout.RowCount = 6;
+            this.InputLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.InputLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
+            this.InputLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.InputLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
+            this.InputLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
+            this.InputLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 70F));
+            this.InputLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.InputLayout.Size = new System.Drawing.Size(352, 372);
+            this.InputLayout.TabIndex = 3;
+            // 
+            // TitleInputLayout
+            // 
+            this.TitleInputLayout.ColumnCount = 2;
+            this.TitleInputLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 21.30682F));
+            this.TitleInputLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 78.69318F));
+            this.TitleInputLayout.Controls.Add(this.TitleLabel, 0, 0);
+            this.TitleInputLayout.Controls.Add(this.EventTitle, 1, 0);
+            this.TitleInputLayout.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.TitleInputLayout.Location = new System.Drawing.Point(0, 20);
+            this.TitleInputLayout.Margin = new System.Windows.Forms.Padding(0);
+            this.TitleInputLayout.Name = "TitleInputLayout";
+            this.TitleInputLayout.RowCount = 1;
+            this.TitleInputLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.TitleInputLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.TitleInputLayout.Size = new System.Drawing.Size(352, 33);
+            this.TitleInputLayout.TabIndex = 0;
+            // 
+            // DateInputLayout
+            // 
+            this.DateInputLayout.ColumnCount = 2;
+            this.DateInputLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 21.30682F));
+            this.DateInputLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 78.69318F));
+            this.DateInputLayout.Controls.Add(this.DateLabel, 0, 0);
+            this.DateInputLayout.Controls.Add(this.dateTimePicker1, 1, 0);
+            this.DateInputLayout.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.DateInputLayout.Location = new System.Drawing.Point(0, 73);
+            this.DateInputLayout.Margin = new System.Windows.Forms.Padding(0);
+            this.DateInputLayout.Name = "DateInputLayout";
+            this.DateInputLayout.RowCount = 1;
+            this.DateInputLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.DateInputLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.DateInputLayout.Size = new System.Drawing.Size(352, 33);
+            this.DateInputLayout.TabIndex = 1;
+            // 
+            // EventDetail
+            // 
+            this.EventDetail.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.EventDetail.Location = new System.Drawing.Point(16, 142);
+            this.EventDetail.Margin = new System.Windows.Forms.Padding(16, 3, 16, 8);
+            this.EventDetail.Name = "EventDetail";
+            this.EventDetail.Size = new System.Drawing.Size(320, 222);
+            this.EventDetail.TabIndex = 2;
+            this.EventDetail.Text = "";
+            // 
+            // EventDetailLabel
+            // 
+            this.EventDetailLabel.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.EventDetailLabel.AutoSize = true;
+            this.EventDetailLabel.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.EventDetailLabel.Location = new System.Drawing.Point(121, 122);
+            this.EventDetailLabel.Name = "EventDetailLabel";
+            this.EventDetailLabel.Size = new System.Drawing.Size(109, 17);
+            this.EventDetailLabel.TabIndex = 3;
+            this.EventDetailLabel.Text = "Details (Optional)";
+            // 
+            // DateLabel
+            // 
+            this.DateLabel.AutoSize = true;
+            this.DateLabel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.DateLabel.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.DateLabel.Location = new System.Drawing.Point(8, 0);
+            this.DateLabel.Margin = new System.Windows.Forms.Padding(8, 0, 3, 0);
+            this.DateLabel.Name = "DateLabel";
+            this.DateLabel.Size = new System.Drawing.Size(63, 33);
+            this.DateLabel.TabIndex = 0;
+            this.DateLabel.Text = "Date";
+            this.DateLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // TitleLabel
+            // 
+            this.TitleLabel.AutoSize = true;
+            this.TitleLabel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.TitleLabel.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TitleLabel.Location = new System.Drawing.Point(8, 0);
+            this.TitleLabel.Margin = new System.Windows.Forms.Padding(8, 0, 3, 0);
+            this.TitleLabel.Name = "TitleLabel";
+            this.TitleLabel.Size = new System.Drawing.Size(63, 33);
+            this.TitleLabel.TabIndex = 0;
+            this.TitleLabel.Text = "Title";
+            this.TitleLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // EventTitle
+            // 
+            this.EventTitle.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.EventTitle.Location = new System.Drawing.Point(77, 3);
+            this.EventTitle.Margin = new System.Windows.Forms.Padding(3, 3, 30, 3);
+            this.EventTitle.MaxLength = 50;
+            this.EventTitle.Name = "EventTitle";
+            this.EventTitle.Size = new System.Drawing.Size(245, 29);
+            this.EventTitle.TabIndex = 1;
+            // 
+            // dateTimePicker1
+            // 
+            this.dateTimePicker1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dateTimePicker1.Location = new System.Drawing.Point(77, 3);
+            this.dateTimePicker1.Margin = new System.Windows.Forms.Padding(3, 3, 30, 3);
+            this.dateTimePicker1.Name = "dateTimePicker1";
+            this.dateTimePicker1.Size = new System.Drawing.Size(245, 29);
+            this.dateTimePicker1.TabIndex = 1;
             // 
             // AddEventForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 21F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(80)))), ((int)(((byte)(80)))));
-            this.ClientSize = new System.Drawing.Size(354, 300);
+            this.ClientSize = new System.Drawing.Size(354, 453);
             this.Controls.Add(this.MainPanel);
             this.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ForeColor = System.Drawing.SystemColors.ControlLightLight;
@@ -159,6 +295,12 @@
             this.ButtonLayout.ResumeLayout(false);
             this.TopPanel.ResumeLayout(false);
             this.TopPanel.PerformLayout();
+            this.InputLayout.ResumeLayout(false);
+            this.InputLayout.PerformLayout();
+            this.TitleInputLayout.ResumeLayout(false);
+            this.TitleInputLayout.PerformLayout();
+            this.DateInputLayout.ResumeLayout(false);
+            this.DateInputLayout.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -172,6 +314,15 @@
         private System.Windows.Forms.Button Cancel;
         private System.Windows.Forms.Panel TopPanel;
         private System.Windows.Forms.Label Title;
+        private System.Windows.Forms.TableLayoutPanel InputLayout;
+        private System.Windows.Forms.TableLayoutPanel TitleInputLayout;
+        private System.Windows.Forms.TableLayoutPanel DateInputLayout;
+        private System.Windows.Forms.RichTextBox EventDetail;
+        private System.Windows.Forms.Label EventDetailLabel;
+        private System.Windows.Forms.Label DateLabel;
+        private System.Windows.Forms.Label TitleLabel;
+        private System.Windows.Forms.TextBox EventTitle;
+        private System.Windows.Forms.DateTimePicker dateTimePicker1;
 
     }
 }

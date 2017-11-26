@@ -23,7 +23,7 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.MainPanel = new System.Windows.Forms.Panel();
             this.MainLayout = new System.Windows.Forms.TableLayoutPanel();
             this.ControlLayout = new System.Windows.Forms.TableLayoutPanel();
@@ -99,8 +99,9 @@
             this.Add.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.Add.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Add.Location = new System.Drawing.Point(3, 58);
+            this.Add.Margin = new System.Windows.Forms.Padding(3, 3, 8, 3);
             this.Add.Name = "Add";
-            this.Add.Size = new System.Drawing.Size(71, 29);
+            this.Add.Size = new System.Drawing.Size(66, 29);
             this.Add.TabIndex = 0;
             this.Add.Text = "Add";
             this.Add.UseVisualStyleBackColor = false;
@@ -116,8 +117,9 @@
             this.Edit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.Edit.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Edit.Location = new System.Drawing.Point(3, 93);
+            this.Edit.Margin = new System.Windows.Forms.Padding(3, 3, 8, 3);
             this.Edit.Name = "Edit";
-            this.Edit.Size = new System.Drawing.Size(71, 29);
+            this.Edit.Size = new System.Drawing.Size(66, 29);
             this.Edit.TabIndex = 1;
             this.Edit.Text = "Edit";
             this.Edit.UseVisualStyleBackColor = false;
@@ -132,8 +134,9 @@
             this.Delete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.Delete.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Delete.Location = new System.Drawing.Point(3, 128);
+            this.Delete.Margin = new System.Windows.Forms.Padding(3, 3, 8, 3);
             this.Delete.Name = "Delete";
-            this.Delete.Size = new System.Drawing.Size(71, 29);
+            this.Delete.Size = new System.Drawing.Size(66, 29);
             this.Delete.TabIndex = 2;
             this.Delete.Text = "Delete";
             this.Delete.UseVisualStyleBackColor = false;
@@ -169,10 +172,10 @@
             // 
             // EventList
             // 
-            dataGridViewCellStyle10.BackColor = System.Drawing.Color.DarkGray;
-            dataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.EventList.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle10;
-            this.EventList.BackgroundColor = System.Drawing.SystemColors.ControlDarkDark;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.DarkGray;
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.EventList.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            this.EventList.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(70)))), ((int)(((byte)(70)))), ((int)(((byte)(70)))));
             this.EventList.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.EventList.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
             this.EventList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
