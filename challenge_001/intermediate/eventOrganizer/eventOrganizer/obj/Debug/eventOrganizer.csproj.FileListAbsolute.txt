@@ -1,6 +1,9 @@
 D:\all_languages\reddit_challenges\challenge_001\intermediate\eventOrganizer\eventOrganizer\bin\Debug\eventOrganizer.exe.config
 D:\all_languages\reddit_challenges\challenge_001\intermediate\eventOrganizer\eventOrganizer\bin\Debug\eventOrganizer.exe
 D:\all_languages\reddit_challenges\challenge_001\intermediate\eventOrganizer\eventOrganizer\bin\Debug\eventOrganizer.pdb
-D:\all_languages\reddit_challenges\challenge_001\intermediate\eventOrganizer\eventOrganizer\obj\Debug\eventOrganizer.csprojResolveAssemblyReference.cache
+D:\all_languages\reddit_challenges\challenge_001\intermediate\eventOrganizer\eventOrganizer\obj\Debug\eventOrganizer.Properties.Resources.resources
+D:\all_languages\reddit_challenges\challenge_001\intermediate\eventOrganizer\eventOrganizer\obj\Debug\eventOrganizer.csproj.GenerateResource.Cache
 D:\all_languages\reddit_challenges\challenge_001\intermediate\eventOrganizer\eventOrganizer\obj\Debug\eventOrganizer.exe
 D:\all_languages\reddit_challenges\challenge_001\intermediate\eventOrganizer\eventOrganizer\obj\Debug\eventOrganizer.pdb
+D:\all_languages\reddit_challenges\challenge_001\intermediate\eventOrganizer\eventOrganizer\obj\Debug\eventOrganizer.EventOrganizer.resources
+D:\all_languages\reddit_challenges\challenge_001\intermediate\eventOrganizer\eventOrganizer\obj\Debug\eventOrganizer.csprojResolveAssemblyReference.cache
