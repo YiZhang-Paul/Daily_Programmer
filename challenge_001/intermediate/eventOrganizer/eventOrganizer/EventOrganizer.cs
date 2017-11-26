@@ -16,14 +16,15 @@ namespace eventOrganizer {
         public EventOrganizer() {
 
             InitializeComponent();
+            
         }
 
         private void LoadUI(object sender, EventArgs e) {
 
-            ResizeListHeader();
-            RemoveFocus();
             Buttons = new ButtonManager(new Button[] { Add, Edit, Delete });
             ToggleModificationKeys();
+            ResizeListHeader();
+            RemoveFocus();
         }
 
         private void ResizeListHeader() {
@@ -47,6 +48,12 @@ namespace eventOrganizer {
 
                 Buttons.Toggle(button);
             }
+        }
+
+        private void Add_Click(object sender, EventArgs e) {
+
+            var addEventForm = new AddEventForm();
+            addEventForm.Show();
         }
     }
 }

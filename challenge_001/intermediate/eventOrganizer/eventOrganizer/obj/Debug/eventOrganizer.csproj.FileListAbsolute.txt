@@ -7,3 +7,4 @@ D:\all_languages\reddit_challenges\challenge_001\intermediate\eventOrganizer\eve
 D:\all_languages\reddit_challenges\challenge_001\intermediate\eventOrganizer\eventOrganizer\obj\Debug\eventOrganizer.pdb
 D:\all_languages\reddit_challenges\challenge_001\intermediate\eventOrganizer\eventOrganizer\obj\Debug\eventOrganizer.EventOrganizer.resources
 D:\all_languages\reddit_challenges\challenge_001\intermediate\eventOrganizer\eventOrganizer\obj\Debug\eventOrganizer.csprojResolveAssemblyReference.cache
+D:\all_languages\reddit_challenges\challenge_001\intermediate\eventOrganizer\eventOrganizer\obj\Debug\eventOrganizer.AddEventForm.resources
