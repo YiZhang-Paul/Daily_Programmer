@@ -14,6 +14,17 @@ namespace eventOrganizer {
         public EventOrganizer() {
 
             InitializeComponent();
+            ResizeListHeader();
+        }
+
+        private void ResizeListHeader() {
+
+            var columns = EventList.Columns;
+
+            foreach(ColumnHeader column in columns) {
+
+                column.Width = EventList.Width / columns.Count;
+            }
         }
     }
 }
