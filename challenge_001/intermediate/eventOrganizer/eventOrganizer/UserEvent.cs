@@ -17,5 +17,15 @@ namespace eventOrganizer {
             Date = date;
             Description = description;
         }
+
+        public static bool IsValidTitle(string title) { 
+        
+            return title.Length > 0 && title.Length <= 50;
+        }
+
+        public static bool IsValidDate(DateTime date) {
+
+            return date >= DateTime.Today;
+        }
     }
 }

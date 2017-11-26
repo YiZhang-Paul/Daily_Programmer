@@ -34,7 +34,17 @@ namespace eventOrganizer {
 
         private void Add_Click(object sender, EventArgs e) {
 
-            this.Close();
+            string title = EventTitle.Text.Trim();
+            var date = EventDate.Value.Date;
+            //input validation
+            TitleErrorLabel.Visible = !UserEvent.IsValidTitle(title);
+            DateErrorLabel.Visible = !UserEvent.IsValidDate(date);
+
+            if(!TitleErrorLabel.Visible && !DateErrorLabel.Visible) {
+
+                var userEvent = new UserEvent(title, date, EventDetail.Text.Trim());
+                this.Close();
+            }
         }
 
         private void Cancel_Click(object sender, EventArgs e) {
