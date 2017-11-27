@@ -23,7 +23,9 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.MainPanel = new System.Windows.Forms.Panel();
             this.MainLayout = new System.Windows.Forms.TableLayoutPanel();
             this.ControlLayout = new System.Windows.Forms.TableLayoutPanel();
@@ -33,8 +35,6 @@
             this.DisplayLayout = new System.Windows.Forms.TableLayoutPanel();
             this.Title = new System.Windows.Forms.Label();
             this.EventList = new System.Windows.Forms.DataGridView();
-            this.EventTitle = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.EventDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.MainPanel.SuspendLayout();
             this.MainLayout.SuspendLayout();
             this.ControlLayout.SuspendLayout();
@@ -172,36 +172,31 @@
             // 
             // EventList
             // 
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.DarkGray;
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.EventList.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.DarkGray;
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.EventList.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle4;
             this.EventList.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(70)))), ((int)(((byte)(70)))), ((int)(((byte)(70)))));
             this.EventList.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.EventList.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
             this.EventList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.EventList.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.EventTitle,
-            this.EventDate});
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.EventList.DefaultCellStyle = dataGridViewCellStyle5;
             this.EventList.Dock = System.Windows.Forms.DockStyle.Fill;
             this.EventList.GridColor = System.Drawing.Color.LightSkyBlue;
             this.EventList.Location = new System.Drawing.Point(8, 41);
             this.EventList.Margin = new System.Windows.Forms.Padding(8);
             this.EventList.Name = "EventList";
             this.EventList.RowHeadersVisible = false;
+            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.EventList.RowsDefaultCellStyle = dataGridViewCellStyle6;
             this.EventList.Size = new System.Drawing.Size(289, 285);
             this.EventList.TabIndex = 3;
-            // 
-            // EventTitle
-            // 
-            this.EventTitle.HeaderText = "Title";
-            this.EventTitle.Name = "EventTitle";
-            this.EventTitle.ReadOnly = true;
-            // 
-            // EventDate
-            // 
-            this.EventDate.HeaderText = "Date";
-            this.EventDate.Name = "EventDate";
-            this.EventDate.ReadOnly = true;
             // 
             // EventOrganizer
             // 
@@ -217,6 +212,7 @@
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "EventOrganizer";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.EventOrganizer_FormClosed);
             this.Load += new System.EventHandler(this.LoadUI);
             this.MainPanel.ResumeLayout(false);
             this.MainLayout.ResumeLayout(false);
@@ -239,8 +235,6 @@
         private System.Windows.Forms.TableLayoutPanel DisplayLayout;
         private System.Windows.Forms.Label Title;
         private System.Windows.Forms.DataGridView EventList;
-        private System.Windows.Forms.DataGridViewTextBoxColumn EventTitle;
-        private System.Windows.Forms.DataGridViewTextBoxColumn EventDate;
     }
 }
 

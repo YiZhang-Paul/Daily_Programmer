@@ -24,9 +24,9 @@ namespace eventOrganizer {
         private void LoadUI(object sender, EventArgs e) {
 
             Buttons = new ButtonManager(new Button[] { Add, Edit, Delete });
-            UserEvents = new Dictionary<string, List<UserEvent>>();
             ToggleModificationKeys();
-            ResizeListHeader();
+            LoadEvents();
+            ListEvents();
         }
 
         private void ToggleModificationKeys() { 
@@ -65,22 +65,49 @@ namespace eventOrganizer {
             string date = userEvent.Date.ToShortDateString();
             UserEvents[date] = UserEvents.ContainsKey(date) ? UserEvents[date] : new List<UserEvent>();
             UserEvents[date].Add(userEvent);
-            SaveEvents();
+            ListEvents();
+        }
+
+        private void LoadEvents() {
+
+            if(!File.Exists("events.txt")) {
+            
+                UserEvents = new Dictionary<string,List<UserEvent>>();
+            }
+            else {
+                    
+                var formatter = new BinaryFormatter();
+            
+                using(var stream = new FileStream("events.txt", FileMode.Open, FileAccess.Read)) {
+
+                    UserEvents = (Dictionary<string, List<UserEvent>>)formatter.Deserialize(stream);
+                }
+            }
+        }
+
+        private void ListEvents() {
+
+            var table = new DataTable();
+            table.Columns.Add("Title");
+            table.Columns.Add("Date");
+
+            foreach(var pair in UserEvents) {
+            
+                foreach(var userEvent in pair.Value) {
+
+                    table.Rows.Add(userEvent.Title, userEvent.Date.ToShortDateString());
+                }
+            }
+
+            EventList.DataSource = table;
+            ResizeListHeader();
         }
 
         private void SaveEvents() {
 
-            var formatter = new BinaryFormatter();
-
             using(var stream = new FileStream("events.txt", FileMode.Create, FileAccess.Write)) {
 
-                foreach(var pair in UserEvents) {
-
-                    foreach(var userEvent in pair.Value) {
-
-                        formatter.Serialize(stream, userEvent);
-                    }
-                }
+                new BinaryFormatter().Serialize(stream, UserEvents);
             }
         }
 
@@ -89,6 +116,11 @@ namespace eventOrganizer {
             var addEventForm = new AddEventForm();
             addEventForm.Organizer = this;
             addEventForm.Show();
+        }
+
+        private void EventOrganizer_FormClosed(object sender, FormClosedEventArgs e) {
+
+            SaveEvents();
         }
     }
 }
