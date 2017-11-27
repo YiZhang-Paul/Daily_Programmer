@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace eventOrganizer {
     public partial class EventOrganizer : Form {
@@ -63,12 +65,29 @@ namespace eventOrganizer {
             string date = userEvent.Date.ToShortDateString();
             UserEvents[date] = UserEvents.ContainsKey(date) ? UserEvents[date] : new List<UserEvent>();
             UserEvents[date].Add(userEvent);
+            SaveEvents();
+        }
+
+        private void SaveEvents() {
+
+            var formatter = new BinaryFormatter();
+
+            using(var stream = new FileStream("events.txt", FileMode.Create, FileAccess.Write)) {
+
+                foreach(var pair in UserEvents) {
+
+                    foreach(var userEvent in pair.Value) {
+
+                        formatter.Serialize(stream, userEvent);
+                    }
+                }
+            }
         }
 
         private void Add_Click(object sender, EventArgs e) {
 
             var addEventForm = new AddEventForm();
-            addEventForm.ParentForm = this;
+            addEventForm.Organizer = this;
             addEventForm.Show();
         }
     }

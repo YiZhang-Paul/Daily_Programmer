@@ -13,7 +13,7 @@ namespace eventOrganizer {
 
         private Point MouseXY { get; set; }
 
-        public EventOrganizer ParentForm { get; set; }
+        public EventOrganizer Organizer { get; set; }
 
         public AddEventForm() {
 
@@ -36,13 +36,13 @@ namespace eventOrganizer {
 
         private void TryAddEvent(UserEvent userEvent) {
 
-            if(ParentForm.HasEvent(userEvent)) {
+            if(Organizer.HasEvent(userEvent)) {
 
                 MessageBox.Show("Event with Same Title and Date Already Exists.");
             }
             else {
 
-                ParentForm.AddEvent(userEvent);
+                Organizer.AddEvent(userEvent);
                 CloseTimer.Tick += this.CloseForm;
                 CloseTimer.Start();
             }

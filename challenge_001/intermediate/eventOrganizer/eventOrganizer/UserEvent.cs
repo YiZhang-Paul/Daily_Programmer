@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace eventOrganizer {
+
+    [Serializable]
     public class UserEvent {
 
         public string Title { get; private set; }
