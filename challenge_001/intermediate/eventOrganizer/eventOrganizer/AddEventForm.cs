@@ -42,16 +42,25 @@ namespace eventOrganizer {
 
         private void TryAddEvent(UserEvent userEvent) {
 
-            if(Organizer.HasEvent(userEvent)) {
+            if(Organizer.EventManager.HasEvent(userEvent)) {
 
                 MessageBox.Show("Event with Same Title and Date Already Exists.");
             }
             else {
 
-                Organizer.AddEvent(userEvent);
+                Organizer.EventManager.Add(userEvent);
+                Organizer.ListEvents();
                 CloseTimer.Tick += this.CloseForm;
                 CloseTimer.Start();
             }
+        }
+
+        protected bool ValidateInput(string title, DateTime date) {
+
+            TitleErrorLabel.Visible = !UserEvent.IsValidTitle(title);
+            DateErrorLabel.Visible = !UserEvent.IsValidDate(date);
+
+            return !TitleErrorLabel.Visible && !DateErrorLabel.Visible;
         }
 
         protected void CloseForm(object sender, EventArgs e) {
@@ -62,14 +71,6 @@ namespace eventOrganizer {
 
                 this.Close();
             }
-        }
-
-        protected bool ValidateInput(string title, DateTime date) {
-
-            TitleErrorLabel.Visible = !UserEvent.IsValidTitle(title);
-            DateErrorLabel.Visible = !UserEvent.IsValidDate(date);
-
-            return !TitleErrorLabel.Visible && !DateErrorLabel.Visible;
         }
 
         protected void Add_Click(object sender, EventArgs e) {

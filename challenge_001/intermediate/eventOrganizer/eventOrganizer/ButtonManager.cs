@@ -58,20 +58,5 @@ namespace eventOrganizer {
             button.FlatAppearance.MouseOverBackColor = Color.FromArgb(12, 12, 12);
             button.FlatAppearance.MouseDownBackColor = Color.FromArgb(12, 12, 12);
         }
-
-        public void Toggle(Button button) {
-
-            if(Status.ContainsKey(button)) {
-
-                if(!Status[button]) {
-
-                    Enable(button);
-                }
-                else {
-
-                    Disable(button);
-                }
-            }
-        }
     }
 }
