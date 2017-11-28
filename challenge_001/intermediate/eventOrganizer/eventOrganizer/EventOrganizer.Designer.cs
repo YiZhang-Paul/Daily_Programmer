@@ -23,9 +23,8 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.MainPanel = new System.Windows.Forms.Panel();
             this.MainLayout = new System.Windows.Forms.TableLayoutPanel();
             this.ControlLayout = new System.Windows.Forms.TableLayoutPanel();
@@ -172,31 +171,29 @@
             // 
             // EventList
             // 
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.DarkGray;
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.EventList.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle4;
+            this.EventList.AllowUserToAddRows = false;
+            this.EventList.AllowUserToDeleteRows = false;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.DarkGray;
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.EventList.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.EventList.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(70)))), ((int)(((byte)(70)))), ((int)(((byte)(70)))));
             this.EventList.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.EventList.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
             this.EventList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.EventList.DefaultCellStyle = dataGridViewCellStyle5;
             this.EventList.Dock = System.Windows.Forms.DockStyle.Fill;
             this.EventList.GridColor = System.Drawing.Color.LightSkyBlue;
             this.EventList.Location = new System.Drawing.Point(8, 41);
             this.EventList.Margin = new System.Windows.Forms.Padding(8);
+            this.EventList.MultiSelect = false;
             this.EventList.Name = "EventList";
+            this.EventList.ReadOnly = true;
             this.EventList.RowHeadersVisible = false;
-            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.EventList.RowsDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.EventList.RowsDefaultCellStyle = dataGridViewCellStyle2;
+            this.EventList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.EventList.Size = new System.Drawing.Size(289, 285);
             this.EventList.TabIndex = 3;
+            this.EventList.RowStateChanged += new System.Windows.Forms.DataGridViewRowStateChangedEventHandler(this.EventList_RowStateChanged);
             // 
             // EventOrganizer
             // 

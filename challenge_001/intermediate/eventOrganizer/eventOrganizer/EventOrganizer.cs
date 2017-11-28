@@ -29,11 +29,18 @@ namespace eventOrganizer {
             ListEvents();
         }
 
-        private void ToggleModificationKeys() { 
+        private void ToggleModificationKeys(bool enable = false) { 
         
             foreach(var button in new Button[] { Edit, Delete }) {
 
-                Buttons.Toggle(button);
+                if(enable) {
+
+                    Buttons.Enable(button);
+                }
+                else {
+
+                    Buttons.Disable(button);
+                }
             }
         }
 
@@ -100,6 +107,7 @@ namespace eventOrganizer {
             }
 
             EventList.DataSource = table;
+            EventList.ClearSelection();
             ResizeListHeader();
         }
 
@@ -121,6 +129,11 @@ namespace eventOrganizer {
         private void EventOrganizer_FormClosed(object sender, FormClosedEventArgs e) {
 
             SaveEvents();
+        }
+
+        private void EventList_RowStateChanged(object sender, DataGridViewRowStateChangedEventArgs e) {
+
+            ToggleModificationKeys(EventList.SelectedRows.Count > 0);
         }
     }
 }
