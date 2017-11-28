@@ -14,6 +14,12 @@ namespace eventOrganizer {
         private Point MouseXY { get; set; }
 
         public EventOrganizer Organizer { get; set; }
+        public Label TopLabel { get { return Title; } }
+        public TextBox TitleBox { get { return EventTitle; } }
+        public DateTimePicker DatePicker { get { return EventDate; } }
+        public RichTextBox DetailBox { get { return EventDetail; } }
+        public Button AddButton { get { return Add; } }
+        public Timer OnCloseTimer { get { return CloseTimer; } }
 
         public AddEventForm() {
 
@@ -48,7 +54,7 @@ namespace eventOrganizer {
             }
         }
 
-        private void CloseForm(object sender, EventArgs e) {
+        protected void CloseForm(object sender, EventArgs e) {
 
             this.Opacity -= 0.05;
 
@@ -58,15 +64,20 @@ namespace eventOrganizer {
             }
         }
 
-        private void Add_Click(object sender, EventArgs e) {
+        protected bool ValidateInput(string title, DateTime date) {
 
-            string title = EventTitle.Text.Trim();
-            var date = EventDate.Value.Date;
-            //input validation
             TitleErrorLabel.Visible = !UserEvent.IsValidTitle(title);
             DateErrorLabel.Visible = !UserEvent.IsValidDate(date);
 
-            if(!TitleErrorLabel.Visible && !DateErrorLabel.Visible) {
+            return !TitleErrorLabel.Visible && !DateErrorLabel.Visible;
+        }
+
+        protected void Add_Click(object sender, EventArgs e) {
+
+            string title = EventTitle.Text.Trim();
+            var date = EventDate.Value.Date;
+
+            if(ValidateInput(title, date)) {
 
                 TryAddEvent(new UserEvent(title, date, EventDetail.Text.Trim()));
             }

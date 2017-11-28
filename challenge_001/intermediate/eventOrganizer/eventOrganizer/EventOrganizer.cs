@@ -75,6 +75,13 @@ namespace eventOrganizer {
             ListEvents();
         }
 
+        public void UpdateEvent(UserEvent userEvent, string title, DateTime date, string description) {
+
+            DeleteEvent(userEvent);
+            AddEvent(new UserEvent(title, date, description));
+            ListEvents();
+        }
+
         private void DeleteEvent(UserEvent userEvent) {
 
             string date = userEvent.Date.ToShortDateString();
@@ -153,9 +160,21 @@ namespace eventOrganizer {
             addEventForm.Show();
         }
 
+        private void Edit_Click(object sender, EventArgs e) {
+
+            if(Buttons.IsEnabled((Button)sender)) {
+
+                var editEventForm = new EditEventForm();
+                editEventForm.Organizer = this;
+                editEventForm.InEdit = GetSelectedEvent();
+                editEventForm.LoadForm();
+                editEventForm.Show();
+            }
+        }
+
         private void Delete_Click(object sender, EventArgs e) {
 
-            if(Buttons.IsEnabled(((Button)sender))) {
+            if(Buttons.IsEnabled((Button)sender)) {
 
                 DeleteEvent(GetSelectedEvent());
             }

@@ -151,11 +151,11 @@
             // 
             this.Title.AutoSize = true;
             this.Title.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Title.Location = new System.Drawing.Point(125, 8);
+            this.Title.Location = new System.Drawing.Point(135, 8);
             this.Title.Name = "Title";
-            this.Title.Size = new System.Drawing.Size(105, 15);
+            this.Title.Size = new System.Drawing.Size(88, 15);
             this.Title.TabIndex = 0;
-            this.Title.Text = "Adding New Event";
+            this.Title.Text = "Add New Event";
             this.Title.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.Title.MouseDown += new System.Windows.Forms.MouseEventHandler(this.GetMousePosition);
             this.Title.MouseMove += new System.Windows.Forms.MouseEventHandler(this.DragMouse);
