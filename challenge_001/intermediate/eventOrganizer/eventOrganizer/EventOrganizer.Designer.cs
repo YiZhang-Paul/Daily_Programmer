@@ -23,8 +23,8 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.MainPanel = new System.Windows.Forms.Panel();
             this.MainLayout = new System.Windows.Forms.TableLayoutPanel();
             this.ControlLayout = new System.Windows.Forms.TableLayoutPanel();
@@ -139,6 +139,7 @@
             this.Delete.TabIndex = 2;
             this.Delete.Text = "Delete";
             this.Delete.UseVisualStyleBackColor = false;
+            this.Delete.Click += new System.EventHandler(this.Delete_Click);
             // 
             // DisplayLayout
             // 
@@ -173,9 +174,9 @@
             // 
             this.EventList.AllowUserToAddRows = false;
             this.EventList.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.DarkGray;
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.EventList.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.DarkGray;
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.EventList.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle3;
             this.EventList.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(70)))), ((int)(((byte)(70)))), ((int)(((byte)(70)))));
             this.EventList.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.EventList.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
@@ -188,8 +189,8 @@
             this.EventList.Name = "EventList";
             this.EventList.ReadOnly = true;
             this.EventList.RowHeadersVisible = false;
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.EventList.RowsDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.EventList.RowsDefaultCellStyle = dataGridViewCellStyle4;
             this.EventList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.EventList.Size = new System.Drawing.Size(289, 285);
             this.EventList.TabIndex = 3;

@@ -43,6 +43,7 @@ namespace eventOrganizer {
 
         public void Enable(Button button) {
 
+            SetStatus(button, true);
             button.FlatAppearance.BorderSize = 1;
             button.ForeColor = SystemColors.ControlLightLight;
             button.FlatAppearance.MouseOverBackColor = Color.RoyalBlue;
@@ -51,6 +52,7 @@ namespace eventOrganizer {
 
         public void Disable(Button button) {
 
+            SetStatus(button, false);
             button.FlatAppearance.BorderSize = 0;
             button.ForeColor = SystemColors.WindowFrame;
             button.FlatAppearance.MouseOverBackColor = Color.FromArgb(12, 12, 12);
@@ -61,9 +63,7 @@ namespace eventOrganizer {
 
             if(Status.ContainsKey(button)) {
 
-                Status[button] = !Status[button];
-
-                if(Status[button]) {
+                if(!Status[button]) {
 
                     Enable(button);
                 }

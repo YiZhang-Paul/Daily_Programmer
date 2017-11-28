@@ -48,6 +48,16 @@ namespace eventOrganizer {
             }
         }
 
+        private void CloseForm(object sender, EventArgs e) {
+
+            this.Opacity -= 0.05;
+
+            if(this.Opacity <= 0.85) {
+
+                this.Close();
+            }
+        }
+
         private void Add_Click(object sender, EventArgs e) {
 
             string title = EventTitle.Text.Trim();
@@ -66,16 +76,6 @@ namespace eventOrganizer {
 
             CloseTimer.Tick += this.CloseForm;
             CloseTimer.Start();
-        }
-
-        private void CloseForm(object sender, EventArgs e) {
-
-            this.Opacity -= 0.05;
-
-            if(this.Opacity <= 0.85) {
-
-                this.Close();
-            }
         }
     }
 }

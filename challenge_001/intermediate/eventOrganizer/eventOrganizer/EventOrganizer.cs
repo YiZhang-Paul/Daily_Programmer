@@ -75,6 +75,19 @@ namespace eventOrganizer {
             ListEvents();
         }
 
+        private void DeleteEvent(UserEvent userEvent) {
+
+            string date = userEvent.Date.ToShortDateString();
+            UserEvents[date].Remove(userEvent);
+
+            if(UserEvents[date].Count == 0) {
+
+                UserEvents.Remove(date);
+            }
+
+            ListEvents();
+        }
+
         private void LoadEvents() {
 
             if(!File.Exists("events.txt")) {
@@ -119,11 +132,33 @@ namespace eventOrganizer {
             }
         }
 
+        private UserEvent GetSelectedEvent() { 
+        
+            if(EventList.SelectedRows.Count > 0) {
+
+                var row = EventList.SelectedRows[0];
+                string title = row.Cells[0].Value.ToString();
+                string date = row.Cells[1].Value.ToString();
+
+                return UserEvents[date].First(userEvent => userEvent.Title == title);
+            }
+
+            return null;
+        }
+
         private void Add_Click(object sender, EventArgs e) {
 
             var addEventForm = new AddEventForm();
             addEventForm.Organizer = this;
             addEventForm.Show();
+        }
+
+        private void Delete_Click(object sender, EventArgs e) {
+
+            if(Buttons.IsEnabled(((Button)sender))) {
+
+                DeleteEvent(GetSelectedEvent());
+            }
         }
 
         private void EventOrganizer_FormClosed(object sender, FormClosedEventArgs e) {
