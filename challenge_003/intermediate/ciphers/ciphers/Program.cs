@@ -21,7 +21,7 @@ namespace ciphers {
             return letter == Char.ToUpper(letter);
         }
 
-        private static char EncodeLetter(char letter, int key) {
+        private static char ShiftLetter(char letter, int key) {
 
             int baseCode = IsUpperCase(letter) ? 65 : 97;
             int charCode = Char.ConvertToUtf32(letter.ToString(), 0);
@@ -31,12 +31,50 @@ namespace ciphers {
 
         private static string Encode(string text, int key) {
 
-            return Regex.Replace(text, "[a-zA-Z]", match => EncodeLetter(match.Value[0], key).ToString());
+            return Regex.Replace(text, ".", match => {
+
+                char character = match.Value[0];
+
+                return Char.IsLetter(character) ? ShiftLetter(character, key).ToString() : ShiftCharacter(character, key).ToString();
+            });
         }
 
         private static string Decode(string text, int key) {
 
             return Encode(text, 26 - key);
+        }
+
+        private static char ShiftCharacter(char character, int key) { 
+        
+            int charCode = Char.ConvertToUtf32(character.ToString(), 0);
+
+            while(key != 0) {
+            
+                if(charCode + key > 127) {
+
+                    key -= 127 - charCode + 1;
+                    charCode = 0;
+                    continue;
+                }
+
+                if(charCode + key > 64) {
+
+                    key -= 64 - charCode + 1;
+                    charCode = 91;
+                    continue;
+                }
+
+                if(charCode + key > 96) {
+
+                    key -= 96 - charCode + 1;
+                    charCode = 123;
+                    continue;
+                }
+
+                charCode += key;
+            }
+
+            return Char.ConvertFromUtf32(charCode)[0];
         }
     }
 }
