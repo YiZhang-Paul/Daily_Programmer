@@ -1,1 +1,6 @@
 D:\all_languages\reddit_challenges\challenge_003\intermediate\ciphers\ciphers\bin\Debug\ciphers.exe.config
+D:\all_languages\reddit_challenges\challenge_003\intermediate\ciphers\ciphers\obj\Debug\ciphers.csprojResolveAssemblyReference.cache
+D:\all_languages\reddit_challenges\challenge_003\intermediate\ciphers\ciphers\bin\Debug\ciphers.exe
+D:\all_languages\reddit_challenges\challenge_003\intermediate\ciphers\ciphers\bin\Debug\ciphers.pdb
+D:\all_languages\reddit_challenges\challenge_003\intermediate\ciphers\ciphers\obj\Debug\ciphers.exe
+D:\all_languages\reddit_challenges\challenge_003\intermediate\ciphers\ciphers\obj\Debug\ciphers.pdb
