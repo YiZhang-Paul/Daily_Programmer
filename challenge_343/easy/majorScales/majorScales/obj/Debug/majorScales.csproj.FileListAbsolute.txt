@@ -1,0 +1,6 @@
+D:\all_languages\reddit_challenges\challenge_343\easy\majorScales\majorScales\bin\Debug\majorScales.exe.config
+D:\all_languages\reddit_challenges\challenge_343\easy\majorScales\majorScales\obj\Debug\majorScales.csprojResolveAssemblyReference.cache
+D:\all_languages\reddit_challenges\challenge_343\easy\majorScales\majorScales\bin\Debug\majorScales.exe
+D:\all_languages\reddit_challenges\challenge_343\easy\majorScales\majorScales\bin\Debug\majorScales.pdb
+D:\all_languages\reddit_challenges\challenge_343\easy\majorScales\majorScales\obj\Debug\majorScales.exe
+D:\all_languages\reddit_challenges\challenge_343\easy\majorScales\majorScales\obj\Debug\majorScales.pdb
