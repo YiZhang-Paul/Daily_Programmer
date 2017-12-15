@@ -1,0 +1,6 @@
+D:\all_languages\reddit_challenges\challenge_344\easy\baumSweetSequence\baumSweetSequence\bin\Debug\baumSweetSequence.exe.config
+D:\all_languages\reddit_challenges\challenge_344\easy\baumSweetSequence\baumSweetSequence\bin\Debug\baumSweetSequence.exe
+D:\all_languages\reddit_challenges\challenge_344\easy\baumSweetSequence\baumSweetSequence\bin\Debug\baumSweetSequence.pdb
+D:\all_languages\reddit_challenges\challenge_344\easy\baumSweetSequence\baumSweetSequence\obj\Debug\baumSweetSequence.csprojResolveAssemblyReference.cache
+D:\all_languages\reddit_challenges\challenge_344\easy\baumSweetSequence\baumSweetSequence\obj\Debug\baumSweetSequence.exe
+D:\all_languages\reddit_challenges\challenge_344\easy\baumSweetSequence\baumSweetSequence\obj\Debug\baumSweetSequence.pdb
