@@ -16,6 +16,16 @@ namespace polynomialDivision {
             Power = power;
         }
 
+        public static Variable operator *(Variable variable1, Variable variable2) {
+
+            return new Variable(variable1.Letter, variable1.Power + variable2.Power);
+        }
+
+        public static Variable operator /(Variable variable1, Variable variable2) {
+
+            return new Variable(variable1.Letter, variable1.Power - variable2.Power);
+        }
+
         public override string ToString() {
             
             return Letter + (Power == 1 ? "" : "^" + Power);

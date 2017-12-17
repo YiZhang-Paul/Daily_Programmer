@@ -16,6 +16,26 @@ namespace polynomialDivision {
             Variable = variable;
         }
 
+        public static Term operator +(Term term1, Term term2) {
+
+            return new Term(term1.Coefficient + term2.Coefficient, term1.Variable);
+        }
+
+        public static Term operator -(Term term1, Term term2) {
+
+            return new Term(term1.Coefficient - term2.Coefficient, term1.Variable);
+        }
+
+        public static Term operator *(Term term1, Term term2) {
+
+            return new Term(term1.Coefficient * term2.Coefficient, term1.Variable * term2.Variable);
+        }
+
+        public static Term operator /(Term term1, Term term2) {
+
+            return new Term(term1.Coefficient / term2.Coefficient, term1.Variable / term2.Variable);
+        }
+
         public override string ToString() {
 
             string coefficient = Math.Abs(Coefficient) == 1 ? "" : Math.Abs(Coefficient).ToString();
