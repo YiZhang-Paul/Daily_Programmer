@@ -15,5 +15,13 @@ namespace polynomialDivision {
             Coefficient = coefficient;
             Variable = variable;
         }
+
+        public override string ToString() {
+
+            string coefficient = Coefficient == 1 ? 
+                "" : ((Coefficient > 0 ? "+" : "-") + " " + Math.Abs(Coefficient));
+
+            return coefficient + Variable.ToString();
+        }
     }
 }

@@ -15,5 +15,10 @@ namespace polynomialDivision {
             Letter = letter;
             Power = power;
         }
+
+        public override string ToString() {
+            
+            return Letter + "^" + Power;
+        }
     }
 }
