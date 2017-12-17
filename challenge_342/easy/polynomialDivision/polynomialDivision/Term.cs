@@ -8,12 +8,12 @@ namespace polynomialDivision {
     class Term {
 
         public decimal Coefficient { get; private set; }
-        public Variable[] Variables { get; private set; }
+        public Variable Variable { get; private set; }
 
-        public Term(decimal coefficient, Variable[] variables) {
+        public Term(decimal coefficient, Variable variable) {
 
             Coefficient = coefficient;
-            Variables = variables;
+            Variable = variable;
         }
     }
 }

@@ -1,1 +1,6 @@
 D:\all_languages\reddit_challenges\challenge_342\easy\polynomialDivision\polynomialDivision\bin\Debug\polynomialDivision.exe.config
+D:\all_languages\reddit_challenges\challenge_342\easy\polynomialDivision\polynomialDivision\bin\Debug\polynomialDivision.exe
+D:\all_languages\reddit_challenges\challenge_342\easy\polynomialDivision\polynomialDivision\bin\Debug\polynomialDivision.pdb
+D:\all_languages\reddit_challenges\challenge_342\easy\polynomialDivision\polynomialDivision\obj\Debug\polynomialDivision.csprojResolveAssemblyReference.cache
+D:\all_languages\reddit_challenges\challenge_342\easy\polynomialDivision\polynomialDivision\obj\Debug\polynomialDivision.exe
+D:\all_languages\reddit_challenges\challenge_342\easy\polynomialDivision\polynomialDivision\obj\Debug\polynomialDivision.pdb
