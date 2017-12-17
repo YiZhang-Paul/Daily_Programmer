@@ -49,25 +49,25 @@ namespace polynomialDivision {
                         .ToArray();
         }
 
-        private Term ReadTermString(string expression) {
+        private Term ReadTermString(string term) {
 
-            string coefficient = Regex.Match(expression, @"[+-]?\d*\.?\d+").Value;
-            string variable = Regex.Match(expression, "[a-zA-Z]").Value;
-            string power = Regex.Match(expression, @"(?<=\^)\d+").Value;
+            string coefficient = Regex.Match(term, @"(?<!\^)[+-]?\d*\.?\d*").Value.Trim();
+            char variable = Regex.Match(term, "[a-zA-Z]").Value[0];
+            string power = Regex.Match(term, @"(?<=\^)\d+").Value;
 
             return new Term(
-            
-                coefficient == "" ? 1 : decimal.Parse(coefficient),
-                new Variable(variable[0], power == "" ? 1 : int.Parse(power))
+
+                decimal.Parse(Regex.IsMatch(coefficient, @"\d") ? coefficient : coefficient + 1),
+                new Variable(variable, power == "" ? 1 : int.Parse(power))
             );
         }
 
         public override string ToString() {
 
-            string constant = Constant == 0 ? 
-                "" : ((Constant > 0 ? "+" : "-") + " " + Math.Abs(Constant));
+            string terms = string.Join("", Terms.Select(term => term.ToString())).Substring(1);
+            string constant = Constant == 0 ? "" : (Constant > 0 ? "+" : "-") + Math.Abs(Constant);
 
-            return string.Join(" ", Terms.Select(term => term.ToString())).Substring(2) + " " + constant;
+            return Regex.Replace(terms + constant, @"(?<!\^)[+-]", match => " " + match.Value + " ");
         }
     }
 }

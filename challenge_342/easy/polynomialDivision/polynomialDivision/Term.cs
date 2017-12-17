@@ -18,10 +18,9 @@ namespace polynomialDivision {
 
         public override string ToString() {
 
-            string coefficient = Coefficient == 1 ? 
-                "" : ((Coefficient > 0 ? "+" : "-") + " " + Math.Abs(Coefficient));
+            string coefficient = Math.Abs(Coefficient) == 1 ? "" : Math.Abs(Coefficient).ToString();
 
-            return coefficient + Variable.ToString();
+            return (Coefficient > 0 ? "+" : "-") + coefficient + Variable.ToString();
         }
     }
 }

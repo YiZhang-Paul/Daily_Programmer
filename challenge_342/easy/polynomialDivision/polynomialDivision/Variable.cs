@@ -18,7 +18,7 @@ namespace polynomialDivision {
 
         public override string ToString() {
             
-            return Letter + "^" + Power;
+            return Letter + (Power == 1 ? "" : "^" + Power);
         }
     }
 }
