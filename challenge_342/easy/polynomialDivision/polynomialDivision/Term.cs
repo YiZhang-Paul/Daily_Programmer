@@ -9,6 +9,7 @@ namespace polynomialDivision {
 
         public decimal Coefficient { get; private set; }
         public Variable Variable { get; private set; }
+        public int Order { get { return Variable.Power; } }
 
         public Term(decimal coefficient, Variable variable) {
 
@@ -24,6 +25,11 @@ namespace polynomialDivision {
         public static Term operator -(Term term1, Term term2) {
 
             return new Term(term1.Coefficient - term2.Coefficient, term1.Variable);
+        }
+
+        public static Term operator *(Term term, decimal constant) {
+
+            return new Term(term.Coefficient * constant, term.Variable);
         }
 
         public static Term operator *(Term term1, Term term2) {

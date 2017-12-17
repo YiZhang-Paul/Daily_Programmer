@@ -8,13 +8,26 @@ using System.Text.RegularExpressions;
 namespace polynomialDivision {
     class PolynomialExpression {
 
-        public Term[] Terms { get; private set; }
-        public decimal Constant { get; private set; }
+        public List<Term> Terms { get; private set; }
 
-        public PolynomialExpression(Term[] terms, int constant) {
+        public Term MaxOrder {
+
+            get { 
+            
+                if(Terms.Count == 0) {
+
+                    return null;
+                }
+
+                int maxOrder = Terms.Max(term => term.Variable.Power);
+
+                return Terms.Find(term => term.Variable.Power == maxOrder);
+            }
+        }
+        
+        public PolynomialExpression(List<Term> terms) {
 
             Terms = terms;
-            Constant = constant;
         }
 
         public PolynomialExpression(string expression) {
@@ -22,28 +35,65 @@ namespace polynomialDivision {
             ReadExpression(expression);
         }
 
-        private void ReadExpression(string expression) {
+        public static PolynomialExpression operator -(PolynomialExpression expression, Term term) {
 
-            var terms = new List<Term>();
+            var copy = new PolynomialExpression(expression.ToString());
+            var sameOrderIndex = copy.FindTerm(term.Order);
 
-            foreach(var term in GetTermString(expression)) {
+            if(sameOrderIndex != -1) {
 
-                if(Regex.IsMatch(term, @"[a-zA-Z]")) {
+                if(copy.Terms[sameOrderIndex].ToString() == term.ToString()) {
 
-                    terms.Add(ReadTermString(term));
+                    copy.Terms.RemoveAt(sameOrderIndex);
                 }
                 else {
 
-                    Constant = decimal.Parse(term);
+                    copy.Terms[sameOrderIndex] -= term;
                 }
             }
+            else {
 
-            Terms = terms.ToArray();
+                copy.Terms.Add(term * -1);
+            }
+
+            return copy;
+        }
+
+        public static PolynomialExpression operator -(PolynomialExpression expression1, PolynomialExpression expression2) {
+
+            var copy = new PolynomialExpression(expression1.ToString());
+
+            foreach(var term in expression2.Terms) {
+
+                copy -= term;
+            }
+
+            return copy;
+        }
+
+        public static PolynomialExpression operator *(PolynomialExpression expression, Term term) {
+
+            return new PolynomialExpression(expression.Terms.Select(curTerm => curTerm * term).ToList());
+        }
+
+        private int FindTerm(int order) {
+
+            return Terms.FindIndex(term => term.Variable.Power == order);
+        }
+
+        private void ReadExpression(string expression) {
+
+            Terms = new List<Term>();
+
+            foreach(var term in GetTermString(expression)) {
+
+                Terms.Add(ReadTermString(term));
+            }
         }
 
         private string[] GetTermString(string expression) {
 
-            return Regex.Matches(expression.ToLower(), @"[+-]?\s*\S+\s*")
+            return Regex.Matches(expression.ToLower(), @"\s*[+-]?\s*\S+\s*")
                         .Cast<Match>()
                         .Select(match => Regex.Replace(match.Value, @"\s", ""))
                         .ToArray();
@@ -52,22 +102,27 @@ namespace polynomialDivision {
         private Term ReadTermString(string term) {
 
             string coefficient = Regex.Match(term, @"(?<!\^)[+-]?\d*\.?\d*").Value.Trim();
-            char variable = Regex.Match(term, "[a-zA-Z]").Value[0];
+            string variable = Regex.Match(term, "[a-zA-Z]").Value;
             string power = Regex.Match(term, @"(?<=\^)\d+").Value;
 
             return new Term(
 
                 decimal.Parse(Regex.IsMatch(coefficient, @"\d") ? coefficient : coefficient + 1),
-                new Variable(variable, power == "" ? 1 : int.Parse(power))
+                new Variable(variable == "" ? '\0' : variable[0], power == "" ? (variable == "" ? 0 : 1) : int.Parse(power))
             );
         }
 
         public override string ToString() {
 
-            string terms = string.Join("", Terms.Select(term => term.ToString())).Substring(1);
-            string constant = Constant == 0 ? "" : (Constant > 0 ? "+" : "-") + Math.Abs(Constant);
+            var expressions = Terms.OrderByDescending(term => term.Order);
+            string result = string.Join("", expressions.Select(term => term.ToString()));
+            result = Regex.Replace(result, @"(?<!\^)[+-]", match => " " + match.Value + " ");
+            result = Regex.Replace(result, @"^\s\+\s", "");
+            result = Regex.Replace(result, @"^\s\-\s", "-");
+            result = Regex.Replace(result, @"\^1(?!\d)", "");
+            result = Regex.Replace(result, @".\^0", "");
 
-            return Regex.Replace(terms + constant, @"(?<!\^)[+-]", match => " " + match.Value + " ");
+            return result == "-0" ? "0" : result;
         }
     }
 }
