@@ -19,9 +19,9 @@ namespace polynomialDivision {
                     return null;
                 }
 
-                int maxOrder = Terms.Max(term => term.Variable.Power);
+                int maxOrder = Terms.Max(term => term.Order);
 
-                return Terms.Find(term => term.Variable.Power == maxOrder);
+                return Terms.Find(term => term.Order == maxOrder);
             }
         }
         
@@ -78,7 +78,7 @@ namespace polynomialDivision {
 
         private int FindTerm(int order) {
 
-            return Terms.FindIndex(term => term.Variable.Power == order);
+            return Terms.FindIndex(term => term.Order == order);
         }
 
         private void ReadExpression(string expression) {

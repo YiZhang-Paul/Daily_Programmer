@@ -44,7 +44,16 @@ namespace polynomialDivision {
 
         public override string ToString() {
 
-            string coefficient = Math.Abs(Coefficient) == 1 ? "" : Math.Abs(Coefficient).ToString();
+            string coefficient;
+
+            if(Math.Abs(Coefficient) == 1) {
+
+                coefficient = Order == 0 ? "1" : "";
+            }
+            else {
+
+                coefficient = Math.Abs(Coefficient).ToString();
+            }
 
             return (Coefficient > 0 ? "+" : "-") + coefficient + Variable.ToString();
         }
