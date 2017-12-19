@@ -77,33 +77,34 @@ namespace musicalDice {
             return measures.ToArray();
         }
 
-        private string[] GetMeasure(string[] oldComposition, int oldMeasure) {
+        private double GetBeat(string note) {
 
-            double startBeat = (oldMeasure - 1) * 3;
-            double endBeat = startBeat + 2;
-            int index = Array.FindIndex(oldComposition, beat => Regex.IsMatch(beat, @"\s" + startBeat + @"\s"));
-            double currentBeat = double.Parse(Regex.Match(oldComposition[index], @"(?<=\s)\d*\.?\d+(?=\s)").Value);
+            return double.Parse(Regex.Match(note, @"(?<=\s)\d*\.?\d+(?=\s)").Value);
+        }
+
+        private string[] GetMeasure(string[] composition, int measureNumber) {
+
+            double startBeat = (measureNumber - 1) * 3;
+            int index = Array.FindIndex(composition, note => GetBeat(note) == startBeat);
             var measure = new List<string>();
+            double currentBeat = GetBeat(composition[index]);
 
-            while(currentBeat >= startBeat && currentBeat <= endBeat) {
+            while(currentBeat >= startBeat && currentBeat <= startBeat + 3 && index < composition.Length - 1) {
             
-                measure.Add(oldComposition[index++]);
-                currentBeat = Math.Floor(double.Parse(Regex.Match(oldComposition[index], @"(?<=\s)\d*\.?\d+(?=\s)").Value));
+                measure.Add(composition[index++]);
+                currentBeat = GetBeat(composition[index]);
             }
 
             return measure.ToArray();
         }
 
-        private string[] ConvertMeasure(string[] oldComposition, int oldMeasure, int newMeasure) {
+        private string[] ConvertMeasure(string[] composition, int oldMeasure, int newMeasure) {
 
-            var measure = GetMeasure(oldComposition, oldMeasure);
+            return GetMeasure(composition, oldMeasure).Select(note => {
 
-            return measure.Select(beat => {
+                double newBeat = GetBeat(note) - (oldMeasure - newMeasure) * 3;
 
-                double oldBeat = double.Parse(Regex.Match(beat, @"(?<=\s)\d*\.?\d+(?=\s)").Value);
-                double newBeat = oldBeat - (oldMeasure - newMeasure) * 3;
-
-                return Regex.Replace(beat, @"(?<=\s)\d*\.?\d+(?=\s)", newBeat.ToString());
+                return Regex.Replace(note, @"(?<=\s)\d*\.?\d+(?=\s)", newBeat.ToString());
 
             }).ToArray();
         }

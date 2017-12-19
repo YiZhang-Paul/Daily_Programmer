@@ -8,6 +8,7 @@ namespace musicalDice {
     class Program {
         static void Main(string[] args) {
 
+            //challenge input
             var game = new MozartDiceGame();
             Console.WriteLine(game.BuildComposition());
         }
