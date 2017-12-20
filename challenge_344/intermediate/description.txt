@@ -1,5 +1,7 @@
 #344[Intermediate] Banker's Algorithm
 
+All Done
+
 url: https://www.reddit.com/r/dailyprogrammer/comments/7jkfu5/20171213_challenge_344_intermediate_bankers/
 
 Description:

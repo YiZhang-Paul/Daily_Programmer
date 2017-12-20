@@ -9,8 +9,17 @@ namespace bankerAlgorithm {
     class Program {
         static void Main(string[] args) {
             
-            //challenge input
-            var allocator = new ProcessManager(ReadFile("algorithm.txt"));
+            //challenge & bonus input
+            var manager = new ProcessManager(ReadFile("algorithm.txt"));
+
+            try {
+
+                Console.WriteLine(string.Join(", ", manager.GetProcessOrder().Select(process => process.Name)));
+            }
+            catch(Exception exception) {
+
+                Console.WriteLine(exception.Message);
+            }
         }
 
         private static string ReadFile(string fileName) {

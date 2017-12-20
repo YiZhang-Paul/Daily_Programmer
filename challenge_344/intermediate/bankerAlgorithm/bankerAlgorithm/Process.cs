@@ -7,11 +7,13 @@ using System.Threading.Tasks;
 namespace bankerAlgorithm {
     class Process {
 
-        private int[] RequiredResources { get; set; }
-        private int[] AssignedResources { get; set; }
+        public string Name { get; private set; }
+        public int[] RequiredResources { get; private set; }
+        public int[] AssignedResources { get; private set; }
 
-        public Process(int[] requiredResources) {
+        public Process(string name, int[] requiredResources) {
 
+            Name = name;
             RequiredResources = requiredResources;
             AssignedResources = new int[3];
         }
@@ -22,6 +24,13 @@ namespace bankerAlgorithm {
 
                 AssignedResources[i] += resources[i];
             }
+        }
+
+        public void ReleaseResource(Allocator allocator) { 
+        
+            allocator.ReceiveResource(AssignedResources);
+            //clear all assigned resources
+            AssignedResources = AssignedResources.Select(slot => 0).ToArray();
         }
     }
 }

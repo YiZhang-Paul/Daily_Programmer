@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace bankerAlgorithm {
     class Allocator {
 
-        private int[] Resources { get; set; }
+        public int[] Resources { get; private set; }
 
         public Allocator(int[] resources) {
 
@@ -23,13 +23,13 @@ namespace bankerAlgorithm {
         }
 
         public void Allocate(Process process, int[] resources) {
+            
+            process.ReceiveResource(resources);
 
             for(int i = 0; i < resources.Length; i++) {
 
                 Resources[i] -= resources[i];
             }
-
-            process.ReceiveResource(resources);
         }
     }
 }
