@@ -13,7 +13,8 @@ namespace bankerAlgorithm {
 
         public ProcessManager(string algorithm) {
 
-            ReadAlgorithm(algorithm);
+            Allocator = CreateAllocator(algorithm);
+            Processes = CreateProcesses(algorithm);
         }
 
         private int[] ReadNumbers(string numbers) {
@@ -24,23 +25,33 @@ namespace bankerAlgorithm {
                         .ToArray();
         }
 
-        private void ReadAlgorithm(string algorithm) {
+        private Allocator CreateAllocator(string algorithm) {
+
+            var allocations = algorithm.Split('\n');
+            var allocator = new Allocator(ReadNumbers(allocations[0]));
+
+            foreach(var allocation in allocations.Skip(1)) {
+
+                var resources = ReadNumbers(allocation).Take(3).ToArray();
+                allocator.ReceiveResource(resources);
+            }
+
+            return allocator;
+        }
+
+        private Process[] CreateProcesses(string algorithm) {
 
             var allocations = algorithm.Split('\n');
             var processes = new List<Process>();
-            Allocator = new Allocator(ReadNumbers(allocations[0]));
 
-            for(int i = 1; i < allocations.Length; i++) {
+            foreach(var allocation in allocations.Skip(1)) {
 
-                var numbers = ReadNumbers(allocations[i]);
-                var process = new Process(numbers.Skip(3).ToArray());
-                int[] toAllocate = numbers.Take(3).ToArray();
-                Allocator.ReceiveResource(toAllocate);
-                Allocator.Allocate(process, toAllocate);
-                processes.Add(process);
+                var resources = ReadNumbers(allocation);
+                processes.Add(new Process(resources.Skip(3).ToArray()));
+                Allocator.Allocate(processes.Last(), resources.Take(3).ToArray());
             }
 
-            Processes = processes.ToArray();
+            return processes.ToArray();
         }
     }
 }
