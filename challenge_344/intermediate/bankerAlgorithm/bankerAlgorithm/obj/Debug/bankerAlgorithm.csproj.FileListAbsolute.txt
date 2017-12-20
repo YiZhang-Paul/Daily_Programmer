@@ -1,1 +1,6 @@
 D:\all_languages\reddit_challenges\challenge_344\intermediate\bankerAlgorithm\bankerAlgorithm\bin\Debug\bankerAlgorithm.exe.config
+D:\all_languages\reddit_challenges\challenge_344\intermediate\bankerAlgorithm\bankerAlgorithm\bin\Debug\bankerAlgorithm.exe
+D:\all_languages\reddit_challenges\challenge_344\intermediate\bankerAlgorithm\bankerAlgorithm\bin\Debug\bankerAlgorithm.pdb
+D:\all_languages\reddit_challenges\challenge_344\intermediate\bankerAlgorithm\bankerAlgorithm\obj\Debug\bankerAlgorithm.csprojResolveAssemblyReference.cache
+D:\all_languages\reddit_challenges\challenge_344\intermediate\bankerAlgorithm\bankerAlgorithm\obj\Debug\bankerAlgorithm.exe
+D:\all_languages\reddit_challenges\challenge_344\intermediate\bankerAlgorithm\bankerAlgorithm\obj\Debug\bankerAlgorithm.pdb
