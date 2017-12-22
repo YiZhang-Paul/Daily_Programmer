@@ -8,7 +8,29 @@ namespace incomingAircraft {
     class Program {
         static void Main(string[] args) {
 
+            var equation = GetEquation(0, 0, 45);
+        }
 
+        private static double ToRadian(double degree) {
+
+            return degree * Math.PI / 180;
+        }
+
+        private static LinearEquation GetEquation(double x, double y, double degree) {
+
+            int quadrant = (int)Math.Ceiling(degree / 90);
+            bool isEvenQuadrant = quadrant % 2 == 0;
+            double angle = degree - (quadrant - 1) * 90;
+
+            if(isEvenQuadrant) {
+            
+                angle = 90 - angle;
+            }
+
+            double slope = 1 / Math.Tan(ToRadian(angle)) * (isEvenQuadrant ? -1 : 1);
+            double constant = y - slope * x;
+
+            return new LinearEquation(slope, constant);
         }
     }
 }
