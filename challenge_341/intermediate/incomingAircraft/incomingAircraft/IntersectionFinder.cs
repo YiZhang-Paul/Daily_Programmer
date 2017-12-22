@@ -7,46 +7,24 @@ using System.Threading.Tasks;
 namespace incomingAircraft {
     class IntersectionFinder {
 
-        public Point FindIntersection(ILine line1, ILine line2) {
-
-            var line1Type = line1.GetType();
-            var line2Type = line2.GetType();
-
-            if(line1Type == line2Type) {
-
-                if(line1Type == typeof(VerticalLine)) {
-
-                    throw new Exception("Intersection Does not Exist.");
-                }
-
-                return FindIntersection((NonVerticalLine)line1, (NonVerticalLine)line2);
-            }
-            
-            return line1Type == typeof(VerticalLine) ? 
-                FindIntersection((VerticalLine)line1, (NonVerticalLine)line2) :
-                FindIntersection((NonVerticalLine)line1, (VerticalLine)line2);
-        }
-
-        public Point FindIntersection(NonVerticalLine line1, VerticalLine line2) {
-
-            return FindIntersection(line2, line1);
-        }
-
-        public Point FindIntersection(VerticalLine line1, NonVerticalLine line2) {
-
-            return new Point(line1.X, line2.GetY(line1.X));
-        }
-
-        public Point FindIntersection(NonVerticalLine line1, NonVerticalLine line2) {
-
+        public Point FindIntersection(Line line1, Line line2) {
+            //when two lines are parallel to each other
             if(line1.Slope == line2.Slope) {
 
                 throw new Exception("Intersection Does not Exist.");
             }
-            //X-Coordinate of intersection
-            double x = (line2.Constant - line1.Constant) / (line1.Slope - line2.Slope);
+            //when one of the lines is vertical line
+            if(line1.Slope == null || line2.Slope == null) {
 
-            return new Point(x, line1.GetY(x));
+                var vertical = (VerticalLine)(line1.Slope == null ? line1 : line2);
+                var nonVertical = (NonVerticalLine)(line1.Slope == null ? line2 : line1);
+
+                return new Point(vertical.X, nonVertical.GetY(vertical.X));
+            }
+            //when both lines are non vertical lines
+            double x = (line2.Constant - line1.Constant) / ((double)line1.Slope - (double)line2.Slope);
+
+            return new Point(x, ((NonVerticalLine)line1).GetY(x));
         }
     }
 }

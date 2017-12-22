@@ -5,10 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace incomingAircraft {
-    class NonVerticalLine : ILine {
+    class NonVerticalLine : Line {
 
-        public double Slope { get; private set; }
-        public double Constant { get; private set; }
+        public override double? Slope { get; protected set; }
+        public override double Constant { get; protected set; }
 
         public NonVerticalLine(double slope, double constant) {
 
@@ -18,7 +18,7 @@ namespace incomingAircraft {
 
         public double GetY(double x) {
 
-            return Slope * x + Constant;
+            return (double)Slope * x + Constant;
         }
     }
 }

@@ -5,7 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace incomingAircraft {
-    //marker interface
-    interface ILine {
+    abstract class Line {
+
+        public abstract double? Slope { get; protected set; }
+        public abstract double Constant { get; protected set; }
     }
 }
