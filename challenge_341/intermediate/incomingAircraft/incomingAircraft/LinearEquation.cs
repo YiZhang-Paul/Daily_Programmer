@@ -10,6 +10,8 @@ namespace incomingAircraft {
         public double A { get; private set; }
         public double B { get; private set; }
 
+        public LinearEquation() {}
+
         public LinearEquation(double a, double b) {
 
             A = a;

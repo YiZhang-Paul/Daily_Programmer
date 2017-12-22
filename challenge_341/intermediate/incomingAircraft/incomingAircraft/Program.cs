@@ -8,7 +8,7 @@ namespace incomingAircraft {
     class Program {
         static void Main(string[] args) {
 
-            var equation = GetEquation(0, 0, 45);
+            var equation = GetEquation(10, 0, 0);
         }
 
         private static double ToRadian(double degree) {
@@ -18,7 +18,14 @@ namespace incomingAircraft {
 
         private static LinearEquation GetEquation(double x, double y, double degree) {
 
-            int quadrant = (int)Math.Ceiling(degree / 90);
+            int quadrant = 1;
+
+            if(degree % 90 == 0 && (int)degree / 90 % 2 == 0) {
+
+                return new VerticalLine(x);
+            }
+
+            quadrant = (int)Math.Ceiling(degree / 90);
             bool isEvenQuadrant = quadrant % 2 == 0;
             double angle = degree - (quadrant - 1) * 90;
 
