@@ -8,36 +8,30 @@ namespace incomingAircraft {
     class Program {
         static void Main(string[] args) {
 
-            var equation = GetEquation(10, 0, 0);
-        }
+            var equationFinder = new EquationFinder();
+            var intersectionFinder = new IntersectionFinder();
+            //default & challenge input
+            var inputs = new List<string[]>() { 
+                             
+                new string[] { "0 0 45", "10 0 0" },
+                new string[] { "0 0 24.0", "11 7 343.4" },
+                new string[] { "10 1 0.0", "2 8 352.82" },
+                new string[] { "0 0 30.9", "10 1 336.42" }
+            };
 
-        private static double ToRadian(double degree) {
-
-            return degree * Math.PI / 180;
-        }
-
-        private static LinearEquation GetEquation(double x, double y, double degree) {
-
-            int quadrant = 1;
-
-            if(degree % 90 == 0 && (int)degree / 90 % 2 == 0) {
-
-                return new VerticalLine(x);
-            }
-
-            quadrant = (int)Math.Ceiling(degree / 90);
-            bool isEvenQuadrant = quadrant % 2 == 0;
-            double angle = degree - (quadrant - 1) * 90;
-
-            if(isEvenQuadrant) {
+            foreach(var input in inputs) {
             
-                angle = 90 - angle;
+                try {
+
+                    var equation1 = equationFinder.GetEquation(input[0]);
+                    var equation2 = equationFinder.GetEquation(input[1]);
+                    Console.WriteLine(intersectionFinder.FindIntersection(equation1, equation2));
+                }
+                catch(Exception exception) {
+
+                    Console.WriteLine(exception.Message); ;
+                }
             }
-
-            double slope = 1 / Math.Tan(ToRadian(angle)) * (isEvenQuadrant ? -1 : 1);
-            double constant = y - slope * x;
-
-            return new LinearEquation(slope, constant);
         }
     }
 }

@@ -5,13 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace incomingAircraft {
-    class VerticalLine : ILine {
-
-        public double X { get; private set; }
-
-        public VerticalLine(double x) {
-
-            X = x;
-        }
+    //marker interface
+    interface ILine {
     }
 }
