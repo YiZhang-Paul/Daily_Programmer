@@ -1,0 +1,6 @@
+D:\all_languages\reddit_challenges\challenge_008\intermediate\printNumberInEnglish\printNumberInEnglish\bin\Debug\printNumberInEnglish.exe.config
+D:\all_languages\reddit_challenges\challenge_008\intermediate\printNumberInEnglish\printNumberInEnglish\bin\Debug\printNumberInEnglish.exe
+D:\all_languages\reddit_challenges\challenge_008\intermediate\printNumberInEnglish\printNumberInEnglish\bin\Debug\printNumberInEnglish.pdb
+D:\all_languages\reddit_challenges\challenge_008\intermediate\printNumberInEnglish\printNumberInEnglish\obj\Debug\printNumberInEnglish.csprojResolveAssemblyReference.cache
+D:\all_languages\reddit_challenges\challenge_008\intermediate\printNumberInEnglish\printNumberInEnglish\obj\Debug\printNumberInEnglish.exe
+D:\all_languages\reddit_challenges\challenge_008\intermediate\printNumberInEnglish\printNumberInEnglish\obj\Debug\printNumberInEnglish.pdb
