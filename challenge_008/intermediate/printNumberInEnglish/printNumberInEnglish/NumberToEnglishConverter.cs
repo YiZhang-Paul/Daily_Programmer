@@ -13,7 +13,7 @@ namespace printNumberInEnglish {
         public NumberToEnglishConverter(string[] translations) {
 
             Translation = GetTranslationTable(translations);
-            var that = ToEnglish(20125);
+            var that = DecomposeNumber(20125);
         }
 
         private Dictionary<int, string> GetTranslationTable(string[] translations) {
@@ -36,22 +36,23 @@ namespace printNumberInEnglish {
             return table;
         }
 
+        private string GetNumberString(int number) {
+
+            string result = number.ToString();
+            int padLength = (int)Math.Ceiling((double)result.Length / 3) * 3;
+
+            return result.PadLeft(padLength, '0');
+        }
+
         private int[] DecomposeNumber(int number) { 
         
             var decomposed = new List<int>();
-            string numberString = string.Join("", number.ToString().Reverse());
+            string numberString = GetNumberString(number);
 
-            for(int i = 0; i < numberString.Length; i++) {
+            for(int i = 0; i < numberString.Length; i += 3) {
 
-                int digit = int.Parse(numberString[i].ToString());
-
-                if(digit != 0) {
-
-                    decomposed.Add(digit * (int)Math.Pow(10, i));
-                }
+                decomposed.Add(int.Parse(numberString.Substring(i, 3)));
             }
-
-            decomposed.Reverse();
 
             return decomposed.ToArray();
         }
