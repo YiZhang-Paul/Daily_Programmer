@@ -1,0 +1,15 @@
+#6[intermediate] Remove Duplicate Substrings
+
+All Done
+
+url: https://www.reddit.com/r/dailyprogrammer/comments/pp81n/2142012_challenge_6_intermediate/
+
+remove duplicate substrings.
+
+Ex: aaajtestBlaBlatestBlaBla ---> aaajtestBlaBla
+
+another example:
+
+aaatestBlaBlatestBlaBla aaathisBlaBlathisBlaBla aaathatBlaBlathatBlaBla aaagoodBlaBlagoodBlaBla aaagood1BlaBla123good1BlaBla123
+
+output desired: aaatestBlaBla aaathisBlaBla aaathatBlaBla aaagoodBlaBla aaagood1BlaBla123
