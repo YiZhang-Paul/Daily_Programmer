@@ -10,7 +10,11 @@ namespace printNumberInEnglish {
         static void Main(string[] args) {
 
             string[] translations = ReadFile("translations.txt");
-            var toEnglishConverter = new NumberToEnglishConverter(translations);
+            var numberFormatter = new NumberFormatter();
+            var toEnglishConverter = new NumberToEnglishConverter(translations, numberFormatter);
+            Console.WriteLine(toEnglishConverter.ToEnglish(201400));
+            Console.WriteLine(toEnglishConverter.ToEnglish(200401));
+            Console.WriteLine(toEnglishConverter.ToEnglish(200476));
         }
 
         private static string[] ReadFile(string fileName) {

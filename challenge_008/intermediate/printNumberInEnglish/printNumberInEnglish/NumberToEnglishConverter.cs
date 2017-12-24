@@ -8,72 +8,93 @@ using System.Text.RegularExpressions;
 namespace printNumberInEnglish {
     class NumberToEnglishConverter {
 
-        private Dictionary<int, string> Translation { get; set; }
+        private Dictionary<int, string> TranslationTable { get; set; }
+        private INumberFormatter Formatter { get; set; }
 
-        public NumberToEnglishConverter(string[] translations) {
+        public NumberToEnglishConverter(string[] translations, INumberFormatter formatter) {
 
-            Translation = GetTranslationTable(translations);
-            var that = DecomposeNumber(20125);
+            TranslationTable = CreateTranslationTable(translations);
+            Formatter = formatter;
         }
 
-        private Dictionary<int, string> GetTranslationTable(string[] translations) {
+        private Dictionary<int, string> CreateTranslationTable(string[] translations) {
 
             var table = new Dictionary<int, string>();
+            //make sure the translate does translate between numbers and English words
+            foreach(string translation in translations.Where(row => Regex.IsMatch(row, @"\d"))) {
 
-            foreach(string translation in translations) {
-
-                if(Regex.IsMatch(translation, @"\d")) {
-
-                    int value = int.Parse(Regex.Match(translation, @"\d+").Value);
-
-                    if(!table.ContainsKey(value)) {
-
-                        table.Add(value, Regex.Match(translation, @"[^\d\s]+").Value);
-                    }
-                }
+                int number = int.Parse(Regex.Match(translation, @"\d+").Value);
+                string english = Regex.Match(translation, @"[^\d\s]+").Value;
+                table[number] = english;
             }
 
             return table;
         }
 
-        private string GetNumberString(int number) {
+        private string GetTranslation(int number) {
 
-            string result = number.ToString();
-            int padLength = (int)Math.Ceiling((double)result.Length / 3) * 3;
+            if(!TranslationTable.ContainsKey(number)) {
 
-            return result.PadLeft(padLength, '0');
-        }
-
-        private int[] DecomposeNumber(int number) { 
-        
-            var decomposed = new List<int>();
-            string numberString = GetNumberString(number);
-
-            for(int i = 0; i < numberString.Length; i += 3) {
-
-                decomposed.Add(int.Parse(numberString.Substring(i, 3)));
+                return "";
             }
 
-            return decomposed.ToArray();
+            return TranslationTable[number];
         }
-
-        private string GetTranslation(int number) { 
+        /// <summary>
+        /// translate numbers from 1 - 99 to English
+        /// </summary>
+        private string ReadTens(int tens) { 
         
-            if(Translation.ContainsKey(number)) {
-            
-                return Translation[number];
+            if(tens == 0) {
+
+                return "";
             }
 
-            int leadDigit = int.Parse(number.ToString()[0].ToString());
-            
-            return Translation[leadDigit] + "-" + Translation[number / leadDigit];
+            var result = new StringBuilder(GetTranslation(tens));
+            //check if the number cannot be directly translated
+            if(result.Length == 0) {
+
+                result.Append(GetTranslation(tens - tens % 10) + "-")
+                      .Append(GetTranslation(tens % 10));
+            }
+
+            return result.ToString();
+        }
+        /// <summary>
+        /// translate numbers from 1 - 999 to English
+        /// </summary>
+        private string ReadHundreds(int hundreds) {
+
+            if(hundreds == 0) {
+
+                return "";
+            }
+
+            var result = new StringBuilder();
+
+            if(hundreds >= 100) {
+
+                result.Append(GetTranslation(hundreds / 100) + " ")
+                      .Append(GetTranslation(100));
+            }
+
+            return result.Append(" " + ReadTens(hundreds % 100)).ToString();
         }
 
         public string ToEnglish(int number) {
 
-            var translation = DecomposeNumber(number).Select(GetTranslation);
+            var hundreds = Formatter.ToHundreds(number);
+            var translation = new StringBuilder();
 
-            return string.Join(", ", translation);
+            for(int i = 0; i < hundreds.Length; i++) {
+
+                int groupNumber = (int)Math.Pow(10, hundreds.Length - i + 1);
+                //check if current number group represents thousands, millions, billions, etc.
+                string group = groupNumber > 100 ? " " + GetTranslation(groupNumber) : "";
+                translation.Append(ReadHundreds(hundreds[i]) + group + " ");
+            }
+
+            return Formatter.ToEnglish(translation.ToString());
         }
     }
 }
