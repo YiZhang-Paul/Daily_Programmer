@@ -31,8 +31,8 @@ namespace printNumberInEnglish {
             return table;
         }
 
-        private string GetTranslation(int number) {
-
+        private string GetTranslation(int number) { 
+        
             if(!TranslationTable.ContainsKey(number)) {
 
                 return "";

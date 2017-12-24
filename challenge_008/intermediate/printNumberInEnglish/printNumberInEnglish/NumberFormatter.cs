@@ -8,19 +8,20 @@ using System.Text.RegularExpressions;
 namespace printNumberInEnglish {
     class NumberFormatter : INumberFormatter {
 
-        private string[] _keyWords = { 
+        protected string[] _keyWords = { 
                                      
             @"hundred(?!\sthousand)", "thousand", "hundred thousand", "million", "billion"
         };
 
-        private string MatchPattern { get; set; }
+        protected string MatchPattern { get; set; }
+        protected string[] KeyWords { get { return _keyWords; } }
 
         public NumberFormatter() {
 
-            MatchPattern = GetMatchPattern(_keyWords);
+            MatchPattern = GetMatchPattern(KeyWords);
         }
 
-        private string GetMatchPattern(string[] keyWords) {
+        protected virtual string GetMatchPattern(string[] keyWords) {
 
             return "(" + string.Join("|", keyWords) + @")(?=.)+";
         }

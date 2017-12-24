@@ -41,6 +41,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EnglishNumberFormatter.cs" />
+    <Compile Include="EnglishToNumberConverter.cs" />
+    <Compile Include="IEnglishNumberFormatter.cs" />
     <Compile Include="INumberFormatter.cs" />
     <Compile Include="NumberFormatter.cs" />
     <Compile Include="NumberToEnglishConverter.cs" />
