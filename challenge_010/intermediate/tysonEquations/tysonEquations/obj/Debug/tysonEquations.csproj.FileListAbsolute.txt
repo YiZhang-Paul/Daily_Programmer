@@ -1,0 +1,6 @@
+D:\all_languages\reddit_challenges\challenge_010\intermediate\tysonEquations\tysonEquations\bin\Debug\tysonEquations.exe.config
+D:\all_languages\reddit_challenges\challenge_010\intermediate\tysonEquations\tysonEquations\bin\Debug\tysonEquations.exe
+D:\all_languages\reddit_challenges\challenge_010\intermediate\tysonEquations\tysonEquations\bin\Debug\tysonEquations.pdb
+D:\all_languages\reddit_challenges\challenge_010\intermediate\tysonEquations\tysonEquations\obj\Debug\tysonEquations.csprojResolveAssemblyReference.cache
+D:\all_languages\reddit_challenges\challenge_010\intermediate\tysonEquations\tysonEquations\obj\Debug\tysonEquations.exe
+D:\all_languages\reddit_challenges\challenge_010\intermediate\tysonEquations\tysonEquations\obj\Debug\tysonEquations.pdb
