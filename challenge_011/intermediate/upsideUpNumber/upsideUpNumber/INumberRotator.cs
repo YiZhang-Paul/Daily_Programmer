@@ -10,5 +10,6 @@ namespace upsideUpNumber {
         HashSet<int> RotatableDigits { get; }
 
         int RotateNumber(int number);
+        int NextRotatableNumber(int number);
     }
 }

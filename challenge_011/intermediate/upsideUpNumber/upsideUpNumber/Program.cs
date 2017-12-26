@@ -17,14 +17,18 @@ namespace upsideUpNumber {
             Console.WriteLine(finder.NextUpsideUpNumber(689));
             Console.WriteLine(finder.NextUpsideUpNumber(1961));
             Console.WriteLine(finder.CountUpsideUpNumbersInRange(10000));
+            Console.WriteLine(finder.CountUpsideUpNumbersInRange(100000));
+            Console.WriteLine(finder.CountUpsideUpNumbersInRange(1000000));
             watch.Stop();
-            Console.WriteLine("Time Used: " + watch.ElapsedMilliseconds + "ms");
+            Console.WriteLine("Time Used: " + watch.ElapsedMilliseconds + "ms\n");
 
             watch.Restart();
             var efficientFinder = new EfficientUpsideUpNumberFinder(rotator);
             Console.WriteLine(efficientFinder.NextUpsideUpNumber(689));
             Console.WriteLine(efficientFinder.NextUpsideUpNumber(1961));
             Console.WriteLine(efficientFinder.CountUpsideUpNumbersInRange(10000));
+            Console.WriteLine(efficientFinder.CountUpsideUpNumbersInRange(100000));
+            Console.WriteLine(efficientFinder.CountUpsideUpNumbersInRange(1000000));
             watch.Stop();
             Console.WriteLine("Time Used: " + watch.ElapsedMilliseconds + "ms");
         }

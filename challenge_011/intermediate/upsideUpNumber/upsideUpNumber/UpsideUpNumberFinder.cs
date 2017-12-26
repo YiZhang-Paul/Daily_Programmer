@@ -14,7 +14,7 @@ namespace upsideUpNumber {
             Rotator = rotator;
         }
 
-        public bool IsUpsideUpNumber(int number) {
+        protected bool IsUpsideUpNumber(int number) {
 
             try {
 

@@ -23,7 +23,7 @@ namespace upsideUpNumber {
         public NumberRotator() {
 
             RotationLookup = GetRotationLookup();
-            RotatableDigits = GetUpsideUpDigits();
+            RotatableDigits = GetRotatableDigits();
         }
 
         private Dictionary<int, int> GetRotationLookup() { 
@@ -39,7 +39,7 @@ namespace upsideUpNumber {
             return lookup;
         }
 
-        private HashSet<int> GetUpsideUpDigits() {
+        private HashSet<int> GetRotatableDigits() {
 
             var numbers = new HashSet<int>();
 
@@ -72,11 +72,40 @@ namespace upsideUpNumber {
             return GetDigits(number).All(digit => RotatableDigits.Contains(digit));
         }
 
+        public int NextRotatableNumber(int number) {
+
+            var digits = new int[] { 0 }.Concat(GetDigits(number)).ToArray();
+
+            for(int i = digits.Length - 1; i >= 0; i--) {
+
+                var rotatableDigits = RotatableDigits.Where(digit => digit > digits[i]);
+
+                if(rotatableDigits.Count() > 0) {
+
+                    digits[i] = rotatableDigits.Min();
+
+                    for(int j = i + 1; j < digits.Length; j++) {
+
+                        digits[j] = 0;
+                    }
+
+                    break;
+                }
+            }
+
+            return int.Parse(string.Join("", digits));
+        }
+
         public int RotateNumber(int number) {
 
             if(!CanRotate(number)) {
 
                 throw new Exception("Cannot Rotate Number");
+            }
+
+            if(number < 10) {
+            
+                return RotationLookup[number];
             }
 
             var rotated = GetDigits(number).Select(digit => RotationLookup[digit]).Reverse();
