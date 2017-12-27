@@ -56,28 +56,22 @@ namespace upsideUpNumber {
             int centerIndex = (digits.Length - digits.Length % 2) / 2;
             int centerDigit = int.Parse(digits[centerIndex].ToString());
             string leftHalf = digits.Substring(0, centerIndex);
-            string rightHalf = "";
 
-            if(digits.Length % 2 == 1) {
-            
-                leftHalf = centerDigit < MaxUpsideUpDigit ? leftHalf : Rotator.NextRotatableNumber(int.Parse(leftHalf)).ToString();
-                rightHalf = Rotator.RotateNumber(int.Parse(leftHalf)).ToString().PadLeft(leftHalf.Length, '0');
-                centerDigit = NextUpsideUpDigit(centerDigit);
+            if(digits.Length % 2 == 0 || centerDigit >= MaxUpsideUpDigit) {
 
-                if(centerDigit.ToString()[0] == leftHalf.Last() && centerDigit.ToString()[0] == rightHalf[0] && leftHalf.Length * 2 > digits.Length) {
-
-                    rightHalf = rightHalf.Substring(1);
-                }
-
-                return int.Parse(leftHalf + centerDigit + rightHalf);
+                leftHalf = Rotator.NextRotatableNumber(int.Parse(leftHalf)).ToString();
             }
 
-            leftHalf = Rotator.NextRotatableNumber(int.Parse(leftHalf)).ToString();
-            rightHalf = Rotator.RotateNumber(int.Parse(leftHalf)).ToString().PadLeft(leftHalf.Length, '0');
+            string rightHalf = Rotator.RotateNumber(int.Parse(leftHalf)).ToString().PadLeft(leftHalf.Length, '0');
 
-            if(leftHalf.Last() == rightHalf[0] && leftHalf.Length * 2 > digits.Length) {
-            
-                rightHalf = rightHalf.Substring(1);
+            if(digits.Length % 2 == 1) {
+
+                leftHalf += NextUpsideUpDigit(centerDigit).ToString();
+            }
+
+            if(leftHalf.Last() == rightHalf[0] && int.Parse(leftHalf + rightHalf.Substring(1)) > number) {
+
+                return int.Parse(leftHalf + rightHalf.Substring(1));
             }
 
             return int.Parse(leftHalf + rightHalf);
