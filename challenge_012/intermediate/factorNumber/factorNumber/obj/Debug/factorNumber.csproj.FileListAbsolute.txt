@@ -1,0 +1,6 @@
+D:\all_languages\reddit_challenges\challenge_012\intermediate\factorNumber\factorNumber\bin\Debug\factorNumber.exe.config
+D:\all_languages\reddit_challenges\challenge_012\intermediate\factorNumber\factorNumber\bin\Debug\factorNumber.exe
+D:\all_languages\reddit_challenges\challenge_012\intermediate\factorNumber\factorNumber\bin\Debug\factorNumber.pdb
+D:\all_languages\reddit_challenges\challenge_012\intermediate\factorNumber\factorNumber\obj\Debug\factorNumber.csprojResolveAssemblyReference.cache
+D:\all_languages\reddit_challenges\challenge_012\intermediate\factorNumber\factorNumber\obj\Debug\factorNumber.exe
+D:\all_languages\reddit_challenges\challenge_012\intermediate\factorNumber\factorNumber\obj\Debug\factorNumber.pdb
