@@ -1,0 +1,5 @@
+D:\all_languages\reddit_challenges\challenge_013\intermediate\reverseText\reverseText\bin\Debug\reverseText.exe.config
+D:\all_languages\reddit_challenges\challenge_013\intermediate\reverseText\reverseText\bin\Debug\reverseText.exe
+D:\all_languages\reddit_challenges\challenge_013\intermediate\reverseText\reverseText\bin\Debug\reverseText.pdb
+D:\all_languages\reddit_challenges\challenge_013\intermediate\reverseText\reverseText\obj\Debug\reverseText.exe
+D:\all_languages\reddit_challenges\challenge_013\intermediate\reverseText\reverseText\obj\Debug\reverseText.pdb
