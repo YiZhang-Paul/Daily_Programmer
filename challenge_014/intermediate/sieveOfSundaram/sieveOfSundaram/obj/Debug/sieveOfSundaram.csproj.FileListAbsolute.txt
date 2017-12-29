@@ -1,0 +1,6 @@
+D:\all_languages\reddit_challenges\challenge_014\intermediate\sieveOfSundaram\sieveOfSundaram\bin\Debug\sieveOfSundaram.exe.config
+D:\all_languages\reddit_challenges\challenge_014\intermediate\sieveOfSundaram\sieveOfSundaram\bin\Debug\sieveOfSundaram.exe
+D:\all_languages\reddit_challenges\challenge_014\intermediate\sieveOfSundaram\sieveOfSundaram\bin\Debug\sieveOfSundaram.pdb
+D:\all_languages\reddit_challenges\challenge_014\intermediate\sieveOfSundaram\sieveOfSundaram\obj\Debug\sieveOfSundaram.csprojResolveAssemblyReference.cache
+D:\all_languages\reddit_challenges\challenge_014\intermediate\sieveOfSundaram\sieveOfSundaram\obj\Debug\sieveOfSundaram.exe
+D:\all_languages\reddit_challenges\challenge_014\intermediate\sieveOfSundaram\sieveOfSundaram\obj\Debug\sieveOfSundaram.pdb

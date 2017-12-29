@@ -1,0 +1,7 @@
+#14[intermediate] Sieve of Sundaram
+
+All Done
+
+url: https://www.reddit.com/r/dailyprogrammer/comments/q2mwu/2232012_challenge_14_intermediate/
+
+Your task is to implement the sieve of Sundaram and calculate the list of primes to 10000.
