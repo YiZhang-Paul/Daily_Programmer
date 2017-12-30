@@ -1,0 +1,6 @@
+D:\all_languages\reddit_challenges\challenge_019\intermediate\countWordsByStory\countWordsByStory\bin\Debug\countWordsByStory.exe.config
+D:\all_languages\reddit_challenges\challenge_019\intermediate\countWordsByStory\countWordsByStory\obj\Debug\countWordsByStory.csprojResolveAssemblyReference.cache
+D:\all_languages\reddit_challenges\challenge_019\intermediate\countWordsByStory\countWordsByStory\bin\Debug\countWordsByStory.exe
+D:\all_languages\reddit_challenges\challenge_019\intermediate\countWordsByStory\countWordsByStory\bin\Debug\countWordsByStory.pdb
+D:\all_languages\reddit_challenges\challenge_019\intermediate\countWordsByStory\countWordsByStory\obj\Debug\countWordsByStory.exe
+D:\all_languages\reddit_challenges\challenge_019\intermediate\countWordsByStory\countWordsByStory\obj\Debug\countWordsByStory.pdb
