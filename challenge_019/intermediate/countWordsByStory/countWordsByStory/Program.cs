@@ -11,7 +11,7 @@ namespace countWordsByStory {
         static void Main(string[] args) {
 
             //challenge input
-            Console.WriteLine(CountDescendingWordsByStory("book.txt")); ;
+            Console.WriteLine(GetDescendingWordCountByStory("book.txt"));
         }
 
         private static string ReadText(string fileName) {
@@ -37,7 +37,7 @@ namespace countWordsByStory {
 
             return Regex.Match(text, string.Join(@"\.[^\n]+\n\s*", chapters) + @"\.[^\n]+\n")
                         .Value
-                        .Split('\r')
+                        .Split('\n')
                         .Select(line => line.Trim().ToUpper())
                         .Where(line => line != "")
                         .ToArray();
@@ -50,13 +50,16 @@ namespace countWordsByStory {
             return Regex.Match(text, regex, RegexOptions.Singleline).Value;
         }
 
-        private static Dictionary<string, string> GetStories(string content, string[] titles) { 
-
+        private static Dictionary<string, string> GetStories(string text) { 
+        
             var stories = new Dictionary<string, string>();
+            string content = GetContent(text);
+            string[] titles = GetTitles(text);
 
             for(int i = 0; i < titles.Length; i++) {
 
-                string regex = @"(?<=" + titles[i] + ").+(?=" + (i == titles.Length - 1 ? "[^.]" : titles[i + 1]) + ")";
+                string storyEnd = i == titles.Length - 1 ? "[^.]" : titles[i + 1];
+                string regex = @"(?<=" + titles[i] + ").+(?=" + storyEnd + ")";
                 stories[titles[i]] = Regex.Match(content, regex, RegexOptions.Singleline).Value;
             }
 
@@ -75,16 +78,16 @@ namespace countWordsByStory {
             return counts;
         }
 
-        private static string CountDescendingWordsByStory(string fileName) {
-        
-            string text = ReadText(fileName);
-            var stories = GetStories(GetContent(text),  GetTitles(text));
+        private static string GetDescendingWordCountByStory(string fileName) {
 
-            return CountWordsByStory(stories).OrderByDescending(pair => pair.Value)
-                                             .Aggregate("", (counts, pair) => {
+            var stories = GetStories(ReadText(fileName));
+            var counts = CountWordsByStory(stories);
 
-                                                 return counts + pair.Key + "-> Word Count: " + pair.Value + "\n";
-                                             });
+            return counts.OrderByDescending(pair => pair.Value)
+                         .Aggregate("", (result, pair) => {
+                         
+                             return result + pair.Key + " -> Word Count: " + pair.Value + "\n";
+                         });
         }
     }
 }

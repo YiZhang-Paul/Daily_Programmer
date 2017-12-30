@@ -1,5 +1,7 @@
 #19[intermediate] Count Words by Story
 
+All Done
+
 url: https://www.reddit.com/r/dailyprogrammer/comments/qlwys/372012_challenge_19_intermediate/
 
 Challenge #19 will use The Adventures of Sherlock Holmes from Project Gutenberg.
