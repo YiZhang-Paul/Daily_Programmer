@@ -1,0 +1,7 @@
+D:\all_languages\reddit_challenges\challenge_023\intermediate\mcNuggetNumbers\McNuggetNumberFinderTest\bin\Debug\McNuggetNumberFinderTest.dll
+D:\all_languages\reddit_challenges\challenge_023\intermediate\mcNuggetNumbers\McNuggetNumberFinderTest\bin\Debug\McNuggetNumberFinderTest.pdb
+D:\all_languages\reddit_challenges\challenge_023\intermediate\mcNuggetNumbers\McNuggetNumberFinderTest\bin\Debug\mcNuggetNumbers.exe
+D:\all_languages\reddit_challenges\challenge_023\intermediate\mcNuggetNumbers\McNuggetNumberFinderTest\bin\Debug\mcNuggetNumbers.pdb
+D:\all_languages\reddit_challenges\challenge_023\intermediate\mcNuggetNumbers\McNuggetNumberFinderTest\obj\Debug\McNuggetNumberFinderTest.csprojResolveAssemblyReference.cache
+D:\all_languages\reddit_challenges\challenge_023\intermediate\mcNuggetNumbers\McNuggetNumberFinderTest\obj\Debug\McNuggetNumberFinderTest.dll
+D:\all_languages\reddit_challenges\challenge_023\intermediate\mcNuggetNumbers\McNuggetNumberFinderTest\obj\Debug\McNuggetNumberFinderTest.pdb
