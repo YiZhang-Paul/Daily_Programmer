@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace ageCheckerClassLibrary {
-    public class MonthChecker {
+    public class MonthChecker : IMonthChecker {
 
         private Dictionary<int, int> _daysInMonth = new Dictionary<int, int>() { 
                                      

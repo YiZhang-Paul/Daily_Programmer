@@ -66,6 +66,7 @@
     <Compile Include="IYearCheckerMock.cs" />
     <Compile Include="MonthCheckerTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="DateCheckerTest.cs" />
     <Compile Include="YearCheckerTest.cs" />
   </ItemGroup>
   <ItemGroup>

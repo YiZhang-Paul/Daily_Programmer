@@ -29,5 +29,17 @@ namespace ageCheckerTests {
 
             Assert.IsFalse(result);
         }
+
+        [TestMethod]
+        public void DaysInLeapYear() {
+
+            Assert.AreEqual(366, yearChecker.GetDaysInYear(2016));
+        }
+
+        [TestMethod]
+        public void DaysInNonLeapYear() {
+
+            Assert.AreEqual(365, yearChecker.GetDaysInYear(2017));
+        }
     }
 }

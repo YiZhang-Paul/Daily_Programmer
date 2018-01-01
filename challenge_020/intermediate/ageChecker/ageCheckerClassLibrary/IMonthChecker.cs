@@ -5,9 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace ageCheckerClassLibrary {
-    public interface IYearChecker {
+    public interface IMonthChecker {
 
-        bool IsLeapYear(int year);
-        int GetDaysInYear(int year);
+        int GetDaysInMonth(int month, int year);
     }
 }

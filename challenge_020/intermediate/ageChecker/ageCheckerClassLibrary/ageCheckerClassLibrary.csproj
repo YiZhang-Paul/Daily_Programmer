@@ -52,6 +52,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DateChecker.cs" />
+    <Compile Include="IMonthChecker.cs" />
     <Compile Include="IYearChecker.cs" />
     <Compile Include="MonthChecker.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
