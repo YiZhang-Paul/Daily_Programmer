@@ -7,6 +7,7 @@ namespace ageCheckerTests {
     [TestClass]
     public class DateCheckerTest {
 
+        DateTime date;
         IMonthChecker monthChecker;
         IYearCheckerMock yearChecker;
         DateChecker dateChecker;
@@ -48,6 +49,60 @@ namespace ageCheckerTests {
             monthChecker = GetMonthCheckerMock();
             yearChecker = GetYearCheckerMock();
             dateChecker = new DateChecker(monthChecker, yearChecker);
+        }
+
+        [TestMethod]
+        public void ParseValidDateString() {
+
+            var expected = new DateTime(2016, 6, 20);
+
+            Assert.AreEqual(expected, dateChecker.ParseDate("2016/06/20"));
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException),
+         "Invalid Date String.")]
+        public void ParseInvalidDateString() {
+
+            dateChecker.ParseDate("2016/abc/20");
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentOutOfRangeException),
+         "Date Value Out of Range.")]
+        public void ParseOutOfRangeDate() {
+
+            dateChecker.ParseDate("2016/12/34");
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException),
+         "Start Date Should Precede End Date")]
+        public void GetElapsedMonthsWithInvalidDates() {
+
+            var start = new DateTime(2015, 10, 5);
+            var end = new DateTime(2015, 10, 4);
+            dateChecker.GetElapsedMonthsBetweenDates(start, end);
+        }
+
+        [TestMethod]
+        public void GetElapsedMonthsBetweenDatesInSameYear() {
+
+            var start = new DateTime(2016, 7, 5);
+            var end = new DateTime(2016, 11, 4);
+            int elapsedMonths = dateChecker.GetElapsedMonthsBetweenDates(start, end);
+
+            Assert.AreEqual(4, elapsedMonths);
+        }
+
+        [TestMethod]
+        public void GetElapsedMonthsBetweenDatesInDifferentYear() {
+
+            var start = new DateTime(2014, 10, 5);
+            var end = new DateTime(2016, 7, 4);
+            int elapsedMonths = dateChecker.GetElapsedMonthsBetweenDates(start, end);
+
+            Assert.AreEqual(21, elapsedMonths);
         }
 
         [TestMethod]

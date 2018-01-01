@@ -12,3 +12,5 @@ D:\all_languages\reddit_challenges\challenge_020\intermediate\ageChecker\ageChec
 D:\all_languages\reddit_challenges\challenge_020\intermediate\ageChecker\ageCheckerTests\bin\Debug\Moq.pdb
 D:\all_languages\reddit_challenges\challenge_020\intermediate\ageChecker\ageCheckerTests\bin\Debug\Moq.xml
 D:\all_languages\reddit_challenges\challenge_020\intermediate\ageChecker\ageCheckerTests\bin\Debug\System.Threading.Tasks.Extensions.xml
+D:\all_languages\reddit_challenges\challenge_020\intermediate\ageChecker\ageCheckerTests\bin\Debug\mainProgram.exe
+D:\all_languages\reddit_challenges\challenge_020\intermediate\ageChecker\ageCheckerTests\bin\Debug\mainProgram.pdb

@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Text.RegularExpressions;
 
 namespace ageCheckerClassLibrary {
-    public class DateChecker {
+    public class DateChecker : IDateChecker {
 
         private IMonthChecker MonthChecker { get; set; }
         private IYearChecker YearChecker { get; set; }
@@ -14,6 +15,54 @@ namespace ageCheckerClassLibrary {
 
             MonthChecker = monthChecker;
             YearChecker = yearChecker;
+        }
+
+        private int[] ParseNumbers(string input) {
+
+            if(!Regex.IsMatch(input, @"\d")) {
+            
+                return new int[0];
+            }
+
+            return Regex.Matches(input, @"\d+")
+                        .Cast<Match>()
+                        .Select(number => int.Parse(number.Value))
+                        .ToArray();
+        }
+
+        public DateTime ParseDate(string date) {
+
+            int[] numbers = ParseNumbers(date);
+
+            if(numbers.Length != 3) {
+
+                throw new ArgumentException("Invalid Date.");
+            }
+
+            try {
+
+                return new DateTime(numbers[0], numbers[1], numbers[2]);
+            }
+            catch(ArgumentOutOfRangeException exception) {
+
+                Console.WriteLine("Date Value Out of Range.");
+                throw exception;
+            }
+        }
+
+        public int GetElapsedMonthsBetweenDates(DateTime start, DateTime end) {
+
+            if(start > end) {
+
+                throw new ArgumentException("Start Date Should Precede End Date");
+            }
+
+            if(start.Year == end.Year) {
+
+                return end.Month - start.Month;
+            }
+
+            return (12 - start.Month) + 12 * (end.Year - start.Year - 1) + (end.Month - 1);
         }
 
         public int GetElapsedDaysInCurrentYear(DateTime date) {

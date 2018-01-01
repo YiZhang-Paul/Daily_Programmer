@@ -53,10 +53,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DateChecker.cs" />
+    <Compile Include="IDateChecker.cs" />
     <Compile Include="IMonthChecker.cs" />
+    <Compile Include="ITimeConverter.cs" />
     <Compile Include="IYearChecker.cs" />
     <Compile Include="MonthChecker.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TimeConverter.cs" />
     <Compile Include="YearChecker.cs" />
   </ItemGroup>
   <ItemGroup>
