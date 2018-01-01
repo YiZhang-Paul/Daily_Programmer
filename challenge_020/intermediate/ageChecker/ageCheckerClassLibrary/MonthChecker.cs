@@ -22,21 +22,18 @@ namespace ageCheckerClassLibrary {
             { 12, 31 }
         };
 
-        private bool IsLeapYear(int year) { 
-        
-            if(year % 4 != 0) {
+        private IYearChecker YearChecker { get; set; }
 
-                return false;
-            }
+        public MonthChecker(IYearChecker yearChecker) {
 
-            return year % 100 != 0 || year % 400 == 0;
+            YearChecker = yearChecker;
         }
 
         public int GetDaysInMonth(int month, int year) {
 
             if(month == 2) {
 
-                return IsLeapYear(year) ? 29 : 28;
+                return YearChecker.IsLeapYear(year) ? 29 : 28;
             }
 
             return _daysInMonth[month];

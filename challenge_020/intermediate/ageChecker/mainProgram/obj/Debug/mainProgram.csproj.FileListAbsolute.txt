@@ -4,3 +4,10 @@ D:\all_languages\reddit_challenges\challenge_020\intermediate\ageChecker\mainPro
 D:\all_languages\reddit_challenges\challenge_020\intermediate\ageChecker\mainProgram\obj\Debug\mainProgram.csprojResolveAssemblyReference.cache
 D:\all_languages\reddit_challenges\challenge_020\intermediate\ageChecker\mainProgram\obj\Debug\mainProgram.exe
 D:\all_languages\reddit_challenges\challenge_020\intermediate\ageChecker\mainProgram\obj\Debug\mainProgram.pdb
+D:\all_languages\reddit_challenges\challenge_020\intermediate\ageChecker\mainProgram\bin\Debug\Castle.Core.dll
+D:\all_languages\reddit_challenges\challenge_020\intermediate\ageChecker\mainProgram\bin\Debug\Moq.dll
+D:\all_languages\reddit_challenges\challenge_020\intermediate\ageChecker\mainProgram\bin\Debug\System.Threading.Tasks.Extensions.dll
+D:\all_languages\reddit_challenges\challenge_020\intermediate\ageChecker\mainProgram\bin\Debug\Castle.Core.xml
+D:\all_languages\reddit_challenges\challenge_020\intermediate\ageChecker\mainProgram\bin\Debug\Moq.pdb
+D:\all_languages\reddit_challenges\challenge_020\intermediate\ageChecker\mainProgram\bin\Debug\Moq.xml
+D:\all_languages\reddit_challenges\challenge_020\intermediate\ageChecker\mainProgram\bin\Debug\System.Threading.Tasks.Extensions.xml
