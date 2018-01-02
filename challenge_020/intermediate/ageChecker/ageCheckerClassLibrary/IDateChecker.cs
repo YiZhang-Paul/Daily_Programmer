@@ -8,9 +8,8 @@ namespace ageCheckerClassLibrary {
     public interface IDateChecker {
 
         DateTime ParseDate(string date);
-        int GetElapsedMonthsBetweenDates(DateTime start, DateTime end);
         int GetElapsedDaysInCurrentYear(DateTime date);
         int GetRemainingDaysInCurrentYear(DateTime date);
-        int GetElapsedDaysBetweenDates(DateTime start, DateTime end);
+        int GetElapsedDays(DateTime start, DateTime end);
     }
 }

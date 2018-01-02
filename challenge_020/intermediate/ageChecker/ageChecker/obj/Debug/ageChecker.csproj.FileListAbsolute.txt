@@ -1,0 +1,8 @@
+D:\all_languages\reddit_challenges\challenge_020\intermediate\ageChecker\ageChecker\bin\Debug\ageChecker.exe.config
+D:\all_languages\reddit_challenges\challenge_020\intermediate\ageChecker\ageChecker\bin\Debug\ageChecker.exe
+D:\all_languages\reddit_challenges\challenge_020\intermediate\ageChecker\ageChecker\bin\Debug\ageChecker.pdb
+D:\all_languages\reddit_challenges\challenge_020\intermediate\ageChecker\ageChecker\bin\Debug\ageCheckerClassLibrary.dll
+D:\all_languages\reddit_challenges\challenge_020\intermediate\ageChecker\ageChecker\bin\Debug\ageCheckerClassLibrary.pdb
+D:\all_languages\reddit_challenges\challenge_020\intermediate\ageChecker\ageChecker\obj\Debug\ageChecker.csprojResolveAssemblyReference.cache
+D:\all_languages\reddit_challenges\challenge_020\intermediate\ageChecker\ageChecker\obj\Debug\ageChecker.exe
+D:\all_languages\reddit_challenges\challenge_020\intermediate\ageChecker\ageChecker\obj\Debug\ageChecker.pdb

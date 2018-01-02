@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{ED040BF2-F2F9-4D4D-9E9E-A469BBFD4286}</ProjectGuid>
+    <ProjectGuid>{BABCB23B-7D81-4C3E-9085-CD50E9881CB8}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ageCheckerClassLibrary</RootNamespace>
@@ -52,6 +52,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AgeChecker.cs" />
     <Compile Include="DateChecker.cs" />
     <Compile Include="IDateChecker.cs" />
     <Compile Include="IMonthChecker.cs" />

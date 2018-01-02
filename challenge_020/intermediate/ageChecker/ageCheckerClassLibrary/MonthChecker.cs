@@ -38,5 +38,20 @@ namespace ageCheckerClassLibrary {
 
             return _daysInMonth[month];
         }
+
+        public int GetElapsedMonths(DateTime start, DateTime end) {
+
+            if(start > end) {
+
+                throw new ArgumentException("Start Date Should Precede End Date");
+            }
+
+            if(start.Year == end.Year) {
+
+                return end.Month - start.Month;
+            }
+
+            return (12 - start.Month) + 12 * (end.Year - start.Year - 1) + (end.Month - 1);
+        }
     }
 }

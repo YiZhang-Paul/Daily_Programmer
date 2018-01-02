@@ -1,69 +1,53 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ageCheckerClassLibrary;
-using mainProgram;
 using Moq;
 
 namespace ageCheckerTests {
     [TestClass]
     public class AgeCheckerTest {
 
-        IDateChecker dateChecker;
-        ITimeConverter timeConverter;
+        Mock<IDateChecker> dateChecker;
+        Mock<IMonthChecker> monthChecker;
+        Mock<ITimeConverter> timeConverter;
         AgeChecker ageChecker;
-
-        private IDateChecker GetDateCheckerMock() {
-
-            var mock = new Mock<IDateChecker>();
-            mock.Setup(mocked => mocked.ParseDate(It.IsAny<string>()))
-                .Returns<string>(date => {
-
-                    if(date == "2016/0a/20") {
-
-                        throw new ArgumentException("Invalid Date String.");
-                    }
-
-                    return new DateTime(2016, 6, 20);
-                });
-            mock.Setup(mocked => mocked.GetElapsedMonthsBetweenDates(It.IsAny<DateTime>(), It.IsAny<DateTime>()))
-                .Returns<DateTime, DateTime>((start, end) => start == new DateTime(2016, 6, 20) ? 18 : 0);
-            mock.Setup(mocked => mocked.GetElapsedDaysBetweenDates(It.IsAny<DateTime>(), It.IsAny<DateTime>()))
-                .Returns<DateTime, DateTime>((start, end) => start == new DateTime(2016, 6, 20) ? 561 : 0);
-
-            return mock.Object;
-        }
-
-        private ITimeConverter GetTimeConverterMock() { 
-        
-            var mock = new Mock<ITimeConverter>();
-            mock.Setup(mocked => mocked.DayToHour(It.IsAny<int>()))
-                .Returns<int>(days => days == 561 ? 13464 : 0);
-            mock.Setup(mocked => mocked.HourToMinutes(It.IsAny<int>()))
-                .Returns<int>(minutes => minutes == 13464 ? 807840 : 0);
-
-            return mock.Object;
-        }
 
         [TestInitialize]
         public void Setup() {
 
-            dateChecker = GetDateCheckerMock();
-            timeConverter = GetTimeConverterMock();
-            ageChecker = new AgeChecker(dateChecker, timeConverter);
+            dateChecker = new Mock<IDateChecker>();
+            monthChecker = new Mock<IMonthChecker>();
+            timeConverter = new Mock<ITimeConverter>();
+            
+            ageChecker = new AgeChecker(
+                
+                dateChecker.Object, 
+                monthChecker.Object, 
+                timeConverter.Object
+            );
         }
 
         [TestMethod]
         public void ShowInvalidResult() {
 
+            dateChecker.Setup(mock => mock.ParseDate(It.IsAny<string>()))
+                       .Throws(new Exception());
             string result = ageChecker.GetResult("2016/0a/20");
-            string expected = "Invalid Date String.";
 
-            Assert.AreEqual(result, expected);
+            Assert.AreEqual("Invalid Date String.", result);
         }
 
         [TestMethod]
         public void ShowValidResult() {
 
+            monthChecker.Setup(mock => mock.GetElapsedMonths(It.IsAny<DateTime>(), It.IsAny<DateTime>()))
+                        .Returns(18);
+            dateChecker.Setup(mock => mock.GetElapsedDays(It.IsAny<DateTime>(), It.IsAny<DateTime>()))
+                       .Returns(561);
+            timeConverter.Setup(mock => mock.DayToHour(It.IsAny<int>()))
+                         .Returns(13464);
+            timeConverter.Setup(mock => mock.HourToMinutes(It.IsAny<int>()))
+                         .Returns(807840);
             string result = ageChecker.GetResult("2016/06/20");
             string expected = "Months : 18, Days : 561, Hours : 13464, and Minutes : 807840.";
 

@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.40629.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mainProgram", "mainProgram\mainProgram.csproj", "{7B861B78-220A-4EFC-8D4B-9339E64B0A15}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ageCheckerTests", "ageCheckerTests\ageCheckerTests.csproj", "{55A910E9-CCF6-4D79-80D7-02B13977EE50}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ageCheckerTests", "ageCheckerTests\ageCheckerTests.csproj", "{366592B7-05D0-4EEA-B286-54EB44CD3806}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ageCheckerClassLibrary", "ageCheckerClassLibrary\ageCheckerClassLibrary.csproj", "{BABCB23B-7D81-4C3E-9085-CD50E9881CB8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ageCheckerClassLibrary", "ageCheckerClassLibrary\ageCheckerClassLibrary.csproj", "{ED040BF2-F2F9-4D4D-9E9E-A469BBFD4286}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ageChecker", "ageChecker\ageChecker.csproj", "{381894F5-8A5C-4E2F-8F61-BEEF5B944C57}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,18 +15,18 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{7B861B78-220A-4EFC-8D4B-9339E64B0A15}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7B861B78-220A-4EFC-8D4B-9339E64B0A15}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7B861B78-220A-4EFC-8D4B-9339E64B0A15}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7B861B78-220A-4EFC-8D4B-9339E64B0A15}.Release|Any CPU.Build.0 = Release|Any CPU
-		{366592B7-05D0-4EEA-B286-54EB44CD3806}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{366592B7-05D0-4EEA-B286-54EB44CD3806}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{366592B7-05D0-4EEA-B286-54EB44CD3806}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{366592B7-05D0-4EEA-B286-54EB44CD3806}.Release|Any CPU.Build.0 = Release|Any CPU
-		{ED040BF2-F2F9-4D4D-9E9E-A469BBFD4286}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{ED040BF2-F2F9-4D4D-9E9E-A469BBFD4286}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{ED040BF2-F2F9-4D4D-9E9E-A469BBFD4286}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{ED040BF2-F2F9-4D4D-9E9E-A469BBFD4286}.Release|Any CPU.Build.0 = Release|Any CPU
+		{55A910E9-CCF6-4D79-80D7-02B13977EE50}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{55A910E9-CCF6-4D79-80D7-02B13977EE50}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{55A910E9-CCF6-4D79-80D7-02B13977EE50}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{55A910E9-CCF6-4D79-80D7-02B13977EE50}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BABCB23B-7D81-4C3E-9085-CD50E9881CB8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BABCB23B-7D81-4C3E-9085-CD50E9881CB8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BABCB23B-7D81-4C3E-9085-CD50E9881CB8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BABCB23B-7D81-4C3E-9085-CD50E9881CB8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{381894F5-8A5C-4E2F-8F61-BEEF5B944C57}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{381894F5-8A5C-4E2F-8F61-BEEF5B944C57}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{381894F5-8A5C-4E2F-8F61-BEEF5B944C57}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{381894F5-8A5C-4E2F-8F61-BEEF5B944C57}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -17,17 +17,19 @@ namespace ageCheckerTests {
         [TestMethod]
         public void IsLeapYear() {
 
-            bool result = yearChecker.IsLeapYear(2016);
-
-            Assert.IsTrue(result);
+            Assert.IsTrue(yearChecker.IsLeapYear(2016));
         }
 
         [TestMethod]
-        public void IsNotLeapYear() {
+        public void IsNotLeapYearWhenNotDivisibleByFour() {
 
-            bool result = yearChecker.IsLeapYear(1900);
+            Assert.IsFalse(yearChecker.IsLeapYear(1901));
+        }
 
-            Assert.IsFalse(result);
+        [TestMethod]
+        public void IsNotLeapYearWhenDivisibleByFour() {
+
+            Assert.IsFalse(yearChecker.IsLeapYear(1900));
         }
 
         [TestMethod]
@@ -39,7 +41,7 @@ namespace ageCheckerTests {
         [TestMethod]
         public void DaysInNonLeapYear() {
 
-            Assert.AreEqual(365, yearChecker.GetDaysInYear(2017));
+            Assert.AreEqual(365, yearChecker.GetDaysInYear(1900));
         }
     }
 }

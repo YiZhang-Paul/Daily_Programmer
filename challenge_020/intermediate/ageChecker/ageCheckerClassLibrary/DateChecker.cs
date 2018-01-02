@@ -17,14 +17,14 @@ namespace ageCheckerClassLibrary {
             YearChecker = yearChecker;
         }
 
-        private int[] ParseNumbers(string input) {
+        private int[] ParseNumbers(string date) {
 
-            if(!Regex.IsMatch(input, @"\d")) {
+            if(!Regex.IsMatch(date, @"\d")) {
             
                 return new int[0];
             }
 
-            return Regex.Matches(input, @"\d+")
+            return Regex.Matches(date, @"\d+")
                         .Cast<Match>()
                         .Select(number => int.Parse(number.Value))
                         .ToArray();
@@ -33,36 +33,20 @@ namespace ageCheckerClassLibrary {
         public DateTime ParseDate(string date) {
 
             int[] numbers = ParseNumbers(date);
+            
+            if(numbers.Length != 3 || numbers.Any(number => number <= 0)) {
 
-            if(numbers.Length != 3) {
-
-                throw new ArgumentException("Invalid Date.");
+                throw new ArgumentException("Invalid Date String.");
             }
 
             try {
 
                 return new DateTime(numbers[0], numbers[1], numbers[2]);
             }
-            catch(ArgumentOutOfRangeException exception) {
+            catch(ArgumentOutOfRangeException) {
 
-                Console.WriteLine("Date Value Out of Range.");
-                throw exception;
+                throw new ArgumentOutOfRangeException("Date Value Out of Range.");
             }
-        }
-
-        public int GetElapsedMonthsBetweenDates(DateTime start, DateTime end) {
-
-            if(start > end) {
-
-                throw new ArgumentException("Start Date Should Precede End Date");
-            }
-
-            if(start.Year == end.Year) {
-
-                return end.Month - start.Month;
-            }
-
-            return (12 - start.Month) + 12 * (end.Year - start.Year - 1) + (end.Month - 1);
         }
 
         public int GetElapsedDaysInCurrentYear(DateTime date) {
@@ -87,7 +71,7 @@ namespace ageCheckerClassLibrary {
             return YearChecker.GetDaysInYear(date.Year) - GetElapsedDaysInCurrentYear(date) + 1;
         }
 
-        public int GetElapsedDaysBetweenDates(DateTime start, DateTime end) {
+        public int GetElapsedDays(DateTime start, DateTime end) {
 
             if(start > end) {
 
@@ -96,7 +80,7 @@ namespace ageCheckerClassLibrary {
 
             if(start.Year == end.Year) {
 
-                return GetElapsedDaysInCurrentYear(end) - GetElapsedDaysInCurrentYear(start);
+                return start == end ? 0 : GetElapsedDaysInCurrentYear(end) - GetElapsedDaysInCurrentYear(start);
             }
 
             int elapsedDays = GetRemainingDaysInCurrentYear(start) + GetElapsedDaysInCurrentYear(end);

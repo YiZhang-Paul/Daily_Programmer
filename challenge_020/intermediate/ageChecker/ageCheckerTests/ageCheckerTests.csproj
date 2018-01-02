@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{366592B7-05D0-4EEA-B286-54EB44CD3806}</ProjectGuid>
+    <ProjectGuid>{55A910E9-CCF6-4D79-80D7-02B13977EE50}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ageCheckerTests</RootNamespace>
@@ -63,22 +63,17 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="IYearCheckerMock.cs" />
-    <Compile Include="MonthCheckerTest.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="DateCheckerTest.cs" />
     <Compile Include="TimeConverterTest.cs" />
+    <Compile Include="MonthCheckerTest.cs" />
+    <Compile Include="DateCheckerTest.cs" />
     <Compile Include="AgeCheckerTest.cs" />
     <Compile Include="YearCheckerTest.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ageCheckerClassLibrary\ageCheckerClassLibrary.csproj">
-      <Project>{ed040bf2-f2f9-4d4d-9e9e-a469bbfd4286}</Project>
+      <Project>{babcb23b-7d81-4c3e-9085-cd50e9881cb8}</Project>
       <Name>ageCheckerClassLibrary</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\mainProgram\mainProgram.csproj">
-      <Project>{7b861b78-220a-4efc-8d4b-9339e64b0a15}</Project>
-      <Name>mainProgram</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

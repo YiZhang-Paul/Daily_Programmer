@@ -8,5 +8,6 @@ namespace ageCheckerClassLibrary {
     public interface IMonthChecker {
 
         int GetDaysInMonth(int month, int year);
+        int GetElapsedMonths(DateTime start, DateTime end);
     }
 }
