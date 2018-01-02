@@ -1,0 +1,8 @@
+D:\all_languages\reddit_challenges\challenge_026\intermediate\employeeInformationStorage\mainProgram\bin\Debug\mainProgram.exe.config
+D:\all_languages\reddit_challenges\challenge_026\intermediate\employeeInformationStorage\mainProgram\bin\Debug\mainProgram.exe
+D:\all_languages\reddit_challenges\challenge_026\intermediate\employeeInformationStorage\mainProgram\bin\Debug\mainProgram.pdb
+D:\all_languages\reddit_challenges\challenge_026\intermediate\employeeInformationStorage\mainProgram\bin\Debug\employeeInformationClassLibrary.dll
+D:\all_languages\reddit_challenges\challenge_026\intermediate\employeeInformationStorage\mainProgram\bin\Debug\employeeInformationClassLibrary.pdb
+D:\all_languages\reddit_challenges\challenge_026\intermediate\employeeInformationStorage\mainProgram\obj\Debug\mainProgram.csprojResolveAssemblyReference.cache
+D:\all_languages\reddit_challenges\challenge_026\intermediate\employeeInformationStorage\mainProgram\obj\Debug\mainProgram.exe
+D:\all_languages\reddit_challenges\challenge_026\intermediate\employeeInformationStorage\mainProgram\obj\Debug\mainProgram.pdb

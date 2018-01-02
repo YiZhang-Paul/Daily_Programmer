@@ -1,0 +1,460 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CoverageSession xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Version="4.6.0.0">
+  <Summary numSequencePoints="114" visitedSequencePoints="54" numBranchPoints="42" visitedBranchPoints="19" sequenceCoverage="47.37" branchCoverage="45.24" maxCyclomaticComplexity="4" minCyclomaticComplexity="1" maxCrapScore="12" minCrapScore="1" visitedClasses="3" numClasses="3" visitedMethods="13" numMethods="22" />
+  <Modules>
+    <Module hash="F1-0A-DB-97-7E-5E-7D-58-CE-37-75-15-23-18-AD-CA-D4-99-4A-BC">
+      <Summary numSequencePoints="114" visitedSequencePoints="54" numBranchPoints="42" visitedBranchPoints="19" sequenceCoverage="47.37" branchCoverage="45.24" maxCyclomaticComplexity="4" minCyclomaticComplexity="1" maxCrapScore="12" minCrapScore="1" visitedClasses="3" numClasses="3" visitedMethods="13" numMethods="22" />
+      <ModulePath>D:\all_languages\reddit_challenges\challenge_026\intermediate\employeeInformationStorage\employeeInformationTest\bin\Debug\employeeInformationClassLibrary.dll</ModulePath>
+      <ModuleTime>2018-01-02T19:34:43.0559035Z</ModuleTime>
+      <ModuleName>employeeInformationClassLibrary</ModuleName>
+      <Files>
+        <File uid="1" fullPath="d:\all_languages\reddit_challenges\challenge_026\intermediate\employeeInformationStorage\employeeInformationClassLibrary\Employee.cs" />
+        <File uid="2" fullPath="d:\all_languages\reddit_challenges\challenge_026\intermediate\employeeInformationStorage\employeeInformationClassLibrary\EmployeeDataStore.cs" />
+        <File uid="3" fullPath="d:\all_languages\reddit_challenges\challenge_026\intermediate\employeeInformationStorage\employeeInformationClassLibrary\EmployeeTracker.cs" />
+      </Files>
+      <Classes>
+        <Class>
+          <Summary numSequencePoints="9" visitedSequencePoints="9" numBranchPoints="2" visitedBranchPoints="2" sequenceCoverage="100" branchCoverage="100" maxCyclomaticComplexity="1" minCyclomaticComplexity="1" maxCrapScore="1" minCrapScore="1" visitedClasses="1" numClasses="1" visitedMethods="2" numMethods="2" />
+          <FullName>employeeInformationClassLibrary.Employee</FullName>
+          <Methods>
+            <Method skippedDueTo="AutoImplementedProperty" visited="false" cyclomaticComplexity="1" nPathComplexity="0" sequenceCoverage="0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="true" isSetter="false">
+              <MetadataToken>100663300</MetadataToken>
+              <Name>System.String employeeInformationClassLibrary.Employee::get_Name()</Name>
+              <SequencePoints />
+              <BranchPoints />
+            </Method>
+            <Method skippedDueTo="AutoImplementedProperty" visited="false" cyclomaticComplexity="1" nPathComplexity="0" sequenceCoverage="0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="false" isSetter="true">
+              <MetadataToken>100663301</MetadataToken>
+              <Name>System.Void employeeInformationClassLibrary.Employee::set_Name(System.String)</Name>
+              <SequencePoints />
+              <BranchPoints />
+            </Method>
+            <Method skippedDueTo="AutoImplementedProperty" visited="false" cyclomaticComplexity="1" nPathComplexity="0" sequenceCoverage="0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="true" isSetter="false">
+              <MetadataToken>100663302</MetadataToken>
+              <Name>System.UInt32 employeeInformationClassLibrary.Employee::get_Age()</Name>
+              <SequencePoints />
+              <BranchPoints />
+            </Method>
+            <Method skippedDueTo="AutoImplementedProperty" visited="false" cyclomaticComplexity="1" nPathComplexity="0" sequenceCoverage="0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="false" isSetter="true">
+              <MetadataToken>100663303</MetadataToken>
+              <Name>System.Void employeeInformationClassLibrary.Employee::set_Age(System.UInt32)</Name>
+              <SequencePoints />
+              <BranchPoints />
+            </Method>
+            <Method skippedDueTo="AutoImplementedProperty" visited="false" cyclomaticComplexity="1" nPathComplexity="0" sequenceCoverage="0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="true" isSetter="false">
+              <MetadataToken>100663304</MetadataToken>
+              <Name>System.Decimal employeeInformationClassLibrary.Employee::get_HourlyWage()</Name>
+              <SequencePoints />
+              <BranchPoints />
+            </Method>
+            <Method skippedDueTo="AutoImplementedProperty" visited="false" cyclomaticComplexity="1" nPathComplexity="0" sequenceCoverage="0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="false" isSetter="true">
+              <MetadataToken>100663305</MetadataToken>
+              <Name>System.Void employeeInformationClassLibrary.Employee::set_HourlyWage(System.Decimal)</Name>
+              <SequencePoints />
+              <BranchPoints />
+            </Method>
+            <Method visited="true" cyclomaticComplexity="1" nPathComplexity="0" sequenceCoverage="100" branchCoverage="100" crapScore="1" isConstructor="true" isStatic="false" isGetter="false" isSetter="false">
+              <Summary numSequencePoints="6" visitedSequencePoints="6" numBranchPoints="1" visitedBranchPoints="1" sequenceCoverage="100" branchCoverage="100" maxCyclomaticComplexity="1" minCyclomaticComplexity="1" maxCrapScore="1" minCrapScore="1" visitedClasses="0" numClasses="0" visitedMethods="1" numMethods="1" />
+              <MetadataToken>100663306</MetadataToken>
+              <Name>System.Void employeeInformationClassLibrary.Employee::.ctor(System.String,System.UInt32,System.Decimal)</Name>
+              <FileRef uid="1" />
+              <SequencePoints>
+                <SequencePoint vc="1" uspid="1" ordinal="0" offset="0" sl="14" sc="9" el="14" ec="67" bec="0" bev="0" fileid="1" />
+                <SequencePoint vc="1" uspid="2" ordinal="1" offset="7" sl="14" sc="68" el="14" ec="69" bec="0" bev="0" fileid="1" />
+                <SequencePoint vc="1" uspid="3" ordinal="2" offset="8" sl="16" sc="13" el="16" ec="25" bec="0" bev="0" fileid="1" />
+                <SequencePoint vc="1" uspid="4" ordinal="3" offset="16" sl="17" sc="13" el="17" ec="23" bec="0" bev="0" fileid="1" />
+                <SequencePoint vc="1" uspid="5" ordinal="4" offset="24" sl="18" sc="13" el="18" ec="37" bec="0" bev="0" fileid="1" />
+                <SequencePoint vc="1" uspid="6" ordinal="5" offset="32" sl="19" sc="9" el="19" ec="10" bec="0" bev="0" fileid="1" />
+              </SequencePoints>
+              <BranchPoints />
+              <MethodPoint xsi:type="SequencePoint" vc="1" uspid="1" ordinal="0" offset="0" sl="14" sc="9" el="14" ec="67" bec="0" bev="0" fileid="1" />
+            </Method>
+            <Method visited="true" cyclomaticComplexity="1" nPathComplexity="0" sequenceCoverage="100" branchCoverage="100" crapScore="1" isConstructor="false" isStatic="false" isGetter="false" isSetter="false">
+              <Summary numSequencePoints="3" visitedSequencePoints="3" numBranchPoints="1" visitedBranchPoints="1" sequenceCoverage="100" branchCoverage="100" maxCyclomaticComplexity="1" minCyclomaticComplexity="1" maxCrapScore="1" minCrapScore="1" visitedClasses="0" numClasses="0" visitedMethods="1" numMethods="1" />
+              <MetadataToken>100663307</MetadataToken>
+              <Name>System.String employeeInformationClassLibrary.Employee::ToString()</Name>
+              <FileRef uid="1" />
+              <SequencePoints>
+                <SequencePoint vc="1" uspid="7" ordinal="0" offset="0" sl="21" sc="43" el="21" ec="44" bec="0" bev="0" fileid="1" />
+                <SequencePoint vc="1" uspid="8" ordinal="1" offset="1" sl="23" sc="13" el="23" ec="87" bec="0" bev="0" fileid="1" />
+                <SequencePoint vc="1" uspid="9" ordinal="2" offset="86" sl="24" sc="9" el="24" ec="10" bec="0" bev="0" fileid="1" />
+              </SequencePoints>
+              <BranchPoints />
+              <MethodPoint xsi:type="SequencePoint" vc="1" uspid="7" ordinal="0" offset="0" sl="21" sc="43" el="21" ec="44" bec="0" bev="0" fileid="1" />
+            </Method>
+          </Methods>
+        </Class>
+        <Class>
+          <Summary numSequencePoints="28" visitedSequencePoints="28" numBranchPoints="10" visitedBranchPoints="10" sequenceCoverage="100" branchCoverage="100" maxCyclomaticComplexity="2" minCyclomaticComplexity="1" maxCrapScore="2" minCrapScore="1" visitedClasses="1" numClasses="1" visitedMethods="8" numMethods="8" />
+          <FullName>employeeInformationClassLibrary.EmployeeDataStore</FullName>
+          <Methods>
+            <Method skippedDueTo="AutoImplementedProperty" visited="false" cyclomaticComplexity="1" nPathComplexity="0" sequenceCoverage="0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="true" isSetter="false">
+              <MetadataToken>100663313</MetadataToken>
+              <Name>System.Collections.Generic.Dictionary`2&lt;System.String,employeeInformationClassLibrary.IEmployee&gt; employeeInformationClassLibrary.EmployeeDataStore::get_Data()</Name>
+              <SequencePoints />
+              <BranchPoints />
+            </Method>
+            <Method skippedDueTo="AutoImplementedProperty" visited="false" cyclomaticComplexity="1" nPathComplexity="0" sequenceCoverage="0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="false" isSetter="true">
+              <MetadataToken>100663314</MetadataToken>
+              <Name>System.Void employeeInformationClassLibrary.EmployeeDataStore::set_Data(System.Collections.Generic.Dictionary`2&lt;System.String,employeeInformationClassLibrary.IEmployee&gt;)</Name>
+              <SequencePoints />
+              <BranchPoints />
+            </Method>
+            <Method visited="true" cyclomaticComplexity="2" nPathComplexity="0" sequenceCoverage="100" branchCoverage="100" crapScore="2" isConstructor="false" isStatic="false" isGetter="true" isSetter="false">
+              <Summary numSequencePoints="3" visitedSequencePoints="3" numBranchPoints="1" visitedBranchPoints="1" sequenceCoverage="100" branchCoverage="100" maxCyclomaticComplexity="2" minCyclomaticComplexity="2" maxCrapScore="2" minCrapScore="2" visitedClasses="0" numClasses="0" visitedMethods="1" numMethods="1" />
+              <MetadataToken>100663315</MetadataToken>
+              <Name>System.Collections.Generic.IEnumerable`1&lt;employeeInformationClassLibrary.IEmployee&gt; employeeInformationClassLibrary.EmployeeDataStore::get_Employees()</Name>
+              <FileRef uid="2" />
+              <SequencePoints>
+                <SequencePoint vc="1" uspid="10" ordinal="0" offset="0" sl="14" sc="17" el="14" ec="18" bec="0" bev="0" fileid="2" />
+                <SequencePoint vc="1" uspid="11" ordinal="1" offset="1" sl="16" sc="17" el="16" ec="56" bec="0" bev="0" fileid="2" />
+                <SequencePoint vc="1" uspid="12" ordinal="2" offset="46" sl="17" sc="13" el="17" ec="14" bec="0" bev="0" fileid="2" />
+              </SequencePoints>
+              <BranchPoints />
+              <MethodPoint xsi:type="SequencePoint" vc="1" uspid="10" ordinal="0" offset="0" sl="14" sc="17" el="14" ec="18" bec="0" bev="0" fileid="2" />
+            </Method>
+            <Method visited="true" cyclomaticComplexity="1" nPathComplexity="0" sequenceCoverage="100" branchCoverage="100" crapScore="1" isConstructor="false" isStatic="false" isGetter="true" isSetter="false">
+              <Summary numSequencePoints="3" visitedSequencePoints="3" numBranchPoints="1" visitedBranchPoints="1" sequenceCoverage="100" branchCoverage="100" maxCyclomaticComplexity="1" minCyclomaticComplexity="1" maxCrapScore="1" minCrapScore="1" visitedClasses="0" numClasses="0" visitedMethods="1" numMethods="1" />
+              <MetadataToken>100663316</MetadataToken>
+              <Name>System.Int32 employeeInformationClassLibrary.EmployeeDataStore::get_TotalEmployee()</Name>
+              <FileRef uid="2" />
+              <SequencePoints>
+                <SequencePoint vc="4" uspid="15" ordinal="0" offset="0" sl="22" sc="17" el="22" ec="18" bec="0" bev="0" fileid="2" />
+                <SequencePoint vc="4" uspid="16" ordinal="1" offset="1" sl="24" sc="17" el="24" ec="35" bec="0" bev="0" fileid="2" />
+                <SequencePoint vc="4" uspid="17" ordinal="2" offset="15" sl="25" sc="13" el="25" ec="14" bec="0" bev="0" fileid="2" />
+              </SequencePoints>
+              <BranchPoints />
+              <MethodPoint xsi:type="SequencePoint" vc="4" uspid="15" ordinal="0" offset="0" sl="22" sc="17" el="22" ec="18" bec="0" bev="0" fileid="2" />
+            </Method>
+            <Method visited="true" cyclomaticComplexity="1" nPathComplexity="0" sequenceCoverage="100" branchCoverage="100" crapScore="1" isConstructor="true" isStatic="false" isGetter="false" isSetter="false">
+              <Summary numSequencePoints="4" visitedSequencePoints="4" numBranchPoints="1" visitedBranchPoints="1" sequenceCoverage="100" branchCoverage="100" maxCyclomaticComplexity="1" minCyclomaticComplexity="1" maxCrapScore="1" minCrapScore="1" visitedClasses="0" numClasses="0" visitedMethods="1" numMethods="1" />
+              <MetadataToken>100663317</MetadataToken>
+              <Name>System.Void employeeInformationClassLibrary.EmployeeDataStore::.ctor()</Name>
+              <FileRef uid="2" />
+              <SequencePoints>
+                <SequencePoint vc="6" uspid="18" ordinal="0" offset="0" sl="28" sc="9" el="28" ec="35" bec="0" bev="0" fileid="2" />
+                <SequencePoint vc="6" uspid="19" ordinal="1" offset="7" sl="28" sc="36" el="28" ec="37" bec="0" bev="0" fileid="2" />
+                <SequencePoint vc="6" uspid="20" ordinal="2" offset="8" sl="30" sc="13" el="30" ec="56" bec="0" bev="0" fileid="2" />
+                <SequencePoint vc="6" uspid="21" ordinal="3" offset="20" sl="31" sc="9" el="31" ec="10" bec="0" bev="0" fileid="2" />
+              </SequencePoints>
+              <BranchPoints />
+              <MethodPoint xsi:type="SequencePoint" vc="6" uspid="18" ordinal="0" offset="0" sl="28" sc="9" el="28" ec="35" bec="0" bev="0" fileid="2" />
+            </Method>
+            <Method visited="true" cyclomaticComplexity="1" nPathComplexity="0" sequenceCoverage="100" branchCoverage="100" crapScore="1" isConstructor="true" isStatic="false" isGetter="false" isSetter="false">
+              <Summary numSequencePoints="4" visitedSequencePoints="4" numBranchPoints="1" visitedBranchPoints="1" sequenceCoverage="100" branchCoverage="100" maxCyclomaticComplexity="1" minCyclomaticComplexity="1" maxCrapScore="1" minCrapScore="1" visitedClasses="0" numClasses="0" visitedMethods="1" numMethods="1" />
+              <MetadataToken>100663318</MetadataToken>
+              <Name>System.Void employeeInformationClassLibrary.EmployeeDataStore::.ctor(System.Collections.Generic.Dictionary`2&lt;System.String,employeeInformationClassLibrary.IEmployee&gt;)</Name>
+              <FileRef uid="2" />
+              <SequencePoints>
+                <SequencePoint vc="5" uspid="22" ordinal="0" offset="0" sl="33" sc="9" el="33" ec="69" bec="0" bev="0" fileid="2" />
+                <SequencePoint vc="5" uspid="23" ordinal="1" offset="7" sl="33" sc="70" el="33" ec="71" bec="0" bev="0" fileid="2" />
+                <SequencePoint vc="5" uspid="24" ordinal="2" offset="8" sl="35" sc="13" el="35" ec="25" bec="0" bev="0" fileid="2" />
+                <SequencePoint vc="5" uspid="25" ordinal="3" offset="16" sl="36" sc="9" el="36" ec="10" bec="0" bev="0" fileid="2" />
+              </SequencePoints>
+              <BranchPoints />
+              <MethodPoint xsi:type="SequencePoint" vc="5" uspid="22" ordinal="0" offset="0" sl="33" sc="9" el="33" ec="69" bec="0" bev="0" fileid="2" />
+            </Method>
+            <Method visited="true" cyclomaticComplexity="1" nPathComplexity="0" sequenceCoverage="100" branchCoverage="100" crapScore="1" isConstructor="false" isStatic="false" isGetter="false" isSetter="false">
+              <Summary numSequencePoints="3" visitedSequencePoints="3" numBranchPoints="1" visitedBranchPoints="1" sequenceCoverage="100" branchCoverage="100" maxCyclomaticComplexity="1" minCyclomaticComplexity="1" maxCrapScore="1" minCrapScore="1" visitedClasses="0" numClasses="0" visitedMethods="1" numMethods="1" />
+              <MetadataToken>100663319</MetadataToken>
+              <Name>System.Boolean employeeInformationClassLibrary.EmployeeDataStore::HasEmployee(employeeInformationClassLibrary.IEmployee)</Name>
+              <FileRef uid="2" />
+              <SequencePoints>
+                <SequencePoint vc="2" uspid="26" ordinal="0" offset="0" sl="38" sc="53" el="38" ec="54" bec="0" bev="0" fileid="2" />
+                <SequencePoint vc="2" uspid="27" ordinal="1" offset="1" sl="40" sc="13" el="40" ec="52" bec="0" bev="0" fileid="2" />
+                <SequencePoint vc="2" uspid="28" ordinal="2" offset="21" sl="41" sc="9" el="41" ec="10" bec="0" bev="0" fileid="2" />
+              </SequencePoints>
+              <BranchPoints />
+              <MethodPoint xsi:type="SequencePoint" vc="2" uspid="26" ordinal="0" offset="0" sl="38" sc="53" el="38" ec="54" bec="0" bev="0" fileid="2" />
+            </Method>
+            <Method visited="true" cyclomaticComplexity="1" nPathComplexity="0" sequenceCoverage="100" branchCoverage="100" crapScore="1" isConstructor="false" isStatic="false" isGetter="false" isSetter="false">
+              <Summary numSequencePoints="3" visitedSequencePoints="3" numBranchPoints="1" visitedBranchPoints="1" sequenceCoverage="100" branchCoverage="100" maxCyclomaticComplexity="1" minCyclomaticComplexity="1" maxCrapScore="1" minCrapScore="1" visitedClasses="0" numClasses="0" visitedMethods="1" numMethods="1" />
+              <MetadataToken>100663320</MetadataToken>
+              <Name>System.Void employeeInformationClassLibrary.EmployeeDataStore::Add(employeeInformationClassLibrary.IEmployee)</Name>
+              <FileRef uid="2" />
+              <SequencePoints>
+                <SequencePoint vc="1" uspid="29" ordinal="0" offset="0" sl="43" sc="45" el="43" ec="46" bec="0" bev="0" fileid="2" />
+                <SequencePoint vc="1" uspid="30" ordinal="1" offset="1" sl="45" sc="13" el="45" ec="44" bec="0" bev="0" fileid="2" />
+                <SequencePoint vc="1" uspid="31" ordinal="2" offset="20" sl="46" sc="9" el="46" ec="10" bec="0" bev="0" fileid="2" />
+              </SequencePoints>
+              <BranchPoints />
+              <MethodPoint xsi:type="SequencePoint" vc="1" uspid="29" ordinal="0" offset="0" sl="43" sc="45" el="43" ec="46" bec="0" bev="0" fileid="2" />
+            </Method>
+            <Method visited="true" cyclomaticComplexity="2" nPathComplexity="2" sequenceCoverage="100" branchCoverage="100" crapScore="2" isConstructor="false" isStatic="false" isGetter="false" isSetter="false">
+              <Summary numSequencePoints="7" visitedSequencePoints="7" numBranchPoints="3" visitedBranchPoints="3" sequenceCoverage="100" branchCoverage="100" maxCyclomaticComplexity="2" minCyclomaticComplexity="2" maxCrapScore="2" minCrapScore="2" visitedClasses="0" numClasses="0" visitedMethods="1" numMethods="1" />
+              <MetadataToken>100663321</MetadataToken>
+              <Name>System.Boolean employeeInformationClassLibrary.EmployeeDataStore::Update(employeeInformationClassLibrary.IEmployee)</Name>
+              <FileRef uid="2" />
+              <SequencePoints>
+                <SequencePoint vc="2" uspid="32" ordinal="0" offset="0" sl="48" sc="48" el="48" ec="49" bec="0" bev="0" fileid="2" />
+                <SequencePoint vc="2" uspid="33" ordinal="1" offset="1" sl="50" sc="13" el="50" ec="49" bec="2" bev="2" fileid="2" />
+                <SequencePoint vc="1" uspid="34" ordinal="2" offset="22" sl="50" sc="50" el="50" ec="51" bec="0" bev="0" fileid="2" />
+                <SequencePoint vc="1" uspid="35" ordinal="3" offset="23" sl="52" sc="17" el="52" ec="30" bec="0" bev="0" fileid="2" />
+                <SequencePoint vc="1" uspid="36" ordinal="4" offset="27" sl="55" sc="13" el="55" ec="44" bec="0" bev="0" fileid="2" />
+                <SequencePoint vc="1" uspid="37" ordinal="5" offset="46" sl="57" sc="13" el="57" ec="25" bec="0" bev="0" fileid="2" />
+                <SequencePoint vc="2" uspid="38" ordinal="6" offset="50" sl="58" sc="9" el="58" ec="10" bec="0" bev="0" fileid="2" />
+              </SequencePoints>
+              <BranchPoints>
+                <BranchPoint vc="1" uspid="39" ordinal="0" offset="20" sl="50" path="0" offsetend="22" fileid="2" />
+                <BranchPoint vc="1" uspid="40" ordinal="1" offset="20" sl="50" path="1" offsetend="27" fileid="2" />
+              </BranchPoints>
+              <MethodPoint xsi:type="SequencePoint" vc="2" uspid="32" ordinal="0" offset="0" sl="48" sc="48" el="48" ec="49" bec="0" bev="0" fileid="2" />
+            </Method>
+            <Method visited="true" cyclomaticComplexity="1" nPathComplexity="0" sequenceCoverage="100" branchCoverage="100" crapScore="1" isConstructor="false" isStatic="true" isGetter="false" isSetter="false">
+              <Summary numSequencePoints="1" visitedSequencePoints="1" numBranchPoints="1" visitedBranchPoints="1" sequenceCoverage="100" branchCoverage="100" maxCyclomaticComplexity="1" minCyclomaticComplexity="1" maxCrapScore="1" minCrapScore="1" visitedClasses="0" numClasses="0" visitedMethods="1" numMethods="1" />
+              <MetadataToken>100663322</MetadataToken>
+              <Name>employeeInformationClassLibrary.IEmployee employeeInformationClassLibrary.EmployeeDataStore::&lt;get_Employees&gt;b__0(System.Collections.Generic.KeyValuePair`2&lt;System.String,employeeInformationClassLibrary.IEmployee&gt;)</Name>
+              <FileRef uid="2" />
+              <SequencePoints>
+                <SequencePoint vc="6" uspid="41" ordinal="0" offset="0" sl="16" sc="44" el="16" ec="54" bec="0" bev="0" fileid="2" />
+              </SequencePoints>
+              <BranchPoints />
+              <MethodPoint xsi:type="SequencePoint" vc="6" uspid="41" ordinal="0" offset="0" sl="16" sc="44" el="16" ec="54" bec="0" bev="0" fileid="2" />
+            </Method>
+          </Methods>
+        </Class>
+        <Class>
+          <Summary numSequencePoints="77" visitedSequencePoints="17" numBranchPoints="30" visitedBranchPoints="7" sequenceCoverage="22.08" branchCoverage="23.33" maxCyclomaticComplexity="4" minCyclomaticComplexity="1" maxCrapScore="12" minCrapScore="1" visitedClasses="1" numClasses="1" visitedMethods="3" numMethods="12" />
+          <FullName>employeeInformationClassLibrary.EmployeeTracker</FullName>
+          <Methods>
+            <Method skippedDueTo="AutoImplementedProperty" visited="false" cyclomaticComplexity="1" nPathComplexity="0" sequenceCoverage="0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="true" isSetter="false">
+              <MetadataToken>100663323</MetadataToken>
+              <Name>employeeInformationClassLibrary.IDataStore employeeInformationClassLibrary.EmployeeTracker::get_DataStore()</Name>
+              <SequencePoints />
+              <BranchPoints />
+            </Method>
+            <Method skippedDueTo="AutoImplementedProperty" visited="false" cyclomaticComplexity="1" nPathComplexity="0" sequenceCoverage="0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="false" isSetter="true">
+              <MetadataToken>100663324</MetadataToken>
+              <Name>System.Void employeeInformationClassLibrary.EmployeeTracker::set_DataStore(employeeInformationClassLibrary.IDataStore)</Name>
+              <SequencePoints />
+              <BranchPoints />
+            </Method>
+            <Method visited="true" cyclomaticComplexity="1" nPathComplexity="0" sequenceCoverage="100" branchCoverage="100" crapScore="1" isConstructor="true" isStatic="false" isGetter="false" isSetter="false">
+              <Summary numSequencePoints="4" visitedSequencePoints="4" numBranchPoints="1" visitedBranchPoints="1" sequenceCoverage="100" branchCoverage="100" maxCyclomaticComplexity="1" minCyclomaticComplexity="1" maxCrapScore="1" minCrapScore="1" visitedClasses="0" numClasses="0" visitedMethods="1" numMethods="1" />
+              <MetadataToken>100663325</MetadataToken>
+              <Name>System.Void employeeInformationClassLibrary.EmployeeTracker::.ctor(employeeInformationClassLibrary.IDataStore)</Name>
+              <FileRef uid="3" />
+              <SequencePoints>
+                <SequencePoint vc="8" uspid="42" ordinal="0" offset="0" sl="13" sc="9" el="13" ec="53" bec="0" bev="0" fileid="3" />
+                <SequencePoint vc="8" uspid="43" ordinal="1" offset="7" sl="13" sc="54" el="13" ec="55" bec="0" bev="0" fileid="3" />
+                <SequencePoint vc="8" uspid="44" ordinal="2" offset="8" sl="15" sc="13" el="15" ec="35" bec="0" bev="0" fileid="3" />
+                <SequencePoint vc="8" uspid="45" ordinal="3" offset="16" sl="16" sc="9" el="16" ec="10" bec="0" bev="0" fileid="3" />
+              </SequencePoints>
+              <BranchPoints />
+              <MethodPoint xsi:type="SequencePoint" vc="8" uspid="42" ordinal="0" offset="0" sl="13" sc="9" el="13" ec="53" bec="0" bev="0" fileid="3" />
+            </Method>
+            <Method visited="true" cyclomaticComplexity="4" nPathComplexity="2" sequenceCoverage="100" branchCoverage="100" crapScore="4" isConstructor="false" isStatic="false" isGetter="false" isSetter="false">
+              <Summary numSequencePoints="7" visitedSequencePoints="7" numBranchPoints="3" visitedBranchPoints="3" sequenceCoverage="100" branchCoverage="100" maxCyclomaticComplexity="4" minCyclomaticComplexity="4" maxCrapScore="4" minCrapScore="4" visitedClasses="0" numClasses="0" visitedMethods="1" numMethods="1" />
+              <MetadataToken>100663326</MetadataToken>
+              <Name>System.Boolean employeeInformationClassLibrary.EmployeeTracker::IsValidName(System.String)</Name>
+              <FileRef uid="3" />
+              <SequencePoints>
+                <SequencePoint vc="8" uspid="46" ordinal="0" offset="0" sl="18" sc="47" el="18" ec="48" bec="0" bev="0" fileid="3" />
+                <SequencePoint vc="8" uspid="47" ordinal="1" offset="1" sl="20" sc="13" el="20" ec="32" bec="0" bev="0" fileid="3" />
+                <SequencePoint vc="8" uspid="48" ordinal="2" offset="9" sl="22" sc="13" el="22" ec="83" bec="2" bev="2" fileid="3" />
+                <SequencePoint vc="3" uspid="49" ordinal="3" offset="51" sl="22" sc="84" el="22" ec="85" bec="0" bev="0" fileid="3" />
+                <SequencePoint vc="3" uspid="50" ordinal="4" offset="52" sl="24" sc="17" el="24" ec="30" bec="0" bev="0" fileid="3" />
+                <SequencePoint vc="5" uspid="51" ordinal="5" offset="56" sl="27" sc="13" el="27" ec="25" bec="0" bev="0" fileid="3" />
+                <SequencePoint vc="8" uspid="52" ordinal="6" offset="60" sl="28" sc="9" el="28" ec="10" bec="0" bev="0" fileid="3" />
+              </SequencePoints>
+              <BranchPoints>
+                <BranchPoint vc="3" uspid="57" ordinal="4" offset="49" sl="22" path="0" offsetend="51" fileid="3" />
+                <BranchPoint vc="5" uspid="58" ordinal="5" offset="49" sl="22" path="1" offsetend="56" fileid="3" />
+              </BranchPoints>
+              <MethodPoint xsi:type="SequencePoint" vc="8" uspid="46" ordinal="0" offset="0" sl="18" sc="47" el="18" ec="48" bec="0" bev="0" fileid="3" />
+            </Method>
+            <Method visited="true" cyclomaticComplexity="4" nPathComplexity="2" sequenceCoverage="100" branchCoverage="100" crapScore="4" isConstructor="false" isStatic="false" isGetter="false" isSetter="false">
+              <Summary numSequencePoints="6" visitedSequencePoints="6" numBranchPoints="3" visitedBranchPoints="3" sequenceCoverage="100" branchCoverage="100" maxCyclomaticComplexity="4" minCyclomaticComplexity="4" maxCrapScore="4" minCrapScore="4" visitedClasses="0" numClasses="0" visitedMethods="1" numMethods="1" />
+              <MetadataToken>100663327</MetadataToken>
+              <Name>System.Boolean employeeInformationClassLibrary.EmployeeTracker::IsValidInput(System.String,System.UInt32,System.Decimal)</Name>
+              <FileRef uid="3" />
+              <SequencePoints>
+                <SequencePoint vc="8" uspid="59" ordinal="0" offset="0" sl="30" sc="77" el="30" ec="78" bec="0" bev="0" fileid="3" />
+                <SequencePoint vc="8" uspid="60" ordinal="1" offset="1" sl="32" sc="13" el="32" ec="66" bec="2" bev="2" fileid="3" />
+                <SequencePoint vc="5" uspid="61" ordinal="2" offset="38" sl="32" sc="67" el="32" ec="68" bec="0" bev="0" fileid="3" />
+                <SequencePoint vc="5" uspid="62" ordinal="3" offset="39" sl="34" sc="17" el="34" ec="30" bec="0" bev="0" fileid="3" />
+                <SequencePoint vc="3" uspid="63" ordinal="4" offset="43" sl="37" sc="13" el="37" ec="25" bec="0" bev="0" fileid="3" />
+                <SequencePoint vc="8" uspid="64" ordinal="5" offset="47" sl="38" sc="9" el="38" ec="10" bec="0" bev="0" fileid="3" />
+              </SequencePoints>
+              <BranchPoints>
+                <BranchPoint vc="5" uspid="69" ordinal="4" offset="36" sl="32" path="0" offsetend="38" fileid="3" />
+                <BranchPoint vc="3" uspid="70" ordinal="5" offset="36" sl="32" path="1" offsetend="43" fileid="3" />
+              </BranchPoints>
+              <MethodPoint xsi:type="SequencePoint" vc="8" uspid="59" ordinal="0" offset="0" sl="30" sc="77" el="30" ec="78" bec="0" bev="0" fileid="3" />
+            </Method>
+            <Method visited="false" cyclomaticComplexity="1" nPathComplexity="0" sequenceCoverage="0" branchCoverage="0" crapScore="2" isConstructor="false" isStatic="false" isGetter="false" isSetter="false">
+              <Summary numSequencePoints="4" visitedSequencePoints="0" numBranchPoints="1" visitedBranchPoints="0" sequenceCoverage="0" branchCoverage="0" maxCyclomaticComplexity="1" minCyclomaticComplexity="1" maxCrapScore="2" minCrapScore="2" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
+              <MetadataToken>100663328</MetadataToken>
+              <Name>System.String employeeInformationClassLibrary.EmployeeTracker::GetName()</Name>
+              <FileRef uid="3" />
+              <SequencePoints>
+                <SequencePoint vc="0" uspid="71" ordinal="0" offset="0" sl="40" sc="34" el="40" ec="35" bec="0" bev="0" fileid="3" />
+                <SequencePoint vc="0" uspid="72" ordinal="1" offset="1" sl="42" sc="13" el="42" ec="128" bec="0" bev="0" fileid="3" />
+                <SequencePoint vc="0" uspid="73" ordinal="2" offset="12" sl="44" sc="13" el="44" ec="46" bec="0" bev="0" fileid="3" />
+                <SequencePoint vc="0" uspid="74" ordinal="3" offset="25" sl="45" sc="9" el="45" ec="10" bec="0" bev="0" fileid="3" />
+              </SequencePoints>
+              <BranchPoints />
+              <MethodPoint xsi:type="SequencePoint" vc="0" uspid="71" ordinal="0" offset="0" sl="40" sc="34" el="40" ec="35" bec="0" bev="0" fileid="3" />
+            </Method>
+            <Method visited="false" cyclomaticComplexity="3" nPathComplexity="2" sequenceCoverage="0" branchCoverage="0" crapScore="12" isConstructor="false" isStatic="false" isGetter="false" isSetter="false">
+              <Summary numSequencePoints="6" visitedSequencePoints="0" numBranchPoints="3" visitedBranchPoints="0" sequenceCoverage="0" branchCoverage="0" maxCyclomaticComplexity="3" minCyclomaticComplexity="3" maxCrapScore="12" minCrapScore="12" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
+              <MetadataToken>100663329</MetadataToken>
+              <Name>System.String employeeInformationClassLibrary.EmployeeTracker::GetAge()</Name>
+              <FileRef uid="3" />
+              <SequencePoints>
+                <SequencePoint vc="0" uspid="75" ordinal="0" offset="0" sl="47" sc="33" el="47" ec="34" bec="0" bev="0" fileid="3" />
+                <SequencePoint vc="0" uspid="76" ordinal="1" offset="1" sl="49" sc="13" el="49" ec="112" bec="0" bev="0" fileid="3" />
+                <SequencePoint vc="0" uspid="77" ordinal="2" offset="12" sl="50" sc="13" el="50" ec="52" bec="0" bev="0" fileid="3" />
+                <SequencePoint vc="0" uspid="78" ordinal="3" offset="23" sl="51" sc="13" el="51" ec="28" bec="0" bev="0" fileid="3" />
+                <SequencePoint vc="0" uspid="79" ordinal="4" offset="25" sl="53" sc="13" el="53" ec="68" bec="2" bev="0" fileid="3" />
+                <SequencePoint vc="0" uspid="80" ordinal="5" offset="48" sl="54" sc="9" el="54" ec="10" bec="0" bev="0" fileid="3" />
+              </SequencePoints>
+              <BranchPoints>
+                <BranchPoint vc="0" uspid="81" ordinal="0" offset="33" sl="53" path="0" offsetend="35" fileid="3" />
+                <BranchPoint vc="0" uspid="82" ordinal="1" offset="33" sl="53" path="1" offsetend="38" fileid="3" />
+              </BranchPoints>
+              <MethodPoint xsi:type="SequencePoint" vc="0" uspid="75" ordinal="0" offset="0" sl="47" sc="33" el="47" ec="34" bec="0" bev="0" fileid="3" />
+            </Method>
+            <Method visited="false" cyclomaticComplexity="3" nPathComplexity="2" sequenceCoverage="0" branchCoverage="0" crapScore="12" isConstructor="false" isStatic="false" isGetter="false" isSetter="false">
+              <Summary numSequencePoints="6" visitedSequencePoints="0" numBranchPoints="3" visitedBranchPoints="0" sequenceCoverage="0" branchCoverage="0" maxCyclomaticComplexity="3" minCyclomaticComplexity="3" maxCrapScore="12" minCrapScore="12" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
+              <MetadataToken>100663330</MetadataToken>
+              <Name>System.String employeeInformationClassLibrary.EmployeeTracker::GetHourlyWage()</Name>
+              <FileRef uid="3" />
+              <SequencePoints>
+                <SequencePoint vc="0" uspid="83" ordinal="0" offset="0" sl="56" sc="40" el="56" ec="41" bec="0" bev="0" fileid="3" />
+                <SequencePoint vc="0" uspid="84" ordinal="1" offset="1" sl="58" sc="13" el="58" ec="99" bec="0" bev="0" fileid="3" />
+                <SequencePoint vc="0" uspid="85" ordinal="2" offset="12" sl="59" sc="13" el="59" ec="53" bec="0" bev="0" fileid="3" />
+                <SequencePoint vc="0" uspid="86" ordinal="3" offset="23" sl="60" sc="13" el="60" ec="31" bec="0" bev="0" fileid="3" />
+                <SequencePoint vc="0" uspid="87" ordinal="4" offset="30" sl="62" sc="13" el="62" ec="80" bec="2" bev="0" fileid="3" />
+                <SequencePoint vc="0" uspid="88" ordinal="5" offset="53" sl="63" sc="9" el="63" ec="10" bec="0" bev="0" fileid="3" />
+              </SequencePoints>
+              <BranchPoints>
+                <BranchPoint vc="0" uspid="89" ordinal="0" offset="38" sl="62" path="0" offsetend="40" fileid="3" />
+                <BranchPoint vc="0" uspid="90" ordinal="1" offset="38" sl="62" path="1" offsetend="43" fileid="3" />
+              </BranchPoints>
+              <MethodPoint xsi:type="SequencePoint" vc="0" uspid="83" ordinal="0" offset="0" sl="56" sc="40" el="56" ec="41" bec="0" bev="0" fileid="3" />
+            </Method>
+            <Method visited="false" cyclomaticComplexity="2" nPathComplexity="2" sequenceCoverage="0" branchCoverage="0" crapScore="6" isConstructor="false" isStatic="false" isGetter="false" isSetter="false">
+              <Summary numSequencePoints="6" visitedSequencePoints="0" numBranchPoints="3" visitedBranchPoints="0" sequenceCoverage="0" branchCoverage="0" maxCyclomaticComplexity="2" minCyclomaticComplexity="2" maxCrapScore="6" minCrapScore="6" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
+              <MetadataToken>100663331</MetadataToken>
+              <Name>employeeInformationClassLibrary.Employee employeeInformationClassLibrary.EmployeeTracker::CreateEmployeeData()</Name>
+              <FileRef uid="3" />
+              <SequencePoints>
+                <SequencePoint vc="0" uspid="91" ordinal="0" offset="0" sl="65" sc="47" el="65" ec="48" bec="0" bev="0" fileid="3" />
+                <SequencePoint vc="0" uspid="92" ordinal="1" offset="1" sl="67" sc="13" el="67" ec="37" bec="0" bev="0" fileid="3" />
+                <SequencePoint vc="0" uspid="93" ordinal="2" offset="8" sl="68" sc="13" el="68" ec="45" bec="0" bev="0" fileid="3" />
+                <SequencePoint vc="0" uspid="94" ordinal="3" offset="20" sl="69" sc="13" el="69" ec="59" bec="0" bev="0" fileid="3" />
+                <SequencePoint vc="0" uspid="95" ordinal="4" offset="32" sl="71" sc="13" el="71" ec="105" bec="2" bev="0" fileid="3" />
+                <SequencePoint vc="0" uspid="96" ordinal="5" offset="63" sl="72" sc="9" el="72" ec="10" bec="0" bev="0" fileid="3" />
+              </SequencePoints>
+              <BranchPoints>
+                <BranchPoint vc="0" uspid="97" ordinal="0" offset="41" sl="71" path="0" offsetend="43" fileid="3" />
+                <BranchPoint vc="0" uspid="98" ordinal="1" offset="41" sl="71" path="1" offsetend="51" fileid="3" />
+              </BranchPoints>
+              <MethodPoint xsi:type="SequencePoint" vc="0" uspid="91" ordinal="0" offset="0" sl="65" sc="47" el="65" ec="48" bec="0" bev="0" fileid="3" />
+            </Method>
+            <Method visited="false" cyclomaticComplexity="2" nPathComplexity="2" sequenceCoverage="0" branchCoverage="0" crapScore="6" isConstructor="false" isStatic="false" isGetter="false" isSetter="false">
+              <Summary numSequencePoints="8" visitedSequencePoints="0" numBranchPoints="3" visitedBranchPoints="0" sequenceCoverage="0" branchCoverage="0" maxCyclomaticComplexity="2" minCyclomaticComplexity="2" maxCrapScore="6" minCrapScore="6" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
+              <MetadataToken>100663332</MetadataToken>
+              <Name>System.String employeeInformationClassLibrary.EmployeeTracker::GetMenuChoice()</Name>
+              <FileRef uid="3" />
+              <SequencePoints>
+                <SequencePoint vc="0" uspid="99" ordinal="0" offset="0" sl="74" sc="40" el="74" ec="41" bec="0" bev="0" fileid="3" />
+                <SequencePoint vc="0" uspid="100" ordinal="1" offset="1" sl="76" sc="13" el="76" ec="106" bec="0" bev="0" fileid="3" />
+                <SequencePoint vc="0" uspid="101" ordinal="2" offset="12" sl="77" sc="13" el="77" ec="55" bec="0" bev="0" fileid="3" />
+                <SequencePoint vc="0" uspid="102" ordinal="3" offset="23" sl="79" sc="13" el="79" ec="51" bec="2" bev="0" fileid="3" />
+                <SequencePoint vc="0" uspid="103" ordinal="4" offset="38" sl="79" sc="52" el="79" ec="53" bec="0" bev="0" fileid="3" />
+                <SequencePoint vc="0" uspid="104" ordinal="5" offset="39" sl="81" sc="17" el="81" ec="40" bec="0" bev="0" fileid="3" />
+                <SequencePoint vc="0" uspid="105" ordinal="6" offset="48" sl="84" sc="13" el="84" ec="27" bec="0" bev="0" fileid="3" />
+                <SequencePoint vc="0" uspid="106" ordinal="7" offset="52" sl="85" sc="9" el="85" ec="10" bec="0" bev="0" fileid="3" />
+              </SequencePoints>
+              <BranchPoints>
+                <BranchPoint vc="0" uspid="107" ordinal="0" offset="36" sl="79" path="0" offsetend="38" fileid="3" />
+                <BranchPoint vc="0" uspid="108" ordinal="1" offset="36" sl="79" path="1" offsetend="48" fileid="3" />
+              </BranchPoints>
+              <MethodPoint xsi:type="SequencePoint" vc="0" uspid="99" ordinal="0" offset="0" sl="74" sc="40" el="74" ec="41" bec="0" bev="0" fileid="3" />
+            </Method>
+            <Method visited="false" cyclomaticComplexity="2" nPathComplexity="2" sequenceCoverage="0" branchCoverage="0" crapScore="6" isConstructor="false" isStatic="false" isGetter="false" isSetter="false">
+              <Summary numSequencePoints="10" visitedSequencePoints="0" numBranchPoints="3" visitedBranchPoints="0" sequenceCoverage="0" branchCoverage="0" maxCyclomaticComplexity="2" minCyclomaticComplexity="2" maxCrapScore="6" minCrapScore="6" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
+              <MetadataToken>100663333</MetadataToken>
+              <Name>System.Void employeeInformationClassLibrary.EmployeeTracker::StoreEmployee()</Name>
+              <FileRef uid="3" />
+              <SequencePoints>
+                <SequencePoint vc="0" uspid="109" ordinal="0" offset="0" sl="87" sc="38" el="87" ec="39" bec="0" bev="0" fileid="3" />
+                <SequencePoint vc="0" uspid="110" ordinal="1" offset="1" sl="89" sc="13" el="89" ec="53" bec="0" bev="0" fileid="3" />
+                <SequencePoint vc="0" uspid="111" ordinal="2" offset="8" sl="91" sc="13" el="91" ec="52" bec="2" bev="0" fileid="3" />
+                <SequencePoint vc="0" uspid="112" ordinal="3" offset="27" sl="91" sc="53" el="91" ec="54" bec="0" bev="0" fileid="3" />
+                <SequencePoint vc="0" uspid="113" ordinal="4" offset="28" sl="93" sc="17" el="93" ec="48" bec="0" bev="0" fileid="3" />
+                <SequencePoint vc="0" uspid="114" ordinal="5" offset="41" sl="94" sc="13" el="94" ec="14" bec="0" bev="0" fileid="3" />
+                <SequencePoint vc="0" uspid="115" ordinal="6" offset="44" sl="95" sc="18" el="95" ec="19" bec="0" bev="0" fileid="3" />
+                <SequencePoint vc="0" uspid="116" ordinal="7" offset="45" sl="97" sc="17" el="97" ec="45" bec="0" bev="0" fileid="3" />
+                <SequencePoint vc="0" uspid="117" ordinal="8" offset="58" sl="98" sc="13" el="98" ec="14" bec="0" bev="0" fileid="3" />
+                <SequencePoint vc="0" uspid="118" ordinal="9" offset="59" sl="99" sc="9" el="99" ec="10" bec="0" bev="0" fileid="3" />
+              </SequencePoints>
+              <BranchPoints>
+                <BranchPoint vc="0" uspid="119" ordinal="0" offset="25" sl="91" path="0" offsetend="27" fileid="3" />
+                <BranchPoint vc="0" uspid="120" ordinal="1" offset="25" sl="91" path="1" offsetend="44" fileid="3" />
+              </BranchPoints>
+              <MethodPoint xsi:type="SequencePoint" vc="0" uspid="109" ordinal="0" offset="0" sl="87" sc="38" el="87" ec="39" bec="0" bev="0" fileid="3" />
+            </Method>
+            <Method visited="false" cyclomaticComplexity="2" nPathComplexity="0" sequenceCoverage="0" branchCoverage="0" crapScore="6" isConstructor="false" isStatic="false" isGetter="false" isSetter="false">
+              <Summary numSequencePoints="4" visitedSequencePoints="0" numBranchPoints="1" visitedBranchPoints="0" sequenceCoverage="0" branchCoverage="0" maxCyclomaticComplexity="2" minCyclomaticComplexity="2" maxCrapScore="6" minCrapScore="6" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
+              <MetadataToken>100663334</MetadataToken>
+              <Name>System.Void employeeInformationClassLibrary.EmployeeTracker::ShowEmployee()</Name>
+              <FileRef uid="3" />
+              <SequencePoints>
+                <SequencePoint vc="0" uspid="121" ordinal="0" offset="0" sl="101" sc="37" el="101" ec="38" bec="0" bev="0" fileid="3" />
+                <SequencePoint vc="0" uspid="122" ordinal="1" offset="1" sl="103" sc="13" el="103" ec="89" bec="0" bev="0" fileid="3" />
+                <SequencePoint vc="0" uspid="123" ordinal="2" offset="49" sl="105" sc="13" el="105" ec="61" bec="0" bev="0" fileid="3" />
+                <SequencePoint vc="0" uspid="124" ordinal="3" offset="66" sl="106" sc="9" el="106" ec="10" bec="0" bev="0" fileid="3" />
+              </SequencePoints>
+              <BranchPoints />
+              <MethodPoint xsi:type="SequencePoint" vc="0" uspid="121" ordinal="0" offset="0" sl="101" sc="37" el="101" ec="38" bec="0" bev="0" fileid="3" />
+            </Method>
+            <Method visited="false" cyclomaticComplexity="3" nPathComplexity="4" sequenceCoverage="0" branchCoverage="0" crapScore="12" isConstructor="false" isStatic="false" isGetter="false" isSetter="false">
+              <Summary numSequencePoints="15" visitedSequencePoints="0" numBranchPoints="5" visitedBranchPoints="0" sequenceCoverage="0" branchCoverage="0" maxCyclomaticComplexity="3" minCyclomaticComplexity="3" maxCrapScore="12" minCrapScore="12" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
+              <MetadataToken>100663335</MetadataToken>
+              <Name>System.Void employeeInformationClassLibrary.EmployeeTracker::Run()</Name>
+              <FileRef uid="3" />
+              <SequencePoints>
+                <SequencePoint vc="0" uspid="127" ordinal="0" offset="0" sl="108" sc="27" el="108" ec="28" bec="0" bev="0" fileid="3" />
+                <SequencePoint vc="0" uspid="128" ordinal="1" offset="3" sl="110" sc="25" el="110" ec="26" bec="0" bev="0" fileid="3" />
+                <SequencePoint vc="0" uspid="129" ordinal="2" offset="4" sl="112" sc="17" el="112" ec="49" bec="0" bev="0" fileid="3" />
+                <SequencePoint vc="0" uspid="130" ordinal="3" offset="11" sl="114" sc="17" el="114" ec="34" bec="2" bev="0" fileid="3" />
+                <SequencePoint vc="0" uspid="131" ordinal="4" offset="29" sl="114" sc="35" el="114" ec="36" bec="0" bev="0" fileid="3" />
+                <SequencePoint vc="0" uspid="132" ordinal="5" offset="30" sl="116" sc="21" el="116" ec="62" bec="0" bev="0" fileid="3" />
+                <SequencePoint vc="0" uspid="133" ordinal="6" offset="41" sl="117" sc="21" el="117" ec="27" bec="0" bev="0" fileid="3" />
+                <SequencePoint vc="0" uspid="134" ordinal="7" offset="43" sl="120" sc="17" el="120" ec="34" bec="2" bev="0" fileid="3" />
+                <SequencePoint vc="0" uspid="135" ordinal="8" offset="61" sl="120" sc="35" el="120" ec="36" bec="0" bev="0" fileid="3" />
+                <SequencePoint vc="0" uspid="136" ordinal="9" offset="62" sl="122" sc="21" el="122" ec="36" bec="0" bev="0" fileid="3" />
+                <SequencePoint vc="0" uspid="137" ordinal="10" offset="69" sl="123" sc="21" el="123" ec="30" bec="0" bev="0" fileid="3" />
+                <SequencePoint vc="0" uspid="138" ordinal="11" offset="71" sl="126" sc="17" el="126" ec="33" bec="0" bev="0" fileid="3" />
+                <SequencePoint vc="0" uspid="139" ordinal="12" offset="78" sl="127" sc="13" el="127" ec="14" bec="0" bev="0" fileid="3" />
+                <SequencePoint vc="0" uspid="140" ordinal="13" offset="79" sl="110" sc="13" el="110" ec="24" bec="0" bev="0" fileid="3" />
+                <SequencePoint vc="0" uspid="141" ordinal="14" offset="83" sl="128" sc="9" el="128" ec="10" bec="0" bev="0" fileid="3" />
+              </SequencePoints>
+              <BranchPoints>
+                <BranchPoint vc="0" uspid="142" ordinal="0" offset="27" sl="114" path="0" offsetend="29" fileid="3" />
+                <BranchPoint vc="0" uspid="143" ordinal="1" offset="27" sl="114" path="1" offsetend="43" fileid="3" />
+                <BranchPoint vc="0" uspid="144" ordinal="2" offset="59" sl="120" path="0" offsetend="61" fileid="3" />
+                <BranchPoint vc="0" uspid="145" ordinal="3" offset="59" sl="120" path="1" offsetend="71" fileid="3" />
+              </BranchPoints>
+              <MethodPoint xsi:type="SequencePoint" vc="0" uspid="127" ordinal="0" offset="0" sl="108" sc="27" el="108" ec="28" bec="0" bev="0" fileid="3" />
+            </Method>
+            <Method visited="false" cyclomaticComplexity="1" nPathComplexity="0" sequenceCoverage="0" branchCoverage="0" crapScore="2" isConstructor="false" isStatic="true" isGetter="false" isSetter="false">
+              <Summary numSequencePoints="1" visitedSequencePoints="0" numBranchPoints="1" visitedBranchPoints="0" sequenceCoverage="0" branchCoverage="0" maxCyclomaticComplexity="1" minCyclomaticComplexity="1" maxCrapScore="2" minCrapScore="2" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
+              <MetadataToken>100663336</MetadataToken>
+              <Name>System.String employeeInformationClassLibrary.EmployeeTracker::&lt;ShowEmployee&gt;b__0(employeeInformationClassLibrary.IEmployee)</Name>
+              <FileRef uid="3" />
+              <SequencePoints>
+                <SequencePoint vc="0" uspid="146" ordinal="0" offset="0" sl="103" sc="68" el="103" ec="87" bec="0" bev="0" fileid="3" />
+              </SequencePoints>
+              <BranchPoints />
+              <MethodPoint xsi:type="SequencePoint" vc="0" uspid="146" ordinal="0" offset="0" sl="103" sc="68" el="103" ec="87" bec="0" bev="0" fileid="3" />
+            </Method>
+          </Methods>
+        </Class>
+      </Classes>
+    </Module>
+  </Modules>
+</CoverageSession>
