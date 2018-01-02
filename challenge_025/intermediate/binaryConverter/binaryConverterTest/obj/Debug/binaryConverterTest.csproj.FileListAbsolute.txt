@@ -1,0 +1,7 @@
+D:\all_languages\reddit_challenges\challenge_025\intermediate\binaryConverter\binaryConverterTest\obj\Debug\binaryConverterTest.csprojResolveAssemblyReference.cache
+D:\all_languages\reddit_challenges\challenge_025\intermediate\binaryConverter\binaryConverterTest\bin\Debug\binaryConverterTest.dll
+D:\all_languages\reddit_challenges\challenge_025\intermediate\binaryConverter\binaryConverterTest\bin\Debug\binaryConverterTest.pdb
+D:\all_languages\reddit_challenges\challenge_025\intermediate\binaryConverter\binaryConverterTest\bin\Debug\binaryConverterClassLibrary.dll
+D:\all_languages\reddit_challenges\challenge_025\intermediate\binaryConverter\binaryConverterTest\bin\Debug\binaryConverterClassLibrary.pdb
+D:\all_languages\reddit_challenges\challenge_025\intermediate\binaryConverter\binaryConverterTest\obj\Debug\binaryConverterTest.dll
+D:\all_languages\reddit_challenges\challenge_025\intermediate\binaryConverter\binaryConverterTest\obj\Debug\binaryConverterTest.pdb

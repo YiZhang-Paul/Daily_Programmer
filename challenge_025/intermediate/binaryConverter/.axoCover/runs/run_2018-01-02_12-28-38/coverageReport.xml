@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CoverageSession xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Version="4.6.0.0">
+  <Summary numSequencePoints="11" visitedSequencePoints="11" numBranchPoints="5" visitedBranchPoints="5" sequenceCoverage="100" branchCoverage="100" maxCyclomaticComplexity="4" minCyclomaticComplexity="1" maxCrapScore="4" minCrapScore="2" visitedClasses="1" numClasses="1" visitedMethods="1" numMethods="1" />
+  <Modules>
+    <Module hash="0F-FF-B1-9A-F7-9A-17-FF-6A-23-74-CC-9B-12-0C-AE-F5-A2-C7-59">
+      <Summary numSequencePoints="11" visitedSequencePoints="11" numBranchPoints="5" visitedBranchPoints="5" sequenceCoverage="100" branchCoverage="100" maxCyclomaticComplexity="4" minCyclomaticComplexity="1" maxCrapScore="4" minCrapScore="2" visitedClasses="1" numClasses="1" visitedMethods="1" numMethods="1" />
+      <ModulePath>D:\all_languages\reddit_challenges\challenge_025\intermediate\binaryConverter\binaryConverterTest\bin\Debug\binaryConverterClassLibrary.dll</ModulePath>
+      <ModuleTime>2018-01-02T17:28:05.1693683Z</ModuleTime>
+      <ModuleName>binaryConverterClassLibrary</ModuleName>
+      <Files>
+        <File uid="1" fullPath="d:\all_languages\reddit_challenges\challenge_025\intermediate\binaryConverter\binaryConverterClassLibrary\BinaryConverter.cs" />
+      </Files>
+      <Classes>
+        <Class>
+          <Summary numSequencePoints="11" visitedSequencePoints="11" numBranchPoints="5" visitedBranchPoints="5" sequenceCoverage="100" branchCoverage="100" maxCyclomaticComplexity="4" minCyclomaticComplexity="1" maxCrapScore="4" minCrapScore="2" visitedClasses="1" numClasses="1" visitedMethods="1" numMethods="1" />
+          <FullName>binaryConverterClassLibrary.BinaryConverter</FullName>
+          <Methods>
+            <Method visited="true" cyclomaticComplexity="4" nPathComplexity="4" sequenceCoverage="100" branchCoverage="100" crapScore="4" isConstructor="false" isStatic="false" isGetter="false" isSetter="false">
+              <Summary numSequencePoints="11" visitedSequencePoints="11" numBranchPoints="5" visitedBranchPoints="5" sequenceCoverage="100" branchCoverage="100" maxCyclomaticComplexity="4" minCyclomaticComplexity="4" maxCrapScore="4" minCrapScore="4" visitedClasses="0" numClasses="0" visitedMethods="1" numMethods="1" />
+              <MetadataToken>100663297</MetadataToken>
+              <Name>System.String binaryConverterClassLibrary.BinaryConverter::ToBinary(System.Int32)</Name>
+              <FileRef uid="1" />
+              <SequencePoints>
+                <SequencePoint vc="2" uspid="1" ordinal="0" offset="0" sl="10" sc="44" el="10" ec="45" bec="0" bev="0" fileid="1" />
+                <SequencePoint vc="2" uspid="2" ordinal="1" offset="1" sl="12" sc="13" el="12" ec="32" bec="0" bev="0" fileid="1" />
+                <SequencePoint vc="2" uspid="3" ordinal="2" offset="7" sl="13" sc="13" el="13" ec="49" bec="2" bev="2" fileid="1" />
+                <SequencePoint vc="2" uspid="4" ordinal="3" offset="25" sl="14" sc="13" el="14" ec="51" bec="0" bev="0" fileid="1" />
+                <SequencePoint vc="16" uspid="5" ordinal="4" offset="34" sl="16" sc="40" el="16" ec="41" bec="0" bev="0" fileid="1" />
+                <SequencePoint vc="16" uspid="6" ordinal="5" offset="35" sl="18" sc="17" el="18" ec="54" bec="0" bev="0" fileid="1" />
+                <SequencePoint vc="16" uspid="7" ordinal="6" offset="50" sl="19" sc="17" el="19" ec="37" bec="0" bev="0" fileid="1" />
+                <SequencePoint vc="16" uspid="8" ordinal="7" offset="54" sl="20" sc="13" el="20" ec="14" bec="0" bev="0" fileid="1" />
+                <SequencePoint vc="18" uspid="9" ordinal="8" offset="55" sl="16" sc="13" el="16" ec="39" bec="2" bev="2" fileid="1" />
+                <SequencePoint vc="2" uspid="10" ordinal="9" offset="68" sl="22" sc="13" el="22" ec="34" bec="0" bev="0" fileid="1" />
+                <SequencePoint vc="2" uspid="11" ordinal="10" offset="78" sl="23" sc="9" el="23" ec="10" bec="0" bev="0" fileid="1" />
+              </SequencePoints>
+              <BranchPoints>
+                <BranchPoint vc="1" uspid="12" ordinal="0" offset="9" sl="13" path="0" offsetend="11" fileid="1" />
+                <BranchPoint vc="1" uspid="13" ordinal="1" offset="9" sl="13" path="1" offsetend="18" fileid="1" />
+                <BranchPoint vc="2" uspid="14" ordinal="2" offset="66" sl="16" path="0" offsetend="68" fileid="1" />
+                <BranchPoint vc="16" uspid="15" ordinal="3" offset="66" sl="16" path="1" offsetend="34" fileid="1" />
+              </BranchPoints>
+              <MethodPoint xsi:type="SequencePoint" vc="2" uspid="1" ordinal="0" offset="0" sl="10" sc="44" el="10" ec="45" bec="0" bev="0" fileid="1" />
+            </Method>
+            <Method visited="false" cyclomaticComplexity="1" nPathComplexity="0" sequenceCoverage="0" branchCoverage="0" crapScore="2" isConstructor="true" isStatic="false" isGetter="false" isSetter="false">
+              <Summary numSequencePoints="0" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0" branchCoverage="0" maxCyclomaticComplexity="1" minCyclomaticComplexity="1" maxCrapScore="2" minCrapScore="2" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="0" />
+              <MetadataToken>100663298</MetadataToken>
+              <Name>System.Void binaryConverterClassLibrary.BinaryConverter::.ctor()</Name>
+              <SequencePoints />
+              <BranchPoints />
+              <MethodPoint vc="0" uspid="16" ordinal="0" offset="0" />
+            </Method>
+          </Methods>
+        </Class>
+      </Classes>
+    </Module>
+  </Modules>
+</CoverageSession>
