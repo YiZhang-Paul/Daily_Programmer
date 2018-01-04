@@ -1,0 +1,12 @@
+D:\all_languages\reddit_challenges\challenge_027\intermediate\stPatrickDay\dayFinderClassLibrary\bin\Debug\dayFinderClassLibrary.dll
+D:\all_languages\reddit_challenges\challenge_027\intermediate\stPatrickDay\dayFinderClassLibrary\bin\Debug\dayFinderClassLibrary.pdb
+D:\all_languages\reddit_challenges\challenge_027\intermediate\stPatrickDay\dayFinderClassLibrary\obj\Debug\dayFinderClassLibrary.csprojResolveAssemblyReference.cache
+D:\all_languages\reddit_challenges\challenge_027\intermediate\stPatrickDay\dayFinderClassLibrary\obj\Debug\dayFinderClassLibrary.dll
+D:\all_languages\reddit_challenges\challenge_027\intermediate\stPatrickDay\dayFinderClassLibrary\obj\Debug\dayFinderClassLibrary.pdb
+D:\all_languages\reddit_challenges\challenge_027\intermediate\stPatrickDay\dayFinderClassLibrary\bin\Debug\Castle.Core.dll
+D:\all_languages\reddit_challenges\challenge_027\intermediate\stPatrickDay\dayFinderClassLibrary\bin\Debug\Moq.dll
+D:\all_languages\reddit_challenges\challenge_027\intermediate\stPatrickDay\dayFinderClassLibrary\bin\Debug\System.Threading.Tasks.Extensions.dll
+D:\all_languages\reddit_challenges\challenge_027\intermediate\stPatrickDay\dayFinderClassLibrary\bin\Debug\Castle.Core.xml
+D:\all_languages\reddit_challenges\challenge_027\intermediate\stPatrickDay\dayFinderClassLibrary\bin\Debug\Moq.pdb
+D:\all_languages\reddit_challenges\challenge_027\intermediate\stPatrickDay\dayFinderClassLibrary\bin\Debug\Moq.xml
+D:\all_languages\reddit_challenges\challenge_027\intermediate\stPatrickDay\dayFinderClassLibrary\bin\Debug\System.Threading.Tasks.Extensions.xml
