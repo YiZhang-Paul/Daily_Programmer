@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CoverageSession xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Version="4.6.0.0">
+  <Summary numSequencePoints="27" visitedSequencePoints="27" numBranchPoints="13" visitedBranchPoints="13" sequenceCoverage="100" branchCoverage="100" maxCyclomaticComplexity="5" minCyclomaticComplexity="1" maxCrapScore="5" minCrapScore="1" visitedClasses="3" numClasses="3" visitedMethods="9" numMethods="9" />
+  <Modules>
+    <Module hash="D3-98-E5-2A-5C-4D-CC-AE-34-9E-F1-E8-0C-5D-EA-B4-30-FB-80-8B">
+      <Summary numSequencePoints="27" visitedSequencePoints="27" numBranchPoints="13" visitedBranchPoints="13" sequenceCoverage="100" branchCoverage="100" maxCyclomaticComplexity="5" minCyclomaticComplexity="1" maxCrapScore="5" minCrapScore="1" visitedClasses="3" numClasses="3" visitedMethods="9" numMethods="9" />
+      <ModulePath>D:\all_languages\reddit_challenges\challenge_027\intermediate\stPatrickDay\stPatrickDayTest\bin\Debug\dayFinderClassLibrary.dll</ModulePath>
+      <ModuleTime>2018-01-04T04:51:23.5328532Z</ModuleTime>
+      <ModuleName>dayFinderClassLibrary</ModuleName>
+      <Files>
+        <File uid="1" fullPath="d:\all_languages\reddit_challenges\challenge_027\intermediate\stPatrickDay\dayFinderClassLibrary\DayFinder.cs" />
+        <File uid="2" fullPath="d:\all_languages\reddit_challenges\challenge_027\intermediate\stPatrickDay\dayFinderClassLibrary\StPatricksDayFinder.cs" />
+      </Files>
+      <Classes>
+        <Class>
+          <Summary numSequencePoints="9" visitedSequencePoints="9" numBranchPoints="7" visitedBranchPoints="7" sequenceCoverage="100" branchCoverage="100" maxCyclomaticComplexity="5" minCyclomaticComplexity="1" maxCrapScore="5" minCrapScore="1" visitedClasses="1" numClasses="1" visitedMethods="3" numMethods="3" />
+          <FullName>dayFinderClassLibrary.DayFinder</FullName>
+          <Methods>
+            <Method visited="true" cyclomaticComplexity="5" nPathComplexity="4" sequenceCoverage="100" branchCoverage="100" crapScore="5" isConstructor="false" isStatic="false" isGetter="false" isSetter="false">
+              <Summary numSequencePoints="5" visitedSequencePoints="5" numBranchPoints="5" visitedBranchPoints="5" sequenceCoverage="100" branchCoverage="100" maxCyclomaticComplexity="5" minCyclomaticComplexity="5" maxCrapScore="5" minCrapScore="5" visitedClasses="0" numClasses="0" visitedMethods="1" numMethods="1" />
+              <MetadataToken>100663299</MetadataToken>
+              <Name>System.Int32 dayFinderClassLibrary.DayFinder::GetDayOfWeekIndex(System.Int32,System.Int32,System.Int32)</Name>
+              <FileRef uid="1" />
+              <SequencePoints>
+                <SequencePoint vc="8" uspid="1" ordinal="0" offset="0" sl="15" sc="68" el="15" ec="69" bec="0" bev="0" fileid="1" />
+                <SequencePoint vc="8" uspid="2" ordinal="1" offset="1" sl="17" sc="13" el="17" ec="40" bec="2" bev="2" fileid="1" />
+                <SequencePoint vc="8" uspid="3" ordinal="2" offset="14" sl="18" sc="13" el="18" ec="42" bec="2" bev="2" fileid="1" />
+                <SequencePoint vc="8" uspid="4" ordinal="3" offset="28" sl="20" sc="13" el="20" ec="97" bec="0" bev="0" fileid="1" />
+                <SequencePoint vc="8" uspid="5" ordinal="4" offset="62" sl="21" sc="9" el="21" ec="10" bec="0" bev="0" fileid="1" />
+              </SequencePoints>
+              <BranchPoints>
+                <BranchPoint vc="6" uspid="6" ordinal="0" offset="4" sl="17" path="0" offsetend="6" fileid="1" />
+                <BranchPoint vc="2" uspid="7" ordinal="1" offset="4" sl="17" path="1" offsetend="9" fileid="1" />
+                <BranchPoint vc="6" uspid="8" ordinal="2" offset="17" sl="18" path="0" offsetend="19" fileid="1" />
+                <BranchPoint vc="2" uspid="9" ordinal="3" offset="17" sl="18" path="1" offsetend="22" fileid="1" />
+              </BranchPoints>
+              <MethodPoint xsi:type="SequencePoint" vc="8" uspid="1" ordinal="0" offset="0" sl="15" sc="68" el="15" ec="69" bec="0" bev="0" fileid="1" />
+            </Method>
+            <Method visited="true" cyclomaticComplexity="1" nPathComplexity="0" sequenceCoverage="100" branchCoverage="100" crapScore="1" isConstructor="false" isStatic="false" isGetter="false" isSetter="false">
+              <Summary numSequencePoints="3" visitedSequencePoints="3" numBranchPoints="1" visitedBranchPoints="1" sequenceCoverage="100" branchCoverage="100" maxCyclomaticComplexity="1" minCyclomaticComplexity="1" maxCrapScore="1" minCrapScore="1" visitedClasses="0" numClasses="0" visitedMethods="1" numMethods="1" />
+              <MetadataToken>100663300</MetadataToken>
+              <Name>System.String dayFinderClassLibrary.DayFinder::GetDayOfWeek(System.Int32,System.Int32,System.Int32)</Name>
+              <FileRef uid="1" />
+              <SequencePoints>
+                <SequencePoint vc="3" uspid="10" ordinal="0" offset="0" sl="25" sc="66" el="25" ec="67" bec="0" bev="0" fileid="1" />
+                <SequencePoint vc="3" uspid="11" ordinal="1" offset="1" sl="27" sc="13" el="27" ec="69" bec="0" bev="0" fileid="1" />
+                <SequencePoint vc="3" uspid="12" ordinal="2" offset="20" sl="28" sc="9" el="28" ec="10" bec="0" bev="0" fileid="1" />
+              </SequencePoints>
+              <BranchPoints />
+              <MethodPoint xsi:type="SequencePoint" vc="3" uspid="10" ordinal="0" offset="0" sl="25" sc="66" el="25" ec="67" bec="0" bev="0" fileid="1" />
+            </Method>
+            <Method visited="true" cyclomaticComplexity="1" nPathComplexity="0" sequenceCoverage="100" branchCoverage="100" crapScore="1" isConstructor="true" isStatic="false" isGetter="false" isSetter="false">
+              <Summary numSequencePoints="1" visitedSequencePoints="1" numBranchPoints="1" visitedBranchPoints="1" sequenceCoverage="100" branchCoverage="100" maxCyclomaticComplexity="1" minCyclomaticComplexity="1" maxCrapScore="1" minCrapScore="1" visitedClasses="0" numClasses="0" visitedMethods="1" numMethods="1" />
+              <MetadataToken>100663301</MetadataToken>
+              <Name>System.Void dayFinderClassLibrary.DayFinder::.ctor()</Name>
+              <FileRef uid="1" />
+              <SequencePoints>
+                <SequencePoint vc="2" uspid="13" ordinal="0" offset="0" sl="10" sc="9" el="13" ec="11" bec="0" bev="0" fileid="1" />
+              </SequencePoints>
+              <BranchPoints />
+              <MethodPoint xsi:type="SequencePoint" vc="2" uspid="13" ordinal="0" offset="0" sl="10" sc="9" el="13" ec="11" bec="0" bev="0" fileid="1" />
+            </Method>
+          </Methods>
+        </Class>
+        <Class>
+          <Summary numSequencePoints="17" visitedSequencePoints="17" numBranchPoints="5" visitedBranchPoints="5" sequenceCoverage="100" branchCoverage="100" maxCyclomaticComplexity="1" minCyclomaticComplexity="1" maxCrapScore="1" minCrapScore="1" visitedClasses="1" numClasses="1" visitedMethods="5" numMethods="5" />
+          <FullName>dayFinderClassLibrary.StPatricksDayFinder</FullName>
+          <Methods>
+            <Method skippedDueTo="AutoImplementedProperty" visited="false" cyclomaticComplexity="1" nPathComplexity="0" sequenceCoverage="0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="true" isSetter="false">
+              <MetadataToken>100663302</MetadataToken>
+              <Name>dayFinderClassLibrary.IDayFinder dayFinderClassLibrary.StPatricksDayFinder::get_DayFinder()</Name>
+              <SequencePoints />
+              <BranchPoints />
+            </Method>
+            <Method skippedDueTo="AutoImplementedProperty" visited="false" cyclomaticComplexity="1" nPathComplexity="0" sequenceCoverage="0" branchCoverage="0" crapScore="0" isConstructor="false" isStatic="false" isGetter="false" isSetter="true">
+              <MetadataToken>100663303</MetadataToken>
+              <Name>System.Void dayFinderClassLibrary.StPatricksDayFinder::set_DayFinder(dayFinderClassLibrary.IDayFinder)</Name>
+              <SequencePoints />
+              <BranchPoints />
+            </Method>
+            <Method visited="true" cyclomaticComplexity="1" nPathComplexity="0" sequenceCoverage="100" branchCoverage="100" crapScore="1" isConstructor="true" isStatic="false" isGetter="false" isSetter="false">
+              <Summary numSequencePoints="4" visitedSequencePoints="4" numBranchPoints="1" visitedBranchPoints="1" sequenceCoverage="100" branchCoverage="100" maxCyclomaticComplexity="1" minCyclomaticComplexity="1" maxCrapScore="1" minCrapScore="1" visitedClasses="0" numClasses="0" visitedMethods="1" numMethods="1" />
+              <MetadataToken>100663304</MetadataToken>
+              <Name>System.Void dayFinderClassLibrary.StPatricksDayFinder::.ctor(dayFinderClassLibrary.IDayFinder)</Name>
+              <FileRef uid="2" />
+              <SequencePoints>
+                <SequencePoint vc="4" uspid="14" ordinal="0" offset="0" sl="15" sc="9" el="15" ec="57" bec="0" bev="0" fileid="2" />
+                <SequencePoint vc="4" uspid="15" ordinal="1" offset="7" sl="15" sc="58" el="15" ec="59" bec="0" bev="0" fileid="2" />
+                <SequencePoint vc="4" uspid="16" ordinal="2" offset="8" sl="17" sc="13" el="17" ec="35" bec="0" bev="0" fileid="2" />
+                <SequencePoint vc="4" uspid="17" ordinal="3" offset="16" sl="18" sc="9" el="18" ec="10" bec="0" bev="0" fileid="2" />
+              </SequencePoints>
+              <BranchPoints />
+              <MethodPoint xsi:type="SequencePoint" vc="4" uspid="14" ordinal="0" offset="0" sl="15" sc="9" el="15" ec="57" bec="0" bev="0" fileid="2" />
+            </Method>
+            <Method visited="true" cyclomaticComplexity="1" nPathComplexity="0" sequenceCoverage="100" branchCoverage="100" crapScore="1" isConstructor="false" isStatic="false" isGetter="false" isSetter="false">
+              <Summary numSequencePoints="3" visitedSequencePoints="3" numBranchPoints="1" visitedBranchPoints="1" sequenceCoverage="100" branchCoverage="100" maxCyclomaticComplexity="1" minCyclomaticComplexity="1" maxCrapScore="1" minCrapScore="1" visitedClasses="0" numClasses="0" visitedMethods="1" numMethods="1" />
+              <MetadataToken>100663305</MetadataToken>
+              <Name>System.String dayFinderClassLibrary.StPatricksDayFinder::GetDayOfWeek(System.Int32)</Name>
+              <FileRef uid="2" />
+              <SequencePoints>
+                <SequencePoint vc="3" uspid="18" ordinal="0" offset="0" sl="20" sc="46" el="20" ec="47" bec="0" bev="0" fileid="2" />
+                <SequencePoint vc="3" uspid="19" ordinal="1" offset="1" sl="22" sc="13" el="22" ec="70" bec="0" bev="0" fileid="2" />
+                <SequencePoint vc="3" uspid="20" ordinal="2" offset="19" sl="23" sc="9" el="23" ec="10" bec="0" bev="0" fileid="2" />
+              </SequencePoints>
+              <BranchPoints />
+              <MethodPoint xsi:type="SequencePoint" vc="3" uspid="18" ordinal="0" offset="0" sl="20" sc="46" el="20" ec="47" bec="0" bev="0" fileid="2" />
+            </Method>
+            <Method visited="true" cyclomaticComplexity="1" nPathComplexity="0" sequenceCoverage="100" branchCoverage="100" crapScore="1" isConstructor="false" isStatic="false" isGetter="false" isSetter="false">
+              <Summary numSequencePoints="3" visitedSequencePoints="3" numBranchPoints="1" visitedBranchPoints="1" sequenceCoverage="100" branchCoverage="100" maxCyclomaticComplexity="1" minCyclomaticComplexity="1" maxCrapScore="1" minCrapScore="1" visitedClasses="0" numClasses="0" visitedMethods="1" numMethods="1" />
+              <MetadataToken>100663306</MetadataToken>
+              <Name>System.Boolean dayFinderClassLibrary.StPatricksDayFinder::IsDayOfWeek(System.String,System.Int32)</Name>
+              <FileRef uid="2" />
+              <SequencePoints>
+                <SequencePoint vc="106" uspid="21" ordinal="0" offset="0" sl="25" sc="61" el="25" ec="62" bec="0" bev="0" fileid="2" />
+                <SequencePoint vc="106" uspid="22" ordinal="1" offset="1" sl="27" sc="13" el="27" ec="83" bec="0" bev="0" fileid="2" />
+                <SequencePoint vc="106" uspid="23" ordinal="2" offset="25" sl="28" sc="9" el="28" ec="10" bec="0" bev="0" fileid="2" />
+              </SequencePoints>
+              <BranchPoints />
+              <MethodPoint xsi:type="SequencePoint" vc="106" uspid="21" ordinal="0" offset="0" sl="25" sc="61" el="25" ec="62" bec="0" bev="0" fileid="2" />
+            </Method>
+            <Method visited="true" cyclomaticComplexity="1" nPathComplexity="0" sequenceCoverage="100" branchCoverage="100" crapScore="1" isConstructor="false" isStatic="false" isGetter="false" isSetter="false">
+              <Summary numSequencePoints="3" visitedSequencePoints="3" numBranchPoints="1" visitedBranchPoints="1" sequenceCoverage="100" branchCoverage="100" maxCyclomaticComplexity="1" minCyclomaticComplexity="1" maxCrapScore="1" minCrapScore="1" visitedClasses="0" numClasses="0" visitedMethods="1" numMethods="1" />
+              <MetadataToken>100663307</MetadataToken>
+              <Name>System.Collections.Generic.IEnumerable`1&lt;System.Int32&gt; dayFinderClassLibrary.StPatricksDayFinder::GetYearsInCentury(System.Int32)</Name>
+              <FileRef uid="2" />
+              <SequencePoints>
+                <SequencePoint vc="1" uspid="24" ordinal="0" offset="0" sl="30" sc="62" el="30" ec="63" bec="0" bev="0" fileid="2" />
+                <SequencePoint vc="1" uspid="25" ordinal="1" offset="1" sl="32" sc="13" el="32" ec="60" bec="0" bev="0" fileid="2" />
+                <SequencePoint vc="1" uspid="26" ordinal="2" offset="18" sl="33" sc="9" el="33" ec="10" bec="0" bev="0" fileid="2" />
+              </SequencePoints>
+              <BranchPoints />
+              <MethodPoint xsi:type="SequencePoint" vc="1" uspid="24" ordinal="0" offset="0" sl="30" sc="62" el="30" ec="63" bec="0" bev="0" fileid="2" />
+            </Method>
+            <Method visited="true" cyclomaticComplexity="1" nPathComplexity="0" sequenceCoverage="100" branchCoverage="100" crapScore="1" isConstructor="false" isStatic="false" isGetter="false" isSetter="false">
+              <Summary numSequencePoints="4" visitedSequencePoints="4" numBranchPoints="1" visitedBranchPoints="1" sequenceCoverage="100" branchCoverage="100" maxCyclomaticComplexity="1" minCyclomaticComplexity="1" maxCrapScore="1" minCrapScore="1" visitedClasses="0" numClasses="0" visitedMethods="1" numMethods="1" />
+              <MetadataToken>100663308</MetadataToken>
+              <Name>System.Int32 dayFinderClassLibrary.StPatricksDayFinder::TotalDayOfWeeksInCentury(System.String,System.Int32)</Name>
+              <FileRef uid="2" />
+              <SequencePoints>
+                <SequencePoint vc="1" uspid="27" ordinal="0" offset="20" sl="35" sc="82" el="35" ec="83" bec="0" bev="0" fileid="2" />
+                <SequencePoint vc="1" uspid="28" ordinal="1" offset="21" sl="37" sc="13" el="37" ec="58" bec="0" bev="0" fileid="2" />
+                <SequencePoint vc="1" uspid="29" ordinal="2" offset="29" sl="39" sc="13" el="39" ec="78" bec="0" bev="0" fileid="2" />
+                <SequencePoint vc="1" uspid="30" ordinal="3" offset="55" sl="40" sc="9" el="40" ec="10" bec="0" bev="0" fileid="2" />
+              </SequencePoints>
+              <BranchPoints />
+              <MethodPoint vc="1" uspid="31" ordinal="0" offset="0" />
+            </Method>
+          </Methods>
+        </Class>
+        <Class>
+          <Summary numSequencePoints="1" visitedSequencePoints="1" numBranchPoints="1" visitedBranchPoints="1" sequenceCoverage="100" branchCoverage="100" maxCyclomaticComplexity="1" minCyclomaticComplexity="1" maxCrapScore="2" minCrapScore="1" visitedClasses="1" numClasses="1" visitedMethods="1" numMethods="1" />
+          <FullName>dayFinderClassLibrary.StPatricksDayFinder/&lt;&gt;c__DisplayClass1</FullName>
+          <Methods>
+            <Method visited="false" cyclomaticComplexity="1" nPathComplexity="0" sequenceCoverage="0" branchCoverage="0" crapScore="2" isConstructor="true" isStatic="false" isGetter="false" isSetter="false">
+              <Summary numSequencePoints="0" visitedSequencePoints="0" numBranchPoints="0" visitedBranchPoints="0" sequenceCoverage="0" branchCoverage="0" maxCyclomaticComplexity="1" minCyclomaticComplexity="1" maxCrapScore="2" minCrapScore="2" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="0" />
+              <MetadataToken>100663309</MetadataToken>
+              <Name>System.Void dayFinderClassLibrary.StPatricksDayFinder/&lt;&gt;c__DisplayClass1::.ctor()</Name>
+              <SequencePoints />
+              <BranchPoints />
+              <MethodPoint vc="0" uspid="32" ordinal="0" offset="0" />
+            </Method>
+            <Method visited="true" cyclomaticComplexity="1" nPathComplexity="0" sequenceCoverage="100" branchCoverage="100" crapScore="1" isConstructor="false" isStatic="false" isGetter="false" isSetter="false">
+              <Summary numSequencePoints="1" visitedSequencePoints="1" numBranchPoints="1" visitedBranchPoints="1" sequenceCoverage="100" branchCoverage="100" maxCyclomaticComplexity="1" minCyclomaticComplexity="1" maxCrapScore="1" minCrapScore="1" visitedClasses="0" numClasses="0" visitedMethods="1" numMethods="1" />
+              <MetadataToken>100663310</MetadataToken>
+              <Name>System.Boolean dayFinderClassLibrary.StPatricksDayFinder/&lt;&gt;c__DisplayClass1::&lt;TotalDayOfWeeksInCentury&gt;b__0(System.Int32)</Name>
+              <FileRef uid="2" />
+              <SequencePoints>
+                <SequencePoint vc="100" uspid="33" ordinal="0" offset="0" sl="39" sc="40" el="39" ec="68" bec="0" bev="0" fileid="2" />
+              </SequencePoints>
+              <BranchPoints />
+              <MethodPoint xsi:type="SequencePoint" vc="100" uspid="33" ordinal="0" offset="0" sl="39" sc="40" el="39" ec="68" bec="0" bev="0" fileid="2" />
+            </Method>
+          </Methods>
+        </Class>
+      </Classes>
+    </Module>
+  </Modules>
+</CoverageSession>

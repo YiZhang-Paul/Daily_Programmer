@@ -23,6 +23,13 @@ namespace stPatrickDayTest {
         }
 
         [TestMethod]
+        public void GetDayOfWeekIndexBeforeMarch() {
+
+            Assert.AreEqual(finder.GetDayOfWeekIndex(2, 17, 2010), 4);
+            Assert.AreEqual(finder.GetDayOfWeekIndex(2, 17, 2012), 6);
+        }
+
+        [TestMethod]
         public void GetDayOfWeek() {
 
             Assert.AreEqual(finder.GetDayOfWeek(3, 17, 2010), "Wednesday");
