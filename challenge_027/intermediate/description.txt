@@ -1,5 +1,7 @@
 #27[intermediate] St Patrick Day
 
+All Done
+
 url: https://www.reddit.com/r/dailyprogrammer/comments/r0r46/3172012_challenge_27_intermediate/
 
 Happy St. Patrick's Day! Write a program that accepts a year as input and outputs what day St. Patrick's Day falls on.

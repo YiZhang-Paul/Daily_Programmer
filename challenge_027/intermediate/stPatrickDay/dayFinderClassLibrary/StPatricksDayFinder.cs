@@ -27,13 +27,16 @@ namespace dayFinderClassLibrary {
             return dayOfWeek == DayFinder.GetDayOfWeek(_month, _dayInMonth, year);
         }
 
+        private IEnumerable<int> GetYearsInCentury(int year) {
+
+            return Enumerable.Range(year / 100 * 100, 100);
+        }
+
         public int TotalDayOfWeeksInCentury(string dayOfWeek, int yearInCentury) {
 
-            int startYear = yearInCentury / 100 * 100;
+            var years = GetYearsInCentury(yearInCentury);
 
-            return Enumerable.Range(startYear, 100)
-                             .Where(year => IsDayOfWeek(dayOfWeek, year))
-                             .Count();
+            return years.Where(year => IsDayOfWeek(dayOfWeek, year)).Count();
         }
     }
 }

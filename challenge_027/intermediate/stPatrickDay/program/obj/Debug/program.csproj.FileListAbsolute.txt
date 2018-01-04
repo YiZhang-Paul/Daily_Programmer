@@ -1,0 +1,8 @@
+D:\all_languages\reddit_challenges\challenge_027\intermediate\stPatrickDay\program\bin\Debug\program.exe.config
+D:\all_languages\reddit_challenges\challenge_027\intermediate\stPatrickDay\program\bin\Debug\program.exe
+D:\all_languages\reddit_challenges\challenge_027\intermediate\stPatrickDay\program\bin\Debug\program.pdb
+D:\all_languages\reddit_challenges\challenge_027\intermediate\stPatrickDay\program\bin\Debug\dayFinderClassLibrary.dll
+D:\all_languages\reddit_challenges\challenge_027\intermediate\stPatrickDay\program\bin\Debug\dayFinderClassLibrary.pdb
+D:\all_languages\reddit_challenges\challenge_027\intermediate\stPatrickDay\program\obj\Debug\program.csprojResolveAssemblyReference.cache
+D:\all_languages\reddit_challenges\challenge_027\intermediate\stPatrickDay\program\obj\Debug\program.exe
+D:\all_languages\reddit_challenges\challenge_027\intermediate\stPatrickDay\program\obj\Debug\program.pdb

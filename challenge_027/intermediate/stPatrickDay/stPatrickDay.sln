@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "stPatrickDayTest", "stPatri
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dayFinderClassLibrary", "dayFinderClassLibrary\dayFinderClassLibrary.csproj", "{789741FD-E1EF-4ECF-81A6-0188014466FE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "program", "program\program.csproj", "{0DF2AF8C-EC4D-4A44-94DD-50D12ABE3302}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{789741FD-E1EF-4ECF-81A6-0188014466FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{789741FD-E1EF-4ECF-81A6-0188014466FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{789741FD-E1EF-4ECF-81A6-0188014466FE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0DF2AF8C-EC4D-4A44-94DD-50D12ABE3302}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0DF2AF8C-EC4D-4A44-94DD-50D12ABE3302}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0DF2AF8C-EC4D-4A44-94DD-50D12ABE3302}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0DF2AF8C-EC4D-4A44-94DD-50D12ABE3302}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
