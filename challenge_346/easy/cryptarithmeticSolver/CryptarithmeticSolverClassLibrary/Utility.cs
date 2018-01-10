@@ -6,13 +6,21 @@ using System.Threading.Tasks;
 using System.Text.RegularExpressions;
 
 namespace CryptarithmeticSolverClassLibrary {
-    public class Utility {
+    public class Utility : IUtility {
+
+        public string[] GetWords(string input) {
+
+            return Regex.Matches(input.ToLower(), @"[A-z]+")
+                        .Cast<Match>()
+                        .Select(match => match.Value)
+                        .ToArray();
+        }
 
         public char[] GetLetters(string input) {
 
-            input = Regex.Replace(input.ToLower(), @"\s", "");
+            string allLetters = string.Join("", GetWords(input));
 
-            return new HashSet<char>(input).ToArray();
+            return new HashSet<char>(allLetters).ToArray();
         }
 
         private List<int> GetListWithItem(List<int> list, int item) {

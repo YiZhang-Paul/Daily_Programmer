@@ -5,3 +5,11 @@ D:\all_languages\reddit_challenges\challenge_346\easy\cryptarithmeticSolver\Cryp
 D:\all_languages\reddit_challenges\challenge_346\easy\cryptarithmeticSolver\CryptarithmeticSolverTest\obj\Debug\CryptarithmeticSolverTest.csprojResolveAssemblyReference.cache
 D:\all_languages\reddit_challenges\challenge_346\easy\cryptarithmeticSolver\CryptarithmeticSolverTest\obj\Debug\CryptarithmeticSolverTest.dll
 D:\all_languages\reddit_challenges\challenge_346\easy\cryptarithmeticSolver\CryptarithmeticSolverTest\obj\Debug\CryptarithmeticSolverTest.pdb
+D:\all_languages\reddit_challenges\challenge_346\easy\cryptarithmeticSolver\CryptarithmeticSolverTest\bin\Debug\Castle.Core.dll
+D:\all_languages\reddit_challenges\challenge_346\easy\cryptarithmeticSolver\CryptarithmeticSolverTest\bin\Debug\Moq.dll
+D:\all_languages\reddit_challenges\challenge_346\easy\cryptarithmeticSolver\CryptarithmeticSolverTest\bin\Debug\System.Threading.Tasks.Extensions.dll
+D:\all_languages\reddit_challenges\challenge_346\easy\cryptarithmeticSolver\CryptarithmeticSolverTest\bin\Debug\System.ValueTuple.dll
+D:\all_languages\reddit_challenges\challenge_346\easy\cryptarithmeticSolver\CryptarithmeticSolverTest\bin\Debug\Castle.Core.xml
+D:\all_languages\reddit_challenges\challenge_346\easy\cryptarithmeticSolver\CryptarithmeticSolverTest\bin\Debug\Moq.pdb
+D:\all_languages\reddit_challenges\challenge_346\easy\cryptarithmeticSolver\CryptarithmeticSolverTest\bin\Debug\Moq.xml
+D:\all_languages\reddit_challenges\challenge_346\easy\cryptarithmeticSolver\CryptarithmeticSolverTest\bin\Debug\System.Threading.Tasks.Extensions.xml

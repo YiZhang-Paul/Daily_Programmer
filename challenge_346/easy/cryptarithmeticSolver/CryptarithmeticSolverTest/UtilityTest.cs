@@ -17,6 +17,25 @@ namespace CryptarithmeticSolverTest {
         }
 
         [TestMethod]
+        public void GetWordsFromEmptyString() {
+
+            Assert.AreEqual(0, utility.GetWords(string.Empty).Length);
+            Assert.AreEqual(0, utility.GetWords("".PadLeft(10, " "[0])).Length);
+        }
+
+        [TestMethod]
+        public void GetWordsFromNonEmptyString() {
+
+            string[] words = utility.GetWords("THIS + IS + HIS == CLAIM");
+
+            Assert.AreEqual(4, words.Length);
+            Assert.IsTrue(words.Contains("this"));
+            Assert.IsTrue(words.Contains("is"));
+            Assert.IsTrue(words.Contains("his"));
+            Assert.IsTrue(words.Contains("claim"));
+        }
+
+        [TestMethod]
         public void GetLettersFromEmptyString() {
 
             Assert.AreEqual(0, utility.GetLetters(string.Empty).Length);
