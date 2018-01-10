@@ -9,6 +9,6 @@ namespace CryptarithmeticSolverClassLibrary {
 
         string[] GetWords(string input);
         char[] GetLetters(string input);
-        int[][] GetCombinations(List<int> options, int total, List<int> current, List<int[]> combinations);
+        int[][] GetCombinations(int[] options, int total, int[] current = null, List<int[]> combinations = null);
     }
 }

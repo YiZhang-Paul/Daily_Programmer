@@ -71,7 +71,7 @@ namespace CryptarithmeticSolverTest {
         [TestMethod]
         public void GetCombinations() {
 
-            var options = new List<int>() { 0, 1, 2 };
+            int[] options = { 0, 1, 2 };
             var combinations = utility.GetCombinations(options, 2)
                                       .Select(combination => string.Join("", combination))
                                       .ToArray();

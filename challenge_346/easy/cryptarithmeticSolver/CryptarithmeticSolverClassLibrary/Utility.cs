@@ -23,35 +23,35 @@ namespace CryptarithmeticSolverClassLibrary {
             return new HashSet<char>(allLetters).ToArray();
         }
 
-        private List<int> GetListWithItem(List<int> list, int item) {
+        private int[] GetListWithItem(int[] list, int item) {
 
-            return list.Concat(new int[] { item }).ToList();
+            return list.Concat(new int[] { item }).ToArray();
         }
 
-        private List<int> CopyListWithoutItem(List<int> list, int indexToIgnore) {
+        private int[] CopyListWithoutItem(int[] list, int indexToIgnore) {
 
             var beforeIndex = list.Take(indexToIgnore);
             var afterIndex = list.Skip(indexToIgnore + 1);
 
-            return beforeIndex.Concat(afterIndex).ToList();
+            return beforeIndex.Concat(afterIndex).ToArray();
         }
 
-        public int[][] GetCombinations(List<int> options, int total, List<int> current = null, List<int[]> combinations = null) {
+        public int[][] GetCombinations(int[] options, int total, int[] current = null, List<int[]> combinations = null) {
 
-            current = current ?? new List<int>();
+            current = current ?? new int[0];
             combinations = combinations ?? new List<int[]>();
 
-            if(current.Count == total) {
+            if(current.Length == total) {
 
-                combinations.Add(current.ToArray());
+                combinations.Add(current);
 
                 return null;
             }
 
-            for(int i = 0; i < options.Count; i++) {
+            for(int i = 0; i < options.Length; i++) {
 
-                var newCurrent = GetListWithItem(current, options[i]);
-                var otherOptions = CopyListWithoutItem(options, i);
+                int[] newCurrent = GetListWithItem(current, options[i]);
+                int[] otherOptions = CopyListWithoutItem(options, i);
                 GetCombinations(otherOptions, total, newCurrent, combinations);
             }
 
