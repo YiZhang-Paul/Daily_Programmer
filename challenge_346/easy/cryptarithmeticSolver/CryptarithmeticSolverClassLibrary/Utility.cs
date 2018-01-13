@@ -36,7 +36,7 @@ namespace CryptarithmeticSolverClassLibrary {
             return beforeIndex.Concat(afterIndex).ToArray();
         }
 
-        public int[][] GetCombinations(int[] options, int total, int[] current = null, List<int[]> combinations = null) {
+        public List<int[]> GetCombinations(int[] options, int total, int[] current = null, List<int[]> combinations = null) {
 
             current = current ?? new int[0];
             combinations = combinations ?? new List<int[]>();
@@ -55,7 +55,7 @@ namespace CryptarithmeticSolverClassLibrary {
                 GetCombinations(otherOptions, total, newCurrent, combinations);
             }
 
-            return combinations.ToArray();
+            return combinations;
         }
     }
 }

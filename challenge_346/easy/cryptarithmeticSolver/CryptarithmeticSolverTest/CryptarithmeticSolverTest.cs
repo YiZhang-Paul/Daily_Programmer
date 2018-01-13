@@ -30,7 +30,7 @@ namespace CryptarithmeticSolverTest {
                             It.IsAny<int>(),
                             It.IsAny<int[]>(),
                             It.IsAny<List<int[]>>()))
-                   .Returns(new int[][] { new int[] { 7, 1, 8, 5, 9, 6, 2, 0 } });
+                   .Returns(new List<int[]> { new int[] { 7, 1, 8, 5, 9, 6, 2, 0 } });
 
             Assert.IsNull(solver.FindCryptarithm("THIS + IS + HIS == CLAIM"));
         }
@@ -52,7 +52,7 @@ namespace CryptarithmeticSolverTest {
                             It.IsAny<int>(),
                             It.IsAny<int[]>(),
                             It.IsAny<List<int[]>>()))
-                   .Returns(new int[][] { new int[] { 7, 1, 8, 5, 0, 4, 2, 9 } });
+                   .Returns(new List<int[]> { new int[] { 7, 1, 8, 5, 0, 4, 2, 9 } });
 
             Assert.IsNull(solver.FindCryptarithm("THIS + IS + HIS == CLAIM"));
         }
@@ -65,11 +65,11 @@ namespace CryptarithmeticSolverTest {
             utility.Setup(mock => mock.GetLetters(It.IsAny<string>()))
                    .Returns(new char[] { 'a', 'c', 'h', 'i', 'l', 'm', 's', 't' });
             utility.Setup(mock => mock.GetCombinations(
-                            It.IsAny<int[]>(), 
-                            It.IsAny<int>(), 
-                            It.IsAny<int[]>(), 
+                            It.IsAny<int[]>(),
+                            It.IsAny<int>(),
+                            It.IsAny<int[]>(),
                             It.IsAny<List<int[]>>()))
-                   .Returns(new int[][] { new int[] { 7, 1, 8, 5, 0, 6, 2, 9 } });
+                   .Returns(new List<int[]> { new int[] { 7, 1, 8, 5, 0, 6, 2, 9 } });
 
             var result = solver.FindCryptarithm("THIS + IS + HIS == CLAIM");
 
