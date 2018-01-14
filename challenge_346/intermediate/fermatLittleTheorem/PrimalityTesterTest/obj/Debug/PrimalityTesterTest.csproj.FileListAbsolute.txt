@@ -13,3 +13,4 @@ D:\all_languages\reddit_challenges\challenge_346\intermediate\fermatLittleTheore
 D:\all_languages\reddit_challenges\challenge_346\intermediate\fermatLittleTheorem\PrimalityTesterTest\obj\Debug\PrimalityTesterTest.csprojResolveAssemblyReference.cache
 D:\all_languages\reddit_challenges\challenge_346\intermediate\fermatLittleTheorem\PrimalityTesterTest\obj\Debug\PrimalityTesterTest.dll
 D:\all_languages\reddit_challenges\challenge_346\intermediate\fermatLittleTheorem\PrimalityTesterTest\obj\Debug\PrimalityTesterTest.pdb
+D:\all_languages\reddit_challenges\challenge_346\intermediate\fermatLittleTheorem\PrimalityTesterTest\bin\Debug\testBase.txt

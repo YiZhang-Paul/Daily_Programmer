@@ -43,6 +43,7 @@
     <Compile Include="FermatPrimalityTester.cs" />
     <Compile Include="IBigIntegerPrimalityTester.cs" />
     <Compile Include="IPrimalityTester.cs" />
+    <Compile Include="MillerRabinPrimalityTester.cs" />
     <Compile Include="PrimalityTester.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

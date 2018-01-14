@@ -71,6 +71,7 @@
     <Compile Include="PrimalityTesterTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="FermatPrimalityTesterTest.cs" />
+    <Compile Include="MillerRabinPrimalityTesterTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -80,6 +81,12 @@
       <Project>{bc23cdcf-0471-4b8d-9868-372e28d59617}</Project>
       <Name>PrimalityTesterClassLibrary</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="..\testBase.txt">
+      <Link>testBase.txt</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

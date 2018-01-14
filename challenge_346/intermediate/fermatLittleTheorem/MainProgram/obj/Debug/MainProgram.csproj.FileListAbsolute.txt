@@ -6,3 +6,4 @@ D:\all_languages\reddit_challenges\challenge_346\intermediate\fermatLittleTheore
 D:\all_languages\reddit_challenges\challenge_346\intermediate\fermatLittleTheorem\MainProgram\obj\Debug\MainProgram.csprojResolveAssemblyReference.cache
 D:\all_languages\reddit_challenges\challenge_346\intermediate\fermatLittleTheorem\MainProgram\obj\Debug\MainProgram.exe
 D:\all_languages\reddit_challenges\challenge_346\intermediate\fermatLittleTheorem\MainProgram\obj\Debug\MainProgram.pdb
+D:\all_languages\reddit_challenges\challenge_346\intermediate\fermatLittleTheorem\MainProgram\bin\Debug\testBase.txt
