@@ -1,0 +1,15 @@
+D:\all_languages\reddit_challenges\challenge_346\intermediate\fermatLittleTheorem\PrimalityTesterTest\bin\Debug\PrimalityTesterTest.dll
+D:\all_languages\reddit_challenges\challenge_346\intermediate\fermatLittleTheorem\PrimalityTesterTest\bin\Debug\PrimalityTesterTest.pdb
+D:\all_languages\reddit_challenges\challenge_346\intermediate\fermatLittleTheorem\PrimalityTesterTest\bin\Debug\Castle.Core.dll
+D:\all_languages\reddit_challenges\challenge_346\intermediate\fermatLittleTheorem\PrimalityTesterTest\bin\Debug\Moq.dll
+D:\all_languages\reddit_challenges\challenge_346\intermediate\fermatLittleTheorem\PrimalityTesterTest\bin\Debug\PrimalityTesterClassLibrary.dll
+D:\all_languages\reddit_challenges\challenge_346\intermediate\fermatLittleTheorem\PrimalityTesterTest\bin\Debug\System.Threading.Tasks.Extensions.dll
+D:\all_languages\reddit_challenges\challenge_346\intermediate\fermatLittleTheorem\PrimalityTesterTest\bin\Debug\System.ValueTuple.dll
+D:\all_languages\reddit_challenges\challenge_346\intermediate\fermatLittleTheorem\PrimalityTesterTest\bin\Debug\PrimalityTesterClassLibrary.pdb
+D:\all_languages\reddit_challenges\challenge_346\intermediate\fermatLittleTheorem\PrimalityTesterTest\bin\Debug\Castle.Core.xml
+D:\all_languages\reddit_challenges\challenge_346\intermediate\fermatLittleTheorem\PrimalityTesterTest\bin\Debug\Moq.pdb
+D:\all_languages\reddit_challenges\challenge_346\intermediate\fermatLittleTheorem\PrimalityTesterTest\bin\Debug\Moq.xml
+D:\all_languages\reddit_challenges\challenge_346\intermediate\fermatLittleTheorem\PrimalityTesterTest\bin\Debug\System.Threading.Tasks.Extensions.xml
+D:\all_languages\reddit_challenges\challenge_346\intermediate\fermatLittleTheorem\PrimalityTesterTest\obj\Debug\PrimalityTesterTest.csprojResolveAssemblyReference.cache
+D:\all_languages\reddit_challenges\challenge_346\intermediate\fermatLittleTheorem\PrimalityTesterTest\obj\Debug\PrimalityTesterTest.dll
+D:\all_languages\reddit_challenges\challenge_346\intermediate\fermatLittleTheorem\PrimalityTesterTest\obj\Debug\PrimalityTesterTest.pdb

@@ -1,8 +1,0 @@
-D:\all_languages\reddit_challenges\challenge_346\intermediate\fermatTheorem\MainProgram\bin\Debug\MainProgram.exe.config
-D:\all_languages\reddit_challenges\challenge_346\intermediate\fermatTheorem\MainProgram\bin\Debug\MainProgram.exe
-D:\all_languages\reddit_challenges\challenge_346\intermediate\fermatTheorem\MainProgram\bin\Debug\MainProgram.pdb
-D:\all_languages\reddit_challenges\challenge_346\intermediate\fermatTheorem\MainProgram\bin\Debug\FermatPrimalityTesterClassLibrary.dll
-D:\all_languages\reddit_challenges\challenge_346\intermediate\fermatTheorem\MainProgram\bin\Debug\FermatPrimalityTesterClassLibrary.pdb
-D:\all_languages\reddit_challenges\challenge_346\intermediate\fermatTheorem\MainProgram\obj\Debug\MainProgram.csprojResolveAssemblyReference.cache
-D:\all_languages\reddit_challenges\challenge_346\intermediate\fermatTheorem\MainProgram\obj\Debug\MainProgram.exe
-D:\all_languages\reddit_challenges\challenge_346\intermediate\fermatTheorem\MainProgram\obj\Debug\MainProgram.pdb
