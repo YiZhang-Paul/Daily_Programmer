@@ -28,7 +28,7 @@ namespace FermatPrimalityTesterClassLibrary {
             var choices = Enumerable.Range(1, number - 1).ToList();
             int passes = 0;
 
-            while(GetProbability(passes) <= certainty) {
+            while(GetProbability(passes) <= certainty && choices.Count > 0) {
             
                 int choice = GetRandomNumber(choices);
 
