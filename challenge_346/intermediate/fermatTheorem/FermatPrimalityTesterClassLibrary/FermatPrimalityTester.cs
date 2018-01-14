@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Numerics;
 using System.Threading.Tasks;
 
 namespace FermatPrimalityTesterClassLibrary {
@@ -9,7 +10,23 @@ namespace FermatPrimalityTesterClassLibrary {
 
         private Random _random = new Random();
 
-        private int GetRandomNumber(List<int> numbers) {
+        private List<int> GetSmallerPositiveIntegers(BigInteger number) {
+
+            int maxNumber = 0;
+
+            try {
+
+                maxNumber = (int)number - 1;
+            }
+            catch(OverflowException) {
+
+                maxNumber = 1000000;
+            }
+
+            return Enumerable.Range(1, maxNumber).ToList();
+        }
+
+        private int PickTestNumber(List<int> numbers) {
 
             int index = _random.Next(0, numbers.Count);
             int number = numbers[index];
@@ -23,21 +40,24 @@ namespace FermatPrimalityTesterClassLibrary {
             return 1 - Math.Pow(2, -passes);
         }
 
-        public bool IsPrime(int number, double certainty) {
+        private bool IsCongruent(int choice, BigInteger power) {
 
-            var choices = Enumerable.Range(1, number - 1).ToList();
-            int passes = 0;
+            return BigInteger.ModPow(choice, power, power).Equals(choice);
+        }
 
-            while(GetProbability(passes) <= certainty && choices.Count > 0) {
+        public bool IsPrime(BigInteger number, double certainty) {
+
+            var testNumbers = GetSmallerPositiveIntegers(number);
+            int testPasses = 0;
+
+            while(GetProbability(testPasses) <= certainty && testNumbers.Count > 0) {
             
-                int choice = GetRandomNumber(choices);
-
-                if(Math.Pow(choice, number) % number != choice) {
+                if(!IsCongruent(PickTestNumber(testNumbers), number)) {
                 
                     return false;
                 }
 
-                passes++;
+                testPasses++;
             }
 
             return true;

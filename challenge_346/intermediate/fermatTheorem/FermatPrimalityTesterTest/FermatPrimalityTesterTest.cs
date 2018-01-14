@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using FermatPrimalityTesterClassLibrary;
+using System.Numerics;
 
 namespace FermatPrimalityTesterTest {
     [TestClass]
@@ -34,6 +35,9 @@ namespace FermatPrimalityTesterTest {
             Assert.IsTrue(tester.IsPrime(3, 0.75));
             Assert.IsTrue(tester.IsPrime(5, 0.9));
             Assert.IsTrue(tester.IsPrime(5, 0.75));
+            var bigNumber = BigInteger.Parse("29497513910652490397");
+            Assert.IsTrue(tester.IsPrime(bigNumber, 0.9));
+            Assert.IsTrue(tester.IsPrime(bigNumber, 0.75));
         }
     }
 }
