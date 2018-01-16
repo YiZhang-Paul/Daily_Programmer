@@ -15,13 +15,13 @@ namespace LightTrackerTest {
         }
 
         [TestMethod]
-        public void CompareIntervalOrder() {
+        public void GetIntervalDuration() {
 
             var interval1 = new Interval(1, 7);
             var interval2 = new Interval(3, 9);
 
-            Assert.IsTrue(interval1 < interval2);
-            Assert.IsTrue(interval2 > interval1);
+            Assert.AreEqual(6, interval1.Duration);
+            Assert.AreEqual(6, interval2.Duration);
         }
 
         [TestMethod]

@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using LightTrackerClassLibrary;
 
 namespace LightTrackerTest {
     [TestClass]
@@ -18,13 +19,21 @@ namespace LightTrackerTest {
          "Input Contains One or More Invalid Intervals.")]
         public void TrackInvalidLightActiveTime() {
 
-            
+            string intervals = @"1 3
+                                 7 2
+                                 3 4";
+
+            tracker.GetActiveTime(intervals);
         }
 
         [TestMethod]
         public void TrackLightActiveTime() {
 
+            string intervals = @"1 3
+                                 2 3
+                                 4 5";
 
+            Assert.AreEqual(3, tracker.GetActiveTime(intervals));
         }
     }
 }

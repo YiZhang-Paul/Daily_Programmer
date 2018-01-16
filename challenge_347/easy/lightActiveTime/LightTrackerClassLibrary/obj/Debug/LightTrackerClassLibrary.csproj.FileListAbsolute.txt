@@ -3,3 +3,11 @@ D:\all_languages\reddit_challenges\challenge_347\easy\lightActiveTime\LightTrack
 D:\all_languages\reddit_challenges\challenge_347\easy\lightActiveTime\LightTrackerClassLibrary\obj\Debug\LightTrackerClassLibrary.csprojResolveAssemblyReference.cache
 D:\all_languages\reddit_challenges\challenge_347\easy\lightActiveTime\LightTrackerClassLibrary\obj\Debug\LightTrackerClassLibrary.dll
 D:\all_languages\reddit_challenges\challenge_347\easy\lightActiveTime\LightTrackerClassLibrary\obj\Debug\LightTrackerClassLibrary.pdb
+D:\all_languages\reddit_challenges\challenge_347\easy\lightActiveTime\LightTrackerClassLibrary\bin\Debug\Castle.Core.dll
+D:\all_languages\reddit_challenges\challenge_347\easy\lightActiveTime\LightTrackerClassLibrary\bin\Debug\Moq.dll
+D:\all_languages\reddit_challenges\challenge_347\easy\lightActiveTime\LightTrackerClassLibrary\bin\Debug\System.Threading.Tasks.Extensions.dll
+D:\all_languages\reddit_challenges\challenge_347\easy\lightActiveTime\LightTrackerClassLibrary\bin\Debug\System.ValueTuple.dll
+D:\all_languages\reddit_challenges\challenge_347\easy\lightActiveTime\LightTrackerClassLibrary\bin\Debug\Castle.Core.xml
+D:\all_languages\reddit_challenges\challenge_347\easy\lightActiveTime\LightTrackerClassLibrary\bin\Debug\Moq.pdb
+D:\all_languages\reddit_challenges\challenge_347\easy\lightActiveTime\LightTrackerClassLibrary\bin\Debug\Moq.xml
+D:\all_languages\reddit_challenges\challenge_347\easy\lightActiveTime\LightTrackerClassLibrary\bin\Debug\System.Threading.Tasks.Extensions.xml

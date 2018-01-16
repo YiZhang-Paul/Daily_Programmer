@@ -5,10 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace LightTrackerClassLibrary {
-    public class Interval {
+    public class Interval : IInterval {
 
         public int Start { get; private set; }
         public int End { get; private set; }
+        public int Duration { get { return End - Start; } }
 
         public Interval(int start, int end) {
 
@@ -21,36 +22,26 @@ namespace LightTrackerClassLibrary {
             End = end;
         }
 
-        public static bool operator <(Interval earlier, Interval later) {
+        private bool Contains(IInterval interval, int timestamp) {
 
-            return earlier.Start < later.Start;
+            return timestamp >= interval.Start && timestamp <= interval.End;
         }
 
-        public static bool operator >(Interval later, Interval earlier) {
+        public bool Overlap(IInterval otherInterval) {
 
-            return later.Start >= earlier.Start;
+            return Contains(this, otherInterval.Start) || Contains(this, otherInterval.End) ||
+                   Contains(otherInterval, this.Start) || Contains(otherInterval, this.End);
         }
 
-        private bool Contains(int timestamp) {
-
-            return timestamp >= Start && timestamp <= End;
-        }
-
-        public bool Overlap(Interval otherInterval) {
-
-            return Contains(otherInterval.Start) || Contains(otherInterval.End) ||
-                   otherInterval.Contains(Start) || otherInterval.Contains(End);
-        }
-
-        public Interval Join(Interval otherInterval) {
-
+        public IInterval Join(IInterval otherInterval) { 
+        
             if(!Overlap(otherInterval)) {
-            
+
                 return null;
             }
 
-            int start = Math.Min(Start, otherInterval.Start);
-            int end = Math.Max(End, otherInterval.End);
+            int start = Math.Min(this.Start, otherInterval.Start);
+            int end = Math.Max(this.End, otherInterval.End);
 
             return new Interval(start, end);
         }
