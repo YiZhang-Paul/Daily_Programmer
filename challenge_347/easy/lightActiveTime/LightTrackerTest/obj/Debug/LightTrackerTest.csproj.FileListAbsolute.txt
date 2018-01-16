@@ -1,0 +1,7 @@
+D:\all_languages\reddit_challenges\challenge_347\easy\lightActiveTime\LightTrackerTest\obj\Debug\LightTrackerTest.csprojResolveAssemblyReference.cache
+D:\all_languages\reddit_challenges\challenge_347\easy\lightActiveTime\LightTrackerTest\bin\Debug\LightTrackerTest.dll
+D:\all_languages\reddit_challenges\challenge_347\easy\lightActiveTime\LightTrackerTest\bin\Debug\LightTrackerTest.pdb
+D:\all_languages\reddit_challenges\challenge_347\easy\lightActiveTime\LightTrackerTest\bin\Debug\LightTrackerClassLibrary.dll
+D:\all_languages\reddit_challenges\challenge_347\easy\lightActiveTime\LightTrackerTest\bin\Debug\LightTrackerClassLibrary.pdb
+D:\all_languages\reddit_challenges\challenge_347\easy\lightActiveTime\LightTrackerTest\obj\Debug\LightTrackerTest.dll
+D:\all_languages\reddit_challenges\challenge_347\easy\lightActiveTime\LightTrackerTest\obj\Debug\LightTrackerTest.pdb

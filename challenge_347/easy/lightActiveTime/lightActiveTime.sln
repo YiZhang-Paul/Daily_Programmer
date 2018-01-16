@@ -5,6 +5,10 @@ VisualStudioVersion = 12.0.40629.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lightActiveTime", "lightActiveTime\lightActiveTime.csproj", "{C05A742E-1E67-4AB3-AD16-D83FBCA05DEE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LightTrackerTest", "LightTrackerTest\LightTrackerTest.csproj", "{1BDFBABC-A8DF-46A6-8953-5690730319E9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LightTrackerClassLibrary", "LightTrackerClassLibrary\LightTrackerClassLibrary.csproj", "{523560C1-78A1-43E3-844E-7BD1CE461CF0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{C05A742E-1E67-4AB3-AD16-D83FBCA05DEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C05A742E-1E67-4AB3-AD16-D83FBCA05DEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C05A742E-1E67-4AB3-AD16-D83FBCA05DEE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1BDFBABC-A8DF-46A6-8953-5690730319E9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1BDFBABC-A8DF-46A6-8953-5690730319E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1BDFBABC-A8DF-46A6-8953-5690730319E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1BDFBABC-A8DF-46A6-8953-5690730319E9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{523560C1-78A1-43E3-844E-7BD1CE461CF0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{523560C1-78A1-43E3-844E-7BD1CE461CF0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{523560C1-78A1-43E3-844E-7BD1CE461CF0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{523560C1-78A1-43E3-844E-7BD1CE461CF0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
