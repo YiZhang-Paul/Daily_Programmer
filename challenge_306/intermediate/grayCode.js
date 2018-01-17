@@ -2,37 +2,88 @@
 (() => {
 	document.addEventListener("DOMContentLoaded", () => {
 
-		function prepend(array, toPrepend) {
+		function getDigits(base) {
 
-			return array.map(element => toPrepend + element);
+			return Array.from(new Array(base).keys());
 		}
 
-		function getGrayCode(bitWidth, bits) {
+		function repeat(sequence, repeats) {
 
-			if(bits[0].length === bitWidth) {
+			let repeated = [];
 
-				return bits;
+			sequence.forEach(bit => {
+
+				let bits = new Array(repeats).fill(bit);
+				repeated = [...repeated, ...bits];
+			});
+
+			return repeated;
+		}
+
+		function getSequence(base, order) {
+
+			let digits = getDigits(base);
+			let sequence= [...digits];
+
+			for(let i = 0; i < base - 1; i++) {
+
+				digits.unshift(digits.pop());
+				sequence = [...sequence, ...digits];
 			}
 
-			let zeroPrefix = prepend(bits, "0");
-			let onePrefix = prepend(bits, "1");
-
-			return getGrayCode(bitWidth, [...zeroPrefix, ...onePrefix.reverse()]);
+			return repeat(sequence, Math.pow(base, order));
 		}
+
+		function concatSequence(original, toConcat) {
+
+			let index = 0;
+
+			for(let i = 0; i < original.length; i++) {
+
+				original[i] = original[i] + "" + toConcat[index];
+				index = (index + 1) % toConcat.length;
+			}
+
+			return original;
+		}
+
+		function getGrayCode(base, width) {
+
+			let codes = repeat(getDigits(base), Math.pow(base, width - 1));
+
+			for(let i = width - 2; i >= 0; i--) {
+
+				codes = concatSequence(codes, getSequence(base, i));
+			}
+
+			return codes;
+		}
+
+		//default input
+		console.log(`%cDefault Input: `, "color : red;");
+
+		console.log(`%cBase 2, Width 2 -> `, "color : yellow;");
+		console.log(getGrayCode(2, 2));
+
+		console.log(`%cBase 2, Width 3 -> `, "color : yellow;");
+		console.log(getGrayCode(2, 3));
 
 		//challenge input
 		console.log(`%cChallenge Input: `, "color : red;");
 
-		console.log(`%c8 -> `, "color : yellow;");
-		getGrayCode(8, ["0", "1"]).forEach(row => {
+		console.log(`%cBase 2, Width 8 -> `, "color : yellow;");
+		console.log(getGrayCode(2, 8));
 
-			console.log(row);
-		});
+		console.log(`%cBase 2, Width 16 -> `, "color : yellow;");
+		console.log(getGrayCode(2, 16));
 
-		console.log(`%c16 -> `, "color : yellow;");
-		getGrayCode(16, ["0", "1"]).forEach(row => {
+		//bonus input
+		console.log(`%cBonus Input: `, "color : red;");
 
-			console.log(row);
-		});
+		console.log(`%cBase 3, Width 3 -> `, "color : yellow;");
+		console.log(getGrayCode(3, 3));
+
+		console.log(`%cBase 4, Width 3 -> `, "color : yellow;");
+		console.log(getGrayCode(4, 3));
 	});
 })();

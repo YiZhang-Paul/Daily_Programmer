@@ -1,5 +1,7 @@
 #306[Intermediate] Gray Code
 
+All Done
+
 url: https://www.reddit.com/r/dailyprogrammer/comments/5zj7e4/20170315_challenge_306_intermediate_gray_code/
 
 Gray code, so named after discoverer Frank Gray, is a binary numeral system where two successive values differ in only one bit (binary digit). The reflected binary code was originally designed to prevent spurious output from electromechanical switches. Today, Gray code is widely used to facilitate error correction in digital communications such as digital terrestrial television and some cable TV systems.
