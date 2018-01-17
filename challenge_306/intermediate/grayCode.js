@@ -1,28 +1,38 @@
 /* jslint esversion: 6 */
 (() => {
 	document.addEventListener("DOMContentLoaded", () => {
-		/**
-		 * construct n-bit gray oode
-		 * @param {int} [bitLen] - bit length of gray code
-		 * @param {Array} [bits] - current gray code constructed
-		 *
-		 * @return {Array} [generated code]
-		 */
-		function makeGrayCode(bitLen, bits = ["0", "1"]) {
-			return bits[0].length == bitLen ? 
-				bits : makeGrayCode(bitLen, [...bits.slice().map(bit => "0" + bit), ...bits.slice().reverse().map(bit => "1" + bit)]);
+
+		function prepend(array, toPrepend) {
+
+			return array.map(element => toPrepend + element);
 		}
+
+		function getGrayCode(bitWidth, bits) {
+
+			if(bits[0].length === bitWidth) {
+
+				return bits;
+			}
+
+			let zeroPrefix = prepend(bits, "0");
+			let onePrefix = prepend(bits, "1");
+
+			return getGrayCode(bitWidth, [...zeroPrefix, ...onePrefix.reverse()]);
+		}
+
 		//challenge input
 		console.log(`%cChallenge Input: `, "color : red;");
-		let input = 8;
-		console.log(`%c${input} -> `, "color : yellow;");
-		makeGrayCode(input).forEach(row => {
+
+		console.log(`%c8 -> `, "color : yellow;");
+		getGrayCode(8, ["0", "1"]).forEach(row => {
+
 			console.log(row);
 		});
-		input = 16;
-		console.log(`%c${input} -> `, "color : yellow;");
-		makeGrayCode(input).forEach(row => {
+
+		console.log(`%c16 -> `, "color : yellow;");
+		getGrayCode(16, ["0", "1"]).forEach(row => {
+
 			console.log(row);
 		});
 	});
-})();		
+})();
