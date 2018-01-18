@@ -56,9 +56,14 @@
 			return [...subWords];
 		}
 
+		function isSubWord(word, subWord) {
+
+			return word.includes(subWord);
+		}
+
 		function hasSubWord(word, subWords) {
 
-			return subWords.some(subWord => word.includes(subWord));
+			return subWords.some(subWord => isSubWord(word, subWord));
 		}
 
 		function removeSubWord(word, subWord) {
@@ -76,14 +81,14 @@
 			return arrays.sort((a, b) => b.length - a.length)[0];
 		}
 
-		function findBestConjunction(word, minSize, allWords) {
+		function findBestConjunction(word, minSize, allWords, totalOverlap = 0) {
 
 			let subWords = findSubWords(word, minSize, allWords);
 
-			return findLongestArray(findConjunctions(word, subWords));
+			return findLongestArray(findConjunctions(word, subWords, totalOverlap));
 		}
 
-		function findConjunctions(word, subWords, current = [], conjunctions = []) {
+		function findConjunctions(word, subWords, overlap, current = [], conjunctions = []) {
 
 			if(!hasSubWord(word, subWords)) {
 
@@ -102,10 +107,11 @@
 					continue;
 				}
 
-				const otherLetter = removeSubWord(word, subWords[i]);
+				const toRemove = overlap ? subWords[i].slice(0, -overlap) : subWords[i];
+				const otherLetter = word.length === subWords[i].length ? "" : removeSubWord(word, toRemove);
 				let otherSubWord = excludeElement(subWords, i);
 				let newCurrent = [...current, subWords[i]];
-				findConjunctions(otherLetter, otherSubWord, newCurrent, conjunctions);
+				findConjunctions(otherLetter, otherSubWord, overlap, newCurrent, conjunctions);
 			}
 
 			return conjunctions;
@@ -121,16 +127,28 @@
 
 			//default input
 			let time = new Date().getTime();
+			let word, minSize;
 			console.log(`%cDefault Input: `, "color : red;");
-			showResult("something", 2, findBestConjunction("something", 2, words));
-			showResult("awesomeness", 2, findBestConjunction("awesomeness", 2, words));
+			word = "something", minSize = 2;
+			showResult(word, minSize, findBestConjunction(word, minSize, words));
+			word = "awesomeness", minSize = 2;
+			showResult(word, minSize, findBestConjunction(word, minSize, words));
 
 			//challenge input
 			console.log(`%cChallenge Input: `, "color : red;");
-			showResult("disproportionateness", 3, findBestConjunction("disproportionateness", 3, words));
-			showResult("dishonorableness", 4, findBestConjunction("dishonorableness", 4, words));
+			word = "disproportionateness", minSize = 3;
+			showResult(word, minSize, findBestConjunction(word, minSize, words));
+			word = "dishonorableness", minSize = 4;
+			showResult(word, minSize, findBestConjunction(word, minSize, words));
+			word = "sotto", minSize = 2;
+			showResult(word, minSize, findBestConjunction(word, minSize, words));
 
+			//bonus input
 			console.log(`%cBonus Input: `, "color : red;");
+			word = "counterrevolutionary", minSize = 4;
+			showResult(word, minSize, findBestConjunction(word, minSize, words, 1));
+			word = "consciencestricken", minSize = 4;
+			showResult(word, minSize, findBestConjunction(word, minSize, words, 1));
 			console.log(`Time Spent: ${new Date().getTime() - time}ms`);
 		});
   	});
