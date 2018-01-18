@@ -53,22 +53,22 @@
 				addSubWords(word.slice(i), minSize, allWords, subWords);
 			}
 
-			return [...subWords];
+			return Array.from(subWords);
 		}
 
-		function isSubWord(word, subWord) {
+		function isSubWord(subWord, words) {
 
-			return word.includes(subWord);
+			return words.some(word => word.includes(subWord));
 		}
 
 		function hasSubWord(word, subWords) {
 
-			return subWords.some(subWord => isSubWord(word, subWord));
+			return subWords.some(subWord => word.includes(subWord));
 		}
 
-		function removeSubWord(word, subWord) {
+		function removeSubWord(word, subWord, overlap) {
 
-			return word.replace(subWord, "");
+			return word.length === subWord.length ? "" : word.slice(subWord.length - overlap);
 		}
 
 		function excludeElement(array, index) {
@@ -76,19 +76,22 @@
 			return [...array.slice(0, index), ...array.slice(index + 1)];
 		}
 
-		function findLongestArray(arrays) {
+		function findLongest(arrays) {
 
 			return arrays.sort((a, b) => b.length - a.length)[0];
 		}
 
-		function findBestConjunction(word, minSize, allWords, totalOverlap = 0) {
+		function findBestConjunction(word, minSize, allWords, fixedOverlap = 0, allowAnyOverlap = false) {
 
 			let subWords = findSubWords(word, minSize, allWords);
+			let conjunctions = allowAnyOverlap ?
+				findConjunctionsWithAnyOverlap(word, subWords) :
+				findConjunctionsWithGivenOverlap(word, subWords, fixedOverlap);
 
-			return findLongestArray(findConjunctions(word, subWords, totalOverlap));
+			return findLongest(conjunctions);
 		}
 
-		function findConjunctions(word, subWords, overlap, current = [], conjunctions = []) {
+		function findConjunctionsWithGivenOverlap(word, subWords, overlap, current = [], conjunctions = []) {
 
 			if(!hasSubWord(word, subWords)) {
 
@@ -107,11 +110,54 @@
 					continue;
 				}
 
-				const toRemove = overlap ? subWords[i].slice(0, -overlap) : subWords[i];
-				const otherLetter = word.length === subWords[i].length ? "" : removeSubWord(word, toRemove);
-				let otherSubWord = excludeElement(subWords, i);
+				const wordRemain = removeSubWord(word, subWords[i], overlap);
+				let subWordRemain = excludeElement(subWords, i);
 				let newCurrent = [...current, subWords[i]];
-				findConjunctions(otherLetter, otherSubWord, overlap, newCurrent, conjunctions);
+				findConjunctionsWithGivenOverlap(wordRemain, subWordRemain, overlap, newCurrent, conjunctions);
+			}
+
+			return conjunctions;
+		}
+
+		function getRange(start, length) {
+
+			let range = new Array(length).keys();
+
+			return Array.from(range).map(value => value + start);
+		}
+
+		function isValidConjunction(subWord, conjunctions, indexCovered, allIndexCovered) {
+
+			if(hasSubWord(subWord, conjunctions) || isSubWord(subWord, conjunctions)) {
+
+				return false;
+			}
+
+			return !allIndexCovered.length || allIndexCovered.includes(indexCovered[0]);
+		}
+
+		function findConjunctionsWithAnyOverlap(word, subWords, indexCovered = [], current = [], conjunctions = []) {
+
+			if(indexCovered.length === word.length) {
+
+				conjunctions.push(current);
+
+				return null;
+			}
+
+			for(let i = 0; i < subWords.length; i++) {
+
+				let covered = getRange(word.indexOf(subWords[i]), subWords[i].length);
+
+				if(!isValidConjunction(subWords[i], current, covered, indexCovered)) {
+
+					continue;
+				}
+
+				let subWordRemain = subWords.slice(i + 1);
+				let newIndexCovered = Array.from(new Set([...indexCovered, ...covered]));
+				let newCurrent = [...current, subWords[i]];
+				findConjunctionsWithAnyOverlap(word, subWordRemain, newIndexCovered, newCurrent, conjunctions);
 			}
 
 			return conjunctions;
@@ -148,7 +194,7 @@
 			word = "counterrevolutionary", minSize = 4;
 			showResult(word, minSize, findBestConjunction(word, minSize, words, 1));
 			word = "consciencestricken", minSize = 4;
-			showResult(word, minSize, findBestConjunction(word, minSize, words, 1));
+			showResult(word, minSize, findBestConjunction(word, minSize, words, 0, true));
 			console.log(`Time Spent: ${new Date().getTime() - time}ms`);
 		});
   	});
