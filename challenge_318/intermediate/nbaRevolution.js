@@ -12,7 +12,7 @@
 
 			get teams() {
 
-				return this.home.name + " <---> " + this.away.name;
+				return this.home.name + " <-> " + this.away.name;
 			}
 		}
 
@@ -22,8 +22,55 @@
 
 				this.name = name;
 				this.recentGame = null;
-				this.maxHomeGamesPlayed = false;
-				this.maxAwayGamesPlayed = false;
+				this.teamPlayed = new Set();
+				this.consecutiveHomeGamesPlayed = false;
+				this.consecutiveAwayGamesPlayed = false;
+			}
+
+			get nextLocation() {
+
+				if(!this.consecutiveHomeGamesPlayed && !this.consecutiveAwayGamesPlayed) {
+
+					return "any";
+				}
+
+				if(!this.consecutiveHomeGamesPlayed) {
+
+					return this.recentGame === "home" ? "any" : "home";
+				}
+
+				if(!this.consecutiveAwayGamesPlayed) {
+
+					return this.recentGame === "away" ? "any" : "away";
+				}
+
+				if(this.consecutiveHomeGamesPlayed && this.consecutiveAwayGamesPlayed) {
+
+					return this.recentGame === "home" ? "away" : "home";
+				}
+			}
+
+			isValidOpponent(opponent) {
+
+				if(opponent === this || this.teamPlayed.has(opponent.name)) {
+
+					return false;
+				}
+
+				if(this.nextLocation === "any") {
+
+					return true;
+				}
+
+				return opponent.nextLocation === "any" || opponent.nextLocation !== this.nextLocation;
+			}
+
+			getOpponents(teams, unassigned) {
+
+				return teams.filter(team => {
+
+					return unassigned.has(team.name) && this.isValidOpponent(team);
+				});
 			}
 		}
 
@@ -31,31 +78,161 @@
 
 			constructor(names) {
 
-				this.teams = this.getTeams(names);
-				this.matchups = this.getMatchups(this.teams);
+				this.names = this.getNames(names);
+				this.teams = this.getTeams();
 			}
 
-			getTeams(names) {
+			get totalRounds() {
 
-				return names.split("\n")
-							.map(name => new Team(name.trim()));
+				return (this.names.length - 1) * 2;
 			}
 
-			getMatchups(teams) {
+			reset() {
 
-				let matchups = [];
+				this.teams = this.getTeams();
+			}
 
-				for(let i = 0; i < teams.length - 1; i++) {
+			getNames(names) {
 
-					for(let j = i + 1; j < teams.length; j++) {
+				return names.split("\n").map(name => name.trim());
+			}
 
-						matchups.push(new Matchup(teams[i], teams[j]));
-						matchups.push(new Matchup(teams[j], teams[i]));
-					}
+			getTeams() {
+
+				return this.names.map(name => new Team(name));
+			}
+
+			reverseTeams(rounds) {
+
+				let reversed = [];
+
+				rounds.forEach(round => {
+
+					reversed.push(round.map(match => new Matchup(match.away, match.home)));
+				});
+
+				return reversed;
+			}
+
+			pickRandom(teams) {
+
+				return teams[Math.floor(Math.random() * teams.length)];
+			}
+
+			assignMatch(team1, team2) {
+
+				let home;
+
+				if(team1.nextLocation !== "any") {
+
+					home = team1.nextLocation === "home" ? team1 : team2;
+				}
+				else if(team2.nextLocation !== "any") {
+
+					home = team2.nextLocation === "home" ? team2 : team1;
+				}
+				else {
+
+					home = team1.recentGame === "home" ? team2 : team1;
 				}
 
-				return matchups;
+				let match = new Matchup(home, home === team1 ? team2 : team1);
+				this.updateHomeTeamData(match);
+				this.updateAwayTeamData(match);
+
+				return match;
 			}
+
+			updateHomeTeamData(match) {
+
+				if(match.home.recentGame === "home") {
+
+					match.home.consecutiveHomeGamesPlayed = true;
+				}
+
+				match.home.recentGame = "home";
+				match.home.teamPlayed.add(match.away.name);
+			}
+
+			updateAwayTeamData(match) {
+
+				if(match.away.recentGame === "away") {
+
+					match.away.consecutiveAwayGamesPlayed = true;
+				}
+
+				match.away.recentGame = "away";
+				match.away.teamPlayed.add(match.home.name);
+			}
+
+			scheduleRound() {
+
+				let round = [];
+				let names = new Set(this.names);
+
+				for(let i = 0; i < this.teams.length; i++) {
+
+					if(!names.has(this.teams[i].name)) {
+
+						continue;
+					}
+
+					let opponents = this.teams[i].getOpponents(this.teams, names);
+
+					if(opponents.length === 0) {
+
+						return null;
+					}
+
+					let match = this.assignMatch(this.teams[i], this.pickRandom(opponents));
+					names.delete(match.home.name);
+					names.delete(match.away.name);
+					round.push(match);
+				}
+
+				return round;
+			}
+
+			scheduleHalfSeason() {
+
+				let halfSeason = [];
+
+				for(let i = 0; i < this.totalRounds / 2; i++) {
+
+					let round = this.scheduleRound();
+
+					if(round === null) {
+
+						this.reset();
+
+						return this.scheduleHalfSeason();
+					}
+
+					halfSeason.push(round);
+				}
+
+				return halfSeason;
+			}
+
+			scheduleSeason() {
+
+				let halfSeason = this.scheduleHalfSeason();
+
+				return [...halfSeason, ...this.reverseTeams(halfSeason)];
+			}
+		}
+
+		function showRound(round) {
+
+			const spacing = "    ";
+
+			return round.map(match => spacing + match.teams).join("\n");
+		}
+
+		function showSchedule(schedule) {
+
+			return schedule.map((round, index) => `Round ${index + 1}:\n\n${showRound(round)}\n`)
+						   .join("\n");
 		}
 
 		//default input
@@ -65,10 +242,8 @@
 					 San Antonio Spurs
 					 Toronto raptors`;
 
-
 		let scheduler = new Scheduler(names);
-		console.log(scheduler);
-
+		console.log(showSchedule(scheduler.scheduleHalfSeason()));
 
 		//challenge input
 		console.log(`%cChallenge Input:`, "color : red;");
@@ -102,5 +277,8 @@
 				 Toronto Raptors
 				 Utah Jazz
 				 Washington Wizards`;
+
+		scheduler = new Scheduler(names);
+		console.log(showSchedule(scheduler.scheduleHalfSeason()));
 	});
 })();
