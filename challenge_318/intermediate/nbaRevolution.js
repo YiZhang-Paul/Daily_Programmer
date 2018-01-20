@@ -2,6 +2,38 @@
 (() => {
 	document.addEventListener("DOMContentLoaded", () => {
 
+		class Team {
+
+			constructor(name) {
+
+				this.name = name;
+				this.recentGame = null;
+				this.maxHomeGamePlayed = false;
+				this.maxAwayGamePlayed = false;
+			}
+
+			isValidLocation(location) {
+
+				return (!this.maxHomeGamePlayed || location !== "home") &&
+					   (!this.maxAwayGamePlayed || location !== "away");
+			}
+
+			updateData(location) {
+
+				if(location === "home" && this.recentGame === "home") {
+
+					this.maxHomeGamePlayed = true;
+				}
+
+				if(location === "away" && this.recentGame === "away") {
+
+					this.maxAwayGamePlayed = true;
+				}
+
+				this.recentGame = location;
+			}
+		}
+
 		class Matchup {
 
 			constructor(home, away) {
@@ -9,230 +41,113 @@
 				this.home = home;
 				this.away = away;
 			}
-
-			get teams() {
-
-				return this.home.name + " <-> " + this.away.name;
-			}
-		}
-
-		class Team {
-
-			constructor(name) {
-
-				this.name = name;
-				this.recentGame = null;
-				this.teamPlayed = new Set();
-				this.consecutiveHomeGamesPlayed = false;
-				this.consecutiveAwayGamesPlayed = false;
-			}
-
-			get nextLocation() {
-
-				if(!this.consecutiveHomeGamesPlayed && !this.consecutiveAwayGamesPlayed) {
-
-					return "any";
-				}
-
-				if(!this.consecutiveHomeGamesPlayed) {
-
-					return this.recentGame === "home" ? "any" : "home";
-				}
-
-				if(!this.consecutiveAwayGamesPlayed) {
-
-					return this.recentGame === "away" ? "any" : "away";
-				}
-
-				if(this.consecutiveHomeGamesPlayed && this.consecutiveAwayGamesPlayed) {
-
-					return this.recentGame === "home" ? "away" : "home";
-				}
-			}
-
-			isValidOpponent(opponent) {
-
-				if(opponent === this || this.teamPlayed.has(opponent.name)) {
-
-					return false;
-				}
-
-				if(this.nextLocation === "any") {
-
-					return true;
-				}
-
-				return opponent.nextLocation === "any" || opponent.nextLocation !== this.nextLocation;
-			}
-
-			getOpponents(teams, unassigned) {
-
-				return teams.filter(team => {
-
-					return unassigned.has(team.name) && this.isValidOpponent(team);
-				});
-			}
 		}
 
 		class Scheduler {
 
 			constructor(names) {
 
-				this.names = this.getNames(names);
-				this.teams = this.getTeams();
-			}
-
-			get totalRounds() {
-
-				return (this.names.length - 1) * 2;
-			}
-
-			reset() {
-
-				this.teams = this.getTeams();
+				this.teams = this.getTeams(names);
 			}
 
 			getNames(names) {
 
-				return names.split("\n").map(name => name.trim());
+				return names.split("\n")
+							.map(name => name.trim())
+							.filter(name => name);
 			}
 
-			getTeams() {
+			getTeams(names) {
 
-				return this.names.map(name => new Team(name));
+				return this.getNames(names)
+						   .map(name => new Team(name));
 			}
 
-			reverseTeams(rounds) {
+			getRandomIndex(array) {
 
-				let reversed = [];
-
-				rounds.forEach(round => {
-
-					reversed.push(round.map(match => new Matchup(match.away, match.home)));
-				});
-
-				return reversed;
+				return Math.floor(Math.random() * array.length);
 			}
 
-			pickRandom(teams) {
+			shuffleTeams(teams) {
 
-				return teams[Math.floor(Math.random() * teams.length)];
-			}
+				let shuffled = [];
+				let copy = teams.slice();
 
-			assignMatch(team1, team2) {
+				while(copy.length) {
 
-				let home;
-
-				if(team1.nextLocation !== "any") {
-
-					home = team1.nextLocation === "home" ? team1 : team2;
-				}
-				else if(team2.nextLocation !== "any") {
-
-					home = team2.nextLocation === "home" ? team2 : team1;
-				}
-				else {
-
-					home = team1.recentGame === "home" ? team2 : team1;
+					const index = this.getRandomIndex(copy);
+					shuffled.push(copy.splice(index, 1)[0]);
 				}
 
-				let match = new Matchup(home, home === team1 ? team2 : team1);
-				this.updateHomeTeamData(match);
-				this.updateAwayTeamData(match);
-
-				return match;
+				return shuffled;
 			}
 
-			updateHomeTeamData(match) {
+			rotateTeams(teams) {
 
-				if(match.home.recentGame === "home") {
+				return [
 
-					match.home.consecutiveHomeGamesPlayed = true;
+					...teams.slice(teams.length / 2, -1),
+					...teams.slice(0, teams.length / 2),
+					...teams.slice(-1)
+				];
+			}
+
+			assignMatch(home, away) {
+
+				if(!home.isValidLocation("home") || !away.isValidLocation("away")) {
+
+					throw "Invalid Match Location.";
 				}
 
-				match.home.recentGame = "home";
-				match.home.teamPlayed.add(match.away.name);
+				home.updateData("home");
+				away.updateData("away");
+
+				return new Matchup(home, away);
 			}
 
-			updateAwayTeamData(match) {
-
-				if(match.away.recentGame === "away") {
-
-					match.away.consecutiveAwayGamesPlayed = true;
-				}
-
-				match.away.recentGame = "away";
-				match.away.teamPlayed.add(match.home.name);
-			}
-
-			scheduleRound() {
+			getRound(roundNumber, teams) {
 
 				let round = [];
-				let names = new Set(this.names);
+				let home = teams.slice(0, teams.length / 2);
+				let away = teams.slice(teams.length / 2).reverse();
 
-				for(let i = 0; i < this.teams.length; i++) {
+				for(let i = 0; i < home.length; i++) {
 
-					if(!names.has(this.teams[i].name)) {
+					let match = i === 0 && roundNumber % 2 === 0 ?
+						this.assignMatch(away[i], home[i]) :
+						this.assignMatch(home[i], away[i]);
 
-						continue;
-					}
-
-					let opponents = this.teams[i].getOpponents(this.teams, names);
-
-					if(opponents.length === 0) {
-
-						return null;
-					}
-
-					let match = this.assignMatch(this.teams[i], this.pickRandom(opponents));
-					names.delete(match.home.name);
-					names.delete(match.away.name);
 					round.push(match);
 				}
 
 				return round;
 			}
 
-			scheduleHalfSeason() {
+			getSeasonHalf() {
 
-				let halfSeason = [];
+				let teams = this.shuffleTeams(this.teams);
+				let rounds = [];
 
-				for(let i = 0; i < this.totalRounds / 2; i++) {
+				for(let i = 0; i < teams.length - 1; i++) {
 
-					let round = this.scheduleRound();
-
-					if(round === null) {
-
-						this.reset();
-
-						return this.scheduleHalfSeason();
-					}
-
-					halfSeason.push(round);
+					rounds.push(this.getRound(i + 1, teams));
+					teams = this.rotateTeams(teams);
 				}
 
-				return halfSeason;
+				return rounds;
 			}
 
-			scheduleSeason() {
+			getSchedule() {
 
-				let halfSeason = this.scheduleHalfSeason();
+				try {
 
-				return [...halfSeason, ...this.reverseTeams(halfSeason)];
+					return this.getSeasonHalf();
+				}
+				catch(e) {
+
+					console.log(e);
+				}
 			}
-		}
-
-		function showRound(round) {
-
-			const spacing = "    ";
-
-			return round.map(match => spacing + match.teams).join("\n");
-		}
-
-		function showSchedule(schedule) {
-
-			return schedule.map((round, index) => `Round ${index + 1}:\n\n${showRound(round)}\n`)
-						   .join("\n");
 		}
 
 		//default input
@@ -243,7 +158,7 @@
 					 Toronto raptors`;
 
 		let scheduler = new Scheduler(names);
-		console.log(showSchedule(scheduler.scheduleHalfSeason()));
+		console.log(scheduler.getSchedule());
 
 		//challenge input
 		console.log(`%cChallenge Input:`, "color : red;");
@@ -277,8 +192,5 @@
 				 Toronto Raptors
 				 Utah Jazz
 				 Washington Wizards`;
-
-		scheduler = new Scheduler(names);
-		console.log(showSchedule(scheduler.scheduleHalfSeason()));
 	});
 })();
