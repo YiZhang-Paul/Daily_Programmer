@@ -228,13 +228,63 @@
 					const lastDay = schedule.slice(-1)[0];
 					const nextDay = (lastDay + this.restPeriod + 1) % 7;
 
-					if(schedule[0] - nextDay >= this.restPeriod) {
+					if(schedule[0] - nextDay > this.restPeriod) {
 
 						schedule.push(nextDay ? nextDay : 7);
 					}
 				}
 
 				return schedule.sort((a, b) => a - b);
+			}
+
+			getStartDayIndex(schedule) {
+
+				const index = schedule.findIndex(day => this.start.getDay() <= day);
+
+				return index === -1 ? 0 : index;
+			}
+
+			getStartDate(dayInWeek) {
+
+				let date = new Date(this.start);
+				date.setDate(date.getDate() + dayInWeek - date.getDay());
+
+				return date;
+			}
+
+			getRestPeriod(schedule, index) {
+
+				if(index >= schedule.length - 1) {
+
+					return 7 - schedule[schedule.length - 1] + schedule[0];
+				}
+
+				return schedule[index + 1] - schedule[index];
+			}
+
+			getNextDate(date, schedule, index) {
+
+				const restPeriod = this.getRestPeriod(schedule, index);
+				date.setDate(date.getDate() + restPeriod);
+
+				return date;
+			}
+
+			getMatchDates(totalRounds) {
+
+				let weeklySchedule = this.getWeeklySchedule();
+				let index = this.getStartDayIndex(weeklySchedule);
+				let currentDate = this.getStartDate(weeklySchedule[index]);
+				let dates = [new Date(currentDate)];
+
+				for(let i = 1; i < totalRounds; i++) {
+
+					currentDate = this.getNextDate(currentDate, weeklySchedule, index);
+					dates.push(new Date(currentDate));
+					index = (index + 1) % weeklySchedule.length;
+				}
+
+				return dates;
 			}
 
 			showRound(round) {
@@ -251,6 +301,8 @@
 			showSeasonSchedule() {
 
 				let season = this.manager.getSeason();
+				let dates = this.getMatchDates(season.length);
+				console.log(dates);
 
 				return season.map((round, index) => {
 
@@ -267,7 +319,9 @@
 					 San Antonio Spurs
 					 Toronto raptors`;
 
-		let scheduler = new Scheduler(names);
+		let start = new Date(2018, 0, 1);
+		let end = new Date(2018, 2, 31);
+		let scheduler = new Scheduler(names, start, end, 2);
 		console.log(scheduler.showSeasonSchedule());
 
 		//challenge input
@@ -303,9 +357,9 @@
 				 Utah Jazz
 				 Washington Wizards`;
 
-		let start = new Date(2020, 9, 1);
-		let end = new Date(2021, 3, 30);
+		start = new Date(2020, 9, 1);
+		end = new Date(2021, 3, 30);
 		scheduler = new Scheduler(names, start, end, 2);
-		//console.log(scheduler.showSeasonSchedule());
+		console.log(scheduler.showSeasonSchedule());
 	});
 })();
