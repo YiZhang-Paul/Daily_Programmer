@@ -214,6 +214,27 @@
 			constructor(teams, start, end, restPeriod) {
 
 				this.manager = new TournamentManager(teams);
+				this.start = new Date(start);
+				this.end = new Date(end);
+				this.restPeriod = restPeriod;
+			}
+
+			getWeeklySchedule() {
+
+				let schedule = [6];
+
+				for(let i = 1; i < 6 / (this.restPeriod + 1); i++) {
+
+					const lastDay = schedule.slice(-1)[0];
+					const nextDay = (lastDay + this.restPeriod + 1) % 7;
+
+					if(schedule[0] - nextDay >= this.restPeriod) {
+
+						schedule.push(nextDay ? nextDay : 7);
+					}
+				}
+
+				return schedule.sort((a, b) => a - b);
 			}
 
 			showRound(round) {
@@ -227,7 +248,7 @@
 				}).join("\n");
 			}
 
-			showSchedule() {
+			showSeasonSchedule() {
 
 				let season = this.manager.getSeason();
 
@@ -247,7 +268,7 @@
 					 Toronto raptors`;
 
 		let scheduler = new Scheduler(names);
-		console.log(scheduler.showSchedule());
+		console.log(scheduler.showSeasonSchedule());
 
 		//challenge input
 		console.log(`%cChallenge Input:`, "color : red;");
@@ -282,7 +303,9 @@
 				 Utah Jazz
 				 Washington Wizards`;
 
-		scheduler = new Scheduler(names);
-		console.log(scheduler.showSchedule());
+		let start = new Date(2020, 9, 1);
+		let end = new Date(2021, 3, 30);
+		scheduler = new Scheduler(names, start, end, 2);
+		//console.log(scheduler.showSeasonSchedule());
 	});
 })();
