@@ -56,9 +56,14 @@
 				this.home = home;
 				this.away = away;
 			}
+
+			get title() {
+
+				return `${this.home.name} vs. ${this.away.name}`;
+			}
 		}
 
-		class Scheduler {
+		class TournamentManager {
 
 			constructor(names) {
 
@@ -154,7 +159,7 @@
 				return round;
 			}
 
-			getSeasonHalf() {
+			getHalfSeason() {
 
 				let teams = this.shuffleTeams(this.teams);
 				let rounds = [];
@@ -168,7 +173,7 @@
 				return rounds;
 			}
 
-			reverseRounds(rounds) {
+			switchLocations(rounds) {
 
 				let reversed = [];
 
@@ -185,22 +190,52 @@
 				return reversed;
 			}
 
-			getSchedule() {
+			getSeason() {
 
 				try {
 
-					let firstHalf = this.getSeasonHalf();
+					let firstHalf = this.getHalfSeason();
 					this.resetRecentGames();
-					let secondHalf = this.reverseRounds(firstHalf);
+					let secondHalf = this.switchLocations(firstHalf);
 
-					return [firstHalf, secondHalf];
+					return [...firstHalf, ...secondHalf];
 				}
 				catch(e) {
 
 					this.reset();
 
-					return this.getSchedule();
+					return this.getSeason();
 				}
+			}
+		}
+
+		class Scheduler {
+
+			constructor(teams, start, end, restPeriod) {
+
+				this.manager = new TournamentManager(teams);
+			}
+
+			showRound(round) {
+
+				const spacing = "  ";
+
+				return round.map((match, index) => {
+
+					return `${spacing}${index + 1}. ${match.title}`;
+
+				}).join("\n");
+			}
+
+			showSchedule() {
+
+				let season = this.manager.getSeason();
+
+				return season.map((round, index) => {
+
+					return `Round ${index + 1}:\n\n${this.showRound(round)}\n`;
+
+				}).join("\n");
 			}
 		}
 
@@ -212,7 +247,7 @@
 					 Toronto raptors`;
 
 		let scheduler = new Scheduler(names);
-		console.log(scheduler.getSchedule());
+		console.log(scheduler.showSchedule());
 
 		//challenge input
 		console.log(`%cChallenge Input:`, "color : red;");
@@ -248,6 +283,6 @@
 				 Washington Wizards`;
 
 		scheduler = new Scheduler(names);
-		console.log(scheduler.getSchedule());
+		console.log(scheduler.showSchedule());
 	});
 })();
