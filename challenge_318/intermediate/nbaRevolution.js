@@ -12,10 +12,26 @@
 				this.maxAwayGamePlayed = false;
 			}
 
+			reset() {
+
+				this.resetRecentGame();
+				this.maxHomeGamePlayed = false;
+				this.maxAwayGamePlayed = false;
+			}
+
+			resetRecentGame() {
+
+				this.recentGame = null;
+			}
+
 			isValidLocation(location) {
 
-				return (!this.maxHomeGamePlayed || location !== "home") &&
-					   (!this.maxAwayGamePlayed || location !== "away");
+				if(location === "home") {
+
+					return !this.maxHomeGamePlayed || this.recentGame !== "home";
+				}
+
+				return !this.maxAwayGamePlayed || this.recentGame !== "away";
 			}
 
 			updateData(location) {
@@ -24,8 +40,7 @@
 
 					this.maxHomeGamePlayed = true;
 				}
-
-				if(location === "away" && this.recentGame === "away") {
+ 				else if(location === "away" && this.recentGame === "away") {
 
 					this.maxAwayGamePlayed = true;
 				}
@@ -48,6 +63,22 @@
 			constructor(names) {
 
 				this.teams = this.getTeams(names);
+			}
+
+			reset() {
+
+				this.teams.forEach(team => {
+
+					team.reset();
+				});
+			}
+
+			resetRecentGames() {
+
+				this.teams.forEach(team => {
+
+					team.resetRecentGame();
+				});
 			}
 
 			getNames(names) {
@@ -137,15 +168,38 @@
 				return rounds;
 			}
 
+			reverseRounds(rounds) {
+
+				let reversed = [];
+
+				rounds.forEach(round => {
+
+					let newRound = round.map(match => {
+
+						return this.assignMatch(match.away, match.home);
+					});
+
+					reversed.push(newRound);
+				});
+
+				return reversed;
+			}
+
 			getSchedule() {
 
 				try {
 
-					return this.getSeasonHalf();
+					let firstHalf = this.getSeasonHalf();
+					this.resetRecentGames();
+					let secondHalf = this.reverseRounds(firstHalf);
+
+					return [firstHalf, secondHalf];
 				}
 				catch(e) {
 
-					console.log(e);
+					this.reset();
+
+					return this.getSchedule();
 				}
 			}
 		}
@@ -192,5 +246,8 @@
 				 Toronto Raptors
 				 Utah Jazz
 				 Washington Wizards`;
+
+		scheduler = new Scheduler(names);
+		console.log(scheduler.getSchedule());
 	});
 })();
