@@ -40,6 +40,11 @@
 			return words.sort((a, b) => b.length - a.length);
 		}
 
+		function excludeIndex(text, index) {
+
+			return text.slice(0, index) + text.slice(index + 1);
+		}
+
 		function removePrefix(words) {
 
 			let trie = new Trie(words);
@@ -52,21 +57,21 @@
 			return word1.length < word2.length ? word1 : word2;
 		}
 
-		function getLetterAtIndex(indexes, embedded) {
+		function getUsedLetters(indexes, embedded) {
 
 			indexes = orderByAscending(Array.from(indexes));
 
 			return indexes.map(index => embedded[index]).join("");
 		}
 
-		function trimEmbed(words, embedded, embedder) {
+		function removeUnused(words, embedded, embedder) {
 
 			let indexes = new Set();
-			let trimed = "";
+			let used = "";
 
 			for(let i = 0; i < words.length; i++) {
 
-				if(embedder.isEmbedded(words[i], trimed)) {
+				if(embedder.isEmbedded(words[i], used)) {
 
 					continue;
 				}
@@ -77,10 +82,25 @@
 					indexes.add(index);
 				}
 
-				trimed = getLetterAtIndex(indexes, embedded);
+				used = getUsedLetters(indexes, embedded);
 			}
 
-			return trimed;
+			return used;
+		}
+
+		function trimEmbed(words, embedded) {
+
+			for(let i = embedded.length - 1; i >= 0; i--) {
+
+				const trimed = excludeIndex(embedded, i);
+
+				if(isValidEmbed(trimed, words)) {
+
+					embedded = trimed;
+				}
+			}
+
+			return embedded;
 		}
 
 		function embed(words) {
@@ -99,7 +119,7 @@
 				embedded = getShorter(embedder.embed(words[i], embedded), embedder.embed(embedded, words[i]));
 			}
 
-			return trimEmbed(words, embedded, embedder);
+			return trimEmbed(words, removeUnused(words, embedded, embedder));
 		}
 
 		function isValidEmbed(embed, words) {
@@ -109,18 +129,26 @@
 			return words.every(word => embedder.isEmbedded(word, embed));
 		}
 
-		getWords("wordList.txt").then(words => {
+		function showOutput(url) {
 
-			const time = new Date().getTime();
+			getWords(url).then(words => {
 
-			const embedded = embed(words);
-			console.log(embedded, embedded.length);
+				const time = new Date().getTime();
 
-			console.log(`%cTime Spent: ${new Date().getTime() - time}ms`, "color : yellow");
+				const embedded = embed(words);
+				console.log(embedded, embedded.length);
 
-			const isValid = isValidEmbed(embedded, words);
-			console.log(`%cIs Valid Result: %c${isValid}`, "color : yellow", "color : " + (isValid ? "lime;" : "red;"));
+				console.log(`%cTime Spent: ${new Date().getTime() - time}ms`, "color : yellow");
 
-		}).catch(error => {console.log(error);});
+				const isValid = isValidEmbed(embedded, words);
+				console.log(`%cIs Valid Result: %c${isValid}`, "color : yellow", "color : " + (isValid ? "lime;" : "red;"));
+
+			}).catch(error => {console.log(error);});
+		}
+
+		//default input
+		showOutput("defaultInput.txt");
+		//challenge input
+		showOutput("wordList.txt");
 	});
 })();
