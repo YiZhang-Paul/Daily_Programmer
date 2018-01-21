@@ -40,7 +40,7 @@
 
 					this.maxHomeGamePlayed = true;
 				}
- 				else if(location === "away" && this.recentGame === "away") {
+				else if(location === "away" && this.recentGame === "away") {
 
 					this.maxAwayGamePlayed = true;
 				}
@@ -262,25 +262,23 @@
 				return schedule[index + 1] - schedule[index];
 			}
 
-			getNextDate(date, schedule, index) {
+			getNextDate(current, schedule, index) {
 
-				const restPeriod = this.getRestPeriod(schedule, index);
-				date.setDate(date.getDate() + restPeriod);
+				let next = new Date(current);
+				next.setDate(next.getDate() + this.getRestPeriod(schedule, index));
 
-				return date;
+				return next;
 			}
 
 			getMatchDates(totalRounds) {
 
 				let weeklySchedule = this.getWeeklySchedule();
 				let index = this.getStartDayIndex(weeklySchedule);
-				let currentDate = this.getStartDate(weeklySchedule[index]);
-				let dates = [new Date(currentDate)];
+				let dates = [this.getStartDate(weeklySchedule[index])];
 
 				for(let i = 1; i < totalRounds; i++) {
 
-					currentDate = this.getNextDate(currentDate, weeklySchedule, index);
-					dates.push(new Date(currentDate));
+					dates.push(this.getNextDate(dates.slice(-1)[0], weeklySchedule, index));
 					index = (index + 1) % weeklySchedule.length;
 				}
 
@@ -298,22 +296,38 @@
 				}).join("\n");
 			}
 
+			showDate(date) {
+
+				const month = date.getMonth() + 1;
+				const day = date.getDate();
+				const year = date.getYear() + 1900;
+				const dayInWeek = Object.freeze({
+
+					1 : "Monday", 2 : "Tuesday", 3 : "Wednesday",
+					4 : "Thursday", 5 : "Friday", 6 : "Saturday", 7 : "Sunday"
+				});
+
+				return `${month}/${day}/${year} (${dayInWeek[date.getDay()]})`;
+			}
+
 			showSeasonSchedule() {
 
 				let season = this.manager.getSeason();
 				let dates = this.getMatchDates(season.length);
-				console.log(dates);
 
 				return season.map((round, index) => {
 
-					return `Round ${index + 1}:\n\n${this.showRound(round)}\n`;
+					const title = `Round ${index + 1} - ${this.showDate(dates[index])}`;
+					const matches = this.showRound(round);
+
+					return `${title}\n\n${matches}\n`;
 
 				}).join("\n");
 			}
 		}
 
-		//default input
-		console.log(`%cDefault Input:`, "color : red;");
+		//default & bonus input
+		console.log(`%cDefault & Bonus Input:`, "color : red;");
 		let names = `Cleveland Cavaliers
 					 Golden State Warriors
 					 San Antonio Spurs
@@ -324,8 +338,8 @@
 		let scheduler = new Scheduler(names, start, end, 2);
 		console.log(scheduler.showSeasonSchedule());
 
-		//challenge input
-		console.log(`%cChallenge Input:`, "color : red;");
+		//challenge & bonus input
+		console.log(`%cChallenge & Bonus Input:`, "color : red;");
 		names = `Atlanta Hawks
 				 Boston Celtics
 				 Brooklyn Nets

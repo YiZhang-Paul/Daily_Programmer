@@ -1,5 +1,7 @@
 #318[Intermediate] 2020 - NBA Revolution
 
+All Done
+
 url: https://www.reddit.com/r/dailyprogrammer/comments/6ft96y/20170607_challenge_318_intermediate_2020_nba/
 
 We are in June 2020 and the NBA just decided to change the format of their regular season from the divisions/conferences system to one single round robin tournament.
