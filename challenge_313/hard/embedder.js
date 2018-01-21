@@ -24,24 +24,14 @@ class Embedder {
         return false;
     }
 
-    getSharedLetters(word1, word2) {
+    getCommonLetters(word1, word2) {
 
-        let shared = [];
-
-        for(let i = 0; i < word1.length; i++) {
-
-            if(word2.includes(word1[i])) {
-
-                shared.push(word1[i]);
-            }
-        }
-
-        return shared.join("");
+        return Array.from(word1).filter(letter => word2.includes(letter));
     }
 
-    maxSharedPatterns(word1, word2) {
-
-        let shared = this.getSharedLetters(word1, word2);
+    maxCommonPattern(word1, word2) {
+        //TODO: possible improvements
+        let shared = this.getCommonLetters(word1, word2);
 
         for(let i = 0; i < shared.length; i++) {
 
@@ -62,15 +52,12 @@ class Embedder {
 
         for(let i = 0; i < breakpoints.length; i++) {
 
-            const index = word.indexOf(breakpoints[i]);
-            segments.push(word.slice(0, index + 1));
-            word = word.slice(index + 1);
+            const index = word.indexOf(breakpoints[i]) + 1;
+            segments.push(word.slice(0, index));
+            word = word.slice(index);
         }
 
-        if(word.length) {
-
-            segments[segments.length - 1] += word;
-        }
+        segments[segments.length - 1] += word;
 
         return segments;
     }
@@ -82,7 +69,7 @@ class Embedder {
 
     embed(toEmbed, embedded) {
 
-        let pattern = this.maxSharedPatterns(toEmbed, embedded);
+        let pattern = this.maxCommonPattern(toEmbed, embedded);
         let segments = this.segmentize(toEmbed, pattern);
 
         for(let i = 0, index = -1; i < pattern.length; i++) {

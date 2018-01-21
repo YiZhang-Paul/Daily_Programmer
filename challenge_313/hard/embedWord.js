@@ -30,9 +30,9 @@
 			});
 		}
 
-		function orderByAscending(words) {
+		function orderByAscending(numbers) {
 
-			return words.sort((a, b) => a - b);
+			return numbers.sort((a, b) => a - b);
 		}
 
 		function orderByDescending(words) {
@@ -52,7 +52,7 @@
 			return word1.length < word2.length ? word1 : word2;
 		}
 
-		function includeLetterAtIndex(indexes, embedded) {
+		function getLetterAtIndex(indexes, embedded) {
 
 			indexes = orderByAscending(Array.from(indexes));
 
@@ -62,17 +62,25 @@
 		function trimEmbed(words, embedded, embedder) {
 
 			let indexes = new Set();
+			let trimed = "";
 
 			for(let i = 0; i < words.length; i++) {
+
+				if(embedder.isEmbedded(words[i], trimed)) {
+
+					continue;
+				}
 
 				for(let j = 0, index = -1; j < words[i].length; j++) {
 
 					index = embedded.indexOf(words[i][j], index + 1);
 					indexes.add(index);
 				}
+
+				trimed = getLetterAtIndex(indexes, embedded);
 			}
 
-			return includeLetterAtIndex(indexes, embedded);
+			return trimed;
 		}
 
 		function embed(words) {
