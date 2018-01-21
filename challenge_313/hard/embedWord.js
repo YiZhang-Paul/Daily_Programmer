@@ -5,7 +5,7 @@
 		function toList(words) {
 
 			return words.split("\n")
-						.map(word => word.trim())
+						.map(word => word.trim().toLowerCase())
 						.filter(word => /\w/.test(word));
 		}
 
@@ -30,6 +30,11 @@
 			});
 		}
 
+		function orderByAscending(words) {
+
+			return words.sort((a, b) => a - b);
+		}
+
 		function orderByDescending(words) {
 
 			return words.sort((a, b) => b.length - a.length);
@@ -47,21 +52,46 @@
 			return word1.length < word2.length ? word1 : word2;
 		}
 
+		function includeLetterAtIndex(indexes, embedded) {
+
+			indexes = orderByAscending(Array.from(indexes));
+
+			return indexes.map(index => embedded[index]).join("");
+		}
+
+		function trimEmbed(words, embedded, embedder) {
+
+			let indexes = new Set();
+
+			for(let i = 0; i < words.length; i++) {
+
+				for(let j = 0, index = -1; j < words[i].length; j++) {
+
+					index = embedded.indexOf(words[i][j], index + 1);
+					indexes.add(index);
+				}
+			}
+
+			return includeLetterAtIndex(indexes, embedded);
+		}
+
 		function embed(words) {
 
-			words = orderByDescending(removePrefix(words));
-			let result = words[0];
 			let embedder = new Embedder();
+			words = orderByDescending(removePrefix(words));
+			let embedded = words[0];
 
-			words.slice(1).forEach(word => {
+			for(let i = 1; i < words.length; i++) {
 
-				if(!embedder.isEmbedded(word, result)) {
+				if(embedder.isEmbedded(words[i], embedded)) {
 
-					result = getShorter(embedder.embed(word, result), embedder.embed(result, word));
+					continue;
 				}
-			});
 
-			return result;
+				embedded = getShorter(embedder.embed(words[i], embedded), embedder.embed(embedded, words[i]));
+			}
+
+			return trimEmbed(words, embedded, embedder);
 		}
 
 		function isValidEmbed(embed, words) {
