@@ -2,6 +2,71 @@
 (() => {
 	document.addEventListener("DOMContentLoaded", () => {
 
+		class Trie {
+
+			constructor(words) {
+
+				this.root = {};
+
+				if(words.length > 0) {
+
+					this.addWords(words);
+				}
+			}
+
+			add(word) {
+
+				let node = this.root;
+
+				for(let i = 0; i < word.length; i++) {
+
+					if(!node.hasOwnProperty(word[i])) {
+
+						node[word[i]] = {};
+					}
+
+					node = node[word[i]];
+				}
+			}
+
+			addWords(words) {
+
+				words.forEach(word => {
+
+					this.add(word);
+				});
+			}
+
+			traverse(word) {
+
+				let node = this.root;
+
+				for(let i = 0; i < word.length; i++) {
+
+					if(!node.hasOwnProperty(word[i])) {
+
+						return null;
+					}
+
+					node = node[word[i]];
+				}
+
+				return node;
+			}
+
+			isPrefix(word) {
+
+				let node = this.traverse(word);
+
+				if(node === null) {
+
+					return false;
+				}
+
+				return Object.keys(node).length > 0;
+			}
+		}
+
 		function formatWords(words) {
 
 			return words.split("\n")
@@ -53,16 +118,14 @@
 			return false;
 		}
 
-		console.log(isEmbedded("aa", "a") === false);
-		console.log(isEmbedded("aa", "aa") === true);
-		console.log(isEmbedded("aa", "ac") === false);
-		console.log(isEmbedded("aa", "abda") === true);
-		console.log(isEmbedded("aa", "abad") === true);
-		console.log(isEmbedded("aa", "abcd") === false);
-
 		getWords("wordList.txt").then(list => {
 
-			console.log(list);
+			const time = new Date().getTime();
+
+			let trie = new Trie(list);
+			console.log(trie);
+
+			console.log(`Time Spent: ${new Date().getTime() - time}ms`);
 
 		}).catch(error => {console.log(error);});
 	});
