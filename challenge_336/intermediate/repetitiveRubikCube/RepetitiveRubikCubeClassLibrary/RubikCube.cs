@@ -87,6 +87,8 @@ namespace RepetitiveRubikCubeClassLibrary {
             char[] rightColumn = Faces["right"].GetColumn(0);
             char[] bottomRow = Faces["bottom"].GetRow(0);
             char[] leftColumn = Faces["left"].GetColumn(2);
+            leftColumn.Reverse();
+            rightColumn.Reverse();
 
             Faces["top"].ChangeRow(2, leftColumn);
             Faces["right"].ChangeColumn(0, topRow);
@@ -100,6 +102,30 @@ namespace RepetitiveRubikCubeClassLibrary {
             for(int i = 0; i < 3; i++) {
 
                 RotateFrontClockwise();
+            }
+        }
+
+        public void RotateBottomClockwise() {
+
+            char[] frontRow = Faces["front"].GetRow(2);
+            char[] rightRow = Faces["right"].GetRow(2);
+            char[] backRow = Faces["back"].GetRow(0);
+            char[] leftRow = Faces["left"].GetRow(2);
+            rightRow.Reverse();
+            backRow.Reverse();
+
+            Faces["front"].ChangeRow(2, leftRow);
+            Faces["right"].ChangeRow(2, frontRow);
+            Faces["back"].ChangeRow(0, rightRow);
+            Faces["left"].ChangeRow(2, backRow);
+            Faces["bottom"].RotateClockwise();
+        }
+
+        public void RotateBottomCounterClockwise() {
+
+            for(int i = 0; i < 3; i++) {
+
+                RotateBottomClockwise();
             }
         }
     }
