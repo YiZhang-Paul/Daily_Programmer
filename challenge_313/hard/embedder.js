@@ -29,17 +29,74 @@ class Embedder {
         return Array.from(word1).filter(letter => word2.includes(letter));
     }
 
+    getRange(start, count) {
+
+        let range = new Array(count).fill(0);
+
+        return range.map((number, index) => index + start);
+    }
+
+    getCombination(options, total, current = [], combinations = []) {
+
+        if(current.length === total || options.length === 0) {
+
+            if(current.length === total) {
+
+                combinations.push(current);
+            }
+
+            return [[]];
+        }
+
+        for(let i = 0; i < options.length; i++) {
+
+            let otherOptions = options.slice(i + 1);
+            let newCurrent = [...current, options[i]];
+            this.getCombination(otherOptions, total, newCurrent, combinations);
+        }
+
+        return combinations;
+    }
+
+    excludeIndexes(array, indexes) {
+
+        let excluded = array.slice();
+
+        indexes.sort((a, b) => b - a).forEach(index => {
+
+            excluded.splice(index, 1);
+        });
+
+        return excluded;
+    }
+
     maxCommonPattern(word1, word2) {
-        //TODO: possible improvements
-        let shared = this.getCommonLetters(word1, word2);
 
-        for(let i = 0; i < shared.length; i++) {
+        let common = this.getCommonLetters(word1, word2);
+        let indexes = this.getRange(0, common.length);
 
-            const segment = shared.slice(i);
+        for(let i = 0; i < Math.min(2, common.length); i++) {
 
-            if(this.isEmbedded(segment, word2)) {
+            let excludes = this.getCombination(indexes, i);
 
-                return segment;
+            for(let j = 0; j < excludes.length; j++) {
+
+                let remain = this.excludeIndexes(common, excludes[j]);
+
+                if(this.isEmbedded(remain.join(""), word2)) {
+
+                    return remain;
+                }
+            }
+        }
+
+        for(let i = 1; i < common.length; i++) {
+
+            let remain = common.slice(i);
+
+            if(this.isEmbedded(remain.join(""), word2)) {
+
+                return remain;
             }
         }
 
