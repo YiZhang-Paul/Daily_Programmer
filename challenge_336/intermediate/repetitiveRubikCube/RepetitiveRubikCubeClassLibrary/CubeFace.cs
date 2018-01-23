@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace RepetitiveRubikCubeClassLibrary {
-    public class CubeFace {
+    public class CubeFace : ICubeFace {
 
         public char Color { get; private set; }
         public char[][] Content { get; private set; }
@@ -81,24 +81,13 @@ namespace RepetitiveRubikCubeClassLibrary {
 
         public void RotateClockwise() {
 
-            char[] column1 = GetColumn(0);
-            char[] column2 = GetColumn(1);
-            char[] column3 = GetColumn(2);
+            char[] columnOne = GetColumn(0);
+            char[] columnTwo = GetColumn(1);
+            char[] columnThree = GetColumn(2);
 
-            ChangeRow(0, column1);
-            ChangeRow(1, column2);
-            ChangeRow(2, column3);
-        }
-
-        public void RotateCounterClockwise() {
-
-            char[] column1 = GetColumn(0);
-            char[] column2 = GetColumn(1);
-            char[] column3 = GetColumn(2);
-
-            ChangeRow(0, column3);
-            ChangeRow(1, column2);
-            ChangeRow(2, column1);
+            ChangeRow(0, columnOne);
+            ChangeRow(1, columnTwo);
+            ChangeRow(2, columnThree);
         }
     }
 }

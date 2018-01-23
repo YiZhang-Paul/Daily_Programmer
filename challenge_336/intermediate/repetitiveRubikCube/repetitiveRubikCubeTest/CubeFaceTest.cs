@@ -179,33 +179,5 @@ namespace repetitiveRubikCubeTest {
             Assert.AreEqual("rbr", secondColumn);
             Assert.AreEqual("rbr", thirdColumn);
         }
-
-        [TestMethod]
-        public void RotateCounterClockwise() {
-
-            char[][] content = {
-            
-                new char[] { 'r', 'c', 'r' },
-                new char[] { 'r', 'c', 'c' },
-                new char[] { 'r', 'r', 'r' }
-            };
-
-            cubeFace = new CubeFace(content);
-            cubeFace.RotateCounterClockwise();
-
-            string firstRow = string.Join("", cubeFace.GetRow(0));
-            string secondRow = string.Join("", cubeFace.GetRow(1));
-            string thirdRow = string.Join("", cubeFace.GetRow(2));
-            string firstColumn = string.Join("", cubeFace.GetColumn(0));
-            string secondColumn = string.Join("", cubeFace.GetColumn(1));
-            string thirdColumn = string.Join("", cubeFace.GetColumn(2));
-
-            Assert.AreEqual("rcr", firstRow);
-            Assert.AreEqual("ccr", secondRow);
-            Assert.AreEqual("rrr", thirdRow);
-            Assert.AreEqual("rcr", firstColumn);
-            Assert.AreEqual("ccr", secondColumn);
-            Assert.AreEqual("rrr", thirdColumn);
-        }
     }
 }

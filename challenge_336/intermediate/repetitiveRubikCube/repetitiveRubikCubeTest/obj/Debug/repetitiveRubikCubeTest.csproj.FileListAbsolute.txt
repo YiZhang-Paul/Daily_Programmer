@@ -5,3 +5,11 @@ D:\all_languages\reddit_challenges\challenge_336\intermediate\repetitiveRubikCub
 D:\all_languages\reddit_challenges\challenge_336\intermediate\repetitiveRubikCube\repetitiveRubikCubeTest\bin\Debug\RepetitiveRubikCubeClassLibrary.pdb
 D:\all_languages\reddit_challenges\challenge_336\intermediate\repetitiveRubikCube\repetitiveRubikCubeTest\obj\Debug\repetitiveRubikCubeTest.dll
 D:\all_languages\reddit_challenges\challenge_336\intermediate\repetitiveRubikCube\repetitiveRubikCubeTest\obj\Debug\repetitiveRubikCubeTest.pdb
+D:\all_languages\reddit_challenges\challenge_336\intermediate\repetitiveRubikCube\repetitiveRubikCubeTest\bin\Debug\Castle.Core.dll
+D:\all_languages\reddit_challenges\challenge_336\intermediate\repetitiveRubikCube\repetitiveRubikCubeTest\bin\Debug\Moq.dll
+D:\all_languages\reddit_challenges\challenge_336\intermediate\repetitiveRubikCube\repetitiveRubikCubeTest\bin\Debug\System.Threading.Tasks.Extensions.dll
+D:\all_languages\reddit_challenges\challenge_336\intermediate\repetitiveRubikCube\repetitiveRubikCubeTest\bin\Debug\System.ValueTuple.dll
+D:\all_languages\reddit_challenges\challenge_336\intermediate\repetitiveRubikCube\repetitiveRubikCubeTest\bin\Debug\Castle.Core.xml
+D:\all_languages\reddit_challenges\challenge_336\intermediate\repetitiveRubikCube\repetitiveRubikCubeTest\bin\Debug\Moq.pdb
+D:\all_languages\reddit_challenges\challenge_336\intermediate\repetitiveRubikCube\repetitiveRubikCubeTest\bin\Debug\Moq.xml
+D:\all_languages\reddit_challenges\challenge_336\intermediate\repetitiveRubikCube\repetitiveRubikCubeTest\bin\Debug\System.Threading.Tasks.Extensions.xml
