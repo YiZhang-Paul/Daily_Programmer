@@ -30,20 +30,6 @@ namespace repetitiveRubikCubeTest {
             Assert.AreEqual(9, rows * columns);
         }
 
-        [TestMethod]
-        public void FillColor() {
-
-            bool result = cubeFace.Content.All(row => {
-
-                return row.All(column => {
-
-                    return column == cubeFace.Color;
-                });
-            });
-
-            Assert.IsTrue(result);
-        }
-
         [ExpectedException(typeof(IndexOutOfRangeException), 
          "Row Does not Exist.")]
         [TestMethod]
@@ -153,17 +139,17 @@ namespace repetitiveRubikCubeTest {
         }
 
         [TestMethod]
-        public void RotateClockwise() {
+        public void Rotate() {
 
             char[][] content = {
             
-                new char[] { 'r', 'b', 'r' },
-                new char[] { 'r', 'b', 'r' },
+                new char[] { 'r', 'r', 'r' },
+                new char[] { 'r', 'b', 'b' },
                 new char[] { 'r', 'b', 'r' }
             };
 
             cubeFace = new CubeFace(content);
-            cubeFace.RotateClockwise();
+            cubeFace.Rotate();
 
             string firstRow = string.Join("", cubeFace.GetRow(0));
             string secondRow = string.Join("", cubeFace.GetRow(1));
@@ -173,11 +159,11 @@ namespace repetitiveRubikCubeTest {
             string thirdColumn = string.Join("", cubeFace.GetColumn(2));
 
             Assert.AreEqual("rrr", firstRow);
-            Assert.AreEqual("bbb", secondRow);
-            Assert.AreEqual("rrr", thirdRow);
+            Assert.AreEqual("bbr", secondRow);
+            Assert.AreEqual("rbr", thirdRow);
             Assert.AreEqual("rbr", firstColumn);
-            Assert.AreEqual("rbr", secondColumn);
-            Assert.AreEqual("rbr", thirdColumn);
+            Assert.AreEqual("rbb", secondColumn);
+            Assert.AreEqual("rrr", thirdColumn);
         }
     }
 }

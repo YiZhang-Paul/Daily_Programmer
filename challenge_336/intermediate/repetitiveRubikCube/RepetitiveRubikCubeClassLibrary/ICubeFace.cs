@@ -15,6 +15,6 @@ namespace RepetitiveRubikCubeClassLibrary {
         char[] GetColumn(int column);
         void ChangeRow(int row, char[] changes);
         void ChangeColumn(int column, char[] changes);
-        void RotateClockwise();
+        void Rotate();
     }
 }

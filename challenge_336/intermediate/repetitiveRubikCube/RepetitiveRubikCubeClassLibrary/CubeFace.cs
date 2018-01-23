@@ -9,7 +9,7 @@ namespace RepetitiveRubikCubeClassLibrary {
 
         public char Color { get; private set; }
         public char[][] Content { get; private set; }
-        
+
         public bool OnDefault {
 
             get {
@@ -32,8 +32,13 @@ namespace RepetitiveRubikCubeClassLibrary {
             Content = content;
         }
 
-        private char[][] FillColor(char color) {
+        private char[] Reverse(char[] array) {
 
+            return array.Reverse().ToArray();
+        }
+
+        private char[][] FillColor(char color) { 
+        
             var content = new List<char[]>();
 
             for(int i = 0; i < 3; i++) {
@@ -44,9 +49,9 @@ namespace RepetitiveRubikCubeClassLibrary {
             return content.ToArray();
         }
 
-        public char[] GetRow(int row) {
-
-            return Content[row];
+        public char[] GetRow(int row) { 
+        
+            return new List<char>(Content[row]).ToArray();
         }
 
         public char[] GetColumn(int column) {
@@ -66,8 +71,8 @@ namespace RepetitiveRubikCubeClassLibrary {
             Content[row] = changes;
         }
 
-        public void ChangeColumn(int column, char[] changes) {
-
+        public void ChangeColumn(int column, char[] changes) { 
+        
             if(Content.Length != changes.Length) {
 
                 throw new ArgumentException("Column Length Cannot be Changed.");
@@ -79,11 +84,11 @@ namespace RepetitiveRubikCubeClassLibrary {
             }
         }
 
-        public void RotateClockwise() {
+        public void Rotate() {
 
-            char[] columnOne = GetColumn(0);
-            char[] columnTwo = GetColumn(1);
-            char[] columnThree = GetColumn(2);
+            char[] columnOne = Reverse(GetColumn(0));
+            char[] columnTwo = Reverse(GetColumn(1));
+            char[] columnThree = Reverse(GetColumn(2));
 
             ChangeRow(0, columnOne);
             ChangeRow(1, columnTwo);

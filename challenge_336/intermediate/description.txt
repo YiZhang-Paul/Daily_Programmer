@@ -1,5 +1,7 @@
 #336[Intermediate] Repetitive Rubik's Cube
 
+All Done
+
 url: https://www.reddit.com/r/dailyprogrammer/comments/776lcz/20171018_challenge_336_intermediate_repetitive/
 
 The Rubik's Cube is a pleasant and challenging pastime. In this exercise however, we don't want to solve the cube. We want to (mindlessly) execute the same sequence over and over again. We would like to know how long it will take us to go back to the original starting position.

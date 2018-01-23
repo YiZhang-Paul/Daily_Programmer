@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "repetitiveRubikCubeTest", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RepetitiveRubikCubeClassLibrary", "RepetitiveRubikCubeClassLibrary\RepetitiveRubikCubeClassLibrary.csproj", "{751F6063-6123-4370-832F-8F440DB65576}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RepetitiveRubikCube", "RepetitiveRubikCube\RepetitiveRubikCube.csproj", "{0335E11A-377D-4E5E-A7B5-E0EBFD42EAE4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{751F6063-6123-4370-832F-8F440DB65576}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{751F6063-6123-4370-832F-8F440DB65576}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{751F6063-6123-4370-832F-8F440DB65576}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0335E11A-377D-4E5E-A7B5-E0EBFD42EAE4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0335E11A-377D-4E5E-A7B5-E0EBFD42EAE4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0335E11A-377D-4E5E-A7B5-E0EBFD42EAE4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0335E11A-377D-4E5E-A7B5-E0EBFD42EAE4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

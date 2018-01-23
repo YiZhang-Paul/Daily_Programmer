@@ -1,0 +1,8 @@
+D:\all_languages\reddit_challenges\challenge_336\intermediate\repetitiveRubikCube\RepetitiveRubikCube\bin\Debug\RepetitiveRubikCube.exe.config
+D:\all_languages\reddit_challenges\challenge_336\intermediate\repetitiveRubikCube\RepetitiveRubikCube\obj\Debug\RepetitiveRubikCube.csprojResolveAssemblyReference.cache
+D:\all_languages\reddit_challenges\challenge_336\intermediate\repetitiveRubikCube\RepetitiveRubikCube\bin\Debug\RepetitiveRubikCube.exe
+D:\all_languages\reddit_challenges\challenge_336\intermediate\repetitiveRubikCube\RepetitiveRubikCube\bin\Debug\RepetitiveRubikCube.pdb
+D:\all_languages\reddit_challenges\challenge_336\intermediate\repetitiveRubikCube\RepetitiveRubikCube\bin\Debug\RepetitiveRubikCubeClassLibrary.dll
+D:\all_languages\reddit_challenges\challenge_336\intermediate\repetitiveRubikCube\RepetitiveRubikCube\bin\Debug\RepetitiveRubikCubeClassLibrary.pdb
+D:\all_languages\reddit_challenges\challenge_336\intermediate\repetitiveRubikCube\RepetitiveRubikCube\obj\Debug\RepetitiveRubikCube.exe
+D:\all_languages\reddit_challenges\challenge_336\intermediate\repetitiveRubikCube\RepetitiveRubikCube\obj\Debug\RepetitiveRubikCube.pdb
