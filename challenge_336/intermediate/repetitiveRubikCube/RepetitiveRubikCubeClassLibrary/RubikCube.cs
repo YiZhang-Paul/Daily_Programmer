@@ -37,7 +37,7 @@ namespace RepetitiveRubikCubeClassLibrary {
             return faces;
         }
 
-        public void rotateLeftClockwise() {
+        public void RotateLeftClockwise() {
 
             char[] topColumn = Faces["top"].GetColumn(0);
             char[] frontColumn = Faces["front"].GetColumn(0);
@@ -51,11 +51,33 @@ namespace RepetitiveRubikCubeClassLibrary {
             Faces["left"].RotateClockwise();
         }
 
-        public void rotateLeftCounterClockwise() {
+        public void RotateLeftCounterClockwise() {
 
             for(int i = 0; i < 3; i++) {
 
-                rotateLeftClockwise();
+                RotateLeftClockwise();
+            }
+        }
+
+        public void RotateRightClockwise() {
+
+            char[] topColumn = Faces["top"].GetColumn(2);
+            char[] frontColumn = Faces["front"].GetColumn(2);
+            char[] bottomColumn = Faces["bottom"].GetColumn(2);
+            char[] backColumn = Faces["back"].GetColumn(2);
+
+            Faces["top"].ChangeColumn(2, frontColumn);
+            Faces["front"].ChangeColumn(2, bottomColumn);
+            Faces["bottom"].ChangeColumn(2, backColumn);
+            Faces["back"].ChangeColumn(2, topColumn);
+            Faces["right"].RotateClockwise();
+        }
+
+        public void RotateRightCounterClockwise() {
+
+            for(int i = 0; i < 3; i++) {
+
+                RotateRightClockwise();
             }
         }
     }

@@ -33,9 +33,9 @@ namespace repetitiveRubikCubeTest {
         }
 
         [TestMethod]
-        public void rotateLeftClockwise() {
+        public void RotateLeftClockwise() {
 
-            rubikCube.rotateLeftClockwise();
+            rubikCube.RotateLeftClockwise();
 
             char[] topColumn = rubikCube.Faces["top"].GetColumn(0);
             char[] frontColumn = rubikCube.Faces["front"].GetColumn(0);
@@ -49,9 +49,9 @@ namespace repetitiveRubikCubeTest {
         }
 
         [TestMethod]
-        public void rotateLeftCounterClockwise() {
+        public void RotateLeftCounterClockwise() {
 
-            rubikCube.rotateLeftCounterClockwise();
+            rubikCube.RotateLeftCounterClockwise();
 
             char[] topColumn = rubikCube.Faces["top"].GetColumn(0);
             char[] frontColumn = rubikCube.Faces["front"].GetColumn(0);
@@ -62,6 +62,38 @@ namespace repetitiveRubikCubeTest {
             Assert.AreEqual("www", string.Join("", frontColumn));
             Assert.AreEqual("ggg", string.Join("", bottomColumn));
             Assert.AreEqual("bbb", string.Join("", backColumn));
+        }
+
+        [TestMethod]
+        public void RotateRightClockwise() {
+
+            rubikCube.RotateRightClockwise();
+
+            char[] topColumn = rubikCube.Faces["top"].GetColumn(2);
+            char[] frontColumn = rubikCube.Faces["front"].GetColumn(2);
+            char[] bottomColumn = rubikCube.Faces["bottom"].GetColumn(2);
+            char[] backColumn = rubikCube.Faces["back"].GetColumn(2);
+
+            Assert.AreEqual("rrr", string.Join("", topColumn));
+            Assert.AreEqual("www", string.Join("", frontColumn));
+            Assert.AreEqual("ggg", string.Join("", bottomColumn));
+            Assert.AreEqual("bbb", string.Join("", backColumn));
+        }
+
+        [TestMethod]
+        public void RotateRightCounterClockwise() {
+
+            rubikCube.RotateRightCounterClockwise();
+
+            char[] topColumn = rubikCube.Faces["top"].GetColumn(2);
+            char[] frontColumn = rubikCube.Faces["front"].GetColumn(2);
+            char[] bottomColumn = rubikCube.Faces["bottom"].GetColumn(2);
+            char[] backColumn = rubikCube.Faces["back"].GetColumn(2);
+
+            Assert.AreEqual("ggg", string.Join("", topColumn));
+            Assert.AreEqual("bbb", string.Join("", frontColumn));
+            Assert.AreEqual("rrr", string.Join("", bottomColumn));
+            Assert.AreEqual("www", string.Join("", backColumn));
         }
     }
 }
