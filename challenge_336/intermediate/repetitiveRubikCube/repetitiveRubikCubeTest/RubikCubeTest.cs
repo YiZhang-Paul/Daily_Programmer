@@ -129,6 +129,38 @@ namespace repetitiveRubikCubeTest {
         }
 
         [TestMethod]
+        public void RotateBackClockwise() {
+
+            rubikCube.RotateBackClockwise();
+
+            char[] bottomRow = rubikCube.Faces["bottom"].GetRow(2);
+            char[] rightColumn = rubikCube.Faces["right"].GetColumn(2);
+            char[] topRow = rubikCube.Faces["top"].GetRow(0);
+            char[] leftColumn = rubikCube.Faces["left"].GetColumn(0);
+
+            Assert.AreEqual("ooo", string.Join("", bottomRow));
+            Assert.AreEqual("www", string.Join("", rightColumn));
+            Assert.AreEqual("yyy", string.Join("", topRow));
+            Assert.AreEqual("bbb", string.Join("", leftColumn));
+        }
+
+        [TestMethod]
+        public void RotateBackCounterClockwise() {
+
+            rubikCube.RotateBackCounterClockwise();
+
+            char[] bottomRow = rubikCube.Faces["bottom"].GetRow(2);
+            char[] rightColumn = rubikCube.Faces["right"].GetColumn(2);
+            char[] topRow = rubikCube.Faces["top"].GetRow(0);
+            char[] leftColumn = rubikCube.Faces["left"].GetColumn(0);
+
+            Assert.AreEqual("yyy", string.Join("", bottomRow));
+            Assert.AreEqual("bbb", string.Join("", rightColumn));
+            Assert.AreEqual("ooo", string.Join("", topRow));
+            Assert.AreEqual("www", string.Join("", leftColumn));
+        }
+
+        [TestMethod]
         public void RotateTopClockwise() {
 
             rubikCube.RotateTopClockwise();
