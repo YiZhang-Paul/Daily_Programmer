@@ -2,6 +2,214 @@
 (() => {
 	document.addEventListener("DOMContentLoaded", () => {
 
+		class Trie {
+
+			constructor(words) {
+
+				this.root = {};
+				this.addList(words);
+			}
+
+			add(word) {
+
+				let node = this.root;
+
+				for(let i = 0; i < word.length; i++) {
+
+					if(!node.hasOwnProperty(word[i])) {
+
+						node[word[i]] = {};
+					}
+
+					node = node[word[i]];
+				}
+			}
+
+			addList(words) {
+
+				words.forEach(word => {
+
+					this.add(word);
+				});
+			}
+
+			traverse(word) {
+
+				let node = this.root;
+
+				for(let i = 0; i < word.length; i++) {
+
+					if(!node.hasOwnProperty(word[i])) {
+
+						return null;
+					}
+
+					node = node[word[i]];
+				}
+
+				return node;
+			}
+
+			isPrefix(word) {
+
+				let node = this.traverse(word);
+
+				if(node === null) {
+
+					return false;
+				}
+
+				return Object.keys(node).length > 0;
+			}
+		}
+
+		class Embedder {
+
+			isEmbedded(suspect, reference) {
+
+				if(suspect.length >= reference.length) {
+
+					return suspect === reference;
+				}
+
+				for(let i = 0, j = 0; i < reference.length; i++) {
+
+					if(reference[i] !== suspect[j]) {
+
+						continue;
+					}
+
+					if(++j === suspect.length) {
+
+						return true;
+					}
+				}
+
+				return false;
+			}
+
+			getCommonLetters(word1, word2) {
+
+				return Array.from(word1).filter(letter => word2.includes(letter));
+			}
+
+			getRange(start, count) {
+
+				let range = new Array(count).fill(0);
+
+				return range.map((number, index) => index + start);
+			}
+
+			getCombination(options, total, current = [], combinations = []) {
+
+				if(current.length === total || options.length === 0) {
+
+					if(current.length === total) {
+
+						combinations.push(current);
+					}
+
+					return [[]];
+				}
+
+				for(let i = 0; i < options.length; i++) {
+
+					let otherOptions = options.slice(i + 1);
+					let newCurrent = [...current, options[i]];
+					this.getCombination(otherOptions, total, newCurrent, combinations);
+				}
+
+				return combinations;
+			}
+
+			excludeIndexes(array, indexes) {
+
+				indexes = new Set(indexes);
+
+				return array.filter((item, index) => !indexes.has(index));
+			}
+
+			tryExcludePattern(pattern, word, depth = 2) {
+
+				let indexes = this.getRange(0, pattern.length);
+
+				for(let i = 0; i < Math.min(depth, pattern.length); i++) {
+
+					let excludes = this.getCombination(indexes, i);
+
+					for(let j = 0; j < excludes.length; j++) {
+
+						let remain = this.excludeIndexes(pattern, excludes[j]);
+
+						if(this.isEmbedded(remain.join(""), word)) {
+
+							return remain;
+						}
+					}
+				}
+
+				return null;
+			}
+
+			trySlicePattern(pattern, word) {
+
+				for(let i = 1; i < pattern.length; i++) {
+
+					let remain = pattern.slice(i);
+
+					if(this.isEmbedded(remain.join(""), word)) {
+
+						return remain;
+					}
+				}
+
+				return null;
+			}
+
+			maxCommonPattern(word1, word2) {
+
+				let common = this.getCommonLetters(word1, word2);
+				let pattern = this.tryExcludePattern(common, word2);
+
+				return pattern === null ? this.trySlicePattern(common, word2) : pattern;
+			}
+
+			segmentize(word, breakpoints) {
+
+				let segments = [];
+
+				for(let i = 0; i < breakpoints.length; i++) {
+
+					const index = word.indexOf(breakpoints[i]) + 1;
+					segments.push(word.slice(0, index));
+					word = word.slice(index);
+				}
+
+				segments[segments.length - 1] += word;
+
+				return segments;
+			}
+
+			replace(word, index, toReplace) {
+
+				return word.slice(0, index) + toReplace + word.slice(index + 1);
+			}
+
+			embed(toEmbed, embedded) {
+
+				let pattern = this.maxCommonPattern(toEmbed, embedded);
+				let segments = this.segmentize(toEmbed, pattern);
+
+				for(let i = 0, index = -1; i < pattern.length; i++) {
+
+					index = embedded.indexOf(pattern[i], index + 1);
+					embedded = this.replace(embedded, index, segments[i]);
+				}
+
+				return embedded;
+			}
+		}
+
 		function toList(words) {
 
 			return words.split("\n")
@@ -52,12 +260,12 @@
 			return words.filter(word => !trie.isPrefix(word));
 		}
 
-		function getShorter(word1, word2) {
+		function pickShorter(word1, word2) {
 
 			return word1.length < word2.length ? word1 : word2;
 		}
 
-		function getUsedLetters(indexes, embedded) {
+		function getUsedIndexes(indexes, embedded) {
 
 			indexes = orderByAscending(Array.from(indexes));
 
@@ -82,7 +290,7 @@
 					indexes.add(index);
 				}
 
-				used = getUsedLetters(indexes, embedded);
+				used = getUsedIndexes(indexes, embedded);
 			}
 
 			return used;
@@ -116,7 +324,7 @@
 					continue;
 				}
 
-				embedded = getShorter(embedder.embed(words[i], embedded), embedder.embed(embedded, words[i]));
+				embedded = pickShorter(embedder.embed(words[i], embedded), embedder.embed(embedded, words[i]));
 			}
 
 			return trimEmbed(words, removeUnused(words, embedded, embedder));

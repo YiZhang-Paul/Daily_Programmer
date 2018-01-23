@@ -1,5 +1,7 @@
 #313[Hard] Embedded word list
 
+All Done
+
 url: https://www.reddit.com/r/dailyprogrammer/comments/69fxq8/20170505_challenge_313_hard_embedded_word_list/
 
 A word is embedded in a string if all of its letters appear in order, from left to right, within the string. For instance, consider the string:
