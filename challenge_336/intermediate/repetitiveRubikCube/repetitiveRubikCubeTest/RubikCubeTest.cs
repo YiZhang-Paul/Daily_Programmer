@@ -129,6 +129,38 @@ namespace repetitiveRubikCubeTest {
         }
 
         [TestMethod]
+        public void RotateTopClockwise() {
+
+            rubikCube.RotateTopClockwise();
+
+            char[] backRow = rubikCube.Faces["back"].GetRow(2);
+            char[] rightRow = rubikCube.Faces["right"].GetRow(0);
+            char[] frontRow = rubikCube.Faces["front"].GetRow(0);
+            char[] leftRow = rubikCube.Faces["left"].GetRow(0);
+
+            Assert.AreEqual("ooo", string.Join("", backRow));
+            Assert.AreEqual("ggg", string.Join("", rightRow));
+            Assert.AreEqual("yyy", string.Join("", frontRow));
+            Assert.AreEqual("rrr", string.Join("", leftRow));
+        }
+
+        [TestMethod]
+        public void RotateTopCounterClockwise() {
+
+            rubikCube.RotateTopCounterClockwise();
+
+            char[] backRow = rubikCube.Faces["back"].GetRow(2);
+            char[] rightRow = rubikCube.Faces["right"].GetRow(0);
+            char[] frontRow = rubikCube.Faces["front"].GetRow(0);
+            char[] leftRow = rubikCube.Faces["left"].GetRow(0);
+
+            Assert.AreEqual("yyy", string.Join("", backRow));
+            Assert.AreEqual("rrr", string.Join("", rightRow));
+            Assert.AreEqual("ooo", string.Join("", frontRow));
+            Assert.AreEqual("ggg", string.Join("", leftRow));
+        }
+
+        [TestMethod]
         public void RotateBottomClockwise() {
 
             rubikCube.RotateBottomClockwise();
