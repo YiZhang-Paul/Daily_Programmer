@@ -1,3 +1,21 @@
+class SetwiseCoprimeChecker {
+    getDivisors(number) {
+        let divisors = new Set([number]);
+        for (let i = 2; i <= Math.ceil(number / 2); i++) {
+            if (number % i === 0) {
+                divisors.add(i);
+                divisors.add(number / i);
+            }
+        }
+        return Array.from(divisors);
+    }
+    isCoprime(set) {
+        return this.getDivisors(set[0]).every(divisor => {
+            return set.slice(1).some(number => number % divisor !== 0);
+        });
+    }
+}
+let test = new SetwiseCoprimeChecker();
 class Register {
     constructor(state, type, taps) {
         this._state = state;
