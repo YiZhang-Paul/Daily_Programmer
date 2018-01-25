@@ -16,7 +16,7 @@ class Register {
         return this._state;
     }
 
-    getRegister(index) {
+    getRegister(index): number {
 
         return Number.parseInt(this._state[index]);
     }
@@ -31,7 +31,7 @@ class Register {
 
             if(this._type === "xnor") {
 
-                output = ~ output;
+                output = output ? 0 : 1;
             }
         });
 
@@ -44,4 +44,25 @@ class Register {
     }
 }
 
-let register = new Register("001", "XOR", [0, 2]);
+function showState(step: number, register: Register): void {
+
+    console.log(`%c${step} %c${register.state}`, "color : yellow;", "color : violet;");
+}
+
+function getStates(taps: number[], type: string, state: string, steps: number): void {
+
+    let register = new Register(state, type, taps);
+
+    for(let i = 0; i <= steps; i++) {
+
+        showState(i, register);
+        register.changeState();
+    }
+}
+
+//challenge input
+console.log(`%cChallenge Input:`, "color : red;");
+getStates([1,2], "XOR", "001", 7);
+getStates([0,2], "XNOR", "001", 7);
+getStates([1,2,3,7], "XOR", "00000001", 16);
+getStates([1,5,6,31], "XOR", "00000000000000000000000000000001", 16);
