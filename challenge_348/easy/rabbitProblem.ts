@@ -2,11 +2,14 @@ class RabbitTracker {
 
     private _totalBorned: number = 0;
 
-    public tracker: Map<number, number[]>;
+    public maleTracker: Map<number, number[]>;
+    public femaleTracker: Map<number, number[]>;
 
-    constructor() {
+    constructor(males: number, females: number) {
 
-        this.tracker = this.createTracker();
+        this.maleTracker = this.createTracker(males);
+        this.femaleTracker = this.createTracker(females);
+        console.log(this.totalAlive);
     }
 
     get totalBorned(): number {
@@ -16,10 +19,25 @@ class RabbitTracker {
 
     get totalAlive(): number {
 
-        return 1;
+        let alive: number = 0;
+
+        [this.maleTracker, this.femaleTracker].forEach(tracker => {
+
+            tracker.forEach(months => {
+
+                alive += this.sum(months);
+            });
+        });
+
+        return alive;
     }
 
-    createTracker(): Map<number, number[]> {
+    sum(array: number[]): number {
+
+        return array.reduce((sum, current) => sum + current, 0);
+    }
+
+    createTracker(rabbits: number): Map<number, number[]> {
 
         let tracker = new Map<number, number[]>();
 
@@ -28,8 +46,10 @@ class RabbitTracker {
             tracker.set(i, new Array<number>(12).fill(0));
         }
 
+        tracker.get(0)[2] = rabbits;
+
         return tracker;
     }
 }
 
-let tracker = new RabbitTracker();
+let tracker = new RabbitTracker(2, 4);
