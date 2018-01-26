@@ -23,11 +23,17 @@ class SetwiseCoprimeChecker implements CoprimeChecker {
 
     public isCoprime(set: number[]): boolean {
 
+        if(new Set(set).has(1)) {
+
+            return true;
+        }
+
         return this.getDivisors(set[0]).every(divisor => {
 
             return set.slice(1).some(number => number % divisor !== 0);
         });
     }
+
 }
 
 class Register {
@@ -48,6 +54,18 @@ class Register {
     get state(): string {
 
         return this._state;
+    }
+
+    get isMaximal(): boolean {
+
+        if(this.taps.length % 2 === 1) {
+
+            return false;
+        }
+
+        let taps = this.taps.map(tap => tap + 1);
+
+        return this.checker.isCoprime(taps);
     }
 
     private getRegister(index: number): number {
@@ -94,9 +112,23 @@ function getStates(taps: number[], type: string, state: string, steps: number): 
     }
 }
 
+function getPeriodicity(taps: number[], type: string, state: string): number {
+
+    let register = new Register(state, type, taps, new SetwiseCoprimeChecker());
+
+    return register.isMaximal ? Math.pow(2, state.length) - 1 : null;
+}
+
 //challenge input
 console.log(`%cChallenge Input:`, "color : red;");
 getStates([1, 2], "XOR", "001", 7);
 getStates([0, 2], "XNOR", "001", 7);
 getStates([1, 2, 3, 7], "XOR", "00000001", 16);
 getStates([1, 5, 6, 31], "XOR", "00000000000000000000000000000001", 16);
+
+//bonus input
+console.log(`%cBonus Input:`, "color : red;");
+console.log(getPeriodicity([1, 2], "XOR", "001"));
+console.log(getPeriodicity([0, 2], "XNOR", "001"));
+console.log(getPeriodicity([1, 2, 3, 7], "XOR", "00000001"));
+console.log(getPeriodicity([1, 5, 6, 31], "XOR", "00000000000000000000000000000001"));
