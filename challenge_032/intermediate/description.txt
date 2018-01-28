@@ -1,0 +1,7 @@
+#32[intermediate] Tower of Hanoi
+
+url: https://www.reddit.com/r/dailyprogrammer/comments/rhs8i/3282012_challenge_32_intermediate/
+
+Tower of Hanoi is a famous problem.
+
+the challenge today is a very famous one where you are to write a function to calculate the total number of moves to solve the tower in fastest way possible
