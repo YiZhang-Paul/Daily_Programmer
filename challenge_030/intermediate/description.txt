@@ -1,5 +1,7 @@
 #30[intermediate] The Luhn Algorithm
 
+All Done
+
 url: https://www.reddit.com/r/dailyprogrammer/comments/red6f/3262012_challenge_30_intermediate/
 
 Most credit card numbers, and many other identification numbers including the Canadian Social Insurance Number, can be validated by an algorithm developed by Hans Peter Luhn of IBM, described in U. S. Patent 2950048 in 1954 (software patents are nothing new!), and now in the public domain. The Luhn algorithm will detect almost any single-digit error, almost all transpositions of adjacent digits except 09 and 90, and many other errors.
