@@ -1,19 +1,41 @@
-function parseNumbers(input: string): number[] {
+class Formula {
 
-    return input.match(/\d+/g).map(number => {
+    private _expression: string;
+    private _complexity: number;
 
-        return Number.parseInt(number);
-    });
-}
+    constructor(expression: string) {
 
-function sum(numbers: number[]): number {
+        this._expression = expression;
+        this._complexity = this.calculateComplexity();
+    }
 
-    return numbers.reduce((total, current) => total + current);
-}
+    get expression(): string {
 
-function getComplexity(expression: string): number {
+        return this._expression;
+    }
 
-    return sum(parseNumbers(expression));
+    get complexity(): number {
+
+        return this._complexity;
+    }
+
+    private parseNumbers(input: string): number[] {
+
+        return input.match(/\d+/g).map(match => {
+
+            return Number.parseInt(match);
+        });
+    }
+
+    private sum(numbers: number[]): number {
+
+        return numbers.reduce((total, current) => total + current);
+    }
+
+    private calculateComplexity(): number {
+
+        return this.sum(this.parseNumbers(this._expression));
+    }
 }
 
 function getOnes(total: number): number[] {
@@ -21,53 +43,66 @@ function getOnes(total: number): number[] {
     return new Array<number>(total).fill(1);
 }
 
-function getFormulas(number: number, complexities: Map<number, string>): string[] {
+function isBetter(formulas: Map<number, Formula>, number1: number, number2: number, toCompare: Formula): boolean {
 
-    let formulas: string[] = [];
-    let divisors = new Set<number>();
-    let sums = new Set<number>();
+    if(!formulas.has(number1) || !formulas.has(number2)) {
+
+        return false;
+    }
+
+    return formulas.get(number1).complexity + formulas.get(number2).complexity < toCompare.complexity;
+}
+
+function combine(formula1: Formula, formula2: Formula, operator: string): Formula {
+
+    if(!new Set<string>("*+").has(operator)) {
+
+        throw "Invalid Operator.";
+    }
+
+    if(operator === "*") {
+
+        return new Formula(`(${formula1.expression}) * (${formula2.expression})`);
+    }
+
+    return new Formula(`${formula1.expression} + ${formula2.expression}`);
+}
+
+function getFormula(number: number, formulas: Map<number, Formula>): Formula {
+
+    let best = new Formula(getOnes(number).join(" + "));
 
     for(let i = 1; i < number; i++) {
 
-        if(complexities.has(i)) {
+        if(formulas.has(i)) {
 
-            if(number % i === 0 && !divisors.has(number / i) && complexities.has(number / i)) {
+            if(number % i === 0 && isBetter(formulas, i, number / i, best)) {
 
-                formulas.push(`(${complexities.get(i)}) * (${complexities.get(number / i)})`);
-                divisors.add(number / i);
+                best = combine(formulas.get(i), formulas.get(number / i), "*");
             }
 
-            if(!sums.has(number - i) && complexities.has(number - i)) {
+            if(isBetter(formulas, i, number - i, best)) {
 
-                formulas.push(`${complexities.get(i)} + ${complexities.get(number - i)}`);
-                sums.add(number - i);
+                best = combine(formulas.get(i), formulas.get(number - i), "+");
             }
         }
     }
 
-    return formulas.length === 0 ? [getOnes(number).join(" + "), `1 * ${number}`] : formulas;
+    return best;
 }
 
-function getBestFormula(number: number, complexities: Map<number, string>): string {
+function findComplexities(limit: number): Map<number, Formula> {
 
-    return getFormulas(number, complexities).reduce((best, current) => {
-
-        return getComplexity(best) <= getComplexity(current) ? best : current;
-    });
-}
-
-function findComplexities(limit: number): Map<number, string> {
-
-    let complexity = new Map<number, string>();
+    let formulas = new Map<number, Formula>();
 
     for(let i = 1; i <= limit; i++) {
 
-        complexity.set(i, getBestFormula(i, complexity));
+        formulas.set(i, getFormula(i, formulas));
     }
 
-    return complexity;
+    return formulas;
 }
 
 const time = new Date().getTime();
-console.log(findComplexities(1000));
+console.log(findComplexities(10000));
 console.log(`${new Date().getTime() - time}ms`);
