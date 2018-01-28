@@ -91,7 +91,7 @@ function getFormula(number: number, formulas: Map<number, Formula>): Formula {
     return best;
 }
 
-function findComplexities(limit: number): Map<number, Formula> {
+function findFormulas(limit: number): Map<number, Formula> {
 
     let formulas = new Map<number, Formula>();
 
@@ -103,6 +103,19 @@ function findComplexities(limit: number): Map<number, Formula> {
     return formulas;
 }
 
+function showComplexities(formulas: Map<number, Formula>): void {
+
+    formulas.forEach((formula, number) => {
+
+        console.log(`%c${number} %c${formula.complexity}`, "color : yellow;", "color : violet;");
+    });
+}
+
+//challenge input
+console.log(`%cChallenge Input:`, "color : red;");
 const time = new Date().getTime();
-console.log(findComplexities(10000));
-console.log(`${new Date().getTime() - time}ms`);
+let formulas = findFormulas(10000);
+showComplexities(formulas);
+console.log(`%c956 -> %c${formulas.get(956).expression}`, "color : yellow;", "color : violet;");
+console.log(`%c6458 -> %c${formulas.get(6458).expression}`, "color : yellow;", "color : violet;");
+console.log(`Time Spent: %c${new Date().getTime() - time}ms`, "color : yellow;");
