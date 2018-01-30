@@ -14,7 +14,7 @@ function findChanges(coins: number[], total: number, current: number[] = [], cha
 
         if(sum(current) === total) {
 
-            changes.push(current);
+            changes.push(current.sort((a, b) => a - b));
         }
 
         return null;
@@ -57,56 +57,64 @@ function readRequirement(requirement: string) : number[][] {
 
 function findValidChanges(changes: number[][], constraint: number, limit: number): number[][] {
 
-    switch(constraint) {
+    if(constraint === -2) return changes.filter(change => change.length <= limit);
+    else if(constraint === -1) return changes.filter(change => change.length < limit);
+    else if(constraint === 0) return changes.filter(change => change.length === limit);
+    else if(constraint === 1) return changes.filter(change => change.length > limit);
+    else if(constraint === 2) return changes.filter(change => change.length >= limit);
+    else return new Array<number[]>();
+}
 
-        case -2 :
+function removeDuplicate(changes: number[][]): number[][] {
 
-            return changes.filter(change => change.length <= limit);
+    let duplicates = new Set<string>();
+    let distinct = new Array<number[]>();
 
-        case -1 :
+    changes.forEach(change => {
 
-            return changes.filter(change => change.length < limit);
+        if(!duplicates.has(change.join(""))) {
 
-        case 0 :
+            duplicates.add(change.join(""));
+            distinct.push(change);
+        }
+    });
 
-            return changes.filter(change => change.length === limit);
-
-        case 1 :
-
-            return changes.filter(change => change.length > limit);
-
-        case 2 :
-
-            return changes.filter(change => change.length >= limit);
-    }
-
-    return new Array<number[]>();
+    return distinct;
 }
 
 function tryChange(requirement: string): number[][] {
 
     let [input, output] = readRequirement(requirement);
     let changes = findChanges(input.slice(1), input[0]);
-    changes = findValidChanges(changes, output[0], output[1]);
+
+    return removeDuplicate(findValidChanges(changes, output[0], output[1]));
+}
+
+function showChanges(changes: number[][]): void {
 
     if(changes.length === 0) {
 
-        throw "No Solution Found.";
+        console.log(`No Solution Found.`);
+
+        return null;
     }
 
-    return changes;
+    changes.forEach(change => {
+
+        console.log(`${change.join(", ")}`);
+    });
 }
 
 //challenge input
 console.log(`%cChallenge Input:`, "color : red;");
 let requirement = `Input: 150 100 50 50 50 50
                    Output: n < 5`;
-console.log(tryChange(requirement));
+showChanges(tryChange(requirement));
 
 requirement = `Input: 130 100 20 18 12 5 5
                Output: n < 6`;
-console.log(tryChange(requirement));
+showChanges(tryChange(requirement));
 
 requirement = `Input: 200 50 50 20 20 10
                Output: n >= 5`;
-console.log(tryChange(requirement));
+showChanges(tryChange(requirement));
