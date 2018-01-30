@@ -45,7 +45,7 @@ function readConstraint(requirement: string): number {
     return 0;
 }
 
-function readRequirement(requirement: string) : number[][] {
+function readRequirement(requirement: string): number[][] {
 
     const [input, output] = requirement.split("\n");
     const constraint = readConstraint(output);
@@ -115,6 +115,22 @@ function showChanges(changes: number[][]): void {
     });
 }
 
+function findMinimumCoinsNeeded(requirement: string): number {
+
+    let input = parseNumbers(requirement);
+    let coins = input.slice(1).sort((a, b) => b - a);
+
+    if(sum(coins) < input[0]) {
+
+        throw "No Solution Found.";
+    }
+
+    return coins.findIndex((coin, index) => {
+
+        return sum(coins.slice(0, index)) >= input[0];
+    });
+}
+
 //challenge input
 console.log(`%cChallenge Input:`, "color : red;");
 let requirement = `Input: 150 100 50 50 50 50
@@ -131,3 +147,17 @@ requirement = `Input: 200 50 50 20 20 10
                Output: n >= 5`;
 console.log(`%c${requirement.split("\n").map(line => line.trim()).join("\n")}:`, "color : yellow;");
 showChanges(tryChange(requirement));
+
+//bonus input
+console.log(`%cBonus Input:`, "color : red;");
+requirement = "Input: 150 100 50 50 50 50";
+console.log(`%c${requirement}:`, "color : yellow;");
+console.log(`%cOutput: ${findMinimumCoinsNeeded(requirement)}`, "color : violet;");
+
+requirement = "Input: 130 100 20 18 12 5 5";
+console.log(`%c${requirement}:`, "color : yellow;");
+console.log(`%cOutput: ${findMinimumCoinsNeeded(requirement)}`, "color : violet;");
+
+requirement = `Input: 150 ${new Array<number>(10000).fill(1).join(" ")}`;
+console.log(`%cInput: 150 1 1 ... 1 (1 repeated 10000 times):`, "color : yellow;");
+console.log(`%cOutput: ${findMinimumCoinsNeeded(requirement)}`, "color : violet;");
