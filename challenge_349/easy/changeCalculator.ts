@@ -1,21 +1,18 @@
 function sum(numbers: number[]): number {
 
-    if(numbers.length === 0) {
-
-        return 0;
-    }
-
-    return numbers.reduce((total, current) => total + current);
+    return numbers.reduce((total, current) => total + current, 0);
 }
 
 function findChanges(coins: number[], total: number, current: number[] = [], changes: number[][] = []): number[][] {
 
-    if(coins.length === 0 || sum(current) === total) {
+    if(sum(current) === total) {
 
-        if(sum(current) === total) {
+        changes.push(current.sort((a, b) => a - b));
 
-            changes.push(current.sort((a, b) => a - b));
-        }
+        return null;
+    }
+
+    if(coins.length === 0) {
 
         return null;
     }
@@ -50,58 +47,71 @@ function readConstraint(requirement: string): number {
 
 function readRequirement(requirement: string) : number[][] {
 
-    const [input, output] = requirement.split("\n").map(line => line.trim());
+    const [input, output] = requirement.split("\n");
+    const constraint = readConstraint(output);
+    const limit = parseNumbers(output)[0];
 
-    return [parseNumbers(input), [readConstraint(output), parseNumbers(output)[0]]];
+    return [parseNumbers(input), [constraint, limit]];
 }
 
 function findValidChanges(changes: number[][], constraint: number, limit: number): number[][] {
 
     if(constraint === -2) return changes.filter(change => change.length <= limit);
-    else if(constraint === -1) return changes.filter(change => change.length < limit);
-    else if(constraint === 0) return changes.filter(change => change.length === limit);
-    else if(constraint === 1) return changes.filter(change => change.length > limit);
-    else if(constraint === 2) return changes.filter(change => change.length >= limit);
-    else return new Array<number[]>();
+    if(constraint === -1) return changes.filter(change => change.length < limit);
+    if(constraint === 0) return changes.filter(change => change.length === limit);
+    if(constraint === 1) return changes.filter(change => change.length > limit);
+    if(constraint === 2) return changes.filter(change => change.length >= limit);
+    return new Array<number[]>();
 }
 
-function removeDuplicate(changes: number[][]): number[][] {
+function toStrings(inputs: number[][]): string[] {
 
-    let duplicates = new Set<string>();
-    let distinct = new Array<number[]>();
+    return inputs.map(input => input.join(","));
+}
 
-    changes.forEach(change => {
+function toNumbers(inputs: string[]): number[][] {
 
-        if(!duplicates.has(change.join(""))) {
+    return inputs.map(input => parseNumbers(input));
+}
 
-            duplicates.add(change.join(""));
-            distinct.push(change);
-        }
-    });
+function removeDuplicate(inputs: string[]): string[] {
 
-    return distinct;
+    return Array.from(new Set(inputs));
+}
+
+function findDistinctChanges(changes: number[][]): number[][] {
+
+    let distinct = removeDuplicate(toStrings(changes));
+
+    return toNumbers(distinct);
 }
 
 function tryChange(requirement: string): number[][] {
 
     let [input, output] = readRequirement(requirement);
-    let changes = findChanges(input.slice(1), input[0]);
 
-    return removeDuplicate(findValidChanges(changes, output[0], output[1]));
+    let changes = findValidChanges(
+
+        findChanges(input.slice(1), input[0]),
+        output[0],
+        output[1]
+    );
+
+    return findDistinctChanges(changes);
 }
 
 function showChanges(changes: number[][]): void {
 
     if(changes.length === 0) {
 
-        console.log(`No Solution Found.`);
+        console.log(`%cNo Solution Found.`, "color : tomato;");
 
         return null;
     }
 
     changes.forEach(change => {
 
-        console.log(`${change.join(", ")}`);
+        console.log(`%c${change.join(", ")}`, "color : violet;");
     });
 }
 
@@ -109,12 +119,15 @@ function showChanges(changes: number[][]): void {
 console.log(`%cChallenge Input:`, "color : red;");
 let requirement = `Input: 150 100 50 50 50 50
                    Output: n < 5`;
+console.log(`%c${requirement.split("\n").map(line => line.trim()).join("\n")}:`, "color : yellow;");
 showChanges(tryChange(requirement));
 
 requirement = `Input: 130 100 20 18 12 5 5
                Output: n < 6`;
+console.log(`%c${requirement.split("\n").map(line => line.trim()).join("\n")}:`, "color : yellow;");
 showChanges(tryChange(requirement));
 
 requirement = `Input: 200 50 50 20 20 10
                Output: n >= 5`;
+console.log(`%c${requirement.split("\n").map(line => line.trim()).join("\n")}:`, "color : yellow;");
 showChanges(tryChange(requirement));
