@@ -39,23 +39,78 @@ function findStacks(
     return Array.from(stacks);
 }
 
-function getStacks(stacks: string[], total: number, boxes: number[]): string[][] {
+function isValidPack(pack: string[], boxes: number[]): boolean {
 
-    
+    return sortDigits(pack.join("")) === sortDigits(boxes.join(""));
 }
 
-function pack(input: string): string[][] {
+function getPacks(
+    stacks: string[],
+    total: number,
+    boxes: number[],
+    current: string[] = [],
+    packs: string[][] = []): string[][] {
 
-    let [stack, ...boxes] = parseDigits(input);
+    if(current.length === total) {
 
-    if(sum(boxes) % stack !== 0) {
+        if(isValidPack(current, boxes)) {
+
+            packs.push(current);
+        }
 
         return null;
     }
 
-    let stacks = findStacks(boxes, sum(boxes) / stack);
+    if(stacks.length === 0) {
 
-    return getStacks(stacks, stack, boxes);
+        return null;
+    }
+
+    for(let i = 0; i < stacks.length; i++) {
+
+        getPacks(stacks.slice(i + 1), total, boxes, [...current, stacks[i]], packs);
+    }
+
+    return packs;
 }
 
-console.log(pack("3 34312332"));
+function pack(input: string): string[][] {
+
+    let [totalStacks, ...boxes] = parseDigits(input);
+
+    if(sum(boxes) % totalStacks !== 0) {
+
+        return [];
+    }
+
+    let stacks = findStacks(boxes, sum(boxes) / totalStacks);
+
+    return getPacks(stacks, totalStacks, boxes);
+}
+
+function showPack(packs: string[][]): void {
+
+    if(packs.length === 0) {
+
+        console.log(`%cNo Solution Found.`, "color : tomato;");
+    }
+    else {
+
+        console.log(`%c${packs[0].join("\n")}`, "color : violet;");
+    }
+}
+
+const time = new Date().getTime();
+
+//default input
+console.log(`%cDefault Input:`, "color : red;");
+showPack(pack("3 34312332"));
+
+//challenge input
+console.log(`%cChallenge Input:`, "color : red;");
+showPack(pack("3 912743471352"));
+showPack(pack("3 42137586"));
+showPack(pack("9 2"));
+showPack(pack("4 064876318535318"));
+
+console.log(`%cTime Spent: %c${new Date().getTime() - time}ms`, "color : yellow;", "color : violet;");
