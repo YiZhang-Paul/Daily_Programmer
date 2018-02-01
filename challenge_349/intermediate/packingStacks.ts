@@ -3,9 +3,9 @@ function parseDigits(input: string): number[] {
     return input.match(/\d/g).map(match => Number.parseInt(match));
 }
 
-function sortDigits(input: string): string {
+function sortDigits(input: number[]): number[] {
 
-    return parseDigits(input).sort((a, b) => a - b).join("");
+    return input.sort((a, b) => a - b);
 }
 
 function sum(digits: number[]): number {
@@ -14,14 +14,17 @@ function sum(digits: number[]): number {
 }
 
 function findStacks(
+
     boxes: number[],
-    total: number,
+    totalSize: number,
     current: number[] = [],
-    stacks: Set<string> = new Set<string>()): string[] {
+    stacks: Set<string> = new Set<string>()
 
-    if(sum(current) === total) {
+): string[] {
 
-        stacks.add(sortDigits(current.join("")));
+    if(sum(current) === totalSize) {
+
+        stacks.add(sortDigits(current).join(""));
 
         return null;
     }
@@ -33,25 +36,30 @@ function findStacks(
 
     for(let i = 0; i < boxes.length; i++) {
 
-        findStacks(boxes.slice(i + 1), total, [...current, boxes[i]], stacks);
+        findStacks(boxes.slice(i + 1), totalSize, [...current, boxes[i]], stacks);
     }
 
     return Array.from(stacks);
 }
 
-function isValidPack(pack: string[], boxes: number[]): boolean {
+function isValidPack(pack: string[], boxes: string): boolean {
 
-    return sortDigits(pack.join("")) === sortDigits(boxes.join(""));
+    let boxesInPack = parseDigits(pack.join(""));
+
+    return sortDigits(boxesInPack).join("") === boxes;
 }
 
 function getPacks(
-    stacks: string[],
-    total: number,
-    boxes: number[],
-    current: string[] = [],
-    packs: string[][] = []): string[][] {
 
-    if(current.length === total) {
+    stacks: string[],
+    totalStacks: number,
+    boxes: string,
+    current: string[] = [],
+    packs: string[][] = []
+
+): string[][] {
+
+    if(current.length === totalStacks || stacks.length === 0) {
 
         if(isValidPack(current, boxes)) {
 
@@ -61,14 +69,9 @@ function getPacks(
         return null;
     }
 
-    if(stacks.length === 0) {
-
-        return null;
-    }
-
     for(let i = 0; i < stacks.length; i++) {
 
-        getPacks(stacks.slice(i + 1), total, boxes, [...current, stacks[i]], packs);
+        getPacks(stacks.slice(i + 1), totalStacks, boxes, [...current, stacks[i]], packs);
     }
 
     return packs;
@@ -85,7 +88,7 @@ function pack(input: string): string[][] {
 
     let stacks = findStacks(boxes, sum(boxes) / totalStacks);
 
-    return getPacks(stacks, totalStacks, boxes);
+    return getPacks(stacks, totalStacks, sortDigits(boxes).join(""));
 }
 
 function showPack(packs: string[][]): void {
