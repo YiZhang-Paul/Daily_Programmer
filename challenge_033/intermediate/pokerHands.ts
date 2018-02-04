@@ -20,16 +20,9 @@ class Card {
     }
 }
 
-class PokerHandSolver {
+class CardReader {
 
-    private cards: Card[];
-
-    constructor(cards: string) {
-
-        this.cards = this.readCards(cards);
-    }
-
-    readRank(rank: string): number {
+    private getRank(rank: string): number {
 
         if(/\d/.test(rank)) {
 
@@ -43,13 +36,13 @@ class PokerHandSolver {
         })[rank];
     }
 
-    readCards(cards: string): Card[] {
+    public read(cards: string): Card[] {
 
         let result: Card[] = [];
 
         cards.match(/\S+/g).forEach(match => {
 
-            const rank = this.readRank(match[0]);
+            const rank = this.getRank(match[0]);
             result.push(new Card(rank, match[1]));
         });
 
@@ -57,4 +50,15 @@ class PokerHandSolver {
     }
 }
 
-let solver = new PokerHandSolver("TH JH QH KH AH");
+class PokerHandSolver {
+
+    public solve(cards: Card[]): string {
+
+
+    }
+}
+
+let cards = new CardReader().read("TH JH QH KH AH");
+let solver = new PokerHandSolver();
+
+console.log(solver.solve(cards));
