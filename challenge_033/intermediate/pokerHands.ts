@@ -1,17 +1,24 @@
 class Card {
 
     private _rank: number;
+    private _label: string;
     private _suit: string;
 
-    constructor(rank: number, suit: string) {
+    constructor(rank: number, label: string, suit: string) {
 
         this._rank = rank;
+        this._label = label;
         this._suit = suit;
     }
 
     get rank(): number {
 
         return this._rank;
+    }
+
+    get label(): string {
+
+        return this._label;
     }
 
     get suit(): string {
@@ -43,27 +50,16 @@ class CardReader {
         cards.match(/\S+/g).forEach(match => {
 
             const rank = this.getRank(match[0]);
-            result.push(new Card(rank, match[1]));
+            result.push(new Card(rank, match[0], match[1]));
         });
 
         return result;
     }
 }
 
-class PokerHandSolver {
+class CardCounter {
 
-    private cards: Card[];
-    private ranks: Map<number, number>;
-    private suits: Map<string, number>;
-
-    constructor(cards: Card[]) {
-
-        this.cards = cards;
-        this.ranks = this.countRanks(cards);
-        this.suits = this.countSuits(cards);
-    }
-
-    private countRanks(cards: Card[]): Map<number, number> {
+    public countRanks(cards: Card[]): Map<number, number> {
 
         let ranks = new Map<number, number>();
 
@@ -80,7 +76,24 @@ class PokerHandSolver {
         return ranks;
     }
 
-    private countSuits(cards: Card[]): Map<string, number> {
+    public countLabels(cards: Card[]): Map<string, number> {
+
+        let labels = new Map<string, number>();
+
+        cards.forEach(card => {
+
+            if(!labels.has(card.label)) {
+
+                labels.set(card.label, 0);
+            }
+
+            labels.set(card.label, labels.get(card.label) + 1);
+        });
+
+        return labels;
+    }
+
+    public countSuits(cards: Card[]): Map<string, number> {
 
         let suits = new Map<string, number>();
 
@@ -96,20 +109,31 @@ class PokerHandSolver {
 
         return suits;
     }
+}
 
-    private sort(cards: Card[]): Card[] {
+class PokerHandSolver {
+
+    private cards: Card[];
+    private ranks: Map<number, number>;
+    private labels: Map<string, number>;
+    private suits: Map<string, number>;
+
+    constructor(cards: Card[], counter: CardCounter) {
+
+        this.cards = cards;
+        this.ranks = counter.countRanks(cards);
+        this.labels = counter.countLabels(cards);
+        this.suits = counter.countSuits(cards);
+    }
+
+    private sortCard(cards: Card[]): Card[] {
 
         return cards.slice().sort((a, b) => a.rank - b.rank);
     }
 
-    private isConsecutive(cards: Card[]): boolean {
+    private sortLabel(): [string, number][] {
 
-        let sortedCards = this.sort(cards);
-
-        return sortedCards.slice(0, -1).every((card, index) => {
-
-            return sortedCards[index + 1].rank - card.rank === 1;
-        });
+        return Array.from(this.labels).sort((a, b) => a[1] - b[1]);
     }
 
     private hasRank(rank: number): boolean {
@@ -122,6 +146,16 @@ class PokerHandSolver {
         return Array.from(this.ranks).some(pair => pair[1] === size);
     }
 
+    private isConsecutive(cards: Card[]): boolean {
+
+        let sortedCards = this.sortCard(cards);
+
+        return sortedCards.slice(0, -1).every((card, index) => {
+
+            return sortedCards[index + 1].rank - card.rank === 1;
+        });
+    }
+
     private isFlush(): boolean {
 
         return this.suits.size === 1;
@@ -129,14 +163,14 @@ class PokerHandSolver {
 
     private isStraight(): boolean {
 
+        let cards = this.cards;
+
         if(this.hasRank(1) && this.hasRank(13)) {
 
-            let highRankCards = this.sort(this.cards).slice(1);
-
-            return this.isConsecutive(highRankCards);
+            cards = this.sortCard(cards).slice(1);
         }
 
-        return this.isConsecutive(this.cards);
+        return this.isConsecutive(cards);
     }
 
     private isThreeOfAKind(): boolean {
@@ -166,7 +200,7 @@ class PokerHandSolver {
 
     private isStraightFlush(): boolean {
 
-        return this.isFlush() && this.isStraight();
+        return this.isStraight() && this.isFlush();
     }
 
     private isRoyalFlush(): boolean {
@@ -174,75 +208,105 @@ class PokerHandSolver {
         return this.isStraightFlush() && this.hasRank(1) && this.hasRank(13);
     }
 
+    private showFlush(): string {
+
+        return `Flush: ${this.cards[0].suit}`;
+    }
+
+    private showStraight(): string {
+
+        let cards = this.sortCard(this.cards);
+        const rotated = this.hasRank(1) && this.hasRank(13);
+        const low = rotated ? "T" : cards[0].label;
+        const high = rotated ? "A" : cards.slice(-1)[0].label;
+
+        return `Straight: ${low} to ${high}`;
+    }
+
+    private showThreeOfAKind(): string {
+
+        return `Three of a Kind: ${this.sortLabel().slice(-1)[0][0]}`;
+    }
+
+    private showFourOfAKind(): string {
+
+        return `Four of a Kind: ${this.sortLabel().slice(-1)[0][0]}`;
+    }
+
+    private showOnePair(): string {
+
+        return `One Pair: ${this.sortLabel().slice(-1)[0][0]}`;
+    }
+
+    private showTwoPair(): string {
+
+        let labels = this.sortLabel();
+
+        return `Two Pair: ${labels[1][0]} & ${labels.slice(-1)[0][0]}`;
+    }
+
+    private showFullHouse(): string {
+
+        let labels = this.sortLabel();
+
+        return `Full House: ${labels[1][0]} Over ${labels[0][0]}`;
+    }
+
+    private showStraightFlush(): string {
+
+        let cards = this.sortCard(this.cards);
+        const low = cards[0].label;
+        const high = cards.slice(-1)[0].label;
+
+        return `Straight Flush: ${low} to ${high}, ${this.cards[0].suit}`;
+    }
+
+    private showRoyalFlush(): string {
+
+        return `Royal Flush: ${this.cards[0].suit}`;
+    }
+
     public solve(): string {
 
-        if(this.isStraightFlush()) {
+        let hands = [
 
-            return this.isRoyalFlush() ? "Royal Flush" : "Straight Flush";
-        }
-        else if(this.isFlush()) {
+            "RoyalFlush", "StraightFlush", "Straight",
+            "Flush", "FullHouse", "ThreeOfAKind",
+            "FourOfAKind", "OnePair", "TwoPair"
+        ];
 
-            return "Flush";
-        }
-        else if(this.isStraight()) {
+        for(let i = 0; i < hands.length; i++) {
 
-            return "Straight";
-        }
-        else if(this.isThreeOfAKind()) {
+            if(this[`is${hands[i]}`]()) {
 
-            return "Three of a Kind";
+                return this[`show${hands[i]}`]();
+            }
         }
-        else if(this.isFourOfAKind()) {
 
-            return "Four of a Kind";
-        }
-        else if(this.isFullHouse()) {
-
-            return "Full House";
-        }
-        else if(this.isOnePair()) {
-
-            return "One Pair";
-        }
-        else if(this.isTwoPair()) {
-
-            return "Two Pair";
-        }
-        else {
-
-            return "High Card";
-        }
+        return "High Card";
     }
 }
+
 //challenge input
 console.log(`%cChallenge Input:`, "color : red;");
 let reader = new CardReader();
-let solver = new PokerHandSolver(reader.read("TH JH QH KH AH"));
-console.log(solver.solve());
+let counter = new CardCounter();
+let cards = [
 
-solver = new PokerHandSolver(reader.read("TH JH QH KH 9H"));
-console.log(solver.solve());
+    "TH JH QH KH AH",
+    "TH JH QH KH 9H",
+    "TH TS TC TD AH",
+    "TH TS TC AD AH",
+    "TH JH QH KH 2H",
+    "TH JH QH KH AS",
+    "TH TD TS QH KH",
+    "TH TD QH QD AS",
+    "TH TD QH KH AH",
+    "9D TS JH QC AH"
+];
 
-solver = new PokerHandSolver(reader.read("TH TS TC TD AH"));
-console.log(solver.solve());
+cards.forEach(set => {
 
-solver = new PokerHandSolver(reader.read("TH TS TC AD AH"));
-console.log(solver.solve());
-
-solver = new PokerHandSolver(reader.read("TH JH QH KH 2H"));
-console.log(solver.solve());
-
-solver = new PokerHandSolver(reader.read("TH JH QH KH AS"));
-console.log(solver.solve());
-
-solver = new PokerHandSolver(reader.read("TH TD TS QH KH"));
-console.log(solver.solve());
-
-solver = new PokerHandSolver(reader.read("TH TD QH QD AS"));
-console.log(solver.solve());
-
-solver = new PokerHandSolver(reader.read("TH TD QH KH AH"));
-console.log(solver.solve());
-
-solver = new PokerHandSolver(reader.read("9D TS JH QC AH"));
-console.log(solver.solve());
+    let solver = new PokerHandSolver(reader.read(set), counter);
+    console.log(`%c${set}: %c${solver.solve()}`, "color : yellow;", "color : violet;");
+});
