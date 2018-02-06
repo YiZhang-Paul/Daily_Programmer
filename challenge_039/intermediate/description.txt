@@ -1,0 +1,5 @@
+#39[intermediate] Kaprekar Number
+
+url: https://www.reddit.com/r/dailyprogrammer/comments/s6be0/4122012_challenge_39_intermediate/
+
+Today's challenge is to determine if a number is a Kaprekar Number
