@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1517883180 source:d:\all_languages\reddit_challenges\challenge_039\intermediate\kaprekarnumber\main.c
+	<stdio.h>
+	<stdlib.h>
+	<math.h>
+
