@@ -5,18 +5,19 @@
 int countDigits(int);
 int getDigitsOnRight(int, int);
 int getDigitsOnLeft(int, int);
+int isKaprekar(int);
 
 int main() {
 
-    printf("%d ", getDigitsOnRight(153, 2));
-    printf("%d", getDigitsOnLeft(157551, 3));
+    printf("%d", isKaprekar(9));
+    printf("%d", isKaprekar(297));
 
     return 0;
 }
 
 int countDigits(int number) {
 
-    return (int)log10((double)number) + 1;
+    return (int)log10(number) + 1;
 }
 
 int getDigitsOnRight(int number, int digits) {
@@ -39,4 +40,14 @@ int getDigitsOnLeft(int number, int digits) {
     }
 
     return number / (int)(pow(10, length - digits) + 0.5);
+}
+
+int isKaprekar(int number) {
+
+    int length = countDigits(number);
+    int square = (int)(pow(number, 2) + 0.5);
+    int leftDigits = getDigitsOnLeft(square, countDigits(square) - length);
+    int rightDigits = getDigitsOnRight(square, length);
+
+    return leftDigits + rightDigits == number;
 }
