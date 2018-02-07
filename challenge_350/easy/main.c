@@ -7,19 +7,29 @@
 
 #define LINE_LENGTH 128
 
-char ** readLines(char *, int, int);
+struct content {
+
+    char **lines;
+    int totalLines;
+};
+
+struct content readContent(char *, int, int);
+void freeContent(struct content *);
 
 int main(void) {
 
-    char **lines = readLines("input1.txt", 2, 5);
+    struct content content = readContent("input1.txt", 2, 5);
+
+    freeContent(&content);
 
     return 0;
 }
 
-char ** readLines(char * url, int start, int total) {
+struct content readContent(char * url, int start, int linesToRead) {
 
     FILE *file = fopen(url, "r");
-    char **lines = (char **)malloc(total * sizeof(char *));
+    struct content content;
+    content.lines = (char **)malloc(linesToRead * sizeof(char *));
 
     if(file) {
 
@@ -28,10 +38,11 @@ char ** readLines(char * url, int start, int total) {
 
         while(fgets(line, LINE_LENGTH, file)) {
 
-            if(lineCount >= start && lineCount < start + total) {
+            if(lineCount >= start && lineCount < start + linesToRead) {
 
-                lines[lineCount - start] = (char *)malloc(LINE_LENGTH);
-                strcpy(lines[lineCount - start], line);
+                content.totalLines = lineCount - start + 1;
+                content.lines[lineCount - start] = (char *)malloc(LINE_LENGTH);
+                strcpy(content.lines[lineCount - start], line);
             }
 
             lineCount++;
@@ -42,5 +53,15 @@ char ** readLines(char * url, int start, int total) {
 
     fclose(file);
 
-    return lines;
+    return content;
+}
+
+void freeContent(struct content * content) {
+
+    for(int i = 0; i < content->totalLines; i++) {
+
+        free(content->lines[i]);
+    }
+
+    free(content->lines);
 }
