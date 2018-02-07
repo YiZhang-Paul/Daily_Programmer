@@ -17,3 +17,8 @@ struct book createBook(int width, char * title) {
 
     return book;
 }
+
+void freeBook(struct book * book) {
+
+    free(book->title);
+}

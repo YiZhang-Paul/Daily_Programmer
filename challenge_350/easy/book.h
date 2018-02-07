@@ -8,5 +8,6 @@ struct book {
 };
 
 struct book createBook(int, char *);
+void freeBook(struct book *);
 
 #endif

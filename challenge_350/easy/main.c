@@ -4,64 +4,34 @@
 
 #include "book.h"
 #include "bookshelf.h"
+#include "utility.h"
 
-#define LINE_LENGTH 128
-
-struct content {
-
-    char **lines;
-    int totalLines;
-};
-
-struct content readContent(char *, int, int);
-void freeContent(struct content *);
+struct bookshelf * createShelves(int * widths, int total);
+void freeShelves(struct bookshelf *, total);
 
 int main(void) {
-
-    struct content content = readContent("input1.txt", 2, 5);
-
-    freeContent(&content);
 
     return 0;
 }
 
-struct content readContent(char * url, int start, int linesToRead) {
+struct bookshelf * createShelves(int * widths, int total) {
 
-    FILE *file = fopen(url, "r");
-    struct content content;
-    content.lines = (char **)malloc(linesToRead * sizeof(char *));
+    struct bookshelf * shelves = (struct bookshelf *)malloc(total * sizeof(struct bookshelf));
 
-    if(file) {
+    for(int i = 0; i < total; i++) {
 
-        int lineCount = 1;
-        char *line = (char *)malloc(LINE_LENGTH);
-
-        while(fgets(line, LINE_LENGTH, file)) {
-
-            if(lineCount >= start && lineCount < start + linesToRead) {
-
-                content.totalLines = lineCount - start + 1;
-                content.lines[lineCount - start] = (char *)malloc(LINE_LENGTH);
-                strcpy(content.lines[lineCount - start], line);
-            }
-
-            lineCount++;
-        }
-
-        free(line);
+        shelves[i] = createBookshelf(widths[i]);
     }
 
-    fclose(file);
-
-    return content;
+    return shelves;
 }
 
-void freeContent(struct content * content) {
+void freeShelves(struct bookshelf * shelves, int total) {
 
-    for(int i = 0; i < content->totalLines; i++) {
+    for(int i = 0; i < total; i++) {
 
-        free(content->lines[i]);
+        freeBookshelf(&shelves[i]);
     }
 
-    free(content->lines);
+    free(shelves);
 }

@@ -27,15 +27,25 @@ int getRemainSpace(struct bookshelf * bookshelf) {
     return space;
 }
 
-int canAddBook(struct bookshelf * bookshelf, struct book book) {
+int canAddBook(struct bookshelf * bookshelf, struct book * book) {
 
-    return getRemainSpace(bookshelf) >= book.width;
+    return book->width <= getRemainSpace(bookshelf);
 }
 
-void addBook(struct bookshelf * bookshelf, struct book book) {
+void addBook(struct bookshelf * bookshelf, struct book * book) {
 
     if(bookshelf->books) {
 
-        *(bookshelf->books + bookshelf->booksOnShelf++) = book;
+        *(bookshelf->books + bookshelf->booksOnShelf++) = *book;
     }
+}
+
+void freeBookshelf(struct bookshelf * bookshelf) {
+
+    for(int i = 0; i < bookshelf->booksOnShelf; i++) {
+
+        freeBook(&bookshelf->books[i]);
+    }
+
+    free(bookshelf->books);
 }

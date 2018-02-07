@@ -3,9 +3,10 @@
         "stdlib.h": "c",
         "book.h": "c",
         "string.h": "c",
-        "stdio.h": "c"
+        "stdio.h": "c",
+        "utility.h": "c"
     },
     "code-runner.executorMap": {
-        "c": "cd $workspaceRoot && gcc -g main.c book.c bookshelf.c -o main && $workspaceRoot/main"
+        "c": "cd $workspaceRoot && gcc -g main.c book.c bookshelf.c utility.c -o main && $workspaceRoot/main"
     }
 }

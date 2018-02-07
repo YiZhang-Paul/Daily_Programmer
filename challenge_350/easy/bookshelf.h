@@ -12,7 +12,8 @@ struct bookshelf {
 
 struct bookshelf createBookshelf(int);
 int getRemainSpace(struct bookshelf *);
-int canAddBook(struct bookshelf *, struct book);
-void addBook(struct bookshelf *, struct book);
+int canAddBook(struct bookshelf *, struct book *);
+void addBook(struct bookshelf *, struct book *);
+void freeBookshelf(struct bookshelf *);
 
 #endif
