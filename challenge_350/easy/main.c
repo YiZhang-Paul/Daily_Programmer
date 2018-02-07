@@ -7,15 +7,28 @@
 #include "utility.h"
 
 struct bookshelf * createShelves(int *, int);
+struct book * createBooks(char **, int);
 int compareShelves(const void *, const void *);
 void sortShelves(struct bookshelf *, int);
 void freeShelves(struct bookshelf *, int);
+void freeBooks(struct book *, int);
 
 int main(void) {
 
-    int widths[] = { 150, 150, 300, 150, 150 };
-    struct bookshelf * shelves = createShelves(widths, sizeof(widths) / sizeof(int));
-    sortShelves(shelves, sizeof(widths) / sizeof(int));
+    struct bookshelf * shelves;
+    struct book * books;
+
+    //create all shelves with given widths, from maximum to minimum width
+    const int totalShelves = countNumbers(readLines("input1.txt", 1, 1)[0]);
+    int shelfWidths[totalShelves];
+    toNumbers(readLines("input1.txt", 1, 1)[0], shelfWidths);
+    shelves = createShelves(shelfWidths, totalShelves);
+    sortShelves(shelves, totalShelves);
+
+    //create all books with given information
+    const int totalBooks = countLines("input1.txt") - 1;
+    char ** information = readLines("input1.txt", 2, totalBooks);
+    books = createBooks(information, totalBooks);
 
     return 0;
 }
@@ -30,6 +43,20 @@ struct bookshelf * createShelves(int * widths, int total) {
     }
 
     return shelves;
+}
+
+struct book * createBooks(char ** information, int total) {
+
+    struct book * books = (struct book *)malloc(total * sizeof(struct book));
+    const char *delimiter = " ";
+
+    for(int i = 0; i < total; i++) {
+
+        char *token = strtok(information[i], delimiter);
+        books[i] = createBook(atoi(token), information[i] + strlen(token) + 1);
+    }
+
+    return books;
 }
 
 int compareShelves(const void * a, const void * b) {
@@ -53,4 +80,14 @@ void freeShelves(struct bookshelf * shelves, int total) {
     }
 
     free(shelves);
+}
+
+void freeBooks(struct book * books, int total) {
+
+    for(int i = 0; i < total; i++) {
+
+        freeBook(&books[i]);
+    }
+
+    free(books);
 }

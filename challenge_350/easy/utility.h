@@ -3,13 +3,10 @@
 
 #define LINE_LENGTH 128
 
-struct content {
-
-    char **lines;
-    int totalLines;
-};
-
-struct content readContent(char *, int, int);
-void freeContent(struct content *);
+int countNumbers(char *);
+void toNumbers(char *, int *);
+int countLines(char *);
+char ** readLines(char *, int, int);
+void freeLines(char **, int);
 
 #endif

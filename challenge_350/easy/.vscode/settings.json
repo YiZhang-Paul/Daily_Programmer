@@ -4,7 +4,8 @@
         "book.h": "c",
         "string.h": "c",
         "stdio.h": "c",
-        "utility.h": "c"
+        "utility.h": "c",
+        "bookshelf.h": "c"
     },
     "code-runner.executorMap": {
         "c": "cd $workspaceRoot && gcc -g main.c book.c bookshelf.c utility.c -o main && $workspaceRoot/main"

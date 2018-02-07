@@ -42,10 +42,5 @@ void addBook(struct bookshelf * bookshelf, struct book * book) {
 
 void freeBookshelf(struct bookshelf * bookshelf) {
 
-    for(int i = 0; i < bookshelf->booksOnShelf; i++) {
-
-        freeBook(&bookshelf->books[i]);
-    }
-
     free(bookshelf->books);
 }
