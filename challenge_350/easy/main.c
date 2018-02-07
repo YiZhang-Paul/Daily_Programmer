@@ -5,17 +5,13 @@
 #include "book.h"
 #include "bookshelf.h"
 
-#define LINE_LENGTH 256
+#define LINE_LENGTH 128
 
 char ** readLines(char *, int, int);
-struct bookshelf * getBookShelves(char *);
 
 int main(void) {
 
-    getBookShelves("input1.txt");
-    char **lines = readLines("input1.txt", 1, 1);
-
-    int i = 1;
+    char **lines = readLines("input1.txt", 2, 5);
 
     return 0;
 }
@@ -23,7 +19,7 @@ int main(void) {
 char ** readLines(char * url, int start, int total) {
 
     FILE *file = fopen(url, "r");
-    char **lines = (char **)malloc(total * LINE_LENGTH);
+    char **lines = (char **)malloc(total * sizeof(char *));
 
     if(file) {
 
@@ -34,36 +30,17 @@ char ** readLines(char * url, int start, int total) {
 
             if(lineCount >= start && lineCount < start + total) {
 
-                lines[start - lineCount] = (char *)malloc(LINE_LENGTH);
-                strcpy(lines[start - lineCount], line);
+                lines[lineCount - start] = (char *)malloc(LINE_LENGTH);
+                strcpy(lines[lineCount - start], line);
             }
 
             lineCount++;
         }
+
+        free(line);
     }
 
     fclose(file);
 
     return lines;
-}
-
-struct bookshelf * getBookShelves(char * url) {
-
-    FILE *file = fopen(url, "r");
-
-    if(file) {
-
-        char *line = (char *)malloc(LINE_LENGTH);
-
-        if(line) {
-
-            fgets(line, LINE_LENGTH, file);
-        }
-    }
-
-    fclose(file);
-
-    struct bookshelf * bookshelves;
-
-    return bookshelves;
 }
