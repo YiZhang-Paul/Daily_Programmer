@@ -10,6 +10,7 @@
             "args": [
                 "-g",
                 "main.c",
+                "book.c",
                 "-o",
                 "main.exe"
             ],
