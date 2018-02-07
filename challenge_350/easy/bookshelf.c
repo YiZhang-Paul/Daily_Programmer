@@ -15,6 +15,23 @@ struct bookshelf createBookshelf(int width) {
     return bookshelf;
 }
 
+int getRemainSpace(struct bookshelf * bookshelf) {
+
+    int space = bookshelf->width;
+
+    for(int i = 0; i < bookshelf->booksOnShelf; i++) {
+
+        space -= (*(bookshelf->books + i)).width;
+    }
+
+    return space;
+}
+
+int canAddBook(struct bookshelf * bookshelf, struct book book) {
+
+    return getRemainSpace(bookshelf) >= book.width;
+}
+
 void addBook(struct bookshelf * bookshelf, struct book book) {
 
     if(bookshelf->books) {
