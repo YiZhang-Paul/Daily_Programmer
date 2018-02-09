@@ -23,16 +23,6 @@ int main(void) {
     int permutation[factorial(totalBooks)][totalBooks];
     permute((int *)permutation, range, totalBooks);
 
-    for(int i = 0; i < factorial(totalBooks); i++) {
-
-        for(int j = 0; j < totalBooks; j++) {
-
-            printf("%d ", permutation[i][j]);
-        }
-
-        printf("\n");
-    }
-
     freeLines(shelfInformation, 1);
     freeLines(bookInformation, totalBooks);
     freeBooks(books, totalBooks);
