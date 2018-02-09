@@ -1,7 +1,7 @@
 #ifndef UTILITY_H
 #define UTILITY_H
 
-#define LINE_LENGTH 128
+#define LINE_LENGTH 512
 
 int countLines(char *);
 char ** readLines(char *, int, int);

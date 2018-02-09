@@ -9,10 +9,13 @@ int * storeResult(int *, int *, int, int);
 int * findPlacement(int *, int, int *, struct book *, int);
 int * getShelfWidths(char *, int *);
 struct book * getBooks(char *, int *);
+void showUnfitBooks(int *, struct book *, int, int);
+void showResult(int *, int *, struct book *, int, int);
 void solve(char *);
 
 int main(void) {
 
+    printf("Default Input:\n");
     solve("input1.txt");
     solve("input2.txt");
 
@@ -93,6 +96,56 @@ struct book * getBooks(char * url, int * outputLength) {
     return books;
 }
 
+void showUnfitBooks(int * shelves, struct book * books, int totalShelves, int totalBooks) {
+
+    printf("Book(s) that don't fit: \n");
+
+    for(int i = 0, total = 1; i < totalBooks; i++) {
+
+        for(int j = 0; j < totalShelves; j++) {
+
+            if(books[i].width > shelves[j]) {
+
+                printf("%d.(width: %d) %s", total++, books[i].width, books[i].title);
+                j = totalShelves;
+            }
+        }
+    }
+}
+
+void showResult(int * result, int * shelves, struct book * books, int totalShelves, int totalBooks) {
+
+    if(result == NULL) {
+
+        printf("Imposible.\n");
+        showUnfitBooks(shelves, books, totalShelves, totalBooks);
+
+        return;
+    }
+
+    int shelfIndex = 0;
+
+    for(int i = 0, remainWidth = shelves[shelfIndex]; i < totalBooks; i++) {
+
+        if(remainWidth < books[result[i]].width) {
+
+            remainWidth = shelves[++shelfIndex];
+            i--;
+
+            continue;
+        }
+
+        remainWidth -= books[result[i]].width;
+    }
+
+    printf("%d shelves will be used, the sizes are: ", shelfIndex + 1);
+
+    for(int i = 0; i < shelfIndex + 1; i++) {
+
+        printf(i < shelfIndex ? "%d, " : "%d;\n", shelves[i]);
+    }
+}
+
 void solve(char * url) {
 
     int totalShelves = 0;
@@ -106,20 +159,7 @@ void solve(char * url) {
     permute((int *)placements, range, totalBooks);
 
     int *result = findPlacement(shelves, totalShelves, (int *)placements, books, totalBooks);
-
-    if(result) {
-
-        for(int i = 0; i < totalBooks; i++) {
-
-            printf("%d ", result[i]);
-        }
-
-        printf("\n");
-    }
-    else {
-
-        printf("No Result.");
-    }
+    showResult(result, shelves, books, totalShelves, totalBooks);
 
     free(shelves);
     freeBooks(books, totalBooks);
