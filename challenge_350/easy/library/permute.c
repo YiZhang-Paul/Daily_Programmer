@@ -18,7 +18,7 @@ int * excludeIndex(int * numbers, int index, int length) {
     return excluded;
 }
 
-int * swapIndex(int * numbers, int index, int newValue, int length) {
+int * replaceIndex(int * numbers, int index, int newValue, int length) {
 
     int *swaped = copyRange(numbers, length);
     swaped[index] = newValue;
@@ -47,7 +47,7 @@ void startPermute(int * permutation, int * numbers, int totalNumbers, int number
     for(int i = 0; i < numbersRemain; i++) {
 
         int *otherNumbers = excludeIndex(numbers, i, numbersRemain);
-        int *newCurrent = swapIndex(current, totalNumbers - numbersRemain, numbers[i], totalNumbers);
+        int *newCurrent = replaceIndex(current, totalNumbers - numbersRemain, numbers[i], totalNumbers);
         startPermute(permutation, otherNumbers, totalNumbers, numbersRemain - 1, newCurrent, permutes);
         free(newCurrent);
     }
@@ -58,10 +58,47 @@ void startPermute(int * permutation, int * numbers, int totalNumbers, int number
     }
 }
 
+void swap(int * numbers, int index1, int index2) {
+
+    const int temporary = numbers[index1];
+    numbers[index1] = numbers[index2];
+    numbers[index2] = temporary;
+}
+
+void reverse(int * numbers, int start, int end) {
+
+    while(start < end) {
+
+        swap(numbers, start++, end--);
+    }
+}
+
 void permute(int * permutation, int * numbers, int totalNumbers) {
 
     int current[totalNumbers];
     int totalPermute = 0;
 
     startPermute(permutation, numbers, totalNumbers, totalNumbers, current, &totalPermute);
+}
+
+int * nextPermute(int * numbers, int total) {
+
+    for(int i = total - 2; i >= 0; i--) {
+
+        if(numbers[i] < numbers[i + 1]) {
+
+            for(int j = total - 1; j >= 0; j--) {
+
+                if(numbers[j] > numbers[i]) {
+
+                    swap(numbers, i, j);
+                    reverse(numbers, i + 1, total - 1);
+
+                    return numbers;
+                }
+            }
+        }
+    }
+
+    return numbers;
 }
