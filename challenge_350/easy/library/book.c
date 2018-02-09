@@ -35,4 +35,6 @@ void freeBooks(struct book * books, int total) {
 
         freeBook(&books[i]);
     }
+
+    free(books);
 }
