@@ -2,20 +2,25 @@
 #include <stdlib.h>
 #include <string.h>
 #include "headers/utility.h"
+#include "headers/book.h"
 
 int main(void) {
 
-    char **lines = readLines("input1.txt", 1, 1);
-    int shelves[countNumbers(lines[0])];
-    toNumbers(lines[0], shelves);
+    char inputFile[] = "input1.txt";
+
+    char **shelfInformation = readLines(inputFile, 1, 1);
+    int shelves[countNumbers(shelfInformation[0])];
+    toNumbers(shelfInformation[0], shelves);
     sortNumbers(shelves, sizeof(shelves) / sizeof(int));
 
-    for(int i = 0; i < sizeof(shelves) / sizeof(int); i++) {
+    const int totalBooks = countLines(inputFile) - 1;
+    char **bookInformation = readLines(inputFile, 2, totalBooks);
+    struct book books[totalBooks];
+    createBooks(bookInformation, books, totalBooks);
 
-        printf("%d\n", shelves[i]);
-    }
-
-    freeLines(lines, 1);
+    freeLines(shelfInformation, 1);
+    freeLines(bookInformation, totalBooks);
+    freeBooks(books, totalBooks);
 
     return 0;
 }

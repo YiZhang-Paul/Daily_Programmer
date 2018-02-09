@@ -3,6 +3,36 @@
 #include <string.h>
 #include "../headers/utility.h"
 
+int countLines(char * url) {
+
+    int total = 0;
+    FILE *file = fopen(url, "r");
+
+    if(file) {
+
+        int character = fgetc(file);
+
+        while(character != EOF) {
+
+            if(character == '\n') {
+
+                total++;
+            }
+
+            character = fgetc(file);
+        }
+
+        if(character != '\n' && total != 0) {
+
+            total++;
+        }
+    }
+
+    fclose(file);
+
+    return total;
+}
+
 char ** readLines(char * url, int start, int total) {
 
     char **lines = (char **)malloc(total * sizeof(char *));

@@ -3,6 +3,7 @@
 
 #define LINE_LENGTH 128
 
+int countLines(char *);
 char ** readLines(char *, int, int);
 void freeLines(char **, int);
 char * copyString(char *);

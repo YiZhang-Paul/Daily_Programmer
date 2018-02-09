@@ -8,6 +8,6 @@
         "bookshelf.h": "c"
     },
     "code-runner.executorMap": {
-        "c": "cd $workspaceRoot && gcc -g main.c library/utility.c -o main && $workspaceRoot/main"
+        "c": "cd $workspaceRoot && gcc -g main.c library/utility.c library/book.c -o main && $workspaceRoot/main"
     }
 }
