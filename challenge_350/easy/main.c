@@ -10,12 +10,13 @@ int * findPlacement(int *, int, int *, struct book *, int);
 int * getShelfWidths(char *, int *);
 struct book * getBooks(char *, int *);
 void showUnfitBooks(int *, struct book *, int, int);
+void showShelfWithBooks(int *, int *, struct book *, int);
 void showResult(int *, int *, struct book *, int, int);
 void solve(char *);
 
 int main(void) {
 
-    printf("Default Input:\n");
+    printf("Default Input:");
     solve("input1.txt");
     solve("input2.txt");
 
@@ -113,37 +114,40 @@ void showUnfitBooks(int * shelves, struct book * books, int totalShelves, int to
     }
 }
 
+void showShelfWithBooks(int * result, int * shelves, struct book * books, int totalBooks) {
+
+    int shelf = -1;
+
+    for(int i = 0, j = 1, remainWidth = -1; i < totalBooks; i++) {
+
+        if(remainWidth < books[result[i]].width) {
+
+            i--;
+            j = 1;
+            remainWidth = shelves[++shelf];
+            printf("\n\nShelf (size: %d) is used;\n\nBooks on Shelf:\n", shelves[shelf]);
+
+            continue;
+        }
+
+        printf("%d.%s", j++, books[result[i]].title);
+        remainWidth -= books[result[i]].width;
+    }
+
+    printf("\nA total of %d shelves used.\n\n", shelf + 1);
+}
+
 void showResult(int * result, int * shelves, struct book * books, int totalShelves, int totalBooks) {
 
     if(result == NULL) {
 
-        printf("Imposible.\n");
+        printf("Imposible.\n\n");
         showUnfitBooks(shelves, books, totalShelves, totalBooks);
 
         return;
     }
 
-    int shelfIndex = 0;
-
-    for(int i = 0, remainWidth = shelves[shelfIndex]; i < totalBooks; i++) {
-
-        if(remainWidth < books[result[i]].width) {
-
-            remainWidth = shelves[++shelfIndex];
-            i--;
-
-            continue;
-        }
-
-        remainWidth -= books[result[i]].width;
-    }
-
-    printf("%d shelves will be used, the sizes are: ", shelfIndex + 1);
-
-    for(int i = 0; i < shelfIndex + 1; i++) {
-
-        printf(i < shelfIndex ? "%d, " : "%d;\n", shelves[i]);
-    }
+    showShelfWithBooks(result, shelves, books, totalBooks);
 }
 
 void solve(char * url) {
