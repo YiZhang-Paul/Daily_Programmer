@@ -147,7 +147,7 @@ int compare(const void * a, const void * b) {
     int *numberA = (int *)a;
     int *numberB = (int *)b;
 
-    return *numberA - *numberB;
+    return *numberB - *numberA;
 }
 
 void sortNumbers(int * numbers, int total) {

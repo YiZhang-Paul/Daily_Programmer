@@ -60,10 +60,15 @@ int * solve(int * shelves, int totalShelves, int * placements, struct book * boo
                 continue;
             }
 
-            if(++shelfIndex == totalShelves) {
+            if(++shelfIndex < totalShelves) {
 
-                j = totalBooks;
+                remainWidth = shelves[shelfIndex];
+                j--;
+
+                continue;
             }
+
+            j = totalBooks;
         }
 
         if(shelfIndex + 1 < currentMin || currentMin == 0) {
