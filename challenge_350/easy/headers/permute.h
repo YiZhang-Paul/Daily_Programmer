@@ -8,6 +8,7 @@ static void startPermute(int *, int *, int, int, int *, int *);
 static void swap(int *, int, int);
 static void reverse(int *, int, int);
 void permute(int *, int *, int);
+int isMaxPermute(int *, int);
 int * nextPermute(int *, int);
 
 #endif

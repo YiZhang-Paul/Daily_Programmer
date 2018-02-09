@@ -7,6 +7,7 @@
 
 int * storeResult(int *, int *, int, int);
 int * findPlacement(int *, int, int *, struct book *, int);
+int * findLargePlacement(int *, int, int *, struct book *, int);
 int * getShelfWidths(char *, int *);
 struct book * getBooks(char *, int *);
 void showUnfitBooks(int *, struct book *, int, int);
@@ -19,6 +20,7 @@ int main(void) {
     printf("Default Input:");
     solve("input1.txt");
     solve("input2.txt");
+    solve("input3.txt");
 
     return 0;
 }
@@ -45,15 +47,15 @@ int * findPlacement(int * shelves, int totalShelves, int * placements, struct bo
 
     for(int i = 0, currentMin = 0; i < totalPlacements; i++) {
 
-        int shelfIndex = 0;
-        int remainWidth = shelves[shelfIndex];
+        int shelf = 0;
+        int remainWidth = shelves[shelf];
 
         for(int j = 0; j < totalBooks; j++) {
 
             if(remainWidth < books[placements[i * totalBooks + j]].width) {
 
-                const int hasMoreShelf = ++shelfIndex < totalShelves;
-                remainWidth = hasMoreShelf ? shelves[shelfIndex] : 0;
+                const int hasMoreShelf = ++shelf < totalShelves;
+                remainWidth = hasMoreShelf ? shelves[shelf] : 0;
                 j = hasMoreShelf ? j - 1 : totalBooks;
 
                 continue;
@@ -62,11 +64,48 @@ int * findPlacement(int * shelves, int totalShelves, int * placements, struct bo
             remainWidth -= books[placements[i * totalBooks + j]].width;
         }
 
-        if(shelfIndex < totalShelves && (shelfIndex + 1 < currentMin || currentMin == 0)) {
+        if(shelf < totalShelves && (shelf + 1 < currentMin || currentMin == 0)) {
 
-            currentMin = shelfIndex + 1;
+            currentMin = shelf + 1;
             result = storeResult(result, placements, i, totalBooks);
         }
+    }
+
+    return result;
+}
+
+int * findLargePlacement(int * shelves, int totalShelves, int * indexes, struct book * books, int totalBooks) {
+
+    int *result = NULL;
+    int currentMin = 0;
+    int totalTry = 0;
+
+    while(totalTry++ <= 1000000 && !isMaxPermute(indexes, totalBooks)) {
+
+        int shelf = 0;
+        int remainWidth = shelves[shelf];
+
+        for(int i = 0; i < totalBooks; i++) {
+
+            if(remainWidth < books[indexes[i]].width) {
+
+                const int hasMoreShelf = ++shelf < totalShelves;
+                remainWidth = hasMoreShelf ? shelves[shelf] : 0;
+                i = hasMoreShelf ? i - 1 : totalBooks;
+
+                continue;
+            }
+
+            remainWidth -= books[indexes[i]].width;
+        }
+
+        if(shelf < totalShelves && (shelf + 1 < currentMin || currentMin == 0)) {
+
+            currentMin = shelf + 1;
+            result = storeResult(result, indexes, 0, totalBooks);
+        }
+
+        nextPermute(indexes, totalBooks);
     }
 
     return result;
@@ -99,7 +138,7 @@ struct book * getBooks(char * url, int * outputLength) {
 
 void showUnfitBooks(int * shelves, struct book * books, int totalShelves, int totalBooks) {
 
-    printf("Book(s) that don't fit: \n");
+    printf("Book(s) that don't fit:\n");
 
     for(int i = 0, total = 1; i < totalBooks; i++) {
 
@@ -134,14 +173,14 @@ void showShelfWithBooks(int * result, int * shelves, struct book * books, int to
         remainWidth -= books[result[i]].width;
     }
 
-    printf("\nA total of %d shelves used.\n\n", shelf + 1);
+    printf("\nA total of %d shelves used.\n", shelf + 1);
 }
 
 void showResult(int * result, int * shelves, struct book * books, int totalShelves, int totalBooks) {
 
     if(result == NULL) {
 
-        printf("Imposible.\n\n");
+        printf("\nImposible.\n\n");
         showUnfitBooks(shelves, books, totalShelves, totalBooks);
 
         return;
@@ -159,10 +198,19 @@ void solve(char * url) {
     struct book *books = getBooks(url, &totalBooks);
 
     int *range = getRange(0, totalBooks);
-    int placements[factorial(totalBooks)][totalBooks];
-    permute((int *)placements, range, totalBooks);
+    int *result;
 
-    int *result = findPlacement(shelves, totalShelves, (int *)placements, books, totalBooks);
+    if(totalBooks <= 7) {
+
+        int placements[factorial(totalBooks)][totalBooks];
+        permute((int *)placements, range, totalBooks);
+        result = findPlacement(shelves, totalShelves, (int *)placements, books, totalBooks);
+    }
+    else {
+
+        result = findLargePlacement(shelves, totalShelves, range, books, totalBooks);
+    }
+
     showResult(result, shelves, books, totalShelves, totalBooks);
 
     free(shelves);

@@ -81,6 +81,19 @@ void permute(int * permutation, int * numbers, int totalNumbers) {
     startPermute(permutation, numbers, totalNumbers, totalNumbers, current, &totalPermute);
 }
 
+int isMaxPermute(int * numbers, int total) {
+
+    for(int i = total - 2; i >= 0; i--) {
+
+        if(numbers[i] < numbers[i + 1]) {
+
+            return 0;
+        }
+    }
+
+    return 1;
+}
+
 int * nextPermute(int * numbers, int total) {
 
     for(int i = total - 2; i >= 0; i--) {
