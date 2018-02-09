@@ -13,7 +13,66 @@ void sortShelves(struct bookshelf *, int);
 void freeShelves(struct bookshelf *, int);
 void freeBooks(struct book *, int);
 
+int factorial(int number) {
+
+    if(number == 1) {
+
+        return number;
+    }
+
+    return number * factorial(number - 1);
+}
+
+void swap(char * digits, int index1, int index2) {
+
+    char temp = digits[index1];
+    digits[index1] = digits[index2];
+    digits[index2] = temp;
+}
+
+char * makeCopy(char * input) {
+
+    char *copy = (char *)malloc(strlen(input));
+    strcpy(copy, input);
+
+    return copy;
+}
+
+char ** permute(char * digits, int total) {
+
+    char ** permutations = (char **)malloc(total * sizeof(char *));
+    int totalDigits = strlen(digits);
+
+    for(int i = 0, count = 0; i < totalDigits; i++) {
+
+        char *copy = makeCopy(digits);
+        swap(copy, 0, i);
+
+        for(int j = 0; j < totalDigits - 1; j++) {
+
+            for(int k = 1; k < totalDigits - 1; k++) {
+
+                swap(copy, k, k + 1);
+                permutations[count++] = makeCopy(copy);
+            }
+        }
+
+        free(copy);
+    }
+
+    return permutations;
+}
+
 int main(void) {
+
+    char digits[] = "ABC";
+    const int length = factorial(strlen(digits));
+    char **permutations = permute(digits, length);
+
+    for(int i = 0; i < length; i++) {
+
+        printf("%s\n", permutations[i]);
+    }
 
     struct bookshelf * shelves;
     struct book * books;
