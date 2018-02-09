@@ -79,6 +79,35 @@ char * copyString(char * input) {
     return strcpy(copy, input);
 }
 
+int factorial(int number) {
+
+    if(number == 1) {
+
+        return number;
+    }
+
+    return number * factorial(number - 1);
+}
+
+int * getRange(int start, int total) {
+
+    int *range = (int *)malloc(total * sizeof(int));
+
+    for(int i = 0; i < total; i++) {
+
+        range[i] = start + i;
+    }
+
+    return range;
+}
+
+int * copyRange(int * range, int total) {
+
+    int * copy = (int *)malloc(total * sizeof(int));
+
+    return memcpy(copy, range, total * sizeof(int));
+}
+
 int countNumbers(char * input) {
 
     int total = 0;

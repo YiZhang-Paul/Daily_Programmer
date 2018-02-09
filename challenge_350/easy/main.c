@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "headers/utility.h"
+#include "headers/permute.h"
 #include "headers/book.h"
 
 int main(void) {
@@ -18,9 +19,24 @@ int main(void) {
     struct book books[totalBooks];
     createBooks(bookInformation, books, totalBooks);
 
+    int *range = getRange(0, totalBooks);
+    int permutation[factorial(totalBooks)][totalBooks];
+    permute((int *)permutation, range, totalBooks);
+
+    for(int i = 0; i < factorial(totalBooks); i++) {
+
+        for(int j = 0; j < totalBooks; j++) {
+
+            printf("%d ", permutation[i][j]);
+        }
+
+        printf("\n");
+    }
+
     freeLines(shelfInformation, 1);
     freeLines(bookInformation, totalBooks);
     freeBooks(books, totalBooks);
+    free(range);
 
     return 0;
 }
