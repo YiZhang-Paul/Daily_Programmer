@@ -103,7 +103,7 @@ int * getRange(int start, int total) {
 
 int * copyRange(int * range, int total) {
 
-    int * copy = (int *)malloc(total * sizeof(int));
+    int *copy = (int *)malloc(total * sizeof(int));
 
     return memcpy(copy, range, total * sizeof(int));
 }
