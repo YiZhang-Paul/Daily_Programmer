@@ -1,28 +1,53 @@
 class RPNParser {
 
-    private hasNested(expression: string): boolean {
+    private canExpand(input: string): boolean {
 
-        return /\([^\(\)]+\)/.test(expression);
+        return /\([^\(\)]+\)/.test(input);
     }
 
-    private expandNested(nested: string): string {
+    private removeBrackets(input: string): string {
 
-        console.log(nested);
+        return input.replace(/[\[\]\(\)]/g, "");
     }
 
-    public parse(expression: string): string {
+    private expand(toExpand: string): string {
 
-        while(this.hasNested(expression)) {
+        let items = toExpand.match(/\[[^\[\]]+\]|[^\[\]\(\)\s]/g);
+        let expanded = "";
 
-            const nested = expression.match(/\([^\(\)]+\)/)[0];
-            expression = expression.replace(nested, this.expandNested(nested));
-            console.log(expression);
-            break;
+        for(let i = 0; i < items.length; i++) {
+
+            if(/[a-zA-Z]|!/.test(items[i])) {
+
+                expanded += items[i];
+
+                continue;
+            }
+
+            expanded += items[i + 1] + items[i++];
         }
 
-        return expression;
+        return `[${this.removeBrackets(expanded)}]`;
+    }
+
+    public parse(input: string): string {
+
+        while(this.canExpand(input)) {
+
+            const toExpand = input.match(/\([^\(\)]+\)/)[0];
+            input = input.replace(toExpand, this.expand(toExpand));
+        }
+
+        return this.removeBrackets(input);
     }
 }
 
+//challenge input
+console.log(`%cChallenge Input:`, "color : red;");
 let parser = new RPNParser();
-parser.parse("(a+(b*c))");
+let inputs = ["(a+(b*c))", "((a+b)*(z+x))", "((a+t)*((b+(a+c)) ^ (c+d)))"];
+
+inputs.forEach(input => {
+
+    console.log(`%c${input} -> %c${parser.parse(input)}`, "color : yellow;", "color : violet;");
+});
