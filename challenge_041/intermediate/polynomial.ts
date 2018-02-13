@@ -17,7 +17,7 @@ export default class Polynomial {
 
         }, "");
 
-        return result.slice(1).replace("+-", " - ").replace("+", " + ");
+        return result.slice(1).replace(/\+\-/g, " - ").replace(/\+/g, " + ");
     }
 
     private sortTerms(terms: Term[]): Term[] {
