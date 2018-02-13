@@ -32,4 +32,44 @@ export default class Expression {
 
         return `${coefficient}${this.term}^${this.power}`;
     }
+
+    private isSameTerm(other: Expression): boolean {
+
+        return this.term === other.term;
+    }
+
+    private isSamePower(other: Expression): boolean {
+
+        return this.power === other.power;
+    }
+
+    private canAdd(other: Expression): boolean {
+
+        return this.isSameTerm(other) && this.isSamePower(other);
+    }
+
+    public add(other: Expression): Expression {
+
+        if(!this.canAdd(other)) {
+
+            throw "Cannot Add Expressions with Different Terms/Powers.";
+        }
+
+        return new Expression(
+
+            this.coefficient + other.coefficient,
+            this.term,
+            this.power
+        );
+    }
+
+    public multiply(other: Expression): Expression {
+
+        return new Expression(
+
+            this.coefficient * other.coefficient,
+            this.term,
+            this.power + other.power,
+        );
+    }
 }
