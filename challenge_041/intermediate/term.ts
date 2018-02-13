@@ -29,8 +29,9 @@ export default class Term {
     get format(): string {
 
         const coefficient = this.coefficient === 1 ? "" : String(this.coefficient);
+        const power = this.power === 1 ? "" : `^${this.power}`;
 
-        return `${coefficient}${this.variable}^${this.power}`;
+        return `${coefficient}${this.variable}${power}`;
     }
 
     private isSameVariable(other: Term): boolean {

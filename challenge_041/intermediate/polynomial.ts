@@ -9,6 +9,11 @@ export default class Polynomial {
         this._terms = this.sortTerms(terms);
     }
 
+    get terms(): Term[] {
+
+        return this._terms;
+    }
+
     get format(): string {
 
         let result = this._terms.reduce((result, term) => {
@@ -23,5 +28,20 @@ export default class Polynomial {
     private sortTerms(terms: Term[]): Term[] {
 
         return terms.sort((a, b) => a.power - b.power);
+    }
+
+    public multiply(other: Polynomial): Polynomial {
+
+        let terms: Term[] = [];
+
+        this.terms.forEach(term => {
+
+            other.terms.forEach(otherTerm => {
+
+                terms.push(term.multiply(otherTerm));
+            });
+        });
+
+        return new Polynomial(terms);
     }
 }
