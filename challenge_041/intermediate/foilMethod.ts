@@ -1,12 +1,31 @@
 import Term from "term.js";
 import Polynomial from "polynomial.js";
 
-let terms1 = [new Term(-1, "x", 7), new Term(-6, "x", 2), new Term(-9, "x", 4)];
-let polynomial1 = new Polynomial(terms1);
-console.log(polynomial1.format);
+function parseTerm(expression: string): Term {
 
-let terms2 = [new Term(5, "x", 1), new Term(-7, "x", 3)];
-let polynomial2 = new Polynomial(terms2);
-console.log(polynomial2.format);
+    const coefficient = /^\d/.test(expression) ? Number.parseInt(expression.match(/^\d+/)[0]) : 1;
+    const variable = /[a-zA-Z]/.test(expression) ? expression.match(/[a-zA-Z]/)[0] : "";
+    const degree = /\^/.test(expression) ? Number.parseInt(expression.match(/\d+$/)[0]) : (/[a-zA-Z]/.test(expression) ? 1 : 0);
 
-console.log(polynomial1.multiply(polynomial2).format);
+    return new Term(coefficient, variable, degree);
+}
+
+function parsePolynomial(expression: string): Polynomial {
+
+    let terms = expression.replace(/\s/g, "").match(/-?\d*[a-zA-Z]+(\^\d+)?|-?\d+/g);
+
+    return new Polynomial(terms.map(term => parseTerm(term)));
+}
+
+function reduceFormula(formula: string): string {
+
+    return formula.match(/\([^\(\)]+\)/g)
+                  .map(expression => parsePolynomial(expression))
+                  .reduce((result, polynomial) => result.multiply(polynomial))
+                  .format;
+}
+
+//challenge input
+console.log(`%cChallenge Input:`, "color : red;");
+console.log(reduceFormula("(2x + 6)(7x + 3)"));
+console.log(reduceFormula("(2x^2 + 3x)(5x^2 + 9x)"));

@@ -27,7 +27,7 @@ export default class Polynomial {
 
     private sortTerms(terms: Term[]): Term[] {
 
-        return terms.sort((a, b) => a.power - b.power);
+        return terms.sort((a, b) => b.degree - a.degree);
     }
 
     private groupTerms(terms: Term[]): Map<number, Term[]> {
@@ -36,12 +36,12 @@ export default class Polynomial {
 
         terms.forEach(term => {
 
-            if(!groups.has(term.power)) {
+            if(!groups.has(term.degree)) {
 
-                groups.set(term.power, new Array<Term>());
+                groups.set(term.degree, new Array<Term>());
             }
 
-            groups.get(term.power).push(term);
+            groups.get(term.degree).push(term);
         });
 
         return groups;

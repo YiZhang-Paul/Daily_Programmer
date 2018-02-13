@@ -2,13 +2,13 @@ export default class Term {
 
     private _coefficient: number;
     private _variable: string;
-    private _power: number;
+    private _degree: number;
 
-    constructor(coefficient: number, variable: string, power: number) {
+    constructor(coefficient: number, variable: string, degree: number) {
 
         this._coefficient = coefficient;
         this._variable = variable.toLowerCase();
-        this._power = power;
+        this._degree = degree;
     }
 
     get coefficient(): number {
@@ -21,17 +21,17 @@ export default class Term {
         return this._variable;
     }
 
-    get power(): number {
+    get degree(): number {
 
-        return this._power;
+        return this._degree;
     }
 
     get format(): string {
 
         const coefficient = this.coefficient === 1 ? "" : String(this.coefficient);
-        const power = this.power === 1 ? "" : `^${this.power}`;
+        const degree = this.degree <= 1 ? "" : `^${this.degree}`;
 
-        return `${coefficient}${this.variable}${power}`;
+        return `${coefficient}${this.variable}${degree}`;
     }
 
     private isSameVariable(other: Term): boolean {
@@ -39,28 +39,28 @@ export default class Term {
         return this.variable === other.variable;
     }
 
-    private isSamePower(other: Term): boolean {
+    private isSameDegree(other: Term): boolean {
 
-        return this.power === other.power;
+        return this.degree === other.degree;
     }
 
     private canAdd(other: Term): boolean {
 
-        return this.isSameVariable(other) && this.isSamePower(other);
+        return this.isSameVariable(other) && this.isSameDegree(other);
     }
 
     public add(other: Term): Term {
 
         if(!this.canAdd(other)) {
 
-            throw "Cannot Add Expressions with Different Variables/Powers.";
+            throw "Cannot Add Expressions with Different Variables/Degrees.";
         }
 
         return new Term(
 
             this.coefficient + other.coefficient,
             this.variable,
-            this.power
+            this.degree
         );
     }
 
@@ -69,8 +69,8 @@ export default class Term {
         return new Term(
 
             this.coefficient * other.coefficient,
-            this.variable,
-            this.power + other.power,
+            this.variable ? this.variable : other.variable,
+            this.degree + other.degree,
         );
     }
 }
