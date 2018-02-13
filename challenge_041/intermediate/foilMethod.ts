@@ -1,5 +1,6 @@
 import Term from "term.js";
+import Polynomial from "polynomial.js";
 
-let term1 = new Term(5, "x", 2);
-let term2 = new Term(-2, "x", 5);
-console.log(term1.multiply(term2).format);
+let terms = [new Term(-1, "x", 7), new Term(-6, "x", 2)];
+let polynomial = new Polynomial(terms);
+console.log(polynomial.format);
