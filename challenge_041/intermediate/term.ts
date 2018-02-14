@@ -26,7 +26,7 @@ export default class Term {
         return this._degree;
     }
 
-    get format(): string {
+    get expression(): string {
 
         const coefficient = this.coefficient === 1 ? "" : String(this.coefficient);
         const degree = this.degree <= 1 ? "" : `^${this.degree}`;
@@ -70,7 +70,7 @@ export default class Term {
 
             this.coefficient * other.coefficient,
             this.variable ? this.variable : other.variable,
-            this.degree + other.degree,
+            this.degree + other.degree
         );
     }
 }

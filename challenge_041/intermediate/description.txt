@@ -1,5 +1,7 @@
 #41[Intermediate] FOIL Method
 
+All Done
+
 url: https://www.reddit.com/r/dailyprogrammer/comments/shpiq/4192012_challenge_41_intermediate/
 
 Write a program that will use the FOIL method to solve multiplying binomials. Your program will accept a binomial algebraic formula as input and you will parse the data, use the FOIL method to reduce the formula, and print out the solution. You decide how you want to represent exponents (could use caret, or just write out the value after the variable).

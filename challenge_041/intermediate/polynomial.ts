@@ -14,15 +14,15 @@ export default class Polynomial {
         return this._terms;
     }
 
-    get format(): string {
+    get expression(): string {
 
-        let result = this._terms.reduce((result, term) => {
+        let result = this._terms.reduce((final, term) => {
 
-            return `${result}+${term.format}`;
+            return `${final}+${term.expression}`;
 
         }, "");
 
-        return result.slice(1).replace(/\+\-/g, " - ").replace(/\+/g, " + ");
+        return result.slice(1).replace(/\+-/g, " - ").replace(/\+/g, " + ");
     }
 
     private sortTerms(terms: Term[]): Term[] {
@@ -47,21 +47,19 @@ export default class Polynomial {
         return groups;
     }
 
-    private addTerms(terms: Term[]): Term {
-
-        if(terms.length === 1) {
-
-            return terms[0];
-        }
-
-        return terms.reduce((result, term) => result.add(term));
-    }
-
     private reduceTerms(terms: Term[]): Term[] {
 
         let groups = Array.from(this.groupTerms(terms));
 
-        return groups.map(group => this.addTerms(group[1]));
+        return groups.map(group => {
+
+            if(group[1].length === 1) {
+
+                return group[1][0];
+            }
+
+            return group[1].reduce((result, term) => result.add(term));
+        });
     }
 
     public multiply(other: Polynomial): Polynomial {
