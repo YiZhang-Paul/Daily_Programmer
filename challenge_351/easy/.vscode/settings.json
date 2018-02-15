@@ -3,7 +3,8 @@
         "stdlib.h": "c",
         "stdio.h": "c",
         "string.h": "c",
-        "ctype.h": "c"
+        "ctype.h": "c",
+        "math.h": "c"
     },
     "code-runner.executorMap": {
         "c": "cd $workspaceRoot && gcc -g main.c -o main && $workspaceRoot/main"

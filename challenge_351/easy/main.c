@@ -15,26 +15,30 @@ struct player {
 struct team {
 
     struct player members[TEAM_SIZE];
-    int playerLeft;
+    int membersRemain;
 };
 
 struct player createPlayer(int);
 struct team createTeam(void);
-int isLegal(char);
-void switchTeam(struct team **, struct team **);
+int toDigit(char);
 void addScore(struct team *, int);
-struct player ** processScore(char *, struct team *, struct team *, int *);
-void showScore(struct player **, int);
+int isLegal(char);
+int needTeamSwitch(char);
+void switchTeam(struct team **, struct team **);
+struct player ** trackActivePlayer(char *, struct team *, struct team *, int *);
+int isExtra(char);
+int countExtra(char *);
+void showScore(char *);
 
 int main(void) {
 
-    struct team team1 = createTeam();
-    struct team team2 = createTeam();
-    int totalParticipants = 0;
-    struct player ** participants = processScore("1.2wW6.2b34", &team1, &team2, &totalParticipants);
-    showScore(participants, totalParticipants);
+    char *inputs[] = { "1.2wW6.2b34", "WWWWWWWWWW", "1..24.w6" };
 
-    free(participants);
+    for(int i = 0; i < 3; i++) {
+
+        showScore(inputs[i]);
+        printf("\n");
+    }
 
     return 0;
 }
@@ -58,14 +62,39 @@ struct team createTeam(void) {
         team.members[i] = createPlayer(i + 1);
     }
 
-    team.playerLeft = TEAM_SIZE;
+    team.membersRemain = TEAM_SIZE;
 
     return team;
+}
+
+int toDigit(char character) {
+
+    return character - '0';
+}
+
+void addScore(struct team * team, int score) {
+
+    team->members[TEAM_SIZE - team->membersRemain].score += score;
 }
 
 int isLegal(char score) {
 
     return score != 'w';
+}
+
+int needTeamSwitch(char score) {
+
+    if(score == 'b') {
+
+        return 1;
+    }
+
+    if(isdigit(score) && toDigit(score) % 2 == 1) {
+
+        return 1;
+    }
+
+    return 0;
 }
 
 void switchTeam(struct team ** team1, struct team ** team2) {
@@ -75,64 +104,73 @@ void switchTeam(struct team ** team1, struct team ** team2) {
     *team2 = temporary;
 }
 
-void addScore(struct team * team, int score) {
-
-    team->members[TEAM_SIZE - team->playerLeft].score += score;
-}
-
-struct player ** processScore(char * score, struct team * team1, struct team * team2, int * totalParticipants) {
+struct player ** trackActivePlayer(char * score, struct team * team1, struct team * team2, int * total) {
 
     struct team *strike = team1;
     struct team *defend = team2;
-    struct player **participants = (struct player **)malloc(TEAM_SIZE * 2 * sizeof(struct player *));
-    participants[0] = &strike->members[0];
-    participants[1] = &defend->members[0];
-    *totalParticipants = 2;
+    struct player **active = (struct player **)malloc(2 * TEAM_SIZE * sizeof(struct player *));
+    active[(*total)++] = &strike->members[0];
+    active[(*total)++] = &defend->members[0];
 
     for(int i = 0, legalBalls = 0; i < strlen(score); i++) {
 
         if(isdigit(score[i])) {
 
-            addScore(strike, score[i] - '0');
-
-            if((score[i] - '0') % 2 == 1) {
-
-                switchTeam(&strike, &defend);
-            }
+            addScore(strike, toDigit(score[i]));
         }
-        else if(isalpha(score[i]) && isLegal(score[i])) {
+        else if(score[i] == 'W') {
 
-            if(score[i] == 'b') {
+            if(--strike->membersRemain == 0) {
 
-                switchTeam(&strike, &defend);
+                break;
             }
-            else {
 
-                if(--strike->playerLeft == 0) {
-
-                    break;
-                }
-
-                participants[(*totalParticipants)++] = &strike->members[TEAM_SIZE - strike->playerLeft];
-            }
+            active[(*total)++] = &strike->members[TEAM_SIZE - strike->membersRemain];
         }
 
         legalBalls += isLegal(score[i]) ? 1 : 0;
 
-        if(legalBalls == 6) {
+        if(legalBalls == 6 || needTeamSwitch(score[i])) {
 
-            legalBalls = 0;
             switchTeam(&strike, &defend);
         }
+
+        legalBalls = legalBalls == 6 ? 0 : legalBalls;
     }
 
-    return participants;
+    return active;
 }
 
-void showScore(struct player ** participants, int totalParticipants) {
+int isExtra(char score) {
 
-    for(int i = 0; i < totalParticipants; i++) {
+    return score == 'b' || score == 'w';
+}
 
-        printf("P%d: %d\n", i + 1, participants[i]->score);
+int countExtra(char * score) {
+
+    int extra = 0;
+
+    for(int i = 0; i < strlen(score); i++) {
+
+        extra += isExtra(score[i]) ? 1 : 0;
     }
+
+    return extra;
+}
+
+void showScore(char * score) {
+
+    int total = 0;
+    struct team team1 = createTeam();
+    struct team team2 = createTeam();
+    struct player **activePlayer = trackActivePlayer(score, &team1, &team2, &total);
+
+    for(int i = 0; i < total; i++) {
+
+        printf("P%d: %d\n", i + 1, activePlayer[i]->score);
+    }
+
+    printf("Extras: %d\n", countExtra(score));
+
+    free(activePlayer);
 }
