@@ -38,7 +38,16 @@ class IndexTracker {
 
     get items(): string {
 
-        return this._items.slice().sort((a, b) => a.index - b.index).reduce((result, current) => result + current.content, "");
+        let items = this._items.slice().sort((a, b) => {
+
+            return a.index - b.index;
+        });
+
+        return items.reduce((result, current) => {
+
+            return result + current.content;
+
+        }, "");
     }
 
     private getItems(items: string): Item[] {
