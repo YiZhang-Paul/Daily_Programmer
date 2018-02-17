@@ -36,6 +36,11 @@ class IndexTracker {
         this.setTracker(this._items);
     }
 
+    get items(): string {
+
+        return this._items.slice().sort((a, b) => a.index - b.index).reduce((result, current) => result + current.content, "");
+    }
+
     private getItems(items: string): Item[] {
 
         let itemList: Item[] = [];
@@ -97,31 +102,35 @@ class IndexTracker {
         this.changeIndex(item2, index1);
     }
 
+    private swapPartner(index1: number, index2: number): void {
+
+        this.exchange(this._items[index1].index, this._items[index2].index);
+    }
+
     public processMove(move: string): void {
 
-        switch(move[0]) {
+        if(move[0] === "s") {
 
-            case "s" :
+            this.spin(Number.parseInt(move[1]));
 
-                this.spin(Number.parseInt(move[1]));
-
-                break;
-
-            case "x" :
-
-                let indexes = this.parseNumbers(move);
-                this.exchange(indexes[0], indexes[1]);
-
-                break;
-
-            case "p" :
-
-                break;
+            return;
         }
+
+        let indexes = this.parseNumbers(move);
+
+        if(move[0] === "x") {
+
+            this.exchange(indexes[0], indexes[1]);
+
+            return;
+        }
+
+        this.swapPartner(indexes[0], indexes[1]);
     }
 }
 
 let tracker = new IndexTracker("abcde");
-tracker.processMove("s2");
+tracker.processMove("s1");
 tracker.processMove("x3/4");
-console.log(tracker);
+tracker.processMove("p4/1");
+console.log(tracker.items);
