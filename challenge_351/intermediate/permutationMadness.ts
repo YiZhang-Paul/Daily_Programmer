@@ -33,7 +33,7 @@ class IndexTracker {
     constructor(items: string) {
 
         this._items = this.getItems(items);
-        this._tracker = this.getTracker(this._items);
+        this.setTracker(this._items);
     }
 
     private getItems(items: string): Item[] {
@@ -48,16 +48,18 @@ class IndexTracker {
         return itemList;
     }
 
-    private getTracker(items: Item[]): Map<Item, number> {
+    private setTracker(items: Item[]): void {
 
-        let tracker = new Map<Item, number>();
+        if(this._tracker === undefined) {
+
+            this._tracker = new Map<Item, number>();
+        }
 
         for(let i = 0; i < items.length; i++) {
 
-            tracker.set(items[i], i);
+            items[i].index = i;
+            this._tracker.set(items[i], i);
         }
-
-        return tracker;
     }
 
     private spin(total: number): void {
@@ -69,13 +71,11 @@ class IndexTracker {
             items[item.index] = item;
         });
 
-        items = [...items.slice(-total), ...items.slice(0, items.length - total)];
+        this.setTracker([
 
-        for(let i = 0; i < items.length; i++) {
-
-            items[i].index = i;
-            this._tracker.set(items[i], i);
-        }
+            ...items.slice(-total),
+            ...items.slice(0, items.length - total)
+        ]);
     }
 
     public processMove(move: string): void {
