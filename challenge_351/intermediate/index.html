@@ -15,6 +15,22 @@
 </head>
 <body>
 	<header><h1>Challenge &#35;351[Intermediate] Permutation Madness</h1></header>
-	<script src="permutationMadness.js"></script>
+	<script src="node_modules/systemjs/dist/system.js"></script>
+	<script>
+
+		System.config({
+
+			packages : {
+
+				"" : {
+
+					defaultExtension : "js"
+				}
+			}
+		});
+
+		System.import("permutationMadness");
+
+	</script>
 </body>
 </html>
