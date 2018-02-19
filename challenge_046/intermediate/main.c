@@ -7,16 +7,17 @@
 int * getRange(int, int);
 int pickNumber(int, int);
 int isSorted(int *, int);
+int findIndex(int *, int, int);
 void removeIndex(int *, int, int);
 void removeItem(int *, int, int);
 int removeRandom(int *, int);
 int randomInsert(void);
 double getChance(int);
 int fill(int, int *, int);
-int hasOtherNumber(int *, int);
-int findLargerIndex(int, int *, int);
-int findSmallerIndex(int, int *, int);
-int getMatchingIndex(int *, int, int, int);
+int getInsertIndexToLeft(int *, int);
+int getInsertIndexToRight(int *, int, int);
+int getInsertIndexToLeft(int *, int);
+int getInsertIndexToRight(int *, int, int);
 int getInsertIndex(int, int *, int, int *, int);
 int optimizedInsert(void);
 double getOptimizedChance(int);
@@ -25,7 +26,6 @@ int main(void) {
 
     srand(time(NULL));
 
-    //optimizedInsert();
     //printf("Win Rate: %%%0.2f\n", getChance(1000000) * 100);
     printf("Win Rate: %%%0.2f\n", getOptimizedChance(1000000) * 100);
 
@@ -62,6 +62,19 @@ int isSorted(int * numbers, int total) {
     return 1;
 }
 
+int findIndex(int * numbers, int number, int total) {
+
+    for(int i = 0; i < total; i++) {
+
+        if(numbers[i] == number) {
+
+            return i;
+        }
+    }
+
+    return -1;
+}
+
 void removeIndex(int * numbers, int index, int total) {
 
     for(int i = index; i < total - 1; i++) {
@@ -74,17 +87,12 @@ void removeIndex(int * numbers, int index, int total) {
 
 void removeItem(int * numbers, int item, int total) {
 
-    int index;
+    int index = findIndex(numbers, item, total);
 
-    for(index = 0; index < total; index++) {
+    if(index != -1) {
 
-        if(numbers[index] == item) {
-
-            break;
-        }
+        removeIndex(numbers, index, total);
     }
-
-    removeIndex(numbers, index, total);
 }
 
 int removeRandom(int * numbers, int total) {
@@ -131,29 +139,11 @@ int fill(int toFill, int * numbers, int total) {
     }
 }
 
-int hasOtherNumber(int * insertions, int totalInsert) {
+int getInsertIndexToLeft(int * insertions, int index) {
 
-    for(int i = 0; i < totalInsert; i++) {
+    for(int i = index; i >= 0; i--) {
 
-        if(insertions[i] != -1) {
-
-            return 1;
-        }
-    }
-
-    return 0;
-}
-
-int findLargerIndex(int toInsert, int * insertions, int totalInsert) {
-
-    if(!hasOtherNumber(insertions, totalInsert)) {
-
-        return toInsert;
-    }
-
-    for(int i = totalInsert - 1; i > 0; i--) {
-
-        if(insertions[i] == -1 && insertions[i - 1] != -1 && toInsert >= insertions[i - 1]) {
+        if(insertions[i] == -1) {
 
             return i;
         }
@@ -162,16 +152,11 @@ int findLargerIndex(int toInsert, int * insertions, int totalInsert) {
     return -1;
 }
 
-int findSmallerIndex(int toInsert, int * insertions, int totalInsert) {
+int getInsertIndexToRight(int * insertions, int totalInsert, int index) {
 
-    if(!hasOtherNumber(insertions, totalInsert)) {
+    for(int i = index; i < totalInsert; i++) {
 
-        return toInsert;
-    }
-
-    for(int i = 0; i < totalInsert - 1; i++) {
-
-        if(insertions[i] == -1 && toInsert <= insertions[i + 1]) {
+        if(insertions[i] == -1) {
 
             return i;
         }
@@ -180,41 +165,52 @@ int findSmallerIndex(int toInsert, int * insertions, int totalInsert) {
     return -1;
 }
 
-int getMatchingIndex(int * indexes, int totalIndex, int start, int end) {
+int countEmptyOnLeft(int * insertions, int index) {
 
-    for(int i = 0; i < totalIndex; i++) {
+    int empty = 0;
 
-        if(indexes[i] >= start && indexes[i] <= end) {
+    for(int i = 0; i < index; i++) {
 
-            return indexes[i];
-        }
+        empty += insertions[i] == -1 ? 1 : 0;
     }
 
-    return -1;
+    return empty;
+}
+
+int countEmptyOnRight(int * insertions, int totalInsert, int index) {
+
+    int empty = 0;
+
+    for(int i = index + 1; i < totalInsert; i++) {
+
+        empty += insertions[i] == -1 ? 1 : 0;
+    }
+
+    return empty;
 }
 
 int getInsertIndex(int toInsert, int * indexes, int totalIndex, int * insertions, int totalInsert) {
 
-    const int smallerIndex = findSmallerIndex(toInsert, insertions, totalInsert);
-    const int largerIndex = findLargerIndex(toInsert, insertions, totalInsert);
+    int index = findIndex(insertions, toInsert, totalInsert);
 
-    if(smallerIndex == -1 && smallerIndex == largerIndex) {
+    if(index == -1) {
 
-        return -1;
+        return indexes[totalIndex * toInsert / (9 - 0 + 1)];
     }
 
-    if(smallerIndex != largerIndex && (smallerIndex == -1 || largerIndex == -1)) {
+    const int emptyOnLeft = countEmptyOnLeft(insertions, index);
+    const int emptyOnRight = countEmptyOnRight(insertions, totalInsert, index);
 
-        if(smallerIndex == -1) {
+    if(emptyOnLeft == emptyOnRight) {
 
-            return getMatchingIndex(indexes, totalIndex, largerIndex, totalInsert - 1);
-        }
-
-        return getMatchingIndex(indexes, totalIndex, 0, smallerIndex);
+        return toInsert < 5 ?
+            getInsertIndexToLeft(insertions, index) :
+            getInsertIndexToRight(insertions, totalInsert, index);
     }
 
-    return smallerIndex >= largerIndex ?
-        getMatchingIndex(indexes, totalIndex, smallerIndex, largerIndex) : -1;
+    return emptyOnLeft > emptyOnRight ?
+        getInsertIndexToLeft(insertions, index) :
+        getInsertIndexToRight(insertions, totalInsert, index);
 }
 
 int optimizedInsert(void) {
