@@ -13,7 +13,9 @@ int removeRandom(int *, int);
 int randomInsert(void);
 double getChance(int);
 int fill(int, int *, int);
+int hasOtherNumber(int *, int);
 int findLargerIndex(int, int *, int);
+int findSmallerIndex(int, int *, int);
 int getInsertIndex(int, int *, int, int *, int);
 int optimizedInsert(void);
 double getOptimizedChance(int);
@@ -22,8 +24,8 @@ int main(void) {
 
     srand(time(NULL));
 
-    int test[5] = { -1, -1, -1, -1, 1 };
-    printf("%d", findLargerIndex(2, test, 5));
+    int test[5] = { 1, -1, -1, -1, -1 };
+    printf("%d", findSmallerIndex(2, test, 5));
 
     //printf("Win Rate: %%%0.2f\n", getChance(1000000) * 100);
 
@@ -114,6 +116,19 @@ int fill(int toFill, int * numbers, int total) {
     }
 }
 
+int hasOtherNumber(int * insertions, int totalInsert) {
+
+    for(int i = 0; i < totalInsert; i++) {
+
+        if(insertions[i] != -1) {
+
+            return 1;
+        }
+    }
+
+    return 0;
+}
+
 int findLargerIndex(int toInsert, int * insertions, int totalInsert) {
 
     int currentMax = -1;
@@ -129,6 +144,24 @@ int findLargerIndex(int toInsert, int * insertions, int totalInsert) {
     }
 
     return currentMax == -1 ? 0 : -1;
+}
+
+int findSmallerIndex(int toInsert, int * insertions, int totalInsert) {
+
+    if(!hasOtherNumber(insertions, totalInsert)) {
+
+        return toInsert;
+    }
+
+    for(int i = 0; i < totalInsert - 1; i++) {
+
+        if(insertions[i] == -1 && toInsert < insertions[i + 1]) {
+
+            return i;
+        }
+    }
+
+    return -1;
 }
 
 int getInsertIndex(int toInsert, int * indexes, int totalIndex, int * insertions, int totalInsert) {
