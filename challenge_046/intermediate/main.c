@@ -2,12 +2,12 @@
 #include <stdlib.h>
 #include <time.h>
 
-#define Max(a, b) ((a) > (b) ? (a) : (b))
 #define BLOCKS 8
 
 int * getRange(int, int);
 int pickNumber(int, int);
 int isSorted(int *, int);
+void removeIndex(int *, int, int);
 void removeItem(int *, int, int);
 int removeRandom(int *, int);
 int randomInsert(void);
@@ -25,7 +25,9 @@ int main(void) {
 
     srand(time(NULL));
 
+    //optimizedInsert();
     //printf("Win Rate: %%%0.2f\n", getChance(1000000) * 100);
+    printf("Win Rate: %%%0.2f\n", getOptimizedChance(1000000) * 100);
 
     return 0;
 }
@@ -60,7 +62,7 @@ int isSorted(int * numbers, int total) {
     return 1;
 }
 
-void removeItem(int * numbers, int index, int total) {
+void removeIndex(int * numbers, int index, int total) {
 
     for(int i = index; i < total - 1; i++) {
 
@@ -70,11 +72,26 @@ void removeItem(int * numbers, int index, int total) {
     }
 }
 
+void removeItem(int * numbers, int item, int total) {
+
+    int index;
+
+    for(index = 0; index < total; index++) {
+
+        if(numbers[index] == item) {
+
+            break;
+        }
+    }
+
+    removeIndex(numbers, index, total);
+}
+
 int removeRandom(int * numbers, int total) {
 
     const int index = pickNumber(0, total - 1);
     const int removed = numbers[index];
-    removeItem(numbers, index, total);
+    removeIndex(numbers, index, total);
 
     return removed;
 }
@@ -136,7 +153,7 @@ int findLargerIndex(int toInsert, int * insertions, int totalInsert) {
 
     for(int i = totalInsert - 1; i > 0; i--) {
 
-        if(insertions[i] == -1 && insertions[i - 1] != -1 && toInsert > insertions[i - 1]) {
+        if(insertions[i] == -1 && insertions[i - 1] != -1 && toInsert >= insertions[i - 1]) {
 
             return i;
         }
@@ -154,7 +171,7 @@ int findSmallerIndex(int toInsert, int * insertions, int totalInsert) {
 
     for(int i = 0; i < totalInsert - 1; i++) {
 
-        if(insertions[i] == -1 && toInsert < insertions[i + 1]) {
+        if(insertions[i] == -1 && toInsert <= insertions[i + 1]) {
 
             return i;
         }
@@ -210,6 +227,7 @@ int optimizedInsert(void) {
 
         const int digit = pickNumber(0, 9);
         const int index = getInsertIndex(digit, indexes, BLOCKS - i, insertions, BLOCKS);
+        removeItem(indexes, index, BLOCKS - i);
 
         if(index == -1) {
 
