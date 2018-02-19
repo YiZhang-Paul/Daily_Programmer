@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <time.h>
 
+#define Max(a, b) ((a) > (b) ? (a) : (b))
 #define BLOCKS 8
 
 int * getRange(int, int);
@@ -11,12 +12,20 @@ void removeItem(int *, int, int);
 int removeRandom(int *, int);
 int randomInsert(void);
 double getChance(int);
+int fill(int, int *, int);
+int findLargerIndex(int, int *, int);
+int getInsertIndex(int, int *, int, int *, int);
+int optimizedInsert(void);
+double getOptimizedChance(int);
 
 int main(void) {
 
     srand(time(NULL));
 
-    printf("Win Rate: %%%0.2f\n", getChance(100000) * 100);
+    int test[5] = { -1, -1, -1, -1, 1 };
+    printf("%d", findLargerIndex(2, test, 5));
+
+    //printf("Win Rate: %%%0.2f\n", getChance(1000000) * 100);
 
     return 0;
 }
@@ -92,6 +101,74 @@ double getChance(int total) {
     for(int i = 0; i < total; i++) {
 
         wins += randomInsert();
+    }
+
+    return wins / (double)total;
+}
+
+int fill(int toFill, int * numbers, int total) {
+
+    for(int i = 0; i < total; i++) {
+
+        numbers[i] = toFill;
+    }
+}
+
+int findLargerIndex(int toInsert, int * insertions, int totalInsert) {
+
+    int currentMax = -1;
+
+    for(int i = 0; i < totalInsert; i++) {
+
+        currentMax = Max(currentMax, insertions[i]);
+
+        if(currentMax > -1 && insertions[i] == -1 && toInsert > currentMax) {
+
+            return i;
+        }
+    }
+
+    return currentMax == -1 ? 0 : -1;
+}
+
+int getInsertIndex(int toInsert, int * indexes, int totalIndex, int * insertions, int totalInsert) {
+
+    return -1;
+}
+
+int optimizedInsert(void) {
+
+    int *indexes = getRange(0, BLOCKS);
+    int insertions[BLOCKS];
+    fill(-1, insertions, BLOCKS);
+
+    for(int i = 0; i < BLOCKS; i++) {
+
+        const int digit = pickNumber(0, 9);
+        const int index = getInsertIndex(digit, indexes, BLOCKS - i, insertions, BLOCKS);
+
+        if(index == -1) {
+
+            free(indexes);
+
+            return 0;
+        }
+
+        insertions[index] = digit;
+    }
+
+    free(indexes);
+
+    return isSorted(insertions, BLOCKS);
+}
+
+double getOptimizedChance(int total) {
+
+    int wins = 0;
+
+    for(int i = 0; i < total; i++) {
+
+        wins += optimizedInsert();
     }
 
     return wins / (double)total;
