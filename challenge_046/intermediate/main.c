@@ -24,9 +24,6 @@ int main(void) {
 
     srand(time(NULL));
 
-    int test[5] = { 1, -1, -1, -1, -1 };
-    printf("%d", findSmallerIndex(2, test, 5));
-
     //printf("Win Rate: %%%0.2f\n", getChance(1000000) * 100);
 
     return 0;
@@ -131,19 +128,20 @@ int hasOtherNumber(int * insertions, int totalInsert) {
 
 int findLargerIndex(int toInsert, int * insertions, int totalInsert) {
 
-    int currentMax = -1;
+    if(!hasOtherNumber(insertions, totalInsert)) {
 
-    for(int i = 0; i < totalInsert; i++) {
+        return toInsert;
+    }
 
-        currentMax = Max(currentMax, insertions[i]);
+    for(int i = totalInsert - 1; i > 0; i--) {
 
-        if(currentMax > -1 && insertions[i] == -1 && toInsert > currentMax) {
+        if(insertions[i] == -1 && insertions[i - 1] != -1 && toInsert > insertions[i - 1]) {
 
             return i;
         }
     }
 
-    return currentMax == -1 ? 0 : -1;
+    return -1;
 }
 
 int findSmallerIndex(int toInsert, int * insertions, int totalInsert) {
