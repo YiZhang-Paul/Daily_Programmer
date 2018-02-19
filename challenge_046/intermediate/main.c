@@ -16,6 +16,7 @@ int fill(int, int *, int);
 int hasOtherNumber(int *, int);
 int findLargerIndex(int, int *, int);
 int findSmallerIndex(int, int *, int);
+int getMatchingIndex(int *, int, int, int);
 int getInsertIndex(int, int *, int, int *, int);
 int optimizedInsert(void);
 double getOptimizedChance(int);
@@ -162,9 +163,41 @@ int findSmallerIndex(int toInsert, int * insertions, int totalInsert) {
     return -1;
 }
 
-int getInsertIndex(int toInsert, int * indexes, int totalIndex, int * insertions, int totalInsert) {
+int getMatchingIndex(int * indexes, int totalIndex, int start, int end) {
+
+    for(int i = 0; i < totalIndex; i++) {
+
+        if(indexes[i] >= start && indexes[i] <= end) {
+
+            return indexes[i];
+        }
+    }
 
     return -1;
+}
+
+int getInsertIndex(int toInsert, int * indexes, int totalIndex, int * insertions, int totalInsert) {
+
+    const int smallerIndex = findSmallerIndex(toInsert, insertions, totalInsert);
+    const int largerIndex = findLargerIndex(toInsert, insertions, totalInsert);
+
+    if(smallerIndex == -1 && smallerIndex == largerIndex) {
+
+        return -1;
+    }
+
+    if(smallerIndex != largerIndex && (smallerIndex == -1 || largerIndex == -1)) {
+
+        if(smallerIndex == -1) {
+
+            return getMatchingIndex(indexes, totalIndex, largerIndex, totalInsert - 1);
+        }
+
+        return getMatchingIndex(indexes, totalIndex, 0, smallerIndex);
+    }
+
+    return smallerIndex >= largerIndex ?
+        getMatchingIndex(indexes, totalIndex, smallerIndex, largerIndex) : -1;
 }
 
 int optimizedInsert(void) {
