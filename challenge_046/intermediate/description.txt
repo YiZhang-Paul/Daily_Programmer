@@ -1,5 +1,7 @@
 #46[Intermediate] Random Insertion
 
+All Done
+
 url: https://www.reddit.com/r/dailyprogrammer/comments/szz68/4302012_challenge_46_intermediate/
 
 Consider this game: Write 8 blanks on a sheet of paper. Randomly pick a digit 0-9. After seeing the digit, choose one of the 8 blanks to place that digit in. Randomly choose another digit (with replacement) and then choose one of the 7 remaining blanks to place it in. Repeat until you've filled all 8 blanks. You win if the 8 digits written down are in order from smallest to largest.
