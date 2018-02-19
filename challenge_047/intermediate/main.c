@@ -2,8 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 
-int getASCIISum(char *);
-int toDigit(char *);
+int getAsciiSum(char *);
+int englishToDigit(char *);
 
 int main(void) {
 
@@ -23,38 +23,40 @@ int main(void) {
 
     for(int i = 0; i < 10; i++) {
 
-        printf("%s -> %d\n", words[i], toDigit(words[i]));
+        printf("%s -> %d\n", words[i], englishToDigit(words[i]));
     }
 
     return 0;
 }
 
-int getASCIISum(char * word) {
+//calculate sum of ASCII value of characters in a word
+int getAsciiSum(char * word) {
 
     int sum = 0;
 
     for(int i = 0; i < strlen(word); i++) {
-
-        sum += word[i];
+        //square ASCII value to avoid words with same ASCII value sum
+        sum += word[i] * word[i];
     }
 
-    return sum + word[0];
+    return sum;
 }
 
-int toDigit(char * word) {
-
+int englishToDigit(char * word) {
+    //ASCII value sums of English words corresponding to digit 0-9
     int values[] = {
 
-        570, 433, 462, 652, 546, 528, 455, 660, 630, 536
+        50402, 34622, 39938, 57670, 49410,
+        45554, 38650, 59651, 56107, 45426
     };
 
-    for(int i = 0, asciiSum = getASCIISum(word); i < 10; i++) {
+    for(int i = 0, sum = getAsciiSum(word); i < 10; i++) {
 
-        if(asciiSum == values[i]) {
+        if(sum == values[i]) {
 
             return i;
         }
     }
 
-    return 0;
+    return -1;
 }
