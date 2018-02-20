@@ -2,6 +2,7 @@
 #include "../header/utility.h"
 #include "../header/randomInsert.h"
 
+//remove random item in an array and return removed item
 static int removeRandom(int * numbers, int total) {
 
     const int index = getRandom(0, total - 1);

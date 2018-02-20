@@ -2,6 +2,7 @@
 #include "../header/utility.h"
 #include "../header/randomInsert.h"
 
+//get a range of numbers from m to m + n - 1
 int * getRange(int start, int total) {
 
     int *range = (int *)malloc(total * sizeof(int));
@@ -55,6 +56,7 @@ void removeIndex(int * numbers, int index, int total) {
     }
 }
 
+//remove first item found in an array with given value
 void removeItem(int * numbers, int item, int total) {
 
     int index = findIndex(numbers, item, total);

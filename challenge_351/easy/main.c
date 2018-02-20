@@ -21,13 +21,18 @@ struct team {
 struct player createPlayer(int);
 struct team createTeam(void);
 int toDigit(char);
+int isOddDigit(char);
+int isLegalMove(char);
+int isExtraMove(char);
+int trackLegalMove(int *, char);
+int countExtraMove(char *);
+struct player * getPlayerOnField(struct team *);
 void addScore(struct team *, int);
-int isLegal(char);
-int needTeamSwitch(char);
+int needTeamSwitch(int *, char);
 void switchTeam(struct team **, struct team **);
+struct player * sendNextPlayer(struct team *);
+int addPlayer(struct player **, int *, struct player *);
 struct player ** trackActivePlayer(char *, struct team *, struct team *, int *);
-int isExtra(char);
-int countExtra(char *);
 void showScore(char *);
 
 int main(void) {
@@ -61,7 +66,7 @@ struct team createTeam(void) {
 
         team.members[i] = createPlayer(i + 1);
     }
-
+    //all team members are available on default
     team.membersRemain = TEAM_SIZE;
 
     return team;
@@ -72,24 +77,63 @@ int toDigit(char character) {
     return character - '0';
 }
 
-void addScore(struct team * team, int score) {
+int isOddDigit(char character) {
 
-    team->members[TEAM_SIZE - team->membersRemain].score += score;
+    return isdigit(character) && toDigit(character) % 2;
 }
 
-int isLegal(char score) {
-
+int isLegalMove(char score) {
+    //only "wide" is considered illegal move
     return score != 'w';
 }
 
-int needTeamSwitch(char score) {
+int isExtraMove(char score) {
+    //"bye" and "wide" do not contribute score to individual player
+    return score == 'b' || score == 'w';
+}
 
-    if(score == 'b') {
+int trackLegalMove(int * legalMoves, char score) {
+
+    if(isLegalMove(score)) {
+
+        (*legalMoves)++;
+    }
+
+    return *legalMoves;
+}
+
+int countExtraMove(char * score) {
+
+    int extra = 0;
+
+    for(int i = 0; i < strlen(score); i++) {
+
+        extra += isExtraMove(score[i]) ? 1 : 0;
+    }
+
+    return extra;
+}
+
+struct player * getPlayerOnField(struct team * team) {
+
+    return &team->members[TEAM_SIZE - team->membersRemain];
+}
+
+void addScore(struct team * team, int score) {
+
+    getPlayerOnField(team)->score += score;
+}
+
+int needTeamSwitch(int * legalMoves, char score) {
+    //need team switch every 6 legal moves
+    if(trackLegalMove(legalMoves, score) == 6) {
+        //reset legal moves
+        *legalMoves = 0;
 
         return 1;
     }
-
-    if(isdigit(score) && toDigit(score) % 2 == 1) {
+    //need team switch for "bye" and odd number scores
+    if(score == 'b' || isOddDigit(score)) {
 
         return 1;
     }
@@ -104,58 +148,60 @@ void switchTeam(struct team ** team1, struct team ** team2) {
     *team2 = temporary;
 }
 
+struct player * sendNextPlayer(struct team * team) {
+
+    if(--team->membersRemain == 0) {
+
+        //no more available players
+        return NULL;
+    }
+
+    return getPlayerOnField(team);
+}
+
+int addPlayer(struct player ** players, int * total, struct player * player) {
+
+    if(player == NULL) {
+
+        return 0;
+    }
+
+    players[(*total)++] = player;
+
+    return 1;
+}
+
+//this function follows rule of Cricket games
 struct player ** trackActivePlayer(char * score, struct team * team1, struct team * team2, int * total) {
 
     struct team *strike = team1;
     struct team *defend = team2;
-    struct player **active = (struct player **)malloc(2 * TEAM_SIZE * sizeof(struct player *));
-    active[(*total)++] = &strike->members[0];
-    active[(*total)++] = &defend->members[0];
+    struct player **activePlayer = (struct player **)malloc(2 * TEAM_SIZE * sizeof(struct player *));
+    //first players on each team are active players on default
+    addPlayer(activePlayer, total, &strike->members[0]);
+    addPlayer(activePlayer, total, &defend->members[0]);
 
-    for(int i = 0, legalBalls = 0; i < strlen(score); i++) {
-
+    for(int i = 0, legalMoves = 0; i < strlen(score); i++) {
+        //numeric score will be added to current player on field on strike team
         if(isdigit(score[i])) {
 
             addScore(strike, toDigit(score[i]));
         }
         else if(score[i] == 'W') {
-
-            if(--strike->membersRemain == 0) {
+            //match will end when a team has no available players
+            if(!addPlayer(activePlayer, total, sendNextPlayer(strike))) {
 
                 break;
             }
-
-            active[(*total)++] = &strike->members[TEAM_SIZE - strike->membersRemain];
         }
 
-        legalBalls += isLegal(score[i]) ? 1 : 0;
-
-        if(legalBalls == 6 || needTeamSwitch(score[i])) {
+        if(needTeamSwitch(&legalMoves, score[i])) {
 
             switchTeam(&strike, &defend);
         }
-
-        legalBalls = legalBalls == 6 ? 0 : legalBalls;
     }
 
-    return active;
-}
-
-int isExtra(char score) {
-
-    return score == 'b' || score == 'w';
-}
-
-int countExtra(char * score) {
-
-    int extra = 0;
-
-    for(int i = 0; i < strlen(score); i++) {
-
-        extra += isExtra(score[i]) ? 1 : 0;
-    }
-
-    return extra;
+    return activePlayer;
 }
 
 void showScore(char * score) {
@@ -170,7 +216,7 @@ void showScore(char * score) {
         printf("P%d: %d\n", i + 1, activePlayer[i]->score);
     }
 
-    printf("Extras: %d\n", countExtra(score));
+    printf("Extras: %d\n", countExtraMove(score));
 
     free(activePlayer);
 }
