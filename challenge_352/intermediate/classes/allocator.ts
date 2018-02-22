@@ -2,36 +2,36 @@ import Card from "classes/card";
 
 export default class Allocator {
 
-    private groupTarget(target: string): Map<string, number> {
+    private groupDemands(demands: string): Map<string, number> {
 
-        let group = new Map<string, number>();
+        let groups = new Map<string, number>();
 
-        for(let i = 0; i < target.length; i++) {
-            //initialize total value of a target
-            if(!group.has(target[i])) {
+        for(let i = 0; i < demands.length; i++) {
+            //initialize total value of a demanded resource
+            if(!groups.has(demands[i])) {
 
-                group.set(target[i], 0);
+                groups.set(demands[i], 0);
             }
 
-            group.set(target[i], group.get(target[i]) + 1);
+            groups.set(demands[i], groups.get(demands[i]) + 1);
         }
 
-        return group;
+        return groups;
     }
 
-    private getValidCards(target: string, cards: Card[]): Card[] {
+    private getValidCards(demand: string, cards: Card[]): Card[] {
 
-        return cards.filter(card => card.hasResource(target));
+        return cards.filter(card => card.hasResource(demand));
     }
 
-    private countValidCards(target: string, cards: Card[]): number {
+    private countValidCards(demand: string, cards: Card[]): number {
 
-        return this.getValidCards(target, cards).length;
+        return this.getValidCards(demand, cards).length;
     }
 
-    private setPriority(target: string, cards: Card[]): [string, number][] {
+    private setPriority(demands: string, cards: Card[]): [string, number][] {
 
-        let groups = this.groupTarget(target);
+        let groups = this.groupDemands(demands);
 
         return Array.from(groups).sort((a, b) => {
             //resources with higher demand have higher priority
@@ -45,7 +45,7 @@ export default class Allocator {
     }
 
     private getCardsToUse(collection: Card[], total: number): Card[] {
-        //always use lowest power level card when possible
+        //always use lowest level card when possible
         return collection.sort((a, b) => a.level - b.level).slice(0, total);
     }
 
@@ -66,11 +66,11 @@ export default class Allocator {
         return Array.from(cards);
     }
 
-    public allocate(cards: Card[], target: string): Card[] {
+    public allocate(cards: Card[], demands: string): Card[] {
 
         let allocated: Card[] = [];
-        let groups = this.setPriority(target.toUpperCase(), cards);
-
+        let groups = this.setPriority(demands.toUpperCase(), cards);
+        //allocate cards for each group from highest to lowest priority
         for(let i = 0; i < groups.length; i++) {
 
             let validCards = this.getValidCards(groups[i][0], cards);
@@ -88,8 +88,8 @@ export default class Allocator {
         return allocated;
     }
 
-    public canAllocate(cards: Card[], target: string): boolean {
+    public canAllocate(cards: Card[], demands: string): boolean {
 
-        return this.allocate(cards, target).length > 0;
+        return this.allocate(cards, demands).length > 0;
     }
 }
