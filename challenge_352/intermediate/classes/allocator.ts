@@ -29,11 +29,11 @@ export default class Allocator {
         return this.getValidCards(target, cards).length;
     }
 
-    private prioritizeTarget(target: string, cards: Card[]): [string, number][] {
+    private setPriority(target: string, cards: Card[]): [string, number][] {
 
-        let group = this.groupTarget(target);
+        let groups = this.groupTarget(target);
 
-        return Array.from(group).sort((a, b) => {
+        return Array.from(groups).sort((a, b) => {
             //resources with higher demand have higher priority
             if(a[1] !== b[1]) {
 
@@ -44,9 +44,52 @@ export default class Allocator {
         });
     }
 
+    private getCardsToUse(collection: Card[], total: number): Card[] {
+        //always use lowest power level card when possible
+        return collection.sort((a, b) => a.level - b.level).slice(0, total);
+    }
+
+    private addCards(collection: Card[], toAdd: Card[]): Card[] {
+
+        return [...collection, ...toAdd];
+    }
+
+    private removeCards(collection: Card[], toRemove: Card[]): Card[] {
+
+        let cards = new Set<Card>(collection);
+
+        toRemove.forEach(card => {
+
+            cards.delete(card);
+        });
+
+        return Array.from(cards);
+    }
+
+    public allocate(cards: Card[], target: string): Card[] {
+
+        let allocated: Card[] = [];
+        let groups = this.setPriority(target.toUpperCase(), cards);
+
+        for(let i = 0; i < groups.length; i++) {
+
+            let validCards = this.getValidCards(groups[i][0], cards);
+            //allocation fails when not enough cards available
+            if(groups[i][1] > validCards.length) {
+
+                return new Array<Card>();
+            }
+
+            let cardsUsed = this.getCardsToUse(validCards, groups[i][1]);
+            allocated = this.addCards(allocated, cardsUsed);
+            cards = this.removeCards(cards, cardsUsed);
+        }
+
+        return allocated;
+    }
+
     public canAllocate(cards: Card[], target: string): boolean {
 
-        let prioritized = this.prioritizeTarget(target.toUpperCase(), cards);
-        console.log(prioritized);
+        return this.allocate(cards, target).length > 0;
     }
 }

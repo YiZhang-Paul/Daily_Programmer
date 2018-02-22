@@ -7,7 +7,7 @@ export default class Card {
         this.addResources(resources);
     }
     //indicate total number of resources can be provided by card
-    get powerLevel(): number {
+    get level(): number {
 
         return this._resources.size;
     }
