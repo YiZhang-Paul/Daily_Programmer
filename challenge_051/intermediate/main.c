@@ -4,6 +4,8 @@
 
 void shift(int ***, char);
 void changeByte(int ***, char);
+void loadInput(int ***);
+void output(int ***);
 void processCommand(char, int **);
 void runCode(char *);
 
@@ -18,12 +20,22 @@ int main(void) {
 
 void shift(int *** bytes, char command) {
 
-    (**bytes) += command == '>' ? 1 : -1;
+    **bytes += command == '>' ? 1 : -1;
 }
 
 void changeByte(int *** bytes, char command) {
 
-    (***bytes) += command == '+' ? 1 : -1;
+    ***bytes += command == '+' ? 1 : -1;
+}
+
+void loadInput(int *** bytes) {
+
+    ***bytes = getchar();
+}
+
+void output(int *** bytes) {
+
+    putchar(***bytes);
 }
 
 void processCommand(char command, int ** bytes) {
@@ -53,13 +65,13 @@ void processCommand(char command, int ** bytes) {
 
         case ',' :
 
-            //loadInput(&bytes);
+            loadInput(&bytes);
 
             break;
 
         case '.' :
 
-            //output(&bytes);
+            output(&bytes);
 
             break;
     }
@@ -71,7 +83,7 @@ void runCode(char * code) {
     int *pointer = bytes;
 
     for(int i = 0; i < strlen(code); i++) {
-        printf("%d\n", bytes[0]);
+
         processCommand(code[i], &pointer);
     }
 }
