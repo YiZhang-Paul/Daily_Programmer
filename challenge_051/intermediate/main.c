@@ -2,11 +2,13 @@
 #include <stdlib.h>
 #include <string.h>
 
-void shift(int ***, char);
-void changeByte(int ***, char);
-void loadInput(int ***);
-void output(int ***);
-void processCommand(char, int **);
+void shift(char, int **);
+void changeByte(char, int *);
+void jumpForward(char **);
+void jumpBackward(char **);
+void loadInput(int *);
+void output(int);
+void processCommand(char **, int **);
 void runCode(char *);
 
 int main(void) {
@@ -18,62 +20,89 @@ int main(void) {
     return 0;
 }
 
-void shift(int *** bytes, char command) {
+void shift(char command, int ** bytes) {
 
-    **bytes += command == '>' ? 1 : -1;
+    *bytes += command == '>' ? 1 : -1;
 }
 
-void changeByte(int *** bytes, char command) {
+void changeByte(char command, int * bytes) {
 
-    ***bytes += command == '+' ? 1 : -1;
+    *bytes += command == '+' ? 1 : -1;
 }
 
-void loadInput(int *** bytes) {
+void jumpForward(char ** command) {
 
-    ***bytes = getchar();
+    int brackets = 0;
+
+    while(**command != ']' || brackets != 0) {
+
+        if(**command == '[' || **command == ']') {
+
+            brackets -= **command == ']' ? 1 : -1;
+        }
+
+        ++*command;
+    }
 }
 
-void output(int *** bytes) {
+void jumpBackward(char ** command) {
 
-    putchar(***bytes);
+    int brackets = 0;
+
+    while(*(*command + 1) != '[' || brackets != 0) {
+
+        if(**command == '[' || **command == ']') {
+
+            brackets -= **command == '[' ? 1 : -1;
+        }
+
+        --*command;
+    }
 }
 
-void processCommand(char command, int ** bytes) {
+void loadInput(int * bytes) {
 
-    switch(command) {
+    *bytes = getchar();
+}
 
-        case '>' :
-        case '<' :
+void output(int bytes) {
 
-            shift(&bytes, command);
+    putchar(bytes);
+}
 
-            break;
+void processCommand(char ** command, int ** bytes) {
 
-        case '+' :
-        case '-' :
+    char character = **command;
 
-            changeByte(&bytes, command);
+    if(character == '>' || character == '<') {
 
-            break;
+        shift(character, bytes);
+    }
+    else if(character == '+' || character == '-') {
 
-        case '[' :
-        case ']' :
+        changeByte(character, *bytes);
+    }
+    else if(character == '[') {
 
-            //loop(&bytes, command);
+        if(**bytes == 0) {
 
-            break;
+            jumpForward(command);
+        }
+    }
+    else if(character == ']') {
 
-        case ',' :
+        if(**bytes != 0) {
 
-            loadInput(&bytes);
+            jumpBackward(command);
+        }
+    }
+    else if(character == ',') {
 
-            break;
+        loadInput(*bytes);
+    }
+    else {
 
-        case '.' :
-
-            output(&bytes);
-
-            break;
+        output(**bytes);
     }
 }
 
@@ -81,9 +110,12 @@ void runCode(char * code) {
 
     int bytes[10000] = { 0 };
     int *pointer = bytes;
+    char *command = code;
+    const char *codeEnd = code + strlen(code);
 
-    for(int i = 0; i < strlen(code); i++) {
+    while(command < codeEnd) {
 
-        processCommand(code[i], &pointer);
+        processCommand(&command, &pointer);
+        command++;
     }
 }

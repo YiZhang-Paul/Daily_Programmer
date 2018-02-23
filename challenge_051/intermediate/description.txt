@@ -1,5 +1,7 @@
 #51[Intermediate] Brainfuck
 
+All Done
+
 url: https://www.reddit.com/r/dailyprogrammer/comments/ti5ji/5112012_challenge_51_intermediate/
 
 Brainfuck is an extremely minimalistic programming language. The memory consists of a large array of bytes, the "tape", which is manipulated by moving around a single tape pointer. The 8 commands are:
