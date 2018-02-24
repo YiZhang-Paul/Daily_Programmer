@@ -27,6 +27,11 @@ export default class Trie {
 
     private _root = new Node();
 
+    constructor(words: string[]) {
+
+        this.insertAll(words);
+    }
+
     public insert(word: string): void {
 
         let node = this._root;
@@ -42,6 +47,14 @@ export default class Trie {
 
             node = node.getKey(key);
         }
+    }
+
+    public insertAll(words: string[]): void {
+
+        words.forEach(word => {
+
+            this.insert(word);
+        });
     }
 
     public contains(word: string): boolean {

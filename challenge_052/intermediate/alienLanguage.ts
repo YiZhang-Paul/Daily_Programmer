@@ -24,14 +24,32 @@ function parseNumbers(input: string): number[] {
     return input.match(/\d+/g).map(match => Number.parseInt(match));
 }
 
+function countMatches(words: string[], testCase: string): number {
+
+    let trie = new Trie([testCase]);
+
+    return words.filter(word => trie.contains(word)).length;
+}
+
+function getResult(input: string): string {
+
+    let inputs = input.split("\n").map(line => line.trim());
+    const totalWords = parseNumbers(inputs[0])[1];
+    let words = inputs.slice(1, totalWords + 1);
+    let cases = inputs.slice(1 + totalWords);
+
+    return cases.map((testCase, index) => {
+
+        return `Case #${index + 1}: ${countMatches(words, testCase)}`;
+
+    }).join("\n");
+}
+
 getInput("input.txt").then(input => {
 
     const time = new Date().getTime();
 
-    let lines = input.split("\n").map(line => line.trim());
-    const [, totalWords, totalCases] = parseNumbers(lines[0]);
-    let words = lines.slice(1, totalWords + 1);
-    let cases = lines.slice(1 + totalWords);
+    console.log(getResult(input));
 
     console.log(`%cTime Spent: %c${new Date().getTime() - time}ms`, "color : yellow;", "color : violet;");
 
