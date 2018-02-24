@@ -4,24 +4,23 @@
 
 #define MIN(a, b) ((a) < (b) ? (a) : (b))
 
-int seed = 0;
-
 long long getTime(void);
 int getRandom(void);
-int findMinimum(int *, int);
+int getMinimum(int *, int);
 int findIndex(int *, int, int);
-long long sum(int *, int);
-long long sum1000LargestRandomNumbers(void);
+long long getTotal(int *, int);
+long long sumLargestRandomValues(int, int);
 
 int main(void) {
 
     const long long now = getTime();
-    printf("Sum of 1000 Largest Random Numbers: %lld\n", sum1000LargestRandomNumbers());
+    printf("Sum of 1000 Largest Random Numbers: %lld\n", sumLargestRandomValues(1000, 10000000));
     printf("Time Spent: %dms\n", (int)(getTime() - now));
 
     return 0;
 }
 
+//retrieve current time in milliseconds
 long long getTime(void) {
 
     struct timeb now;
@@ -31,31 +30,28 @@ long long getTime(void) {
 }
 
 int getRandom(void) {
+    //seed for generating next pseudo random value
+    static int seed = 0;
 
-    if(seed == 0) {
-
-        seed = 123456789;
-    }
-    else {
-
-        seed = ((long long)22695477 * seed + 12345) % 1073741824;
-    }
+    seed = seed == 0 ?
+        123456789 : ((long long)22695477 * seed + 12345) % 1073741824;
 
     return seed;
 }
 
-int findMinimum(int * numbers, int total) {
+int getMinimum(int * numbers, int total) {
 
     int minimum = numbers[0];
 
     for(int i = 1; i < total; i++) {
 
-        minimum = MIN(numbers[i], minimum);
+        minimum = MIN(minimum, numbers[i]);
     }
 
     return minimum;
 }
 
+//find first index where given value is found
 int findIndex(int * numbers, int value, int total) {
 
     for(int i = 0; i < total; i++) {
@@ -69,7 +65,7 @@ int findIndex(int * numbers, int value, int total) {
     return -1;
 }
 
-long long sum(int * numbers, int total) {
+long long getTotal(int * numbers, int total) {
 
     long long result = 0;
 
@@ -81,33 +77,34 @@ long long sum(int * numbers, int total) {
     return result;
 }
 
-long long sum1000LargestRandomNumbers(void) {
+/**
+ * this function generates M number of random values
+ * then calculate the sum of N largest values where N <= M
+ */
+long long sumLargestRandomValues(int toSum, int total) {
 
-    int numbers[1000];
-    int minimum = 0;
+    if(toSum > total) {
 
-    for(int i = 0; i < 10000000; i++) {
+        return -1;
+    }
+    //largest values to sum
+    int values[toSum];
 
-        const int number = getRandom();
+    for(int i = 0, minimum = -1; i < total; i++) {
 
-        if(i < 1000) {
+        const int value = getRandom();
 
-            numbers[i] = number;
+        if(i < toSum) {
 
-            if(i == 999) {
-
-                minimum = findMinimum(numbers, 1000);
-            }
-
-            continue;
+            values[i] = value;
+            minimum = i == toSum - 1 ? getMinimum(values, toSum) : minimum;
         }
-
-        if(number > minimum) {
-
-            numbers[findIndex(numbers, minimum, 1000)] = number;
-            minimum = findMinimum(numbers, 1000);
+        else if(value > minimum) {
+            //get rid of minimum value if any larger value is generated
+            values[findIndex(values, minimum, toSum)] = value;
+            minimum = getMinimum(values, toSum);
         }
     }
 
-    return sum(numbers, 1000);
+    return getTotal(values, toSum);
 }
