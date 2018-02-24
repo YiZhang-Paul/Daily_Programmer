@@ -1,5 +1,7 @@
 #56[Intermediate] Regular Expression
 
+All Done
+
 url: https://www.reddit.com/r/dailyprogrammer/comments/u0tdu/5232012_challenge_56_intermediate/
 
 At some point or another, most programmers will encounter problems in text processing that has a very elegant solution using regular expressions. But regular expressions can also be over-relied on and abused, and make code unreadable. There is a lot of truth in the old saying "Some people, when confronted with a problem, think 'I know, I'll use regular expressions.' Now they have two problems." So today, lets embrace those two problems and pound some regular expressions into submission!
