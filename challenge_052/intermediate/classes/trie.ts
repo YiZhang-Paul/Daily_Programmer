@@ -44,7 +44,7 @@ export default class Trie {
         }
     }
 
-    public isPrefix(word: string): boolean {
+    public contains(word: string): boolean {
 
         let node = this._root;
 
