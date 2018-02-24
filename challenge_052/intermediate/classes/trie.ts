@@ -43,4 +43,21 @@ export default class Trie {
             node = node.getKey(key);
         }
     }
+
+    public isPrefix(word: string): boolean {
+
+        let node = this._root;
+
+        for(let i = 0; i < word.length; i++) {
+
+            if(!node.hasKey(word[i])) {
+
+                return false;
+            }
+
+            node = node.getKey(word[i]);
+        }
+
+        return true;
+    }
 }
