@@ -2,6 +2,11 @@ class Node {
 
     private _keys = new Map<string, Node>();
 
+    get keys(): string[] {
+
+        return Array.from(this._keys).map(pair => pair[0]);
+    }
+
     public hasKey(key: string): boolean {
 
         return this._keys.has(key);
@@ -10,6 +15,14 @@ class Node {
     public addKey(key: string): void {
 
         this._keys.set(key, new Node());
+    }
+
+    public addKeys(keys: string[]): void {
+
+        for(let i = 0; i < keys.length; i++) {
+
+            this.addKey(keys[i]);
+        }
     }
 
     public getKey(key: string): Node {
@@ -32,20 +45,26 @@ export default class Trie {
         this.insertAll(words);
     }
 
-    public insert(word: string): void {
+    private getGroups(word: string): string[][] {
 
-        let node = this._root;
+        return word.match(/\w|\(\w+\)/g).map(group => {
 
-        for(let i = 0; i < word.length; i++) {
+            return group.length === 1 ? [group] : group.match(/\w/g);
+        });
+    }
 
-            const key = word[i];
+    public insert(groups: string[][], node: Node = this._root): void {
 
-            if(!node.hasKey(key)) {
+        if(groups && groups.length > 0) {
 
-                node.addKey(key);
-            }
+            let currentGroup = groups[0];
+            let otherGroups = groups.slice(1);
+            node.addKeys(currentGroup);
 
-            node = node.getKey(key);
+            node.keys.forEach(key => {
+
+                this.insert(otherGroups, node.getKey(key));
+            });
         }
     }
 
@@ -53,7 +72,7 @@ export default class Trie {
 
         words.forEach(word => {
 
-            this.insert(word);
+            this.insert(this.getGroups(word));
         });
     }
 
