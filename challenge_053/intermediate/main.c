@@ -2,11 +2,14 @@
 #include <stdlib.h>
 #include <sys/timeb.h>
 
+#define MIN(a, b) ((a) < (b) ? (a) : (b))
+
 int seed = 0;
 
-int getRandom(void);
 long long getTime(void);
-int compare(const void *, const void *);
+int getRandom(void);
+int findMinimum(int *, int);
+int findIndex(int *, int, int);
 long long sum(int *, int);
 long long sum1000LargestRandomNumbers(void);
 
@@ -14,9 +17,17 @@ int main(void) {
 
     const long long now = getTime();
     printf("Sum of 1000 Largest Random Numbers: %lld\n", sum1000LargestRandomNumbers());
-    printf("Time Spent: %lldms\n", getTime() - now);
+    printf("Time Spent: %dms\n", (int)(getTime() - now));
 
     return 0;
+}
+
+long long getTime(void) {
+
+    struct timeb now;
+    ftime(&now);
+
+    return (long long)now.time * 1000 + now.millitm;
 }
 
 int getRandom(void) {
@@ -33,17 +44,29 @@ int getRandom(void) {
     return seed;
 }
 
-long long getTime(void) {
+int findMinimum(int * numbers, int total) {
 
-    struct timeb now;
-    ftime(&now);
+    int minimum = numbers[0];
 
-    return (long long)now.time * 1000 + now.millitm;
+    for(int i = 1; i < total; i++) {
+
+        minimum = MIN(numbers[i], minimum);
+    }
+
+    return minimum;
 }
 
-int compare(const void * a, const void * b) {
+int findIndex(int * numbers, int value, int total) {
 
-    return *(int *)b - *(int *)a;
+    for(int i = 0; i < total; i++) {
+
+        if(value == numbers[i]) {
+
+            return i;
+        }
+    }
+
+    return -1;
 }
 
 long long sum(int * numbers, int total) {
@@ -60,17 +83,31 @@ long long sum(int * numbers, int total) {
 
 long long sum1000LargestRandomNumbers(void) {
 
-    const int total = 10000000;
-    int *numbers = (int *)malloc(total * sizeof(int));
+    int numbers[1000];
+    int minimum = 0;
 
-    for(int i = 0; i < total; i++) {
+    for(int i = 0; i < 10000000; i++) {
 
-        *(numbers + i) = getRandom();
+        const int number = getRandom();
+
+        if(i < 1000) {
+
+            numbers[i] = number;
+
+            if(i == 999) {
+
+                minimum = findMinimum(numbers, 1000);
+            }
+
+            continue;
+        }
+
+        if(number > minimum) {
+
+            numbers[findIndex(numbers, minimum, 1000)] = number;
+            minimum = findMinimum(numbers, 1000);
+        }
     }
 
-    qsort(numbers, total, sizeof(int), compare);
-    long long result = sum(numbers, 1000);
-    free(numbers);
-
-    return result;
+    return sum(numbers, 1000);
 }
