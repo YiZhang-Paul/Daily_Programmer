@@ -1,5 +1,3 @@
-import Trie from "classes/trie";
-
 function getInput(url: string): Promise<string> {
 
     return new Promise((resolve, reject) => {
@@ -24,11 +22,33 @@ function parseNumbers(input: string): number[] {
     return input.match(/\d+/g).map(match => Number.parseInt(match));
 }
 
-function countMatches(words: string[], testCase: string): number {
+//split test case into groups, e.g. a(abc)d -> [a], [a, b, c], [d]
+function splitTestCase(testCase: string): string[][] {
 
-    let trie = new Trie([testCase]);
+    return testCase.match(/\w|\(\w+\)/g).map(group => {
 
-    return words.filter(word => trie.contains(word)).length;
+        return group.match(/\w/g);
+    });
+}
+
+function countMatchingWords(words: string[], testCase: string): number {
+
+    let matches = words.slice();
+
+    splitTestCase(testCase).forEach((group, index) => {
+
+        let letters = new Set(group);
+        /**
+         * remove all words whose letter on current index
+         * does not match corresponding letters in test case
+         */
+        matches = matches.filter(word => {
+
+            return letters.has(word[index]);
+        });
+    });
+
+    return matches.length;
 }
 
 function getResult(input: string): string {
@@ -40,17 +60,24 @@ function getResult(input: string): string {
 
     return cases.map((testCase, index) => {
 
-        return `Case #${index + 1}: ${countMatches(words, testCase)}`;
+        return `Case #${index + 1}: ${countMatchingWords(words, testCase)}`;
 
     }).join("\n");
 }
 
-getInput("input.txt").then(input => {
+//challenge input
+console.log(`%cChallenge Input:`, "color : red;");
+let urls = ["input_sample.txt", "input_small.txt", "input_large.txt"];
 
-    const time = new Date().getTime();
+for(let i = 0; i < urls.length; i++) {
 
-    console.log(getResult(input));
+    getInput(urls[i]).then(input => {
 
-    console.log(`%cTime Spent: %c${new Date().getTime() - time}ms`, "color : yellow;", "color : violet;");
+        const time = new Date().getTime();
 
-}).catch(error => {console.log(error);});
+        console.log(getResult(input));
+
+        console.log(`%cTime Spent: %c${new Date().getTime() - time}ms`, "color : yellow;", "color : violet;");
+
+    }).catch(error => {console.log(error);});
+}
