@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <math.h>
 
+#define MAX_DIGITS 150
+
 struct customNumber {
 
     int *digits;
@@ -11,21 +13,27 @@ struct customNumber {
 struct customNumber readCustomNumber(int);
 int getValue(struct customNumber *);
 void raiseToPower(struct customNumber *, int);
+struct customNumber copyCustomNumber(struct customNumber *);
 void flipCustomNumberFromCenter(struct customNumber *);
+int isLarger(struct customNumber *, struct customNumber *);
 void printCustomNumber(struct customNumber *);
 void freeCustomNumber(struct customNumber *);
 
 int main(void) {
 
     struct customNumber number = readCustomNumber(3);
-
-    printCustomNumber(&number);
     raiseToPower(&number, 39);
-    printCustomNumber(&number);
+    struct customNumber copy = copyCustomNumber(&number);
     flipCustomNumberFromCenter(&number);
+
+    printf("flipped\n");
     printCustomNumber(&number);
+    printf("copy\n");
+    printCustomNumber(&copy);
+    printf("isLarger: %d\n", isLarger(&copy, &number));
 
     freeCustomNumber(&number);
+    freeCustomNumber(&copy);
 
     return 0;
 }
@@ -33,7 +41,7 @@ int main(void) {
 struct customNumber readCustomNumber(int number) {
 
     struct customNumber customNumber;
-    customNumber.digits = (int *)malloc(150 * sizeof(int));
+    customNumber.digits = (int *)malloc(MAX_DIGITS * sizeof(int));
     customNumber.length = 0;
 
     while(number != 0) {
@@ -79,6 +87,20 @@ void raiseToPower(struct customNumber * number, int power) {
     }
 }
 
+struct customNumber copyCustomNumber(struct customNumber * number) {
+
+    struct customNumber copy;
+    copy.digits = (int *)malloc(MAX_DIGITS * sizeof(int));
+    copy.length = number->length;
+
+    for(int i = 0; i < number->length; i++) {
+
+        copy.digits[i] = number->digits[i];
+    }
+
+    return copy;
+}
+
 void flipCustomNumberFromCenter(struct customNumber * number) {
 
     const int hasOddDigits = number->length % 2 == 1;
@@ -91,6 +113,24 @@ void flipCustomNumberFromCenter(struct customNumber * number) {
 
         number->digits[i] = number->digits[j++];
     }
+}
+
+int isLarger(struct customNumber * number, struct customNumber * toCompare) {
+
+    if(number->length != toCompare->length) {
+
+        return number->length > toCompare->length;
+    }
+
+    for(int i = number->length - 1; i >= 0; i--) {
+
+        if(number->digits[i] != toCompare->digits[i]) {
+
+            return number->digits[i] > toCompare->digits[i];
+        }
+    }
+
+    return 0;
 }
 
 void printCustomNumber(struct customNumber * number) {
