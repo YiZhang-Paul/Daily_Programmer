@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
 
 struct customNumber {
 
@@ -8,13 +9,17 @@ struct customNumber {
 };
 
 struct customNumber readCustomNumber(int);
+int getValue(struct customNumber *);
+void raiseToPower(struct customNumber *, int);
 void printCustomNumber(struct customNumber *);
 void freeCustomNumber(struct customNumber *);
 
 int main(void) {
 
-    struct customNumber number = readCustomNumber(2133);
+    struct customNumber number = readCustomNumber(7);
 
+    printCustomNumber(&number);
+    raiseToPower(&number, 100);
     printCustomNumber(&number);
 
     freeCustomNumber(&number);
@@ -31,10 +36,44 @@ struct customNumber readCustomNumber(int number) {
     while(number != 0) {
 
         customNumber.digits[customNumber.length++] = number % 10;
-        number = (number - number % 10) / 10;
+        number /= 10;
     }
 
     return customNumber;
+}
+
+int getValue(struct customNumber * number) {
+
+    int value = 0;
+
+    for(int i = 0; i < number->length; i++) {
+
+        value += (int)(pow(10, i) + 0.5) * number->digits[i];
+    }
+
+    return value;
+}
+
+void raiseToPower(struct customNumber * number, int power) {
+
+    int value = getValue(number);
+
+    for(int i = 1; i < power; i++) {
+
+        for(int j = 0, carry = 0; j < number->length; j++) {
+
+            const int product = value * number->digits[j];
+            number->digits[j] = (product + carry) % 10;
+            carry = (product + carry) / 10;
+
+            if(carry > 0 && j == number->length - 1) {
+
+                number->digits[++number->length - 1] = carry;
+
+                break;
+            }
+        }
+    }
 }
 
 void printCustomNumber(struct customNumber * number) {
@@ -43,6 +82,8 @@ void printCustomNumber(struct customNumber * number) {
 
         printf("%d", number->digits[i]);
     }
+
+    printf("\n");
 }
 
 void freeCustomNumber(struct customNumber * number) {
