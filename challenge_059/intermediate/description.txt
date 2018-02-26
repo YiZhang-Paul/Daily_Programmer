@@ -1,0 +1,28 @@
+#59[Intermediate] Nonogram
+
+url: https://www.reddit.com/r/dailyprogrammer/comments/uh03h/622012_challenge_59_intermediate/
+
+Given a binary matrix like this:
+
+0 1 1 1 1 0
+1 0 0 1 1 1
+1 0 1 1 1 1
+1 1 1 1 1 1
+0 1 1 1 1 0
+
+Output the clues for a nonogram puzzle in the format of "top clues, empty line, bottom clues", with clues separated by spaces:
+
+3
+1 2
+1 3
+5
+5
+3
+
+4
+1 3
+1 4
+6
+4
+
+That is, count the contiguous groups of "1" bits and their sizes, first in columns, then in rows.
