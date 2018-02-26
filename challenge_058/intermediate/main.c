@@ -11,15 +11,18 @@ struct customNumber {
 struct customNumber readCustomNumber(int);
 int getValue(struct customNumber *);
 void raiseToPower(struct customNumber *, int);
+void flipCustomNumberFromCenter(struct customNumber *);
 void printCustomNumber(struct customNumber *);
 void freeCustomNumber(struct customNumber *);
 
 int main(void) {
 
-    struct customNumber number = readCustomNumber(7);
+    struct customNumber number = readCustomNumber(3);
 
     printCustomNumber(&number);
-    raiseToPower(&number, 100);
+    raiseToPower(&number, 39);
+    printCustomNumber(&number);
+    flipCustomNumberFromCenter(&number);
     printCustomNumber(&number);
 
     freeCustomNumber(&number);
@@ -73,6 +76,20 @@ void raiseToPower(struct customNumber * number, int power) {
                 break;
             }
         }
+    }
+}
+
+void flipCustomNumberFromCenter(struct customNumber * number) {
+
+    const int hasOddDigits = number->length % 2 == 1;
+    const int startLeft = hasOddDigits ?
+        (number->length - 1) / 2 - 1 : number->length / 2 - 1;
+    const int startRight = hasOddDigits ?
+        (number->length - 1) / 2 + 1 : number->length / 2;
+
+    for(int i = startLeft, j = startRight; i >= 0; i--) {
+
+        number->digits[i] = number->digits[j++];
     }
 }
 
