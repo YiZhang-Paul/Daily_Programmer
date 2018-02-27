@@ -1,72 +1,71 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
-
+//maximum number of digits a big number can hold
 #define MAX_DIGITS 150
 
-struct customNumber {
+struct bigNumber {
 
-    int *digits;
+    int digits[MAX_DIGITS]; //digits in reverse order
     int length;
 };
 
-struct customNumber readCustomNumber(int);
-int getValue(struct customNumber *);
-void addDigit(struct customNumber *, int, int);
-void raiseToPower(struct customNumber *, int);
-struct customNumber copyCustomNumber(struct customNumber *);
-void flipCustomNumberFromCenter(struct customNumber *);
-int isLarger(struct customNumber *, struct customNumber *);
-int hasSameDigits(struct customNumber *, int);
-void printCustomNumber(struct customNumber *);
-void printNextPalindrome(struct customNumber *);
-void freeCustomNumber(struct customNumber *);
+struct bigNumber createBigNumber(int);
+int getValue(struct bigNumber *);
+void addDigit(struct bigNumber *, int, int);
+void multiply(struct bigNumber *, int);
+void toPower(struct bigNumber *, int);
+struct bigNumber copyBigNumber(struct bigNumber *);
+void toPalindrome(struct bigNumber *);
+int isLarger(struct bigNumber *, struct bigNumber *);
+int isRepdigit(struct bigNumber *, int);
+void printBigNumber(struct bigNumber *);
+struct bigNumber findNextPalindrome(struct bigNumber *);
 
 int main(void) {
 
-    struct customNumber number1 = readCustomNumber(808);
-    printNextPalindrome(&number1);
+    struct bigNumber number1 = createBigNumber(808);
+    struct bigNumber number2 = createBigNumber(999);
+    struct bigNumber number3 = createBigNumber(2133);
+    struct bigNumber number4 = createBigNumber(3);
+    struct bigNumber number5 = createBigNumber(7);
 
-    struct customNumber number2 = readCustomNumber(999);
-    printNextPalindrome(&number2);
+    toPower(&number4, 39);
+    toPower(&number5, 100);
 
-    struct customNumber number3 = readCustomNumber(2133);
-    printNextPalindrome(&number3);
+    struct bigNumber *numbers[] = {
 
-    struct customNumber number4 = readCustomNumber(3);
-    raiseToPower(&number4, 39);
-    printNextPalindrome(&number4);
+        &number1, &number2, &number3, &number4, &number5
+    };
 
-    struct customNumber number5 = readCustomNumber(7);
-    raiseToPower(&number5, 100);
-    printNextPalindrome(&number5);
+    for(int i = 0; i < sizeof(numbers) / sizeof(struct bigNumber *); i++) {
 
+        printBigNumber(numbers[i]);
+        printf(" -> ");
 
-    freeCustomNumber(&number1);
-    freeCustomNumber(&number2);
-    freeCustomNumber(&number3);
-    freeCustomNumber(&number4);
-    freeCustomNumber(&number5);
+        struct bigNumber nextPalindrome = findNextPalindrome(numbers[i]);
+        printBigNumber(&nextPalindrome);
+        printf("\n");
+    }
 
     return 0;
 }
 
-struct customNumber readCustomNumber(int number) {
+struct bigNumber createBigNumber(int value) {
 
-    struct customNumber customNumber;
-    customNumber.digits = (int *)malloc(MAX_DIGITS * sizeof(int));
-    customNumber.length = 0;
+    struct bigNumber number;
+    number.length = 0;
 
-    while(number != 0) {
-
-        customNumber.digits[customNumber.length++] = number % 10;
-        number /= 10;
+    while(value != 0) {
+        //extract digits of value from right to left
+        number.digits[number.length++] = value % 10;
+        value /= 10;
     }
 
-    return customNumber;
+    return number;
 }
 
-int getValue(struct customNumber * number) {
+int getValue(struct bigNumber * number) {
 
     int value = 0;
 
@@ -78,8 +77,12 @@ int getValue(struct customNumber * number) {
     return value;
 }
 
-void addDigit(struct customNumber * number, int digit, int index) {
-
+/**
+ * note: adding digit does not mean inserting a digit.
+ * e.g. adding digit 3 at index 1 of number 2222 means 2522, not 23222
+ */
+void addDigit(struct bigNumber * number, int digit, int index) {
+    //carry over to new decimal place
     if(index == number->length) {
 
         number->digits[number->length++] = digit;
@@ -90,38 +93,41 @@ void addDigit(struct customNumber * number, int digit, int index) {
     const int sum = digit + number->digits[index];
     number->digits[index] = sum % 10;
 
-    if(sum >= 10) {
-
+    if(sum > 9) {
+        //add carry over to next decimal place
         addDigit(number, sum / 10, index + 1);
     }
 }
 
-void raiseToPower(struct customNumber * number, int power) {
+void multiply(struct bigNumber * number, int digit) {
 
-    int value = getValue(number);
+    for(int i = 0, carry = 0; i < number->length; i++) {
 
-    for(int i = 1; i < power; i++) {
+        const int product = digit * number->digits[i];
+        number->digits[i] = (product + carry) % 10;
+        //update carry over
+        carry = (product + carry) / 10;
+        //carry over to new decimal place
+        if(i == number->length - 1 && carry > 0) {
 
-        for(int j = 0, carry = 0; j < number->length; j++) {
+            number->digits[number->length++] = carry;
 
-            const int product = value * number->digits[j];
-            number->digits[j] = (product + carry) % 10;
-            carry = (product + carry) / 10;
-
-            if(carry > 0 && j == number->length - 1) {
-
-                number->digits[++number->length - 1] = carry;
-
-                break;
-            }
+            break;
         }
     }
 }
 
-struct customNumber copyCustomNumber(struct customNumber * number) {
+void toPower(struct bigNumber * number, int power) {
 
-    struct customNumber copy;
-    copy.digits = (int *)malloc(MAX_DIGITS * sizeof(int));
+    for(int i = 1, value = getValue(number); i < power; i++) {
+
+        multiply(number, value);
+    }
+}
+
+struct bigNumber copyBigNumber(struct bigNumber * number) {
+
+    struct bigNumber copy;
     copy.length = number->length;
 
     for(int i = 0; i < number->length; i++) {
@@ -132,39 +138,38 @@ struct customNumber copyCustomNumber(struct customNumber * number) {
     return copy;
 }
 
-void flipCustomNumberFromCenter(struct customNumber * number) {
+//modify a big number into a palindrome. e.g. 55234 into 55255
+void toPalindrome(struct bigNumber * number) {
 
     const int hasOddDigits = number->length % 2 == 1;
-    const int startLeft = hasOddDigits ?
-        (number->length - 1) / 2 - 1 : number->length / 2 - 1;
-    const int startRight = hasOddDigits ?
-        (number->length - 1) / 2 + 1 : number->length / 2;
-
-    for(int i = startLeft, j = startRight; i >= 0; i--) {
+    const int center = hasOddDigits ?
+        (number->length - 1) / 2 : number->length / 2;
+    //mirror digits on left side to right side
+    for(int i = center - 1, j = center + hasOddDigits; i >= 0; i--) {
 
         number->digits[i] = number->digits[j++];
     }
 }
 
-int isLarger(struct customNumber * number, struct customNumber * toCompare) {
+int isLarger(struct bigNumber * toTest, struct bigNumber * toCompare) {
+    //number with more digits is larger (assuming numbers are positive)
+    if(toTest->length != toCompare->length) {
 
-    if(number->length != toCompare->length) {
-
-        return number->length > toCompare->length;
+        return toTest->length > toCompare->length;
     }
 
-    for(int i = number->length - 1; i >= 0; i--) {
+    for(int i = toTest->length - 1; i >= 0; i--) {
+        //number with larger digit on high decimal place is larger
+        if(toTest->digits[i] != toCompare->digits[i]) {
 
-        if(number->digits[i] != toCompare->digits[i]) {
-
-            return number->digits[i] > toCompare->digits[i];
+            return toTest->digits[i] > toCompare->digits[i];
         }
     }
 
     return 0;
 }
 
-int hasSameDigits(struct customNumber * number, int digit) {
+int isRepdigit(struct bigNumber * number, int digit) {
 
     for(int i = 0; i < number->length; i++) {
 
@@ -177,7 +182,7 @@ int hasSameDigits(struct customNumber * number, int digit) {
     return 1;
 }
 
-void printCustomNumber(struct customNumber * number) {
+void printBigNumber(struct bigNumber * number) {
 
     for(int i = number->length - 1; i >= 0; i--) {
 
@@ -185,35 +190,27 @@ void printCustomNumber(struct customNumber * number) {
     }
 }
 
-void printNextPalindrome(struct customNumber * number) {
+struct bigNumber findNextPalindrome(struct bigNumber * number) {
 
-    struct customNumber copy = copyCustomNumber(number);
-    printCustomNumber(number);
-    printf(" -> ");
+    struct bigNumber copy = copyBigNumber(number);
+    /**
+     * all repdigits with digit 9 are smaller than next palindrome by 2;
+     * e.g 99 -> 101, 999 -> 1001, 9999 -> 10001, etc.
+     */
+    if(isRepdigit(number, 9)) {
 
-    if(hasSameDigits(number, 9)) {
+        addDigit(&copy, 2, 0);
 
-        addDigit(number, 2, 0);
+        return copy;
     }
-    else {
+    //make number palindrome to see if new value is already larger
+    toPalindrome(&copy);
 
-        flipCustomNumberFromCenter(number);
-
-        if(!isLarger(number, &copy)) {
-
-            const int center = number->length % 2 == 1 ?
-                (number->length - 1) / 2 : (number->length - 1) / 2 + 1;
-            addDigit(number, 1, center);
-            flipCustomNumberFromCenter(number);
-        }
+    if(!isLarger(&copy, number)) {
+        //increase digit in center by 1 and make result palindrome again
+        addDigit(&copy, 1, (copy.length - 1) / 2 + (copy.length % 2 ? 0 : 1));
+        toPalindrome(&copy);
     }
 
-    printCustomNumber(number);
-    printf("\n");
-    freeCustomNumber(&copy);
-}
-
-void freeCustomNumber(struct customNumber * number) {
-
-    free(number->digits);
+    return copy;
 }
