@@ -16,11 +16,16 @@ void printArray(int *, int);
 
 int main(void) {
 
-    int numbers[] = { 2, 5, 4, 3, 1 };
-    const int size = sizeof(numbers) / sizeof(int);
-    printArray(numbers, size);
-    reverseSort(numbers, size);
-    printArray(numbers, size);
+    const int total = 10000;
+    int numbers[total];
+
+    for(int i = 0; i < total; i++) {
+
+        numbers[i] = getRandom();
+    }
+
+    reverseSort(numbers, total);
+    printArray(numbers, total);
 
     return 0;
 }
@@ -32,6 +37,7 @@ void swap(int * index1, int * index2) {
     *index2 = total - *index2;
 }
 
+//reverse the first N elements of a given array
 void reverse(int total, int * array) {
 
     int *start = array;
@@ -71,6 +77,7 @@ int findMax(int * array, int total) {
     return max;
 }
 
+//find index of first element found with given value
 int findIndex(int * array, int total, int value) {
 
     for(int i = 0; i < total; i++) {
@@ -84,6 +91,7 @@ int findIndex(int * array, int total, int value) {
     return -1;
 }
 
+//find index of maximum value in an array
 int findMaxIndex(int * array, int total) {
 
     const int max = findMax(array, total);
@@ -96,6 +104,7 @@ void reverseSort(int * array, int total) {
     while(total) {
 
         const int index = findMaxIndex(array, total);
+        //bring maximum value to front, then to the end of unsorted portion
         reverse(index + 1, array);
         reverse(total, array);
         total--;
