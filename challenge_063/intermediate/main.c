@@ -1,8 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#define DEFAULT_SEED 123456789
+
 void swap(int *, int *);
 void reverse(int, int *);
+int getRandom(void);
 
 int main(void) {
 
@@ -27,4 +30,20 @@ void reverse(int total, int * array) {
 
         swap(start++, end--);
     }
+}
+
+int getRandom(void) {
+
+    static int seed = 0;
+
+    if(seed == 0) {
+
+        seed = DEFAULT_SEED;
+    }
+    else {
+
+        seed = ((long long)22695477 * seed + 12345) % 1073741824;
+    }
+
+    return seed;
 }
