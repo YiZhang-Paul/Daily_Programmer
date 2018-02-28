@@ -1,13 +1,16 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <ctype.h>
 
+void toLowerCase(char *);
 void swap(char *, char *);
 void reverse(char *);
 
 int main(void) {
 
     char input[] = "FourscoreandsevenyearsagoourfaathersbroughtforthonthiscontainentanewnationconceivedinzLibertyanddedicatedtothepropositionthatallmenarecreatedequalNowweareengagedinagreahtcivilwartestingwhetherthatnaptionoranynartionsoconceivedandsodedicatedcanlongendureWeareqmetonagreatbattlefiemldoftzhatwarWehavecometodedicpateaportionofthatfieldasafinalrestingplaceforthosewhoheregavetheirlivesthatthatnationmightliveItisaltogetherfangandproperthatweshoulddothisButinalargersensewecannotdedicatewecannotconsecratewecannothallowthisgroundThebravelmenlivinganddeadwhostruggledherehaveconsecrateditfaraboveourpoorponwertoaddordetractTgheworldadswfilllittlenotlenorlongrememberwhatwesayherebutitcanneverforgetwhattheydidhereItisforusthelivingrathertobededicatedheretotheulnfinishedworkwhichtheywhofoughtherehavethusfarsonoblyadvancedItisratherforustobeherededicatedtothegreattdafskremainingbeforeusthatfromthesehonoreddeadwetakeincreaseddevotiontothatcauseforwhichtheygavethelastpfullmeasureofdevotionthatweherehighlyresolvethatthesedeadshallnothavediedinvainthatthisnationunsderGodshallhaveanewbirthoffreedomandthatgovernmentofthepeoplebythepeopleforthepeopleshallnotperishfromtheearth";
+    toLowerCase(input);
     char copy[strlen(input)];
     strcpy(copy, input);
 
@@ -18,11 +21,19 @@ int main(void) {
     return 0;
 }
 
-void swap(char * index1, char * index2) {
+void toLowerCase(char * text) {
 
-    char temporary = *index1;
-    *index1 = *index2;
-    *index2 = temporary;
+    for(int i = 0; i < strlen(text); i++) {
+
+        text[i] = tolower(text[i]);
+    }
+}
+
+void swap(char * character1, char * character2) {
+
+    char temporary = *character1;
+    *character1 = *character2;
+    *character2 = temporary;
 }
 
 void reverse(char * text) {
