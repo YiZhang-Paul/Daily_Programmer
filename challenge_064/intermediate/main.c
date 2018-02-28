@@ -3,29 +3,52 @@
 #include <string.h>
 #include <ctype.h>
 
-void toLowerCase(char *);
+char * copy(char *);
+void copyFrom(char *, char *, int, int);
+char * toLowerCase(char *);
 void swap(char *, char *);
-void reverse(char *);
+char * reverse(char *);
 char * longestPalindrome(char *);
 
 int main(void) {
 
     char input[] = "FourscoreandsevenyearsagoourfaathersbroughtforthonthiscontainentanewnationconceivedinzLibertyanddedicatedtothepropositionthatallmenarecreatedequalNowweareengagedinagreahtcivilwartestingwhetherthatnaptionoranynartionsoconceivedandsodedicatedcanlongendureWeareqmetonagreatbattlefiemldoftzhatwarWehavecometodedicpateaportionofthatfieldasafinalrestingplaceforthosewhoheregavetheirlivesthatthatnationmightliveItisaltogetherfangandproperthatweshoulddothisButinalargersensewecannotdedicatewecannotconsecratewecannothallowthisgroundThebravelmenlivinganddeadwhostruggledherehaveconsecrateditfaraboveourpoorponwertoaddordetractTgheworldadswfilllittlenotlenorlongrememberwhatwesayherebutitcanneverforgetwhattheydidhereItisforusthelivingrathertobededicatedheretotheulnfinishedworkwhichtheywhofoughtherehavethusfarsonoblyadvancedItisratherforustobeherededicatedtothegreattdafskremainingbeforeusthatfromthesehonoreddeadwetakeincreaseddevotiontothatcauseforwhichtheygavethelastpfullmeasureofdevotionthatweherehighlyresolvethatthesedeadshallnothavediedinvainthatthisnationunsderGodshallhaveanewbirthoffreedomandthatgovernmentofthepeoplebythepeopleforthepeopleshallnotperishfromtheearth";
-    char *longest = longestPalindrome(input);
+    char *palindrome = longestPalindrome(input);
 
-    printf("%s\n", longest);
+    printf("%s\n", palindrome);
 
-    free(longest);
+    free(palindrome);
 
     return 0;
 }
 
-void toLowerCase(char * text) {
+char * copy(char * text) {
 
-    for(int i = 0; i < strlen(text); i++) {
+    char *copied = malloc(sizeof *copied * strlen(text));
 
-        text[i] = tolower(text[i]);
+    return strcpy(copied, text);
+}
+
+void copyFrom(char * target, char * source, int startIndex, int length){
+
+    for(int i = 0; i < length; i++) {
+
+        target[i] = source[startIndex + i];
     }
+
+    target[length] = '\0';
+}
+
+char * toLowerCase(char * text) {
+
+    char *lowerCased = copy(text);
+
+    for(int i = 0; i < strlen(lowerCased); i++) {
+
+        lowerCased[i] = tolower(lowerCased[i]);
+    }
+
+    return lowerCased;
 }
 
 void swap(char * character1, char * character2) {
@@ -35,44 +58,37 @@ void swap(char * character1, char * character2) {
     *character2 = temporary;
 }
 
-void reverse(char * text) {
+char * reverse(char * text) {
 
-    char *start = text;
-    char *end = text + strlen(text) - 1;
+    char *reversed = copy(text);
+    char *start = reversed;
+    char *end = reversed + strlen(text) - 1;
 
     while(start < end) {
 
         swap(start++, end--);
     }
+
+    return reversed;
 }
 
 char * longestPalindrome(char * text) {
 
-    toLowerCase(text);
-    char copy[strlen(text)];
-    strcpy(copy, text);
-    reverse(copy);
+    const int length = strlen(text);
+    char *lowerCased = toLowerCase(text);
+    char *reversed = reverse(text);
+    char *palindrome = malloc(sizeof *palindrome * length);
 
-    char *palindrome = malloc(sizeof *palindrome * strlen(text));
-    int longest = 0;
+    for(int i = 0, longest = 0; i < length - longest; i++) {
 
-    for(int i = 0; i < strlen(text) - longest; i++) {
+        for(int j = i, k = 0, newLongest = 0; j < length; j++, k++) {
 
-        int newLongest = 0;
-
-        for(int j = i, k = 0; j < strlen(text); j++, k++) {
-
-            if(text[k] != copy[j]) {
+            if(lowerCased[k] != reversed[j]) {
 
                 if(newLongest > longest) {
 
-                    for(int l = k - newLongest, m = 0; l < k; l++) {
-
-                        palindrome[m++] = text[l];
-                    }
-
-                    palindrome[newLongest] = '\0';
                     longest = newLongest;
+                    copyFrom(palindrome, lowerCased, k - longest, longest);
                 }
 
                 newLongest = 0;
@@ -83,6 +99,9 @@ char * longestPalindrome(char * text) {
             newLongest++;
         }
     }
+
+    free(lowerCased);
+    free(reversed);
 
     return palindrome;
 }
