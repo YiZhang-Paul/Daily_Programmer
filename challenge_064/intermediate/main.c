@@ -6,17 +6,16 @@
 void toLowerCase(char *);
 void swap(char *, char *);
 void reverse(char *);
+char * longestPalindrome(char *);
 
 int main(void) {
 
     char input[] = "FourscoreandsevenyearsagoourfaathersbroughtforthonthiscontainentanewnationconceivedinzLibertyanddedicatedtothepropositionthatallmenarecreatedequalNowweareengagedinagreahtcivilwartestingwhetherthatnaptionoranynartionsoconceivedandsodedicatedcanlongendureWeareqmetonagreatbattlefiemldoftzhatwarWehavecometodedicpateaportionofthatfieldasafinalrestingplaceforthosewhoheregavetheirlivesthatthatnationmightliveItisaltogetherfangandproperthatweshoulddothisButinalargersensewecannotdedicatewecannotconsecratewecannothallowthisgroundThebravelmenlivinganddeadwhostruggledherehaveconsecrateditfaraboveourpoorponwertoaddordetractTgheworldadswfilllittlenotlenorlongrememberwhatwesayherebutitcanneverforgetwhattheydidhereItisforusthelivingrathertobededicatedheretotheulnfinishedworkwhichtheywhofoughtherehavethusfarsonoblyadvancedItisratherforustobeherededicatedtothegreattdafskremainingbeforeusthatfromthesehonoreddeadwetakeincreaseddevotiontothatcauseforwhichtheygavethelastpfullmeasureofdevotionthatweherehighlyresolvethatthesedeadshallnothavediedinvainthatthisnationunsderGodshallhaveanewbirthoffreedomandthatgovernmentofthepeoplebythepeopleforthepeopleshallnotperishfromtheearth";
-    toLowerCase(input);
-    char copy[strlen(input)];
-    strcpy(copy, input);
+    char *longest = longestPalindrome(input);
 
-    printf("%s\n", input);
-    reverse(copy);
-    printf("%s\n", copy);
+    printf("%s\n", longest);
+
+    free(longest);
 
     return 0;
 }
@@ -45,4 +44,45 @@ void reverse(char * text) {
 
         swap(start++, end--);
     }
+}
+
+char * longestPalindrome(char * text) {
+
+    toLowerCase(text);
+    char copy[strlen(text)];
+    strcpy(copy, text);
+    reverse(copy);
+
+    char *palindrome = malloc(sizeof *palindrome * strlen(text));
+    int longest = 0;
+
+    for(int i = 0; i < strlen(text) - longest; i++) {
+
+        int newLongest = 0;
+
+        for(int j = i, k = 0; j < strlen(text); j++, k++) {
+
+            if(text[k] != copy[j]) {
+
+                if(newLongest > longest) {
+
+                    for(int l = k - newLongest, m = 0; l < k; l++) {
+
+                        palindrome[m++] = text[l];
+                    }
+
+                    palindrome[newLongest] = '\0';
+                    longest = newLongest;
+                }
+
+                newLongest = 0;
+
+                continue;
+            }
+
+            newLongest++;
+        }
+    }
+
+    return palindrome;
 }
