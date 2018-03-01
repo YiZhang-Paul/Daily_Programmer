@@ -12,15 +12,16 @@ int * findMissingNumber(int *, int);
 
 int main(void) {
 
-    const int total = 10000;
+    const int total = 1000000;
+    const int exclude = 2;
     int *range = getRange(total);
     shuffle(range, total);
-    int *missing = findMissingNumber(range, total - 2);
+    int *missing = findMissingNumber(range, total - exclude);
 
     printf("Excluded: ");
-    printRange(range + total - 2, 2);
-    printf("Missing Numbers Found: ");
-    printRange(missing, 2);
+    printRange(range + total - exclude, exclude);
+    printf("Missing Numbers: ");
+    printRange(missing, exclude);
 
     free(range);
     free(missing);
@@ -84,15 +85,15 @@ int * findMissingNumber(int * range, int total) {
     int *missing = malloc(sizeof *missing * 2);
     long long realSum = total * 2 + 3;
     long long actualSum = 0;
-    long long realsquare = (long long)(total + 1) * (total + 1) + (total + 2) * (total + 2);
+    long long realsquare = (long long)(total + 1) * (total + 1) + (long long)(total + 2) * (total + 2);
     long long actualSquare = 0;
 
     for(int i = 0; i < total; i++) {
 
         realSum += i + 1;
         actualSum += range[i];
-        realsquare += (i + 1) * (i + 1);
-        actualSquare += range[i] * range[i];
+        realsquare += (long long)(i + 1) * (i + 1);
+        actualSquare += (long long)range[i] * range[i];
     }
 
     solveXY(realSum - actualSum, realsquare - actualSquare, &missing[0], &missing[1]);
