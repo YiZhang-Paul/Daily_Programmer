@@ -1,15 +1,20 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 int * getRange(int);
 int getRandom(int, int);
-int removeIndex(int *, int, int);
-int * getShuffledRange(int, int);
+void swap(int *, int *);
+void shuffle(int *, int);
 void printRange(int *, int);
 
 int main(void) {
 
-    getShuffledRange(20, 2);
+    int *range = getRange(100);
+    shuffle(range, 100);
+    printRange(range, 98);
+    printf("Excluded: ");
+    printRange(range + 98, 2);
 
     return 0;
 }
@@ -31,42 +36,20 @@ int getRandom(int min, int max) {
     return rand() % (max - min + 1) + min;
 }
 
-int removeIndex(int * range, int total, int index) {
+void swap(int * index1, int * index2) {
 
-    if(index > total - 1) {
-
-        return -1;
-    }
-
-    const int removed = range[index];
-
-    for(int i = index; i < total - 1; i++) {
-
-        range[i] = range[i + 1];
-    }
-
-    return removed;
+    const int total = *index1 + *index2;
+    *index1 = total - *index1;
+    *index2 = total - *index2;
 }
 
-int * getShuffledRange(int total, int exclude) {
+void shuffle(int * range, int total) {
 
-    int *range = getRange(total);
-    int *shuffled = malloc(sizeof *shuffled * total - exclude);
+    for(int i = 0; i < total; i++) {
 
-    for(int i = 0, remain = total; i < total - exclude; i++, remain--) {
-
-        const int index = getRandom(0, remain - 1);
-        shuffled[i] = removeIndex(range, remain, index);
+        const int swapIndex = getRandom(0, total - 1);
+        swap(range + i, range + swapIndex);
     }
-
-    printf("shuffled: ");
-    printRange(shuffled, total - exclude);
-    printf("excluded: ");
-    printRange(range, exclude);
-
-    free(range);
-
-    return shuffled;
 }
 
 void printRange(int * range, int total) {
