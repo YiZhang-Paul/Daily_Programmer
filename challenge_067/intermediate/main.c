@@ -1,20 +1,28 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
+#include <math.h>
 
 int * getRange(int);
 int getRandom(int, int);
 void swap(int *, int *);
 void shuffle(int *, int);
 void printRange(int *, int);
+void findMissingNumber(int *, int);
 
 int main(void) {
 
-    int *range = getRange(100);
-    shuffle(range, 100);
-    printRange(range, 98);
+    const int total = 1000;
+    const int exclude = 2;
+
+    int *range = getRange(total);
+    shuffle(range, total);
+
     printf("Excluded: ");
-    printRange(range + 98, 2);
+    printRange(range + total - exclude, exclude);
+    printf("Missing Number: ");
+    findMissingNumber(range, total - exclude);
+
+    free(range);
 
     return 0;
 }
@@ -60,4 +68,30 @@ void printRange(int * range, int total) {
     }
 
     printf("\n");
+}
+
+void findMissingNumber(int * range, int total) {
+
+    long long totalSum = (total + 1) + (total + 2);
+    long long realSum = 0;
+    long long totalSquare = (long long)(total + 1) * (total + 1) + (total + 2) * (total + 2);
+    long long realSquare = 0;
+
+    for(int i = 0; i < total; i++) {
+
+        totalSum += i + 1;
+        realSum += range[i];
+        totalSquare += (i + 1) * (i + 1);
+        realSquare += range[i] * range[i];
+    }
+
+    const long long xPlusY = totalSum - realSum;
+    const long long xSquarePlusYSquare = totalSquare - realSquare;
+    const long long twoXTimesY = xPlusY * xPlusY - xSquarePlusYSquare;
+    const long long xMinusY = sqrt(xSquarePlusYSquare - twoXTimesY);
+    const long long x = (xPlusY + xMinusY) / 2;
+    const long long y = xPlusY - x;
+
+    printf("%lld\n", x);
+    printf("%lld\n", y);
 }
