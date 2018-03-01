@@ -7,22 +7,23 @@ int getRandom(int, int);
 void swap(int *, int *);
 void shuffle(int *, int);
 void printRange(int *, int);
-void findMissingNumber(int *, int);
+void solveXY(long long, long long, int *, int *);
+int * findMissingNumber(int *, int);
 
 int main(void) {
 
-    const int total = 1000;
-    const int exclude = 2;
-
+    const int total = 10000;
     int *range = getRange(total);
     shuffle(range, total);
+    int *missing = findMissingNumber(range, total - 2);
 
     printf("Excluded: ");
-    printRange(range + total - exclude, exclude);
-    printf("Missing Number: ");
-    findMissingNumber(range, total - exclude);
+    printRange(range + total - 2, 2);
+    printf("Missing Numbers Found: ");
+    printRange(missing, 2);
 
     free(range);
+    free(missing);
 
     return 0;
 }
@@ -70,28 +71,31 @@ void printRange(int * range, int total) {
     printf("\n");
 }
 
-void findMissingNumber(int * range, int total) {
+void solveXY(long long xPlusY, long long xSqrPlusYSqr, int * x, int * y) {
 
-    long long totalSum = (total + 1) + (total + 2);
-    long long realSum = 0;
-    long long totalSquare = (long long)(total + 1) * (total + 1) + (total + 2) * (total + 2);
-    long long realSquare = 0;
+    const long long twoXTimesY = xPlusY * xPlusY - xSqrPlusYSqr;
+    const long long xMinusY = sqrt(xSqrPlusYSqr - twoXTimesY);
+    *x = (xPlusY + xMinusY) / 2;
+    *y = xPlusY - *x;
+}
+
+int * findMissingNumber(int * range, int total) {
+
+    int *missing = malloc(sizeof *missing * 2);
+    long long realSum = total * 2 + 3;
+    long long actualSum = 0;
+    long long realsquare = (long long)(total + 1) * (total + 1) + (total + 2) * (total + 2);
+    long long actualSquare = 0;
 
     for(int i = 0; i < total; i++) {
 
-        totalSum += i + 1;
-        realSum += range[i];
-        totalSquare += (i + 1) * (i + 1);
-        realSquare += range[i] * range[i];
+        realSum += i + 1;
+        actualSum += range[i];
+        realsquare += (i + 1) * (i + 1);
+        actualSquare += range[i] * range[i];
     }
 
-    const long long xPlusY = totalSum - realSum;
-    const long long xSquarePlusYSquare = totalSquare - realSquare;
-    const long long twoXTimesY = xPlusY * xPlusY - xSquarePlusYSquare;
-    const long long xMinusY = sqrt(xSquarePlusYSquare - twoXTimesY);
-    const long long x = (xPlusY + xMinusY) / 2;
-    const long long y = xPlusY - x;
+    solveXY(realSum - actualSum, realsquare - actualSquare, &missing[0], &missing[1]);
 
-    printf("%lld\n", x);
-    printf("%lld\n", y);
+    return missing;
 }
