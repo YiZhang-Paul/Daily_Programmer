@@ -14,6 +14,7 @@ int main(void) {
 
     const int total = 1000000;
     const int exclude = 2;
+
     int *range = getRange(total);
     shuffle(range, total);
     int *missing = findMissingNumber(range, total - exclude);
@@ -29,13 +30,14 @@ int main(void) {
     return 0;
 }
 
+//retrieve all integers from 1 to N
 int * getRange(int total) {
 
     int *range = malloc(sizeof *range * total);
 
-    for(int i = 1; i <= total; i++) {
+    for(int i = 0; i < total; i++) {
 
-        range[i - 1] = i;
+        range[i] = i + 1;
     }
 
     return range;
@@ -53,6 +55,7 @@ void swap(int * index1, int * index2) {
     *index2 = total - *index2;
 }
 
+//shuffle an integer array in-place
 void shuffle(int * range, int total) {
 
     for(int i = 0; i < total; i++) {
@@ -72,10 +75,12 @@ void printRange(int * range, int total) {
     printf("\n");
 }
 
-void solveXY(long long xPlusY, long long xSqrPlusYSqr, int * x, int * y) {
-
-    const long long twoXTimesY = xPlusY * xPlusY - xSqrPlusYSqr;
-    const long long xMinusY = sqrt(xSqrPlusYSqr - twoXTimesY);
+//solve for x and y, given the value of x + y and x^2 + y^2
+void solveXY(long long xPlusY, long long xSquarePlusYSquare, int * x, int * y) {
+    //2xy = (x + y) * (x + y) - (x^2 + y^2)
+    const long long twoXTimesY = xPlusY * xPlusY - xSquarePlusYSquare;
+    //(x - y) * (x - y) = x^2 - 2xy + y^2 = (x^2 + y^2) - (2xy)
+    const long long xMinusY = sqrt(xSquarePlusYSquare - twoXTimesY);
     *x = (xPlusY + xMinusY) / 2;
     *y = xPlusY - *x;
 }
@@ -83,20 +88,21 @@ void solveXY(long long xPlusY, long long xSqrPlusYSqr, int * x, int * y) {
 int * findMissingNumber(int * range, int total) {
 
     int *missing = malloc(sizeof *missing * 2);
-    long long realSum = total * 2 + 3;
-    long long actualSum = 0;
-    long long realsquare = (long long)(total + 1) * (total + 1) + (long long)(total + 2) * (total + 2);
-    long long actualSquare = 0;
+    long long realSum = (total + 1) + (total + 2); //sum of all numbers including missing numbers
+    long long actualSum = 0;                       //sum of all numbers except missing numbers
+    //sum of squares of all numbers including missing numbers
+    long long realSquare = (long long)(total + 1) * (total + 1) + (long long)(total + 2) * (total + 2);
+    long long actualSquare = 0;                    //sum of squares of all numbers except missing numbers
 
     for(int i = 0; i < total; i++) {
 
         realSum += i + 1;
         actualSum += range[i];
-        realsquare += (long long)(i + 1) * (i + 1);
+        realSquare += (long long)(i + 1) * (i + 1);
         actualSquare += (long long)range[i] * range[i];
     }
 
-    solveXY(realSum - actualSum, realsquare - actualSquare, &missing[0], &missing[1]);
+    solveXY(realSum - actualSum, realSquare - actualSquare, missing, missing + 1);
 
     return missing;
 }
