@@ -10,6 +10,10 @@ int findIndex(char *, char);
 char * getKey(char *, char);
 char * fillRandom(char *, int);
 char * getTable(char *, char *, char *);
+int compare(const void *, const void *);
+char * sortText(char *);
+void copyColumn(char *, char *, int, int, int);
+char * sortTable(char *, char *);
 
 int main(void) {
 
@@ -19,6 +23,10 @@ int main(void) {
 
     char *formatted = formatText(text);
     char *table = getTable(formatted, substitution, transposition);
+
+    printf("%s\n", table);
+
+    table = sortTable(table, transposition);
 
     printf("%s\n", table);
 
@@ -104,15 +112,63 @@ char * getTable(char * text, char * substitution, char * transposition) {
     const int rows = strlen(text) * 2 / columns + 1;
     char *table = malloc(rows * columns + 1);
 
-    for(int i = 0, index = 0; i < strlen(text); i++) {
+    for(int i = 0, j = 0; i < strlen(text); i++) {
 
         char *key = getKey(substitution, text[i]);
-        table[index++] = key[0];
-        table[index++] = key[1];
-        table[index] = key[2];
+        table[j++] = key[0];
+        table[j++] = key[1];
 
         free(key);
     }
 
+    table[strlen(text) * 2] = '\0';
+
     return fillRandom(table, rows * columns);
+}
+
+int compare(const void * a, const void * b) {
+
+    return *(char *)a - *(char *)b;
+}
+
+char * sortText(char * text) {
+
+    char *sorted = copy(text);
+    qsort(sorted, strlen(sorted), 1, compare);
+
+    return sorted;
+}
+
+void copyColumn(char * destination, char * source, int destinationIndex, int sourceIndex, int rows) {
+
+    const int columns = strlen(source) / rows;
+
+    for(int i = 0; i < rows; i++) {
+
+        destination[destinationIndex] = source[sourceIndex];
+        destinationIndex += columns;
+        sourceIndex += columns;
+    }
+}
+
+char * sortTable(char * table, char * transposition) {
+
+    char *sortedTable = malloc(strlen(table) + 1);
+    char *keysCopy = copy(transposition);
+    char *sortedKeys = sortText(transposition);
+
+    for(int i = 0; i < strlen(sortedKeys); i++) {
+
+        const int index = findIndex(keysCopy, sortedKeys[i]);
+        copyColumn(sortedTable, table, i, index, strlen(table) / strlen(transposition));
+        keysCopy[index] = ' ';
+    }
+
+    sortedTable[strlen(table)] = '\0';
+
+    free(table);
+    free(keysCopy);
+    free(sortedKeys);
+
+    return sortedTable;
 }
