@@ -14,6 +14,7 @@ int compare(const void *, const void *);
 char * sortText(char *);
 void copyColumn(char *, char *, int, int, int);
 char * sortTable(char *, char *);
+char * encode(char *, char *, char *);
 
 int main(void) {
 
@@ -21,17 +22,11 @@ int main(void) {
     char substitution[] = "R3FLMX7KWQ69D4Y5NOZ STV2EH8AP1ICBGU0";
     char transposition[] = "PROGRAMMER";
 
-    char *formatted = formatText(text);
-    char *table = getTable(formatted, substitution, transposition);
+    char *encoded = encode(text, substitution, transposition);
 
-    printf("%s\n", table);
+    printf("%s\n", encoded);
 
-    table = sortTable(table, transposition);
-
-    printf("%s\n", table);
-
-    free(formatted);
-    free(table);
+    free(encoded);
 
     return 0;
 }
@@ -166,9 +161,32 @@ char * sortTable(char * table, char * transposition) {
 
     sortedTable[strlen(table)] = '\0';
 
-    free(table);
     free(keysCopy);
     free(sortedKeys);
 
     return sortedTable;
+}
+
+char * encode(char * text, char * substitution, char * transposition) {
+
+    char *formatted = formatText(text);
+    char *table = getTable(formatted, substitution, transposition);
+    char *sortedTable = sortTable(table, transposition);
+    char *encoded = malloc(strlen(sortedTable) + 1);
+    const int columns = strlen(transposition);
+    const int rows = strlen(sortedTable) / columns;
+
+    for(int i = 0, total = rows * columns; i < strlen(sortedTable); i++) {
+
+        const int index = i * columns;
+        encoded[i] = sortedTable[index / total + index % total];
+    }
+
+    encoded[rows * columns] = '\0';
+
+    free(formatted);
+    free(table);
+    free(sortedTable);
+
+    return encoded;
 }
