@@ -24,7 +24,7 @@ int main(void) {
 
 char * copy(char * text) {
 
-    char *copied = malloc(sizeof *copied * strlen(text));
+    char *copied = malloc(strlen(text) + 1);
 
     return strcpy(copied, text);
 }
@@ -78,7 +78,7 @@ char * longestPalindrome(char * text) {
     const int length = strlen(text);
     char *lowerCase = toLowerCase(text);
     char *reversed = reverse(text);
-    char *result = malloc(sizeof *result * length);
+    char *result = malloc(length + 1);
     //look for matching patterns
     for(int i = 0, longest = 0; i < length - longest; i++) {
         //j: counter on original text; k: counter on reversed text
