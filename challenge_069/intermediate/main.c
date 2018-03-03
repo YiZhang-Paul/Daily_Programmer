@@ -15,6 +15,9 @@ char * sortText(char *);
 void copyColumn(char *, char *, int, int, int);
 char * sortTable(char *, char *);
 char * encode(char *, char *, char *);
+char * toTable(char *, int);
+char * unsortTable(char *, char *);
+char * decode(char *, char *, char *);
 
 int main(void) {
 
@@ -23,10 +26,12 @@ int main(void) {
     char transposition[] = "PROGRAMMER";
 
     char *encoded = encode(text, substitution, transposition);
-
-    printf("%s\n", encoded);
+    // printf("%s\n", encoded);
+    char *decoded = decode(encoded, substitution, transposition);
+    // printf("%s\n", decoded);
 
     free(encoded);
+    free(decoded);
 
     return 0;
 }
@@ -189,4 +194,52 @@ char * encode(char * text, char * substitution, char * transposition) {
     free(sortedTable);
 
     return encoded;
+}
+
+char * toTable(char * encoded, int rows) {
+
+    char *table = malloc(strlen(encoded) + 1);
+    const int columns = strlen(encoded) / rows;
+
+    for(int i = 0, total = rows * columns; i < strlen(encoded); i++) {
+
+        const int index = i * columns;
+        table[index / total + index % total] = encoded[i];
+    }
+
+    table[strlen(encoded)] = '\0';
+
+    return table;
+}
+
+char * unsortTable(char * table, char * transposition) {
+
+    char *unsortedTable = malloc(strlen(table) + 1);
+    char *sortedKeys = sortText(transposition);
+
+    for(int i = 0; i < strlen(transposition); i++) {
+
+        const int index = findIndex(sortedKeys, transposition[i]);
+        copyColumn(unsortedTable, table, i, index, strlen(table) / strlen(transposition));
+        sortedKeys[index] = ' ';
+    }
+
+    unsortedTable[strlen(table)] = '\0';
+
+    free(sortedKeys);
+
+    return unsortedTable;
+}
+
+char * decode(char * encoded, char * substitution, char * transposition) {
+
+    char *sortedTable = toTable(encoded, strlen(encoded) / strlen(transposition));
+    char *unsortedTable = unsortTable(sortedTable, transposition);
+
+    char *decoded = malloc(2);
+
+    free(sortedTable);
+    free(unsortedTable);
+
+    return decoded;
 }
