@@ -3,10 +3,12 @@
 #include <string.h>
 #include <ctype.h>
 
+char * copy(char *);
 char formatCharacter(char);
-void formatText(char *);
+char * formatText(char *);
 int findIndex(char *, char);
 char * getKey(char *, char);
+char * encode(char *, char *, char *);
 
 int main(void) {
 
@@ -14,41 +16,54 @@ int main(void) {
     char substitution[] = "R3FLMX7KWQ69D4Y5NOZ STV2EH8AP1ICBGU0";
     char transposition[] = "PROGRAMMER";
 
-    printf("%s\n", text);
-    formatText(text);
-    printf("%s\n", text);
+    char *formatted = formatText(text);
 
-    for(int i = 0; i < strlen(text); i++) {
+    printf("%s\n", getKey(substitution, formatted[0]));
 
-        printf("%c(%s)", text[i], getKey(substitution, text[i]));
-    }
+    // for(int i = 0; i < strlen(formatted); i++) {
+
+    //     char *key = getKey(substitution, formatted[i]);
+
+    //     free(key);
+    // }
 
     return 0;
 }
 
-char formatCharacter(char character) {
+char * copy(char * text) {
 
-    const char upperCase = toupper(character);
+    char *copied = malloc(sizeof *copied * strlen(text));
 
-    return upperCase == 'J' ? 'I' : upperCase;
+    return strcpy(copied, text);
 }
 
-void formatText(char * text) {
+char formatCharacter(char character) {
+
+    char upperCased = toupper(character);
+
+    return upperCased == 'J' ? 'I' : upperCased;
+}
+
+char * formatText(char * text) {
+
+    char *formatted = copy(text);
+
+    for(int i = 0; i < strlen(formatted); i++) {
+
+        if(isalpha(formatted[i])) {
+
+            formatted[i] = formatCharacter(formatted[i]);
+        }
+    }
+
+    return formatted;
+}
+
+int findIndex(char * text, char character) {
 
     for(int i = 0; i < strlen(text); i++) {
 
-        if(isalpha(text[i])) {
-
-            text[i] = formatCharacter(text[i]);
-        }
-    }
-}
-
-int findIndex(char * array, char character) {
-
-    for(int i = 0; i < strlen(array); i++) {
-
-        if(character == array[i]) {
+        if(character == text[i]) {
 
             return i;
         }
@@ -57,15 +72,12 @@ int findIndex(char * array, char character) {
     return -1;
 }
 
-char * getKey(char * substitution, char letter) {
+char * getKey(char * substitution, char character) {
 
-    char *key = malloc(sizeof *key * 3);
-    const char ciphertext[] = "ADFGVX";
-    const int index = findIndex(substitution, letter);
+    return substitution;
+}
 
-    key[0] = ciphertext[index / strlen(ciphertext)];
-    key[1] = ciphertext[index % strlen(ciphertext)];
-    key[2] = '\0';
+char * encode(char * text, char * substitution, char * transposition) {
 
-    return key;
+    
 }
