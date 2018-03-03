@@ -17,6 +17,7 @@ char * sortTable(char *, char *);
 char * encode(char *, char *, char *);
 char * toTable(char *, int);
 char * unsortTable(char *, char *);
+char getLetter(char, char, char *);
 char * decode(char *, char *, char *);
 
 int main(void) {
@@ -26,9 +27,9 @@ int main(void) {
     char transposition[] = "PROGRAMMER";
 
     char *encoded = encode(text, substitution, transposition);
-    // printf("%s\n", encoded);
+    printf("%s\n", encoded);
     char *decoded = decode(encoded, substitution, transposition);
-    // printf("%s\n", decoded);
+    printf("%s\n", decoded);
 
     free(encoded);
     free(decoded);
@@ -231,12 +232,25 @@ char * unsortTable(char * table, char * transposition) {
     return unsortedTable;
 }
 
+char getLetter(char rowLabel, char columnLabel, char * substitution) {
+
+    char keys[] = "ADFGVX";
+    const int row = findIndex(keys, rowLabel);
+    const int column = findIndex(keys, columnLabel);
+
+    return substitution[row * strlen(keys) + column];
+}
+
 char * decode(char * encoded, char * substitution, char * transposition) {
 
     char *sortedTable = toTable(encoded, strlen(encoded) / strlen(transposition));
     char *unsortedTable = unsortTable(sortedTable, transposition);
+    char *decoded = malloc(strlen(unsortedTable) / 2 + 1);
 
-    char *decoded = malloc(2);
+    for(int i = 0, j = 0; i < strlen(unsortedTable); i += 2, j++) {
+
+        decoded[j] = getLetter(unsortedTable[i], unsortedTable[i + 1], substitution);
+    }
 
     free(sortedTable);
     free(unsortedTable);
