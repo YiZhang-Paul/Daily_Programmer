@@ -41,6 +41,7 @@ int findMax(int * values, int total) {
     return max;
 }
 
+//find index of first element found with given value
 int findIndex(int * values, int total, int toFind) {
 
     for(int i = 0; i < total; i++) {
@@ -54,6 +55,7 @@ int findIndex(int * values, int total, int toFind) {
     return -1;
 }
 
+//find first index found on maximum value in a given list
 int findMaxIndex(int * values, int total) {
 
     const int max = findMax(values, total);
@@ -68,6 +70,7 @@ void swap(int * values, int index1, int index2) {
     values[index2] = total - values[index2];
 }
 
+//reverse all elements from index 0 to index N - 1
 void flip(int * values, int end) {
 
     int start = 0;
@@ -84,31 +87,34 @@ void printList(int * values, int total) {
 
         printf("%d ", values[i]);
     }
+
+    printf("\n");
 }
 
-void tryFlip(int * values, int end, int * counter) {
-
-    if(end == 0) {
+//flip maximum value to front of list if not already at front
+void tryFlip(int * values, int index, int * counter) {
+    //when maximum value is already at front
+    if(index == 0) {
 
         return;
     }
 
-    flip(values, end);
+    flip(values, index);
     (*counter)++;
 }
 
 void sortPancakes(int * sizes, int total) {
 
     int flips = 0;
-    int remaining = total;
+    int remain = total;
 
-    while(remaining != 1) {
-
-        tryFlip(sizes, findMaxIndex(sizes, remaining), &flips);
-        tryFlip(sizes, remaining - 1, &flips);
-        remaining--;
+    while(remain > 1) {
+        //flip maximum value to front, then to the back
+        tryFlip(sizes, findMaxIndex(sizes, remain), &flips);
+        tryFlip(sizes, remain - 1, &flips);
+        remain--;
     }
 
+    printf("(Flips: %d) ", flips);
     printList(sizes, total);
-    printf("(Flips: %d)\n", flips);
 }
