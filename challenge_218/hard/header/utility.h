@@ -5,5 +5,6 @@
 #include <string.h>
 
 char * copy(char *);
+char ** split(char *, const char *);
 
 #endif

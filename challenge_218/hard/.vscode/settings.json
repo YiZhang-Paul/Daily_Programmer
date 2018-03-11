@@ -3,7 +3,11 @@
         "stdlib.h": "c",
         "stdio.h": "c",
         "lift.h": "c",
-        "utility.h": "c"
+        "utility.h": "c",
+        "string.h": "c",
+        "rider.h": "c",
+        "linkedlist.h": "c",
+        "ctype.h": "c"
     },
     "code-runner.executorMap": {
         "c": "cd $workspaceRoot && gcc -g main.c library/*.c -o main && $workspaceRoot/main"
