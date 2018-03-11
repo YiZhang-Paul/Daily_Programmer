@@ -23,6 +23,7 @@ struct lift {
 struct lift * createLift(char *, int, double, double, int);
 static int hasRoom(struct lift *);
 static int canMovePass(struct lift *, struct rider *);
+static int onFloor(struct lift *, int);
 static int onSameDirection(struct lift *, struct rider *);
 static int canPickUp(struct lift *, struct rider *);
 static int onWait(struct lift *);

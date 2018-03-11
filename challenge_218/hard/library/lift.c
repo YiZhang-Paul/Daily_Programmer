@@ -39,6 +39,16 @@ static int canMovePass(struct lift * lift, struct rider * rider) {
     return rider->source <= lift->position;
 }
 
+static int onFloor(struct lift * lift, int targetFloor) {
+
+    if(floor(lift->position) != targetFloor) {
+
+        return 0;
+    }
+
+    return lift->position - floor(lift->position) < lift->speed;
+}
+
 static int onSameDirection(struct lift * lift, struct rider * rider) {
 
     return lift->direction == getRiderDirection(rider);
@@ -95,7 +105,7 @@ static void load(struct lift * lift, struct node * request, struct node ** allRe
 
     struct rider *rider = (struct rider *)request->data;
 
-    if(rider->source == lift->position) {
+    if(onFloor(lift, rider->source)) {
 
         append(&lift->passenger, rider);
         lift->currentLoad++;
@@ -116,11 +126,14 @@ static void unload(struct lift * lift) {
 
     while(passenger != NULL) {
 
-        if(((struct rider *)passenger->data)->destination == lift->position) {
+        if(onFloor(lift, ((struct rider *)passenger->data)->destination)) {
 
             delete(&lift->passenger, passenger);
             lift->currentLoad--;
             unloaded = 1;
+            passenger = lift->passenger;
+
+            continue;
         }
 
         passenger = passenger->next;
@@ -176,9 +189,12 @@ static void checkMove(struct lift * lift, struct node * request) {
 
 static void checkIdle(struct lift * lift, struct node * request) {
 
-    if(lift->currentLoad == 0 && request == NULL) {
+    if(lift->currentLoad == 0) {
 
-        lift->direction = IDLE;
+        if(request == NULL) {
+
+            lift->direction = IDLE;
+        }
     }
 }
 
