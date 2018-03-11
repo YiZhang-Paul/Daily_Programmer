@@ -41,12 +41,7 @@ static int canMovePass(struct lift * lift, struct rider * rider) {
 
 static int onFloor(struct lift * lift, int targetFloor) {
 
-    if(floor(lift->position) != targetFloor) {
-
-        return 0;
-    }
-
-    return lift->position - floor(lift->position) < lift->speed;
+    return fabs(lift->position - (double)targetFloor) < lift->speed;
 }
 
 static int onSameDirection(struct lift * lift, struct rider * rider) {
@@ -74,6 +69,20 @@ static int onWait(struct lift * lift) {
     return lift->waitTimeLeft != 0;
 }
 
+static int maxDestination(struct lift * lift) {
+
+    int max = 1;
+    struct node *passenger = lift->passenger;
+
+    while(passenger != NULL) {
+
+        max = MAX(max, ((struct rider *)passenger->data)->destination);
+        passenger = passenger->next;
+    }
+
+    return max;
+}
+
 struct node * getActiveRequest(struct node * requests, struct lift * lift, int second) {
 
     while(requests != NULL) {
@@ -96,21 +105,35 @@ struct node * getActiveRequest(struct node * requests, struct lift * lift, int s
     return NULL;
 }
 
-static void load(struct lift * lift, struct node * request, struct node ** allRequests) {
+static void load(struct lift * lift, struct node ** requests, int second) {
 
-    if(request == NULL) {
+    struct node *currentRequest = *requests;
 
-        return;
-    }
+    while(currentRequest != NULL) {
 
-    struct rider *rider = (struct rider *)request->data;
+        struct rider *rider = (struct rider *)currentRequest->data;
 
-    if(onFloor(lift, rider->source)) {
+        if(rider->timestamp > second) {
 
-        append(&lift->passenger, rider);
-        lift->currentLoad++;
-        delete(allRequests, request);
-        refreshWait(lift);
+            break;
+        }
+
+        if(onFloor(lift, rider->source) && canPickUp(lift, rider)) {
+
+            append(&lift->passenger, rider);
+            lift->currentLoad++;
+            delete(requests, currentRequest);
+            currentRequest = *requests;
+
+            if(!onWait(lift)) {
+
+                refreshWait(lift);
+            }
+
+            continue;
+        }
+
+        currentRequest = currentRequest->next;
     }
 }
 
@@ -139,7 +162,7 @@ static void unload(struct lift * lift) {
         passenger = passenger->next;
     }
 
-    if(unloaded) {
+    if(unloaded && !onWait(lift)) {
 
         refreshWait(lift);
     }
@@ -189,12 +212,12 @@ static void checkMove(struct lift * lift, struct node * request) {
 
 static void checkIdle(struct lift * lift, struct node * request) {
 
-    if(lift->currentLoad == 0) {
+    const int outOfRange = lift->position < 1 || lift->position > maxDestination(lift);
+    const int noActivity = lift->currentLoad == 0 && request == NULL;
 
-        if(request == NULL) {
+    if(outOfRange || noActivity) {
 
-            lift->direction = IDLE;
-        }
+        lift->direction = IDLE;
     }
 }
 
@@ -205,11 +228,15 @@ static void move(struct lift * lift) {
 
 void updateLift(struct lift * lift, struct node ** requests, int second) {
 
-    struct node *request = getActiveRequest(*requests, lift, second);
+    if(onFloor(lift, (int)lift->position)) {
 
-    load(lift, request, requests);
-    unload(lift);
+        load(lift, requests, second);
+        unload(lift);
+    }
+
     checkWait(lift);
+
+    struct node *request = getActiveRequest(*requests, lift, second);
 
     if(lift->direction == IDLE) {
 
