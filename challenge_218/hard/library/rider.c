@@ -1,4 +1,3 @@
-#include "../header/utility.h"
 #include "../header/rider.h"
 
 struct rider * createRider(char * id, int timestamp, int source, int destination) {
@@ -11,6 +10,16 @@ struct rider * createRider(char * id, int timestamp, int source, int destination
     rider->destination = destination;
 
     return rider;
+}
+
+int getRiderDirection(struct rider * rider) {
+
+    if(rider->source == rider->destination) {
+
+        return IDLE;
+    }
+
+    return rider->destination > rider->source ? UP : DOWN;
 }
 
 void freeRider(struct rider * rider) {
