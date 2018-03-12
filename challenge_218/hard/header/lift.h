@@ -39,6 +39,6 @@ static void move(struct lift *);
 static void load(struct lift *, struct node **, int);
 static void unload(struct lift *);
 void updateLift(struct lift *, struct node **, int);
-void freeLift(struct lift *);
+void freeLift(void *);
 
 #endif

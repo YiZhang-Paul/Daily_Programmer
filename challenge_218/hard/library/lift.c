@@ -246,8 +246,7 @@ void updateLift(struct lift * lift, struct node ** requests, int seconds) {
     }
 }
 
-void freeLift(struct lift * lift) {
+void freeLift(void * lift) {
 
-    free(lift->id);
-    free(lift);
+
 }

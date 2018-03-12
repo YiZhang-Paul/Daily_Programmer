@@ -14,6 +14,6 @@ struct rider {
 
 struct rider * createRider(char *, int, int, int);
 int getRiderDirection(struct rider *);
-void freeRider(struct rider *);
+void freeRider(void *);
 
 #endif

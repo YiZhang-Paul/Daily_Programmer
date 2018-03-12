@@ -23,7 +23,10 @@ int main(void) {
         updateLifts(lifts, &requests, seconds++);
     }
 
-    printf("Total Time: %d seconds", seconds);
+    printf("Total Time: %d seconds\n", seconds);
+
+    freeList(&lifts, freeLift);
+    freeList(&requests, freeRider);
 
     return 0;
 }

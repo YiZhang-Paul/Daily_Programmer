@@ -23,8 +23,7 @@ int getRiderDirection(struct rider * rider) {
     return rider->destination > rider->source ? UP : DOWN;
 }
 
-void freeRider(struct rider * rider) {
+void freeRider(void * rider) {
 
-    free(rider->id);
-    free(rider);
+
 }
