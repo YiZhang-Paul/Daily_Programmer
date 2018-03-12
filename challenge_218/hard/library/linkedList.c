@@ -10,14 +10,9 @@ struct node * createNode(void * data) {
     return node;
 }
 
-struct node * getTail(struct node * head) {
-
-    if(head == NULL) {
-
-        return head;
-    }
-
-    while(head->next != NULL) {
+struct node * getTailNode(struct node * head) {
+    //traverse to the end of linked list
+    while(head != NULL && head->next != NULL) {
 
         head = head->next;
     }
@@ -28,32 +23,34 @@ struct node * getTail(struct node * head) {
 void append(struct node ** head, void * data) {
 
     struct node *node = createNode(data);
-
+    //when list is empty
     if(*head == NULL) {
 
         *head = node;
-
-        return;
     }
+    else {
 
-    getTail(*head)->next = node;
+        getTailNode(*head)->next = node;
+    }
 }
 
-void shift(struct node ** head) {
+//remove the first node of linked list
+void shift(struct node ** head, void freeData(void *)) {
 
     if(*head != NULL) {
-
-        struct node *previous = *head;
+        //keep reference to node that will be removed
+        struct node *node = *head;
         *head = (*head)->next;
-        free(previous);
+        freeNode(node, freeData);
     }
 }
 
-void delete(struct node ** head, struct node * node) {
+//remove given node from the list at all possible location
+void delete(struct node ** head, struct node * node, void freeData(void *)) {
 
     if(*head == node || *head == NULL) {
 
-        shift(head);
+        shift(head, freeData);
 
         return;
     }
@@ -66,8 +63,7 @@ void delete(struct node ** head, struct node * node) {
         if(next == node) {
 
             previous->next = next->next;
-
-            free(node);
+            freeNode(node, freeData);
 
             break;
         }
@@ -75,4 +71,26 @@ void delete(struct node ** head, struct node * node) {
         previous = next;
         next = previous->next;
     }
+}
+
+void freeNode(struct node * node, void freeData(void *)) {
+
+    if(freeData != NULL) {
+
+        freeData(node->data);
+    }
+
+    free(node);
+}
+
+void freeList(struct node ** head, void freeData(void *)) {
+
+    while(*head != NULL) {
+        //keep reference to node that will be freed
+        struct node *node = *head;
+        *head = (*head)->next;
+        freeNode(node, freeData);
+    }
+
+    *head = NULL;
 }

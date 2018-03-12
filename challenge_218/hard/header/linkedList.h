@@ -1,7 +1,7 @@
 #ifndef LINKED_LIST_H
 #define LINKED_LIST_H
 
-#include "../header/utility.h"
+#include "utility.h"
 
 struct node {
 
@@ -10,9 +10,11 @@ struct node {
 };
 
 struct node * createNode(void *);
-struct node * getTail(struct node *);
+struct node * getTailNode(struct node *);
 void append(struct node **, void *);
-void shift(struct node **);
-void delete(struct node **, struct node *);
+void shift(struct node **, void func(void *));
+void delete(struct node **, struct node *, void func(void *));
+void freeNode(struct node *, void func(void *));
+void freeList(struct node **, void func(void *));
 
 #endif

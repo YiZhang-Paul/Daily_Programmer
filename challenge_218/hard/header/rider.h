@@ -1,15 +1,15 @@
 #ifndef RIDER_H
 #define RIDER_H
 
-#include "../header/stats.h"
-#include "../header/utility.h"
+#include "stats.h"
+#include "utility.h"
 
 struct rider {
 
     char *id;
-    int timestamp;
-    int source;
-    int destination;
+    int timeOfRequest;
+    int source;         //current floor
+    int destination;    //destination floor
 };
 
 struct rider * createRider(char *, int, int, int);

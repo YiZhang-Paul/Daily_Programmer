@@ -1,41 +1,43 @@
 #ifndef LIFT_H
 #define LIFT_H
 
-#include <math.h>
-#include "../header/stats.h"
-#include "../header/linkedList.h"
-#include "../header/utility.h"
-#include "../header/rider.h"
+#include "stats.h"
+#include "linkedList.h"
+#include "utility.h"
+#include "rider.h"
+
+#define MAX(a, b) ((a) > (b) ? (a) : (b))
 
 struct lift {
 
     char *id;
     int capacity;
-    int currentLoad;
+    int load;     //current number of passengers
     struct node *passenger;
     double speed;
     double position;
-    int waitTime;
+    int maxWaitTime;
     int waitTimeLeft;
     int direction;
 };
 
 struct lift * createLift(char *, int, double, double, int);
-static int hasRoom(struct lift *);
-static int canMovePass(struct lift *, struct rider *);
-static int onFloor(struct lift *, int);
-static int onSameDirection(struct lift *, struct rider *);
-static int canPickUp(struct lift *, struct rider *);
-static int onWait(struct lift *);
+static bool isFull(struct lift *);
+static bool onFloor(struct lift *, int);
+static bool canMoveCross(struct lift *, struct rider *);
+static bool sameDirection(struct lift *, struct rider *);
+static bool canPickUp(struct lift *, struct rider *);
+static bool onWait(struct lift *);
 static int maxDestination(struct lift *);
-struct node * getActiveRequest(struct node *, struct lift *, int);
-static void load(struct lift *, struct node **, int);
-static void unload(struct lift *);
-static void refreshWait(struct lift *);
+static int getDirection(struct lift *, int);
+static struct node * findRequest(struct node *, struct lift *, int);
+static void resetWait(struct lift *);
 static void checkWait(struct lift *);
-static void checkMove(struct lift *, struct node *);
+static void checkDirection(struct lift *, struct node *);
 static void checkIdle(struct lift *, struct node *);
 static void move(struct lift *);
+static void load(struct lift *, struct node **, int);
+static void unload(struct lift *);
 void updateLift(struct lift *, struct node **, int);
 void freeLift(struct lift *);
 
