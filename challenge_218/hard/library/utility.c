@@ -1,10 +1,10 @@
 #include "../header/utility.h"
 
-char * copy(char * text) {
+char * copyText(char * text) {
 
-    char *copied = malloc(strlen(text) + 1);
+    char *copy = malloc(strlen(text) + 1);
 
-    return strcpy(copied, text);
+    return strcpy(copy, text);
 }
 
 char ** split(char * text, const char * delimiter) {

@@ -13,6 +13,7 @@ struct rider {
 };
 
 struct rider * createRider(char *, int, int, int);
+struct rider * copyRider(struct rider *);
 int getRiderDirection(struct rider *);
 void freeRider(void *);
 

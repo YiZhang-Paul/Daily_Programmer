@@ -4,7 +4,7 @@ struct lift * createLift(char * id, int capacity, double speed, double position,
 
     struct lift *lift = malloc(sizeof *lift);
 
-    lift->id = copy(id);
+    lift->id = copyText(id);
     lift->capacity = capacity;
     lift->load = 0;
     lift->passenger = NULL;
@@ -181,7 +181,7 @@ static void load(struct lift * lift, struct node ** requests, int seconds) {
         //load every valid passenger
         if(onFloor(lift, rider->source) && canPickUp(lift, rider)) {
 
-            append(&lift->passenger, rider);
+            append(&lift->passenger, copyRider(rider));
             lift->load++;
             //remove original request
             delete(requests, request, freeRider);
@@ -248,5 +248,7 @@ void updateLift(struct lift * lift, struct node ** requests, int seconds) {
 
 void freeLift(void * lift) {
 
-
+    struct lift *toFree = (struct lift *)lift;
+    free(toFree->id);
+    free(toFree);
 }

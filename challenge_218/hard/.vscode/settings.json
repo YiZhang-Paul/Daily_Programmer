@@ -8,7 +8,8 @@
         "rider.h": "c",
         "linkedlist.h": "c",
         "ctype.h": "c",
-        "stats.h": "c"
+        "stats.h": "c",
+        "stdbool.h": "c"
     },
     "code-runner.executorMap": {
         "c": "cd $workspaceRoot && gcc -g main.c library/*.c -o main && $workspaceRoot/main"

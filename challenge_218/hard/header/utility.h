@@ -7,7 +7,7 @@
 #include <string.h>
 #include <math.h>
 
-char * copy(char *);
+char * copyText(char *);
 char ** split(char *, const char *);
 
 #endif
