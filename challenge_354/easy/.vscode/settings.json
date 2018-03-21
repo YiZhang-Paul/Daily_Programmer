@@ -3,6 +3,6 @@
         "stdio.h": "c"
     },
     "code-runner.executorMap": {
-        "c": "cd $workspaceRoot && gcc -g main.c library/*.c -o main && $workspaceRoot/main"
+        "c": "cd $workspaceRoot && gcc -g main.c -o main && $workspaceRoot/main"
     }
 }
