@@ -1,5 +1,7 @@
 #354[Easy] Integer Complexity 1
 
+All Done
+
 url: https://www.reddit.com/r/dailyprogrammer/comments/83uvey/20180312_challenge_354_easy_integer_complexity_1/
 
 Given a number A, find the smallest possible value of B+C, if B*C = A. Here A, B, and C must all be positive integers. It's okay to use brute force by checking every possible value of B and C. You don't need to handle inputs larger than six digits. Post the return value for A = 345678 along with your solution.

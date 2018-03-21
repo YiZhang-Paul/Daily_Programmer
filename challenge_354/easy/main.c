@@ -4,18 +4,20 @@
 
 #define MIN(a, b) ((a) < (b) ? (a) : (b))
 
+typedef long long llong;
+
 bool isPrime(int);
-void getPrimes(int, bool);
-long long * factorize(long long, int *);
-void compareFactorSum(long long *, int, int, long long, long long, long long *);
-long long findSmallestSum(long long);
+void getPrimes(int);
+llong * factorize(llong, int *);
+void compareFactorSum(llong *, int, int, llong, llong, llong *);
+llong findSmallestSum(llong);
 
 int *primes = NULL;
 int totalPrimes = 0;
 
 int main(void) {
 
-    getPrimes(10000, false);
+    getPrimes(10000);
 
     printf("%lld\n", findSmallestSum(12));
     printf("%lld\n", findSmallestSum(456));
@@ -41,76 +43,66 @@ bool isPrime(int number) {
     return true;
 }
 
-void getPrimes(int limit, bool recursive) {
+//build a list of prime numbers up to given limit
+void getPrimes(int limit) {
 
     if(primes == NULL) {
-
+        //initialize list
         primes = malloc(sizeof *primes);
         primes[totalPrimes++] = 2;
     }
 
-    if(recursive) {
+    for(int i = primes[totalPrimes - 1] + 1; i <= limit; i++) {
 
-        if(!isPrime(limit)) {
-
-            return;
-        }
-
-        primes = realloc(primes, sizeof *primes * (totalPrimes + 1));
-        primes[totalPrimes++] = limit;
-
-        return;
-    }
-
-    if(primes[totalPrimes - 1] < limit) {
-
-        for(int i = primes[totalPrimes - 1] + 1; i <= limit; i++) {
-
-            getPrimes(i, true);
+        if(isPrime(i)) {
+            //keep building up the list with previous prime numbers found
+            primes = realloc(primes, sizeof *primes * (totalPrimes + 1));
+            primes[totalPrimes++] = i;
         }
     }
 }
 
-long long * factorize(long long number, int * total) {
+llong * factorize(llong number, int * total) {
 
-    long long *factors = malloc(sizeof *factors);
+    *total = 0;
+    llong *factors = malloc(sizeof *factors);
+    //store current number at beginning of factors list
+    factors[(*total)++] = number;
 
     for(int i = 0; i < totalPrimes; i++) {
 
-        if(number % primes[i] == 0) {
+        if(*factors % primes[i] == 0) {
 
             factors = realloc(factors, sizeof *factors * (*total + 1));
             factors[(*total)++] = primes[i];
-            number /= primes[i];
+            *factors /= primes[i];
+            //check from the first prime number again
             i = -1;
         }
     }
 
-    factors = realloc(factors, sizeof *factors * (*total + 1));
-    factors[(*total)++] = number;
-
     return factors;
 }
 
-void compareFactorSum(long long * factors, int counter, int total, long long factor, long long number, long long * sum) {
+void compareFactorSum(llong * factors, int counter, int total, llong factor, llong number, llong * sum) {
 
     if(counter == total) {
 
-        const long long newSum = factor + number / factor;
+        const llong newSum = factor + number / factor;
         *sum = *sum == 0 ? newSum : MIN(*sum, newSum);
 
         return;
     }
-
+    //check situations when current factor is/is not used
     compareFactorSum(factors, counter + 1, total, factor * factors[counter], number, sum);
     compareFactorSum(factors, counter + 1, total, factor, number, sum);
 }
 
-long long findSmallestSum(long long number) {
+llong findSmallestSum(llong number) {
 
-    long long sum = 0;
+    llong sum = 0;
     int totalFactors = 0;
-    long long *factors = factorize(number, &totalFactors);
+    llong *factors = factorize(number, &totalFactors);
     compareFactorSum(factors, 0, totalFactors, 1, number, &sum);
 
     free(factors);
