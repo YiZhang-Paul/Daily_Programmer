@@ -2,11 +2,11 @@
 #include <stdlib.h>
 #include <string.h>
 
-int findSpace(char * input) {
+int find(char * input, char letter) {
 
     for(int i = 0; i < strlen(input); i++) {
 
-        if(input[i] == ' ') {
+        if(input[i] == letter) {
 
             return i;
         }
@@ -19,23 +19,32 @@ char * copy(char * input, int start, int end) {
 
     const int length = end - start + 1;
     char *copied = malloc(sizeof *copied * length + 1);
-    memcpy(copied, &input[start], sizeof *copied * length);
-    copied[end - start + 1] = '\0';
+    copied[length] = '\0';
 
-    return copied;
+    return memcpy(copied, &input[start], sizeof *copied * length);
+}
+
+int getIndex(char letter) {
+
+    return letter - 'a';
+}
+
+char getLetter(int index) {
+
+    return 'a' + index;
 }
 
 char * encode(char * input) {
 
-    const int space = findSpace(input);
-    char *keyword = copy(input, 0, space - 1);
-    char *message = copy(input, space + 1, strlen(input) - 1);
+    const int splitIndex = find(input, ' ');
+    char *keyword = copy(input, 0, splitIndex - 1);
+    char *message = copy(input, splitIndex + 1, strlen(input) - 1);
     char *encoded = malloc(strlen(message) + 1);
 
     for(int i = 0; i < strlen(message); i++) {
 
-        const char column = keyword[i % strlen(keyword)] - 'a';
-        encoded[i] = (message[i] - 'a' + column) % 26 + 'a';
+        const char key = keyword[i % strlen(keyword)];
+        encoded[i] = getLetter((getIndex(message[i]) + getIndex(key)) % 26);
     }
 
     encoded[strlen(message)] = '\0';
@@ -46,13 +55,20 @@ char * encode(char * input) {
     return encoded;
 }
 
-int main(void) {
+void showEncode(char * input) {
 
-    char *encoded = encode("snitch thepackagehasbeendelivered");
-
+    char *encoded = encode(input);
     printf("%s\n", encoded);
 
     free(encoded);
+}
+
+int main(void) {
+
+    showEncode("snitch thepackagehasbeendelivered");
+    showEncode("bond theredfoxtrotsquietlyatmidnight");
+    showEncode("train murderontheorientexpress");
+    showEncode("garden themolessnuckintothegardenlastnight");
 
     return 0;
 }
