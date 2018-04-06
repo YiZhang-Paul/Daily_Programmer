@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-int find(char * input, char letter) {
+int findIndex(char * input, char letter) {
 
     for(int i = 0; i < strlen(input); i++) {
 
@@ -24,19 +24,19 @@ char * copy(char * input, int start, int end) {
     return memcpy(copied, &input[start], sizeof *copied * length);
 }
 
-int getIndex(char letter) {
+int letterToIndex(char letter) {
 
     return letter - 'a';
 }
 
-char getLetter(int index) {
+char indexToLetter(int index) {
 
     return 'a' + index;
 }
 
 char * encode(char * input) {
 
-    const int splitIndex = find(input, ' ');
+    const int splitIndex = findIndex(input, ' ');
     char *keyword = copy(input, 0, splitIndex - 1);
     char *message = copy(input, splitIndex + 1, strlen(input) - 1);
     char *encoded = malloc(strlen(message) + 1);
@@ -44,7 +44,8 @@ char * encode(char * input) {
     for(int i = 0; i < strlen(message); i++) {
 
         const char key = keyword[i % strlen(keyword)];
-        encoded[i] = getLetter((getIndex(message[i]) + getIndex(key)) % 26);
+        const int index = (letterToIndex(message[i]) + letterToIndex(key));
+        encoded[i] = indexToLetter(index % 26);
     }
 
     encoded[strlen(message)] = '\0';
@@ -55,20 +56,46 @@ char * encode(char * input) {
     return encoded;
 }
 
-void showEncode(char * input) {
+char * decode(char * input) {
 
-    char *encoded = encode(input);
-    printf("%s\n", encoded);
+    const int splitIndex = findIndex(input, ' ');
+    char *keyword = copy(input, 0, splitIndex - 1);
+    char *message = copy(input, splitIndex + 1, strlen(input) - 1);
+    char *decoded = malloc(strlen(message) + 1);
 
-    free(encoded);
+    for(int i = 0; i < strlen(message); i++) {
+
+        const char key = keyword[i % strlen(keyword)];
+        const int index = letterToIndex(message[i]) - letterToIndex(key) + 26;
+        decoded[i] = indexToLetter(index % 26);
+    }
+
+    decoded[strlen(message)] = '\0';
+
+    free(keyword);
+    free(message);
+
+    return decoded;
+}
+
+void showResult(char * input, char * func(char *)) {
+
+    char *result = func(input);
+    printf("%s\n", result);
+
+    free(result);
 }
 
 int main(void) {
 
-    showEncode("snitch thepackagehasbeendelivered");
-    showEncode("bond theredfoxtrotsquietlyatmidnight");
-    showEncode("train murderontheorientexpress");
-    showEncode("garden themolessnuckintothegardenlastnight");
+    showResult("snitch thepackagehasbeendelivered", encode);
+    showResult("bond theredfoxtrotsquietlyatmidnight", encode);
+    showResult("train murderontheorientexpress", encode);
+    showResult("garden themolessnuckintothegardenlastnight", encode);
+
+    showResult("cloak klatrgafedvtssdwywcyty", decode);
+    showResult("python pjphmfamhrcaifxifvvfmzwqtmyswst", decode);
+    showResult("moore rcfpsgfspiecbcc", decode);
 
     return 0;
 }
