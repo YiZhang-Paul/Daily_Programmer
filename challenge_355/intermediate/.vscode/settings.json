@@ -1,8 +1,14 @@
 {
     "code-runner.executorMap": {
-        "c": "cd $workspaceRoot && gcc -g main.c -o main && $workspaceRoot/main"
+        "c": "cd $workspaceRoot && gcc -g main.c library/*.c -o main && $workspaceRoot/main"
     },
     "files.associations": {
-        "stdio.h": "c"
+        "stdio.h": "c",
+        "stdbool.h": "c",
+        "stdlib.h": "c",
+        "constraint.h": "c",
+        "point.h": "c",
+        "line.h": "c",
+        "intersect.h": "c"
     }
 }
