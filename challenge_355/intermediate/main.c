@@ -28,8 +28,8 @@ struct constraint * createConstraint(int rows) {
 
     struct constraint *constraint = malloc(sizeof *constraint);
 
-    constraint->rows = rows;
-    constraint->matrix = malloc(sizeof *constraint->matrix * rows);
+    constraint->rows = rows + 2;
+    constraint->matrix = malloc(sizeof *constraint->matrix * constraint->rows);
 
     return constraint;
 }
@@ -39,9 +39,19 @@ void fillConstraint(struct constraint * constraint, int * option1, int * option2
     for(int i = 0; i < constraint->rows; i++) {
 
         constraint->matrix[i] = malloc(sizeof *constraint->matrix[i] * 3);
-        constraint->matrix[i][0] = option1[i];
-        constraint->matrix[i][1] = option2[i];
-        constraint->matrix[i][2] = limits[i];
+
+        if(i < constraint->rows - 2) {
+
+            constraint->matrix[i][0] = option1[i];
+            constraint->matrix[i][1] = option2[i];
+            constraint->matrix[i][2] = limits[i];
+
+            continue;
+        }
+
+        constraint->matrix[i][0] = i == constraint->rows - 1 ? 0 : 1;
+        constraint->matrix[i][1] = i == constraint->rows - 1 ? 1 : 0;
+        constraint->matrix[i][2] = 0;
     }
 }
 
@@ -123,19 +133,23 @@ struct point * findIntersect(struct constraint * constraint, int row1, int row2)
 
 bool isValid(struct constraint * constraint, struct point * point) {
 
-    if(point == NULL || point->x < 0 || point->y < 0) {
+    if(point == NULL) {
 
         return false;
     }
 
-    printf("%f %f\n", point->x, point->y);
-
     for(int i = 0; i < constraint->rows; i++) {
 
-        const double x = constraint->matrix[i][0] * point->x;
-        const double y = constraint->matrix[i][1] * point->y;
+        const double *line = constraint->matrix[i];
+        const double x = line[0] * (int)point->x;
+        const double y = line[1] * (int)point->y;
 
-        if(x + y > constraint->matrix[i][2]) {
+        if(i < constraint->rows - 2 && x + y > line[2]) {
+
+            return false;
+        }
+
+        if(i >= constraint->rows - 2 && x + y < line[2]) {
 
             return false;
         }
@@ -149,11 +163,11 @@ bool isBetter(struct point * point, int pumpkin, int apple) {
     return point->x + point->y > pumpkin + apple;
 }
 
-struct point * findMaxPies(int * option1, int * option2, int * limits, int rows) {
+struct point * findMaxPies(int * option1, int * option2, int * limits, int total) {
 
     int pumpkin = 0;
     int apple = 0;
-    struct constraint *constraint = getConstraint(option1, option2, limits, rows);
+    struct constraint *constraint = getConstraint(option1, option2, limits, total);
 
     for(int i = 0; i < constraint->rows - 1; i++) {
 
@@ -171,9 +185,17 @@ struct point * findMaxPies(int * option1, int * option2, int * limits, int rows)
         }
     }
 
-    free(constraint);
+    freeConstraint(constraint);
 
     return createPoint(pumpkin, apple);
+}
+
+void showResult(int * option1, int * option2, int * limits, int total) {
+
+    struct point *point = findMaxPies(option1, option2, limits, total);
+    printf("%0.0f Pumpkin Pies and %0.0f Apple Pies.\n", point->x, point->y);
+
+    free(point);
 }
 
 int main(void) {
@@ -182,24 +204,13 @@ int main(void) {
     int option2[] = { 0, 1, 4, 3, 2 };
 
     int limits1[] = { 10, 14, 10, 42, 24 };
-    struct point *point1 = findMaxPies(option1, option2, limits1, sizeof limits1 / sizeof(int));
-    printf("%0.0f %0.0f\n\n", point1->x, point1->y);
-
-    free(point1);
-
+    showResult(option1, option2, limits1, sizeof limits1 / sizeof(int));
 
     int limits2[] = { 12, 4, 40, 30, 40 };
-    struct point *point2 = findMaxPies(option1, option2, limits2, sizeof limits2 / sizeof(int));
-    printf("%0.0f %0.0f\n\n", point2->x, point2->y);
-
-    free(point2);
-
+    showResult(option1, option2, limits2, sizeof limits2 / sizeof(int));
 
     int limits3[] = { 12, 14, 20, 42, 24 };
-    struct point *point3 = findMaxPies(option1, option2, limits3, sizeof limits3 / sizeof(int));
-    printf("%0.0f %0.0f\n\n", point3->x, point3->y);
-
-    free(point3);
+    showResult(option1, option2, limits3, sizeof limits3 / sizeof(int));
 
     return 0;
 }
