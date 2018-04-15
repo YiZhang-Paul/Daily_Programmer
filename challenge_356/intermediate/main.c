@@ -6,12 +6,31 @@ int primes[] = { 2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59,
 
 bool isPrime(int);
 bool findPrimes(int, int, int *);
+int sum(int *, int);
 void printNumbers(int *, int);
 
 int main(void) {
 
     int values[3];
     findPrimes(11, 0, values);
+    printNumbers(values, sizeof values / sizeof(int));
+
+    findPrimes(35, 0, values);
+    printNumbers(values, sizeof values / sizeof(int));
+
+    findPrimes(111, 0, values);
+    printNumbers(values, sizeof values / sizeof(int));
+
+    findPrimes(17, 0, values);
+    printNumbers(values, sizeof values / sizeof(int));
+
+    findPrimes(199, 0, values);
+    printNumbers(values, sizeof values / sizeof(int));
+
+    findPrimes(287, 0, values);
+    printNumbers(values, sizeof values / sizeof(int));
+
+    findPrimes(53, 0, values);
     printNumbers(values, sizeof values / sizeof(int));
 
     return 0;
@@ -75,11 +94,25 @@ bool findPrimes(int number, int counter, int * values) {
     return false;
 }
 
-void printNumbers(int * numbers, int total) {
+int sum(int * numbers, int total) {
+
+    int result = 0;
 
     for(int i = 0; i < total; i++) {
 
-        printf("%d ", numbers[i]);
+        result += numbers[i];
+    }
+
+    return result;
+}
+
+void printNumbers(int * numbers, int total) {
+
+    printf("%d = ", sum(numbers, total));
+
+    for(int i = 0; i < total; i++) {
+
+        printf("%d%s", numbers[i], i == total - 1 ? "" : " + ");
     }
 
     printf("\n");
