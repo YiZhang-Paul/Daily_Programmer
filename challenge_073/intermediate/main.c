@@ -1,13 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <stdbool.h>
 
 void fill(int *, int, int);
-void setMinRow(int *, int);
-void setMinColumn(int *, int);
-void setCropDimension(char *, int, int, int *);
-char * getSubMatrix(char *, int, int *, int *, int *);
+void setRow(int *, int);
+void setColumn(int *, int);
+void setDimension(char *, int, int, int *);
 char * cropMatrix(char *, int, int, int *, int *);
 void printMatrix(char *, int, int);
 
@@ -24,6 +22,7 @@ int main(void) {
     return 0;
 }
 
+//fill array with given value
 void fill(int * array, int length, int number) {
 
     for(int i = 0; i < length; i++) {
@@ -32,23 +31,29 @@ void fill(int * array, int length, int number) {
     }
 }
 
-void setMinRow(int * current, int row) {
+//set min/max row for cropping
+void setRow(int * dimension, int row) {
 
-    if(*current == -1) {
+    if(dimension[0] == -1) {
 
-        *current = row;
+        dimension[0] = row;
     }
+
+    dimension[1] = row;
 }
 
-void setMinColumn(int * current, int column) {
+//set min/max column for cropping
+void setColumn(int * dimension, int column) {
 
-    if(*current == -1 || column < *current) {
+    if(dimension[2] == -1 || column < dimension[2]) {
 
-        *current = column;
+        dimension[2] = column;
     }
+
+    dimension[3] = column;
 }
 
-void setCropDimension(char * matrix, int rows, int columns, int * dimension) {
+void setDimension(char * matrix, int rows, int columns, int * dimension) {
 
     fill(dimension, 4, -1);
 
@@ -56,46 +61,36 @@ void setCropDimension(char * matrix, int rows, int columns, int * dimension) {
 
         for(int j = 0; j < columns; j++) {
 
-            if(matrix[i * columns + j] != '1') {
+            if(matrix[i * columns + j] == '1') {
 
-                continue;
+                setRow(dimension, i);
+                setColumn(dimension, j);
             }
-
-            setMinRow(&dimension[0], i);
-            dimension[1] = i;
-            setMinColumn(&dimension[2], j);
-            dimension[3] = j;
         }
     }
-}
-
-char * getSubMatrix(char * matrix, int columns, int * dimension, int * subRows, int * subColumns) {
-
-    *subRows = dimension[1] - dimension[0] + 1;
-    *subColumns = dimension[3] - dimension[2] + 1;
-    char *subMatrix = malloc(*subRows * *subColumns + 1);
-
-    for(int i = 0; i < *subRows; i++) {
-
-        for(int j = 0; j < *subColumns; j++) {
-
-            const int newIndex = i * *subColumns + j;
-            const int oldIndex = (dimension[0] + i) * columns + dimension[2] + j;
-            subMatrix[newIndex] = matrix[oldIndex];
-        }
-    }
-
-    subMatrix[*subRows * *subColumns + 1] = '\0';
-
-    return subMatrix;
 }
 
 char * cropMatrix(char * matrix, int rows, int columns, int * subRows, int * subColumns) {
 
     int dimension[4];
-    setCropDimension(matrix, rows, columns, dimension);
+    setDimension(matrix, rows, columns, dimension);
+    *subRows = dimension[1] - dimension[0] + 1;
+    *subColumns = dimension[3] - dimension[2] + 1;
+    char *cropped = malloc(*subRows * *subColumns + 1);
+    //copy cropped portion
+    for(int i = 0; i < *subRows; i++) {
 
-    return getSubMatrix(matrix, columns, dimension, subRows, subColumns);
+        for(int j = 0; j < *subColumns; j++) {
+
+            const int newIndex = *subColumns * i + j;
+            const int oldIndex = (dimension[0] + i) * columns + dimension[2] + j;
+            cropped[newIndex] = matrix[oldIndex];
+        }
+    }
+
+    cropped[*subRows * *subColumns + 1] = '\0';
+
+    return cropped;
 }
 
 void printMatrix(char * matrix, int rows, int columns) {
