@@ -4,21 +4,22 @@
 #include <stdbool.h>
 
 void fill(int *, int, int);
-bool isMinColumn(int, int);
-void getCropSize(char *, int, int, int *);
-char * getSubMatrix(char *, int, int, int *);
+void setMinRow(int *, int);
+void setMinColumn(int *, int);
+void setCropDimension(char *, int, int, int *);
+char * getSubMatrix(char *, int, int *, int *, int *);
+char * cropMatrix(char *, int, int, int *, int *);
 void printMatrix(char *, int, int);
 
 int main(void) {
 
     char *matrix = "00000000000000000000000000000000000001100111000000000011110100000000011001110000000001101110000000000000001100000000101000010000000000000000000000000000000000000000000000000000";
-    int sizes[4];
+    int rows = 0;
+    int columns = 0;
+    char *cropped = cropMatrix(matrix, 11, strlen(matrix) / 11, &rows, &columns);
+    printMatrix(cropped, rows, columns);
 
-    getCropSize(matrix, 11, strlen(matrix) / 11, sizes);
-    printMatrix(matrix, 11, strlen(matrix) / 11);
-
-    char *subMatrix = getSubMatrix(matrix, 11, strlen(matrix) / 11, sizes);
-    printMatrix(subMatrix, sizes[1] - sizes[0] + 1, sizes[3] - sizes[2] + 1);
+    free(cropped);
 
     return 0;
 }
@@ -31,51 +32,70 @@ void fill(int * array, int length, int number) {
     }
 }
 
-bool isMinColumn(int min, int current) {
+void setMinRow(int * current, int row) {
 
-    return min == -1 || current < min;
+    if(*current == -1) {
+
+        *current = row;
+    }
 }
 
-void getCropSize(char * matrix, int rows, int columns, int * sizes) {
+void setMinColumn(int * current, int column) {
 
-    fill(sizes, 4, -1);
+    if(*current == -1 || column < *current) {
+
+        *current = column;
+    }
+}
+
+void setCropDimension(char * matrix, int rows, int columns, int * dimension) {
+
+    fill(dimension, 4, -1);
 
     for(int i = 0; i < rows; i++) {
 
         for(int j = 0; j < columns; j++) {
 
-            const char value = matrix[i * columns + j];
-
-            if(value != '1') {
+            if(matrix[i * columns + j] != '1') {
 
                 continue;
             }
 
-            sizes[0] = sizes[0] == -1 ? i : sizes[0];
-            sizes[1] = i;
-            sizes[2] = isMinColumn(sizes[2], j) ? j : sizes[2];
-            sizes[3] = j;
+            setMinRow(&dimension[0], i);
+            dimension[1] = i;
+            setMinColumn(&dimension[2], j);
+            dimension[3] = j;
         }
     }
 }
 
-char * getSubMatrix(char * matrix, int rows, int columns, int * sizes) {
+char * getSubMatrix(char * matrix, int columns, int * dimension, int * subRows, int * subColumns) {
 
-    const int subRows = sizes[1] - sizes[0] + 1;
-    const int subColumns = sizes[3] - sizes[2] + 1;
-    char *subMatrix = malloc(subRows * subColumns + 1);
+    *subRows = dimension[1] - dimension[0] + 1;
+    *subColumns = dimension[3] - dimension[2] + 1;
+    char *subMatrix = malloc(*subRows * *subColumns + 1);
 
-    for(int i = 0; i < subRows; i++) {
+    for(int i = 0; i < *subRows; i++) {
 
-        for(int j = 0; j < subColumns; j++) {
+        for(int j = 0; j < *subColumns; j++) {
 
-            subMatrix[i * subColumns + j] = matrix[columns * (sizes[0] + i) + (sizes[2] + j)];
+            const int newIndex = i * *subColumns + j;
+            const int oldIndex = (dimension[0] + i) * columns + dimension[2] + j;
+            subMatrix[newIndex] = matrix[oldIndex];
         }
     }
 
-    subMatrix[subRows * subColumns + 1] = '\0';
+    subMatrix[*subRows * *subColumns + 1] = '\0';
 
     return subMatrix;
+}
+
+char * cropMatrix(char * matrix, int rows, int columns, int * subRows, int * subColumns) {
+
+    int dimension[4];
+    setCropDimension(matrix, rows, columns, dimension);
+
+    return getSubMatrix(matrix, columns, dimension, subRows, subColumns);
 }
 
 void printMatrix(char * matrix, int rows, int columns) {
