@@ -3,15 +3,14 @@
 #include <math.h>
 
 int factorial(int);
-int getLast(int);
-int getLastPower(int);
 int lastNonZeroDigit(int);
+int lastNonZeroDigitOfFactorial(int);
 
 int main(void) {
 
-    printf("%d\n", lastNonZeroDigit(10));
-    printf("%d\n", lastNonZeroDigit(1000));
-    printf("%d\n", lastNonZeroDigit(1000000000));
+    printf("%d\n", lastNonZeroDigitOfFactorial(10));
+    printf("%d\n", lastNonZeroDigitOfFactorial(1000));
+    printf("%d\n", lastNonZeroDigitOfFactorial(1000000000));
 
     return 0;
 }
@@ -26,11 +25,11 @@ int factorial(int number) {
     return number == 1 ? number : number * factorial(number - 1);
 }
 
-int getLast(int number) {
+int lastNonZeroDigit(int number) {
 
-    int digit = 0;
+    int digit = -1;
 
-    while(number > 0 && digit == 0) {
+    while(number > 0 && digit == -1) {
 
         digit = number % 10;
         number /= 10;
@@ -39,22 +38,21 @@ int getLast(int number) {
     return digit;
 }
 
-int getLastPower(int power) {
-
-    if(power == 0) {
-
-        return 1;
-    }
-
-    return getLast(pow(2, power % 4));
-}
-
-int lastNonZeroDigit(int number) {
+int lastNonZeroDigitOfFactorial(int number) {
 
     if(number < 2) {
 
         return 1;
     }
 
-    return getLast(getLastPower(number / 5) * lastNonZeroDigit(number / 5) * getLast(factorial(number % 5)));
+    if(number < 5) {
+
+        return lastNonZeroDigit(factorial(number));
+    }
+
+    const int powerOfTwo = lastNonZeroDigit(pow(2, number / 5 % 4));
+    const int factorialA = lastNonZeroDigitOfFactorial(number / 5);
+    const int factorialB = lastNonZeroDigitOfFactorial(number % 5);
+
+    return lastNonZeroDigit(powerOfTwo * factorialA * factorialB);
 }
