@@ -17,12 +17,7 @@ int main(void) {
 
 int factorial(int number) {
 
-    if(number == 0) {
-
-        return 1;
-    }
-
-    return number == 1 ? number : number * factorial(number - 1);
+    return number < 2 ? 1 : number * factorial(number - 1);
 }
 
 int lastNonZeroDigit(int number) {
@@ -40,19 +35,16 @@ int lastNonZeroDigit(int number) {
 
 int lastNonZeroDigitOfFactorial(int number) {
 
-    if(number < 2) {
-
-        return 1;
-    }
-
     if(number < 5) {
 
-        return lastNonZeroDigit(factorial(number));
+        return number < 2 ? 1 : lastNonZeroDigit(factorial(number));
     }
-
-    const int powerOfTwo = lastNonZeroDigit(pow(2, number / 5 % 4));
-    const int factorialA = lastNonZeroDigitOfFactorial(number / 5);
-    const int factorialB = lastNonZeroDigitOfFactorial(number % 5);
+    //n! = pow(2, a) * a! * b! where a = n / 5 and b = n % 5
+    const int a = number / 5;
+    const int b = number % 5;
+    const int powerOfTwo = lastNonZeroDigit(pow(2, a % 4));
+    const int factorialA = lastNonZeroDigitOfFactorial(a);
+    const int factorialB = lastNonZeroDigitOfFactorial(b);
 
     return lastNonZeroDigit(powerOfTwo * factorialA * factorialB);
 }
