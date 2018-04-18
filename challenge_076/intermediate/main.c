@@ -15,6 +15,7 @@ int main(void) {
     return 0;
 }
 
+//create an array of same numbers
 int * repeat(int length, int value) {
 
     int *array = malloc(sizeof *array * length);
@@ -32,6 +33,7 @@ int getRandom(int min, int max) {
     return rand() % (max - min + 1) + min;
 }
 
+//test function that will return random value
 int test(void) {
 
     return getRandom(1, 6) + getRandom(1, 6);
@@ -50,13 +52,13 @@ void countFrequency(int func(void), int min, int totalTest, int * frequency, int
     }
 }
 
-void drawGraph(int * frequency, int min, int totalCases, int totalTest) {
+void drawGraph(int * frequency, int min, int totalTest, int totalCases) {
 
     for(int i = 0; i < totalCases; i++) {
 
         printf("%s%d: ", i + min < 10 ? " " : "", i + min);
 
-        for(int j = 0; j < frequency[i] / (totalTest * 0.05); j++) {
+        for(int j = 0; j < frequency[i] / (totalTest * 0.025); j++) {
 
             printf("#");
         }
@@ -70,7 +72,7 @@ void createGraph(int func(void), int min, int max, int totalTest) {
     const int totalCases = max - min + 1;
     int *frequency = repeat(totalCases, 0);
     countFrequency(func, min, totalTest, frequency, totalCases);
-    drawGraph(frequency, min, totalCases, totalTest);
+    drawGraph(frequency, min, totalTest, totalCases);
 
     free(frequency);
 }
