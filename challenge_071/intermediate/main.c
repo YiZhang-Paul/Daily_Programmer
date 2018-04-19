@@ -22,6 +22,7 @@ int peek(struct queue *);
 void enqueue(struct queue *, int);
 int dequeue(struct queue *);
 void freeQueue(struct queue *);
+struct queue * initialize(int);
 int getFibonacci(int, int, int);
 
 int main(void) {
@@ -61,6 +62,7 @@ bool isEmpty(struct queue * queue) {
     return queue->head == NULL;
 }
 
+//examine first item in queue
 int peek(struct queue * queue) {
 
     if(isEmpty(queue)) {
@@ -94,7 +96,7 @@ int dequeue(struct queue * queue) {
         return -1;
     }
 
-    int value = queue->head->value;
+    const int value = queue->head->value;
 
     if(queue->head == queue->tail) {
 
@@ -129,14 +131,8 @@ void freeQueue(struct queue * queue) {
     free(queue);
 }
 
-int getFibonacci(int order, int place, int modulus) {
+struct queue * initialize(int order) {
 
-    if(place < order) {
-
-        return place == order - 1 ? 1 : 0;
-    }
-
-    int current = 1;
     struct queue *queue = createQueue();
 
     for(int i = 0; i < order; i++) {
@@ -144,22 +140,27 @@ int getFibonacci(int order, int place, int modulus) {
         enqueue(queue, i == order - 1);
     }
 
+    return queue;
+}
+
+int getFibonacci(int order, int place, int modulus) {
+
+    if(place < order) {
+
+        return place == order - 1 ? 1 : 0;
+    }
+
+    int fibonacci = 1;
+    struct queue *queue = initialize(order);
+
     for(int i = 0; i < place - order; i++) {
 
-        enqueue(queue, current);
-        current = current * 2 - dequeue(queue);
-
-        if(current < 0) {
-
-            current += modulus;
-        }
-        else if(current > modulus) {
-
-            current %= modulus;
-        }
+        enqueue(queue, fibonacci);
+        fibonacci = (fibonacci * 2 - dequeue(queue)) % modulus;
+        fibonacci += modulus * (fibonacci < 0 ? 1 : 0);
     }
 
     freeQueue(queue);
 
-    return current;
+    return fibonacci;
 }
