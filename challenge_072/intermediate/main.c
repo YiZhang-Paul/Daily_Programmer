@@ -1,36 +1,32 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 #include <ctype.h>
 
+#define LINE_LENGTH 256
 #define ROWS 4096
 #define COLUMNS 4096
-#define LINE_LENGTH 256
+#define EMPTY 0
+#define RED 1
+#define BLACK 2
+#define PURPLE 3
 
-int grid[ROWS][COLUMNS];
+int pixels[ROWS][COLUMNS];
 
 void initialize(void);
-void processInput(char *);
+void processLine(FILE *, int *);
+void processFile(char *, int *);
 int mixColor(char, int, int);
-void setColor(char, int, int, int, int);
-int countColor(int);
+bool isPurple(int, int);
+void setColor(char, int, int, int, int, int *);
+int countOverlap(char *);
 
 int main(void) {
 
-    initialize();
-    processInput("input0.txt");
-    printf("%d\n", countColor(3));
-
-    initialize();
-    processInput("input1.txt");
-    printf("%d\n", countColor(3));
-
-    initialize();
-    processInput("input2.txt");
-    printf("%d\n", countColor(3));
-
-    initialize();
-    processInput("input3.txt");
-    printf("%d\n", countColor(3));
+    printf("%d\n", countOverlap("input0.txt"));
+    printf("%d\n", countOverlap("input1.txt"));
+    printf("%d\n", countOverlap("input2.txt"));
+    printf("%d\n", countOverlap("input3.txt"));
 
     return 0;
 }
@@ -41,12 +37,25 @@ void initialize(void) {
 
         for(int j = 0; j < COLUMNS; j++) {
 
-            grid[i][j] = 0;
+            pixels[i][j] = EMPTY;
         }
     }
 }
 
-void processInput(char * url) {
+//process one line of input representing a single filter
+void processLine(FILE * file, int * overlaps) {
+
+    char color;
+    int row;
+    int column;
+    int height;
+    int width;
+
+    fscanf(file, "%c %d %d %d %d", &color, &row, &column, &height, &width);
+    setColor(color, row, column, height, width, overlaps);
+}
+
+void processFile(char * url, int * overlaps) {
 
     FILE *file = fopen(url, "r");
     char *line = malloc(LINE_LENGTH);
@@ -62,15 +71,8 @@ void processInput(char * url) {
 
                 break;
             }
-
-            char color;
-            int row;
-            int column;
-            int height;
-            int width;
-
-            fscanf(file, "%c %d %d %d %d", &color, &row, &column, &height, &width);
-            setColor(color, row, column, height, width);
+            //set color of each pixel
+            processLine(file, overlaps);
             line = fgets(line, LINE_LENGTH, file);
         }
     }
@@ -79,45 +81,48 @@ void processInput(char * url) {
     fclose(file);
 }
 
+//retrieve mixed color for a given pixel
 int mixColor(char color, int row, int column) {
 
-    const int current = color == 'R' ? 1 : 2;
+    const int current = color == 'R' ? RED : BLACK;
 
-    if(grid[row][column] == 0) {
+    if(pixels[row][column] == EMPTY) {
 
         return current;
     }
 
-    return grid[row][column] == current ? current : 3;
+    return pixels[row][column] == current ? current : PURPLE;
 }
 
-void setColor(char color, int row, int column, int height, int width) {
+bool isPurple(int row, int column) {
+
+    return pixels[row][column] == PURPLE;
+}
+
+//set color of all pixels covered by given filter
+void setColor(char color, int row, int column, int height, int width, int * overlaps) {
 
     for(int i = 0; i < height; i++) {
 
         for(int j = 0; j < width; j++) {
 
-            const int currentRow = row + i;
-            const int currentColumn = column + j;
-            grid[currentRow][currentColumn] = mixColor(color, currentRow, currentColumn);
+            const int targetRow = row + i;
+            const int targetColumn = column + j;
+
+            if(!isPurple(targetRow, targetColumn)) {
+
+                pixels[targetRow][targetColumn] = mixColor(color, targetRow, targetColumn);
+                *overlaps += isPurple(targetRow, targetColumn) ? 1 : 0;
+            }
         }
     }
 }
 
-int countColor(int color) {
+int countOverlap(char * url) {
 
-    int total = 0;
+    int overlaps = 0;
+    initialize();
+    processFile(url, & overlaps);
 
-    for(int i = 0; i < ROWS; i++) {
-
-        for(int j = 0; j < COLUMNS; j++) {
-
-            if(grid[i][j] == color) {
-
-                total++;
-            }
-        }
-    }
-
-    return total;
+    return overlaps;
 }
