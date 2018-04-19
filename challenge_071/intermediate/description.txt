@@ -24,4 +24,4 @@ Your task is to implement a function f(K, N) which returns the Nth fibonacci num
 
 What is f(100, 10000) mod 10^8 ?
 
-Bonus: What is f( 313 , 510 ) mod 10^8 ?
+Bonus: What is f( 3^13 , 5^10 ) mod 10^8 ?

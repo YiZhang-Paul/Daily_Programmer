@@ -20,28 +20,53 @@ bool isEmpty(struct queue *);
 void enqueue(struct queue *, int);
 int dequeue(struct queue *);
 void freeQueue(struct queue *);
+int getFibonacci(int, int);
 
 int main(void) {
 
-    struct queue *queue = createQueue();
+    printf("%d\n", getFibonacci(2, 1));
+    printf("%d\n", getFibonacci(2, 2));
+    printf("%d\n", getFibonacci(2, 3));
+    printf("%d\n", getFibonacci(2, 4));
+    printf("%d\n", getFibonacci(2, 5));
+    printf("%d\n", getFibonacci(2, 6));
+    printf("%d\n", getFibonacci(2, 7));
+    printf("%d\n", getFibonacci(2, 8));
+    printf("%d\n", getFibonacci(2, 9));
+    printf("%d\n", getFibonacci(2, 10));
 
-    enqueue(queue, 5);
+    printf("%d\n", getFibonacci(3, 1));
+    printf("%d\n", getFibonacci(3, 2));
+    printf("%d\n", getFibonacci(3, 3));
+    printf("%d\n", getFibonacci(3, 4));
+    printf("%d\n", getFibonacci(3, 5));
+    printf("%d\n", getFibonacci(3, 6));
+    printf("%d\n", getFibonacci(3, 7));
+    printf("%d\n", getFibonacci(3, 8));
+    printf("%d\n", getFibonacci(3, 9));
+    printf("%d\n", getFibonacci(3, 10));
 
-    printf("%d\n", dequeue(queue));
-    printf("%d\n", dequeue(queue));
+    printf("%d\n", getFibonacci(4, 1));
+    printf("%d\n", getFibonacci(4, 2));
+    printf("%d\n", getFibonacci(4, 3));
+    printf("%d\n", getFibonacci(4, 4));
+    printf("%d\n", getFibonacci(4, 5));
+    printf("%d\n", getFibonacci(4, 6));
+    printf("%d\n", getFibonacci(4, 7));
+    printf("%d\n", getFibonacci(4, 8));
+    printf("%d\n", getFibonacci(4, 9));
+    printf("%d\n", getFibonacci(4, 10));
 
-    enqueue(queue, 3);
-    enqueue(queue, 99);
-    enqueue(queue, 125);
-    enqueue(queue, 7);
-
-    printf("%d\n", dequeue(queue));
-    printf("%d\n", dequeue(queue));
-    printf("%d\n", dequeue(queue));
-    printf("%d\n", dequeue(queue));
-    printf("%d\n", dequeue(queue));
-
-    freeQueue(queue);
+    printf("%d\n", getFibonacci(5, 1));
+    printf("%d\n", getFibonacci(5, 2));
+    printf("%d\n", getFibonacci(5, 3));
+    printf("%d\n", getFibonacci(5, 4));
+    printf("%d\n", getFibonacci(5, 5));
+    printf("%d\n", getFibonacci(5, 6));
+    printf("%d\n", getFibonacci(5, 7));
+    printf("%d\n", getFibonacci(5, 8));
+    printf("%d\n", getFibonacci(5, 9));
+    printf("%d\n", getFibonacci(5, 10));
 
     return 0;
 }
@@ -127,4 +152,32 @@ void freeQueue(struct queue * queue) {
     }
 
     free(queue);
+}
+
+int getFibonacci(int order, int place) {
+
+    if(place <= order + 1) {
+
+        return place >= order ? 1 : 0;
+    }
+
+    struct queue *queue = createQueue();
+
+    for(int i = 0; i < order - 1; i++) {
+
+        enqueue(queue, 0);
+    }
+
+    enqueue(queue, 1);
+    int current = 1;
+
+    for(int i = 0; i < place - order - 1; i++) {
+
+        enqueue(queue, current);
+        current = current * 2 - dequeue(queue);
+    }
+
+    freeQueue(queue);
+
+    return current;
 }
