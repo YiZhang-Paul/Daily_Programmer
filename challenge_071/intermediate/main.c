@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <math.h>
 
 struct node {
 
@@ -17,56 +18,20 @@ struct queue {
 struct node * createNode(int);
 struct queue * createQueue(void);
 bool isEmpty(struct queue *);
+int peek(struct queue *);
 void enqueue(struct queue *, int);
 int dequeue(struct queue *);
 void freeQueue(struct queue *);
-int getFibonacci(int, int);
+int getFibonacci(int, int, int);
 
 int main(void) {
 
-    printf("%d\n", getFibonacci(2, 1));
-    printf("%d\n", getFibonacci(2, 2));
-    printf("%d\n", getFibonacci(2, 3));
-    printf("%d\n", getFibonacci(2, 4));
-    printf("%d\n", getFibonacci(2, 5));
-    printf("%d\n", getFibonacci(2, 6));
-    printf("%d\n", getFibonacci(2, 7));
-    printf("%d\n", getFibonacci(2, 8));
-    printf("%d\n", getFibonacci(2, 9));
-    printf("%d\n", getFibonacci(2, 10));
-
-    printf("%d\n", getFibonacci(3, 1));
-    printf("%d\n", getFibonacci(3, 2));
-    printf("%d\n", getFibonacci(3, 3));
-    printf("%d\n", getFibonacci(3, 4));
-    printf("%d\n", getFibonacci(3, 5));
-    printf("%d\n", getFibonacci(3, 6));
-    printf("%d\n", getFibonacci(3, 7));
-    printf("%d\n", getFibonacci(3, 8));
-    printf("%d\n", getFibonacci(3, 9));
-    printf("%d\n", getFibonacci(3, 10));
-
-    printf("%d\n", getFibonacci(4, 1));
-    printf("%d\n", getFibonacci(4, 2));
-    printf("%d\n", getFibonacci(4, 3));
-    printf("%d\n", getFibonacci(4, 4));
-    printf("%d\n", getFibonacci(4, 5));
-    printf("%d\n", getFibonacci(4, 6));
-    printf("%d\n", getFibonacci(4, 7));
-    printf("%d\n", getFibonacci(4, 8));
-    printf("%d\n", getFibonacci(4, 9));
-    printf("%d\n", getFibonacci(4, 10));
-
-    printf("%d\n", getFibonacci(5, 1));
-    printf("%d\n", getFibonacci(5, 2));
-    printf("%d\n", getFibonacci(5, 3));
-    printf("%d\n", getFibonacci(5, 4));
-    printf("%d\n", getFibonacci(5, 5));
-    printf("%d\n", getFibonacci(5, 6));
-    printf("%d\n", getFibonacci(5, 7));
-    printf("%d\n", getFibonacci(5, 8));
-    printf("%d\n", getFibonacci(5, 9));
-    printf("%d\n", getFibonacci(5, 10));
+    printf("%d\n", getFibonacci(2, 10, pow(10, 8)));
+    printf("%d\n", getFibonacci(3, 10, pow(10, 8)));
+    printf("%d\n", getFibonacci(4, 10, pow(10, 8)));
+    printf("%d\n", getFibonacci(5, 10, pow(10, 8)));
+    printf("%d\n", getFibonacci(100, 10000, pow(10, 8)));
+    printf("%d\n", getFibonacci(pow(3, 13), pow(5, 10), pow(10, 8)));
 
     return 0;
 }
@@ -94,6 +59,16 @@ struct queue * createQueue(void) {
 bool isEmpty(struct queue * queue) {
 
     return queue->head == NULL;
+}
+
+int peek(struct queue * queue) {
+
+    if(isEmpty(queue)) {
+
+        return -1;
+    }
+
+    return queue->head->value;
 }
 
 void enqueue(struct queue * queue, int value) {
@@ -154,27 +129,34 @@ void freeQueue(struct queue * queue) {
     free(queue);
 }
 
-int getFibonacci(int order, int place) {
+int getFibonacci(int order, int place, int modulus) {
 
-    if(place <= order + 1) {
+    if(place < order) {
 
-        return place >= order ? 1 : 0;
+        return place == order - 1 ? 1 : 0;
     }
 
+    int current = 1;
     struct queue *queue = createQueue();
 
-    for(int i = 0; i < order - 1; i++) {
+    for(int i = 0; i < order; i++) {
 
-        enqueue(queue, 0);
+        enqueue(queue, i == order - 1);
     }
 
-    enqueue(queue, 1);
-    int current = 1;
-
-    for(int i = 0; i < place - order - 1; i++) {
+    for(int i = 0; i < place - order; i++) {
 
         enqueue(queue, current);
         current = current * 2 - dequeue(queue);
+
+        if(current < 0) {
+
+            current += modulus;
+        }
+        else if(current > modulus) {
+
+            current %= modulus;
+        }
     }
 
     freeQueue(queue);
