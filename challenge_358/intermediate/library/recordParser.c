@@ -6,24 +6,17 @@ static char ** getTeams(char * line) {
 
     for(int i = 0, counter = 0, start = -1; i < strlen(line); i++) {
 
-        if(start == -1 && !isalpha(line[i])) {
+        if(isalpha(line[i])) {
 
-            continue;
+            start = start == -1 ? i : start;
         }
 
-        start = start == -1 ? i : start;
+        if(start != -1 && isdigit(line[i])) {
 
-        if(isdigit(line[i])) {
-
-            char *team = malloc(i - start + 1);
-            memcpy(team, &line[start], i - start + 1);
-            team[i - start] = '\0';
-            teams[counter] = trim(team);
+            teams[counter++] = trim(copyText(line, start, i - 1));
             start = -1;
 
-            free(team);
-
-            if(++counter == 2) {
+            if(counter == 2) {
 
                 break;
             }
@@ -36,34 +29,21 @@ static char ** getTeams(char * line) {
 static int * getScores(char * line) {
 
     int *scores = malloc(sizeof *scores * 2);
-    bool dateSkipped = false;
 
-    for(int i = 0, counter = 0, start = -1; i < strlen(line); i++) {
-
-        if(!dateSkipped) {
-
-            dateSkipped = isalpha(line[i]);
-        }
-
-        if(!dateSkipped) {
-
-            continue;
-        }
+    for(int i = firstAlpha(line), counter = 0, start = -1; i < strlen(line); i++) {
 
         if(isdigit(line[i])) {
 
             start = start == -1 ? i : start;
-
-            continue;
         }
 
-        if(start != -1) {
+        if(start != -1 && !isdigit(line[i])) {
 
-            char *number = malloc(i - start + 1);
-            memcpy(number, &line[start], i - start + 1);
-            number[i - start] = '\0';
+            char *number = copyText(line, start, i - 1);
             scores[counter++] = atoi(number);
             start = -1;
+
+            free(number);
 
             if(counter == 2) {
 
@@ -85,8 +65,7 @@ static struct record * parseLine(char * line) {
     record->loser = malloc(MAX(strlen(teams[0]), strlen(teams[1])) + 1);
     strcpy(record->winner, scores[0] > scores[1] ? teams[0] : teams[1]);
     strcpy(record->loser, scores[0] > scores[1] ? teams[1] : teams[0]);
-    record->scores[0] = scores[0];
-    record->scores[1] = scores[1];
+    memcpy(record->scores, scores, sizeof(int) * 2);
 
     freeTexts(teams, 2);
     free(scores);

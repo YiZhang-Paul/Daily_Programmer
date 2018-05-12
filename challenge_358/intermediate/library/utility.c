@@ -9,28 +9,39 @@ char * copyText(char * text, int start, int end) {
     return memcpy(copy, &text[start], length - 1);
 }
 
+int firstAlpha(char * text) {
+
+    for(int i = 0; i < strlen(text); i++) {
+
+        if(isalpha(text[i])) {
+
+            return i;
+        }
+    }
+
+    return -1;
+}
+
+int lastAlpha(char * text) {
+
+    for(int i = strlen(text) - 1; i >= 0; i--) {
+
+        if(isalpha(text[i])) {
+
+            return i;
+        }
+    }
+
+    return -1;
+}
+
 char * trim(char * text) {
 
-    int start;
-    int end;
+    char *trimed = copyText(text, firstAlpha(text), lastAlpha(text));
 
-    for(start = 0; start < strlen(text); start++) {
+    free(text);
 
-        if(isalpha(text[start])) {
-
-            break;
-        }
-    }
-
-    for(end = strlen(text) - 1; end >= 0; end--) {
-
-        if(isalpha(text[end])) {
-
-            break;
-        }
-    }
-
-    return copyText(text, start, end);
+    return trimed;
 }
 
 void freeTexts(char ** texts, int total) {

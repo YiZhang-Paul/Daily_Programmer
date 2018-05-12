@@ -6,6 +6,8 @@
         "stdlib.h": "c",
         "stdio.h": "c",
         "utility.h": "c",
-        "recordparser.h": "c"
+        "recordparser.h": "c",
+        "string.h": "c",
+        "linkedlist.h": "c"
     }
 }
