@@ -93,3 +93,20 @@ struct record ** parse(char * fileName, int * total) {
 
     return records;
 }
+
+void freeRecord(struct record * record) {
+
+    free(record->winner);
+    free(record->loser);
+    free(record);
+}
+
+void freeRecords(struct record ** records, int total) {
+
+    for(int i = 0; i < total; i++) {
+
+        free(records[i]);
+    }
+
+    free(records);
+}

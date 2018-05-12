@@ -21,5 +21,7 @@ static char ** getTeams(char *);
 static int * getScores(char *);
 static struct record * parseLine(char *);
 struct record ** parse(char *, int *);
+void freeRecord(struct record *);
+void freeRecords(struct record **, int);
 
 #endif

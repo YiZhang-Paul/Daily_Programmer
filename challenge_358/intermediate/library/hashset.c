@@ -26,37 +26,22 @@ struct hashset * createSet() {
 
 bool contains(struct hashset * set, char * text) {
 
-    const unsigned long code = getHashCode(text);
-
-    if(set->items[code] == NULL) {
-
-        return false;
-    }
-
-    struct node *head = set->items[code];
-
-    while(head != NULL) {
-
-        if(strcmp((const char *)head->data, text) == 0) {
-
-            return true;
-        }
-
-        head = head->next;
-    }
-
-    return false;
+    return getItem(set, text) != NULL;
 }
 
-void add(struct hashset * set, char * text) {
+void addItem(struct hashset * set, char * text) {
 
     if(contains(set, text)) {
 
         return;
     }
 
-    const unsigned long code = getHashCode(text);
-    append(&(set->items[code]), text);
+    append(&(set->items[getHashCode(text)]), text);
+}
+
+struct node * getItem(struct hashset * set, char * text) {
+
+    return getNode(set->items[getHashCode(text)], text);
 }
 
 void freeSet(struct hashset * set) {

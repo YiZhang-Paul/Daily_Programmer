@@ -16,7 +16,8 @@ struct hashset {
 static unsigned long getHashCode(char *);
 struct hashset * createSet();
 bool contains(struct hashset *, char *);
-void add(struct hashset *, char *);
+void addItem(struct hashset *, char *);
+struct node * getItem(struct hashset *, char *);
 void freeSet(struct hashset *);
 
 #endif
