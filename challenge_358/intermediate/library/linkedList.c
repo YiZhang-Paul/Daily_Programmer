@@ -10,7 +10,8 @@ struct node * createNode(char * text) {
     struct node *node = malloc(sizeof *node);
 
     node->data = copyText(text, 0, strlen(text) - 1);
-    node->losed = NULL;
+    node->visited = false;
+    node->losed = createSet();
     node->next = NULL;
 
     return node;
@@ -40,19 +41,9 @@ void append(struct node ** head, char * text) {
     getTail(*head)->next = node;
 }
 
-void addLosed(struct node ** head, struct node * losed) {
+void addLosed(struct hashset * head, struct node * losed) {
 
-    if(isEmpty(*head)) {
-
-        *head = losed;
-
-        return;
-    }
-
-    if(getNode(*head, losed->data) == NULL) {
-
-        getTail(*head)->losed = losed;
-    }
+    addItem(head, losed->data);
 }
 
 struct node * getNode(struct node * head, char * text) {
