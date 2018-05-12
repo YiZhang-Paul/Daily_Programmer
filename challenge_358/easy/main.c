@@ -2,101 +2,55 @@
 #include <stdlib.h>
 #include <string.h>
 
-int display[10][3] = {
+#define BLANK 0
+#define PIPE 1
+#define LINE 2
 
-    { 1, 9, 3 },
-    { 0, 7, 7 },
-    { 1, 5, 4 },
-    { 1, 5, 5 },
-    { 0, 3, 7 },
-    { 1, 4, 5 },
-    { 1, 4, 3 },
-    { 1, 7, 7 },
-    { 1, 3, 3 },
-    { 1, 3, 5 }
+int display[10][9] = {
+
+    { BLANK, LINE, BLANK, PIPE, BLANK, PIPE, PIPE, LINE, PIPE },
+    { BLANK, BLANK, BLANK, BLANK, BLANK, PIPE, BLANK, BLANK, PIPE },
+    { BLANK, LINE, BLANK, BLANK, LINE, PIPE, PIPE, LINE, BLANK },
+    { BLANK, LINE, BLANK, BLANK, LINE, PIPE, BLANK, LINE, PIPE },
+    { BLANK, BLANK, BLANK, PIPE, LINE, PIPE, BLANK, BLANK, PIPE },
+    { BLANK, LINE, BLANK, PIPE, LINE, BLANK, BLANK, LINE, PIPE },
+    { BLANK, LINE, BLANK, PIPE, LINE, BLANK, PIPE, LINE, PIPE },
+    { BLANK, LINE, BLANK, BLANK, BLANK, PIPE, BLANK, BLANK, PIPE },
+    { BLANK, LINE, BLANK, PIPE, LINE, PIPE, PIPE, LINE, PIPE },
+    { BLANK, LINE, BLANK, PIPE, LINE, PIPE, BLANK, LINE, PIPE }
 };
 
-void DisplayFragment(int value) {
+void displayGrid(int, int);
+void displayDigits(char *);
 
-    switch(value) {
+int main(void) {
 
-        case 0 :
-        case 1 :
+    displayDigits("123456789");
+    displayDigits("433805825");
+    displayDigits("526837608");
+    displayDigits("954105592");
 
-            printf(value == 0 ? "   " : " _ ");
+    return 0;
+}
 
-            break;
+void displayGrid(int digit, int grid) {
 
-        case 3 :
+    for(int i = 0; i < 3; i++) {
 
-            printf("|_|");
-
-            break;
-
-        case 4 :
-
-            printf("|_ ");
-
-            break;
-
-        case 5 :
-
-            printf(" _|");
-
-            break;
-
-        case 6 :
-
-            printf("|  ");
-
-            break;
-
-        case 7 :
-
-            printf("  |");
-
-            break;
-
-        case 8 :
-
-            printf(" _ ");
-
-            break;
-
-        case 9 :
-
-            printf("| |");
-
-            break;
-
-        default :
-
-            printf("   ");
+        const int value = display[digit][grid * 3 + i];
+        printf(value == BLANK ? " " : (value == PIPE ? "|" : "_"));
     }
 }
 
-void DisplayDigits(char * input) {
+void displayDigits(char * input) {
 
     for(int i = 0; i < 3; i++) {
 
         for(int j = 0; j < strlen(input); j++) {
 
-            const int value = display[input[j] - '0'][i];
-            DisplayFragment(value);
+            displayGrid(input[j] - '0', i);
         }
 
         printf("\n");
     }
-
-    printf("\n");
-}
-
-int main(void) {
-
-    DisplayDigits("123456789");
-    DisplayDigits("433805825");
-    DisplayDigits("526837608");
-    DisplayDigits("954105592");
-
-    return 0;
 }
