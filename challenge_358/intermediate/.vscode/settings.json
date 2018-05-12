@@ -13,6 +13,7 @@
         "hashtable.h": "c",
         "system_error": "c",
         "istream": "c",
-        "utility": "c"
+        "utility": "c",
+        "team.h": "c"
     }
 }
