@@ -1,51 +1,51 @@
 #include "../header/recordParser.h"
 
-static char ** getTeams(char * line) {
+static char ** getNames(char * record) {
 
-    char **teams = malloc(sizeof *teams * 2);
+    char **names = malloc(sizeof *names * 2);
 
-    for(int i = 0, counter = 0, start = -1; i < strlen(line); i++) {
+    for(int i = 0, total = 0, start = -1; i < strlen(record); i++) {
 
-        if(isalpha(line[i])) {
+        if(isalpha(record[i])) {
 
             start = start == -1 ? i : start;
         }
 
-        if(start != -1 && isdigit(line[i])) {
+        if(start != -1 && isdigit(record[i])) {
 
-            teams[counter++] = trim(copyText(line, start, i - 1));
+            names[total++] = trim(copyText(record, start, i - 1));
             start = -1;
 
-            if(counter == 2) {
+            if(total == 2) {
 
                 break;
             }
         }
     }
 
-    return teams;
+    return names;
 }
 
-static int * getScores(char * line) {
+static int * getScores(char * record) {
 
     int *scores = malloc(sizeof *scores * 2);
 
-    for(int i = firstAlpha(line), counter = 0, start = -1; i < strlen(line); i++) {
+    for(int i = firstAlpha(record), total = 0, start = -1; i < strlen(record); i++) {
 
-        if(isdigit(line[i])) {
+        if(isdigit(record[i])) {
 
             start = start == -1 ? i : start;
         }
 
-        if(start != -1 && !isdigit(line[i])) {
+        if(start != -1 && !isdigit(record[i])) {
 
-            char *number = copyText(line, start, i - 1);
-            scores[counter++] = atoi(number);
+            char *number = copyText(record, start, i - 1);
+            scores[total++] = atoi(number);
             start = -1;
 
             free(number);
 
-            if(counter == 2) {
+            if(total == 2) {
 
                 break;
             }
@@ -55,22 +55,23 @@ static int * getScores(char * line) {
     return scores;
 }
 
-static struct record * parseLine(char * line) {
+static struct record * parseRecord(char * record) {
 
-    struct record *record = malloc(sizeof *record);
-    char **teams = getTeams(line);
-    int *scores = getScores(line);
+    struct record *result = malloc(sizeof *result);
+    char **names = getNames(record);
+    int *scores = getScores(record);
 
-    record->winner = malloc(MAX(strlen(teams[0]), strlen(teams[1])) + 1);
-    record->loser = malloc(MAX(strlen(teams[0]), strlen(teams[1])) + 1);
-    strcpy(record->winner, scores[0] > scores[1] ? teams[0] : teams[1]);
-    strcpy(record->loser, scores[0] > scores[1] ? teams[1] : teams[0]);
-    memcpy(record->scores, scores, sizeof(int) * 2);
+    const int length = MAX(strlen(names[0]), strlen(names[1])) + 1;
+    result->winner = malloc(length);
+    result->loser = malloc(length);
+    strcpy(result->winner, scores[0] > scores[1] ? names[0] : names[1]);
+    strcpy(result->loser, scores[0] > scores[1] ? names[1] : names[0]);
+    memcpy(result->scores, scores, sizeof(int) * 2);
 
-    freeTexts(teams, 2);
+    freeTexts(names, 2);
     free(scores);
 
-    return record;
+    return result;
 }
 
 struct record ** parse(char * fileName, int * total) {
@@ -85,7 +86,7 @@ struct record ** parse(char * fileName, int * total) {
 
             fgets(line, LINE_LENGTH, file);
             records = realloc(records, sizeof *records * (*total + 1));
-            records[(*total)++] = parseLine(line);
+            records[(*total)++] = parseRecord(line);
         }
     }
 

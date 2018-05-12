@@ -5,13 +5,12 @@ bool isEmpty(struct node * head) {
     return head == NULL;
 }
 
-struct node * createNode(char * text) {
+struct node * createNode(void * data, char * key) {
 
     struct node *node = malloc(sizeof *node);
 
-    node->data = copyText(text, 0, strlen(text) - 1);
-    node->visited = false;
-    node->losed = createSet();
+    node->key = copyText(key, 0, strlen(key) - 1);
+    node->data = data;
     node->next = NULL;
 
     return node;
@@ -27,9 +26,9 @@ struct node * getTail(struct node * head) {
     return head;
 }
 
-void append(struct node ** head, char * text) {
+void append(struct node ** head, void * data, char * key) {
 
-    struct node *node = createNode(text);
+    struct node *node = createNode(data, key);
 
     if(isEmpty(*head)) {
 
@@ -41,16 +40,11 @@ void append(struct node ** head, char * text) {
     getTail(*head)->next = node;
 }
 
-void addLosed(struct hashset * head, struct node * losed) {
-
-    addItem(head, losed->data);
-}
-
-struct node * getNode(struct node * head, char * text) {
+struct node * getNode(struct node * head, char * key) {
 
     while(head != NULL) {
 
-        if(strcmp(head->data, text) == 0) {
+        if(strcmp(head->key, key) == 0) {
 
             return head;
         }
@@ -61,18 +55,19 @@ struct node * getNode(struct node * head, char * text) {
     return NULL;
 }
 
-void freeNode(struct node * node) {
+void freeNode(struct node * node, void func(void *)) {
 
-    free(node->data);
+    free(node->key);
+    func(node->data);
     free(node);
 }
 
-void freeList(struct node ** head) {
+void freeList(struct node ** head, void func(void *)) {
 
     while(*head != NULL) {
 
         struct node *previous = *head;
         *head = (*head)->next;
-        freeNode(previous);
+        freeNode(previous, func);
     }
 }

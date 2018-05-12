@@ -9,6 +9,10 @@
         "recordparser.h": "c",
         "string.h": "c",
         "linkedlist.h": "c",
-        "hashset.h": "c"
+        "hashset.h": "c",
+        "hashtable.h": "c",
+        "system_error": "c",
+        "istream": "c",
+        "utility": "c"
     }
 }
