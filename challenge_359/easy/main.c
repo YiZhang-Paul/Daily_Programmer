@@ -1,86 +1,66 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 
-int ** getStack(int);
+int * nextLevel(int *, int);
 int * getSequence(int, int *);
+void printList(int *, int);
 
 int main(void) {
 
-    int total = 0;
-    int *sequence = getSequence(9, &total);
+    int length = 0;
+    int *sequence = getSequence(9, &length);
 
-    for(int i = 0; i < total; i++) {
-
-        printf("%d", sequence[i]);
-    }
+    printList(sequence, length);
 
     free(sequence);
 
     return 0;
 }
 
-int ** getStack(int level) {
+int * nextLevel(int * sequence, int length) {
 
-    int **stack = malloc(sizeof *stack * level);
+    bool insertOne = true;
+    int *newSequence = malloc(sizeof *newSequence * length);
 
-    for(int i = 0, counter = 1; i < level; i++) {
+    for(int i = 0, j = 0; i < length; i++) {
 
-        stack[i] = malloc(sizeof *stack[i] * (counter + 2));
-        stack[i][0] = counter;
-        stack[i][1] = 0;
+        if(i % 2 == 0) {
 
-        for(int j = 2; j <= counter + 1; j++) {
-
-            stack[i][j] = (j + 1) % 2;
-        }
-
-        counter *= 2;
-    }
-
-    return stack;
-}
-
-int * getSequence(int level, int * total) {
-
-    int **stacks = getStack(level);
-    *total = stacks[level - 1][0] * 2 - 1;
-    int *sequence = malloc(sizeof *sequence * *total);
-    int *hPointers = malloc(sizeof *hPointers * level);
-
-    for(int i = 0; i < level; i++) {
-
-        hPointers[i] = 2;
-    }
-
-    for(int i = 0; i < *total; i++) {
-
-        int vPointer = level - 1;
-
-        if(stacks[vPointer][1] == 0) {
-
-            stacks[vPointer][1] = 1;
-            sequence[i] = stacks[vPointer][hPointers[vPointer]++];
+            newSequence[i] = insertOne ? 1 : 0;
+            insertOne = !insertOne;
 
             continue;
         }
 
-        while(stacks[vPointer][1] == 1 && vPointer - 1 >= 0 && hPointers[vPointer - 1] < stacks[vPointer - 1][0] + 2) {
-
-            stacks[vPointer][1] = 0;
-            vPointer--;
-        }
-
-        stacks[vPointer][1] = 1;
-        sequence[i] = stacks[vPointer][hPointers[vPointer]++];
+        newSequence[i] = sequence[j++];
     }
+
+    free(sequence);
+
+    return newSequence;
+}
+
+int * getSequence(int level, int * length) {
+
+    int *sequence;
+    *length = 0;
 
     for(int i = 0; i < level; i++) {
 
-        free(stacks[i]);
+        *length = *length * 2 + 1;
+        sequence = nextLevel(sequence, *length);
     }
 
-    free(stacks);
-    free(hPointers);
-
     return sequence;
+}
+
+void printList(int * list, int length) {
+
+    for(int i = 0; i < length; i++) {
+
+        printf("%d", list[i]);
+    }
+
+    printf("\n");
 }
