@@ -23,10 +23,10 @@ int main(void) {
     return 0;
 }
 
-int maxLength(char * fileName) {
+int maxLength(char * input) {
 
-    FILE *file = fopen(fileName, "r");
-    int max = 0;
+    FILE *file = fopen(input, "r");
+    int length = 0;
 
     if(file) {
 
@@ -35,13 +35,13 @@ int maxLength(char * fileName) {
         while(!feof(file)) {
 
             fgets(line, LINE_LENGTH, file);
-            max = MAX(max, strlen(line));
+            length = MAX(length, strlen(line));
         }
     }
 
     fclose(file);
 
-    return max;
+    return length;
 }
 
 int firstCharacter(char * line) {
@@ -85,38 +85,38 @@ int firstWordLength(char * line) {
     return 0;
 }
 
-bool isParagraph(char * previous, char * current, int maxLength) {
+bool isParagraph(char * last, char * current, int maxLength) {
 
-    if(!ispunct(previous[lastCharacter(previous)])) {
+    if(!ispunct(last[lastCharacter(last)])) {
 
         return false;
     }
 
-    return strlen(previous) + firstWordLength(current) + 1 < maxLength;
+    return strlen(last) + 1 + firstWordLength(current) < maxLength;
 }
 
-void unwrap(char * inputFile, char * outputFile) {
+void unwrap(char * input, char * output) {
 
-    const int length = maxLength(inputFile);
-    FILE *input = fopen(inputFile, "r");
-    FILE *output = fopen(outputFile, "w");
+    const int length = maxLength(input);
+    FILE *inputFile = fopen(input, "r");
+    FILE *outputFile = fopen(output, "w");
 
-    if(input) {
+    if(inputFile) {
 
-        char previous[LINE_LENGTH];
+        char last[LINE_LENGTH];
         char current[LINE_LENGTH];
-        fgets(previous, LINE_LENGTH, input);
-        fprintf(output, "%s", previous);
+        fgets(last, LINE_LENGTH, inputFile);
+        fprintf(outputFile, "%s", last);
 
-        while(!feof(input)) {
+        while(!feof(inputFile)) {
 
-            fgets(current, LINE_LENGTH, input);
-            const bool newLine = isParagraph(previous, current, length);
-            fprintf(output, newLine ? "\n%s" : "%s", current);
-            memcpy(previous, current, strlen(current) + 1);
+            fgets(current, LINE_LENGTH, inputFile);
+            const bool newLine = isParagraph(last, current, length);
+            fprintf(outputFile, newLine ? "\n%s" : "%s", current);
+            memcpy(last, current, strlen(current) + 1);
         }
     }
 
-    fclose(input);
-    fclose(output);
+    fclose(inputFile);
+    fclose(outputFile);
 }
