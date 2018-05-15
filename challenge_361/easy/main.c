@@ -56,7 +56,7 @@ int main(void) {
 
     for(int i = 0; i < total; i++) {
 
-        printf("%c:%d\n", scores[i]->letter, scores[i]->score);
+        printf("%c:%d%s", scores[i]->letter, scores[i]->score, i == total - 1 ? "" : ", ");
     }
 
     return 0;
