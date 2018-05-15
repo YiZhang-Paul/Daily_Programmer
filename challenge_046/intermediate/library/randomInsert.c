@@ -1,5 +1,5 @@
 #include <stdlib.h>
-#include "../header/utilities.h"
+#include "../header/utility.h"
 #include "../header/randomInsert.h"
 
 //remove random item in an array and return removed item

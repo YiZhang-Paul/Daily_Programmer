@@ -3,7 +3,7 @@
 
 #include <stdbool.h>
 #include "../header/point.h"
-#include "../header/lines.h"
+#include "../header/line.h"
 
 struct point * findIntersect(struct line *, struct line *);
 

@@ -1,5 +1,5 @@
 #include <stdlib.h>
-#include "../header/utilities.h"
+#include "../header/utility.h"
 #include "../header/optimizedInsert.h"
 
 static int countEmptyOnLeft(int * slots, int index) {

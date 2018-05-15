@@ -1,5 +1,5 @@
 #include <stdlib.h>
-#include "../header/utilities.h"
+#include "../header/utility.h"
 #include "../header/randomInsert.h"
 
 //get a range of numbers from m to m + n - 1

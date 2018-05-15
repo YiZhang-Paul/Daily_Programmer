@@ -1,4 +1,4 @@
-#include "../header/utilities.h"
+#include "../header/utility.h"
 
 char * copyText(char * text, int start, int end) {
 
