@@ -1,3 +1,6 @@
+#include <stdlib.h>
+#include <string.h>
+#include <stdbool.h>
 #include "../header/team.h"
 
 struct team * createTeam(char * name) {

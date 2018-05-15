@@ -1,9 +1,6 @@
 #ifndef TEAM_H
 #define TEAM_H
 
-#include <stdlib.h>
-#include <string.h>
-#include <stdbool.h>
 #include "hashTable.h"
 #include "utility.h"
 

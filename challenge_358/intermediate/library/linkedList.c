@@ -1,3 +1,5 @@
+#include <stdlib.h>
+#include <string.h>
 #include "../header/linkedList.h"
 
 bool isEmpty(struct node * head) {
