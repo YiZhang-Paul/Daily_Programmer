@@ -1,5 +1,5 @@
-#ifndef UTILITY_H
-#define UTILITY_H
+#ifndef UTILITIES_H
+#define UTILITIES_H
 
 #include <stdlib.h>
 #include <string.h>

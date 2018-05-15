@@ -1,4 +1,4 @@
-#include "../header/line.h"
+#include "../header/lines.h"
 
 struct line * createLine(double a, double b, double c) {
 

@@ -1,5 +1,5 @@
-#ifndef LINE_H
-#define LINE_H
+#ifndef LINES_H
+#define LINES_H
 
 #include <stdlib.h>
 #include <stdbool.h>

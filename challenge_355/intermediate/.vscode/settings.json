@@ -9,6 +9,7 @@
         "constraint.h": "c",
         "point.h": "c",
         "line.h": "c",
-        "intersect.h": "c"
+        "intersect.h": "c",
+        "lines.h": "c"
     }
 }

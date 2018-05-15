@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
-#include "utility.h"
+#include "utilities.h"
 
 struct node {
 
