@@ -1,7 +1,6 @@
 #ifndef LINE_H
 #define LINE_H
 
-#include <stdlib.h>
 #include <stdbool.h>
 
 struct line {
