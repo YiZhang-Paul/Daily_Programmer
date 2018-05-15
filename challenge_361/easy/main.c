@@ -12,6 +12,24 @@ struct player {
     int score;
 };
 
+struct player * createPlayer(char, int);
+void freePlayers(struct player **, int);
+void fill(int *, int, int);
+int compare(const void *, const void *);
+struct player ** sortPlayers(struct player **, int);
+struct player ** readScore(char *, int *);
+void printScore(struct player **, int);
+void findResult(char *);
+
+int main(void) {
+
+    findResult("abcde");
+    findResult("dbbaCEDbdAacCEAadcB");
+    findResult("EbAAdbBEaBaaBBdAccbeebaec");
+
+    return 0;
+}
+
 struct player * createPlayer(char letter, int score) {
 
     struct player *player = malloc(sizeof *player);
@@ -20,6 +38,16 @@ struct player * createPlayer(char letter, int score) {
     player->score = score;
 
     return player;
+}
+
+void freePlayers(struct player ** players, int total) {
+
+    for(int i = 0; i < total; i++) {
+
+        free(players[i]);
+    }
+
+    free(players);
 }
 
 void fill(int * list, int total, int value) {
@@ -53,8 +81,8 @@ struct player ** sortPlayers(struct player ** players, int total) {
 struct player ** readScore(char * letters, int * total) {
 
     *total = 0;
-    const int cap = strlen(letters) + 1;
     int scores[MAX_PLAYERS];
+    const int cap = strlen(letters) + 1;
     fill(scores, MAX_PLAYERS, cap);
     struct player **players = malloc(sizeof *players);
 
@@ -77,16 +105,6 @@ struct player ** readScore(char * letters, int * total) {
     return sortPlayers(players, *total);
 }
 
-void freePlayers(struct player ** players, int total) {
-
-    for(int i = 0; i < total; i++) {
-
-        free(players[i]);
-    }
-
-    free(players);
-}
-
 void printScore(struct player ** players, int total) {
 
     for(int i = 0; i < total; i++) {
@@ -102,12 +120,4 @@ void findResult(char * letters) {
     struct player **players = readScore(letters, &total);
     printScore(players, total);
     freePlayers(players, total);
-}
-
-int main(void) {
-
-    findResult("abcde");
-    findResult("dbbaCEDbdAacCEAadcB");
-
-    return 0;
 }
