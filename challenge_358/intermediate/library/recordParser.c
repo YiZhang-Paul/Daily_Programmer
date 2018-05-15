@@ -1,4 +1,5 @@
 #include "../header/recordParser.h"
+#include "utility.c"
 
 static char ** getNames(char * record) {
 

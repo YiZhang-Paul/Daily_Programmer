@@ -1,4 +1,8 @@
-#include "../header/utility.h"
+#include <stdlib.h>
+#include <string.h>
+#include <ctype.h>
+
+#define MAX(a, b) ((a) > (b) ? (a) : (b))
 
 char * copyText(char * text, int start, int end) {
 

@@ -5,7 +5,6 @@
 #include <string.h>
 #include <stdbool.h>
 #include "hashTable.h"
-#include "utility.h"
 
 struct team {
 

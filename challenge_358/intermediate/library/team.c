@@ -1,4 +1,5 @@
 #include "../header/team.h"
+#include "utility.c"
 
 struct team * createTeam(char * name) {
 

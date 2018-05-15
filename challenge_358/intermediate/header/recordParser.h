@@ -8,7 +8,6 @@
 #include <stdbool.h>
 #include <string.h>
 #include <ctype.h>
-#include "utility.h"
 
 struct record {
 
