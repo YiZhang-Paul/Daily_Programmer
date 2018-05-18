@@ -1,0 +1,6 @@
+eat_dinner: make_dinner set_table
+make_dinner: get_milk get_meat get_veggies
+get_meat: buy_food
+buy_food: get_money
+get_veggies: buy_food
+get_money: deposit_paycheck
