@@ -37,6 +37,11 @@ struct hashTable * createTable() {
 
 void add(struct hashTable * table, char * key, void * data) {
 
+    if(contains(table, key)) {
+
+        return;
+    }
+
     const int code = getHashCode(key);
     struct dataItem *item = createItem(key, data);
     append(&(table->values[code]), item);
