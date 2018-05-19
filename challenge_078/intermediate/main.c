@@ -16,6 +16,9 @@ int main(void) {
     struct hashTable *tasks = processFile(INPUT_FILE, getTasks);
     struct hashTable *dependency = processFile(INPUT_FILE, getDependency);
 
+    freeTable(tasks);
+    freeTable(dependency);
+
     return 0;
 }
 

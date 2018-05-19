@@ -72,6 +72,63 @@ bool contains(struct hashTable * table, char * key) {
     return get(table, key) != NULL;
 }
 
+static bool removeAtHead(struct node ** head, char * key) {
+
+    char *currentKey = ((struct dataItem *)(*head)->data)->key;
+
+    if(strcmp(currentKey, key) != 0) {
+
+        return false;
+    }
+
+    struct node *previous = *head;
+    *head = (*head)->next;
+    freeNode(previous, freeItem);
+
+    return true;
+}
+
+static bool removeAfterHead(struct node * head, char * key) {
+
+    struct node *previous = head;
+    struct node *current = head->next;
+
+    while(current != NULL) {
+
+        char *currentKey = ((struct dataItem *)current->data)->key;
+
+        if(strcmp(currentKey, key) == 0) {
+
+            previous->next = current->next;
+            freeNode(current, freeItem);
+
+            return true;
+        }
+
+        previous = current;
+        current = current->next;
+    }
+
+    return false;
+}
+
+void removeKey(struct hashTable * table, char * key) {
+
+    if(!contains(table, key)) {
+
+        return;
+    }
+
+    struct node **head = &table->values[getHashCode(key)];
+
+    if(removeAtHead(head, key)) {
+
+        return;
+    }
+
+    removeAfterHead(*head, key);
+}
+
 void freeItem(void * item) {
 
     struct dataItem *dataItem = (struct dataItem *)item;

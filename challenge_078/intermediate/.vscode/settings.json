@@ -5,6 +5,11 @@
     "files.associations": {
         "stdlib.h": "c",
         "stdio.h": "c",
-        "utility.h": "c"
+        "utility.h": "c",
+        "system_error": "c",
+        "string.h": "c",
+        "hashtable.h": "c",
+        "linkedlist.h": "c",
+        "initializer_list": "c"
     }
 }

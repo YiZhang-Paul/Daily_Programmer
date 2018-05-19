@@ -25,6 +25,9 @@ struct hashTable * createTable();
 void add(struct hashTable *, char *, void *);
 void * get(struct hashTable *, char *);
 bool contains(struct hashTable *, char *);
+static bool removeAtHead(struct node **, char *);
+static bool removeAfterHead(struct node *, char *);
+void removeKey(struct hashTable *, char *);
 void freeItem(void *);
 void freeTable(struct hashTable *);
 
