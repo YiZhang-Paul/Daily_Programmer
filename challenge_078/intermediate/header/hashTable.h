@@ -16,6 +16,7 @@ struct dataItem {
 
 struct hashTable {
 
+    int size;
     struct node * values[MAX_KEYS];
 };
 

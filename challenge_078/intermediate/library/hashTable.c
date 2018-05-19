@@ -27,6 +27,8 @@ struct hashTable * createTable() {
 
     struct hashTable *table = malloc(sizeof *table);
 
+    table->size = 0;
+
     for(int i = 0; i < MAX_KEYS; i++) {
 
         table->values[i] = NULL;
@@ -45,12 +47,12 @@ void add(struct hashTable * table, char * key, void * data) {
     const int code = getHashCode(key);
     struct dataItem *item = createItem(key, data);
     append(&(table->values[code]), item);
+    table->size++;
 }
 
 void * get(struct hashTable * table, char * key) {
 
-    const int code = getHashCode(key);
-    struct node *head = table->values[code];
+    struct node *head = table->values[getHashCode(key)];
 
     while(head != NULL) {
 
@@ -58,7 +60,7 @@ void * get(struct hashTable * table, char * key) {
 
         if(strcmp(currentKey, key) == 0) {
 
-            return head->data;
+            return ((struct dataItem *)head->data)->data;
         }
 
         head = head->next;
@@ -69,7 +71,21 @@ void * get(struct hashTable * table, char * key) {
 
 bool contains(struct hashTable * table, char * key) {
 
-    return get(table, key) != NULL;
+    struct node *head = table->values[getHashCode(key)];
+
+    while(head != NULL) {
+
+        char *currentKey = ((struct dataItem *)head->data)->key;
+
+        if(strcmp(currentKey, key) == 0) {
+
+            return true;
+        }
+
+        head = head->next;
+    }
+
+    return false;
 }
 
 static bool removeAtHead(struct node ** head, char * key) {
@@ -120,6 +136,7 @@ void removeKey(struct hashTable * table, char * key) {
     }
 
     struct node **head = &table->values[getHashCode(key)];
+    table->size--;
 
     if(removeAtHead(head, key)) {
 
