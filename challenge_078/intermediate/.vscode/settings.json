@@ -12,6 +12,8 @@
         "linkedlist.h": "c",
         "initializer_list": "c",
         "utility": "c",
-        "istream": "c"
+        "istream": "c",
+        "stdbool.h": "c",
+        "ctype.h": "c"
     }
 }

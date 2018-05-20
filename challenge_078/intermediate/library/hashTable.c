@@ -136,14 +136,13 @@ void removeKey(struct hashTable * table, char * key) {
     }
 
     struct node **head = &table->values[getHashCode(key)];
-    table->size--;
 
-    if(removeAtHead(head, key)) {
+    if(!removeAtHead(head, key)) {
 
-        return;
+        removeAfterHead(*head, key);
     }
 
-    removeAfterHead(*head, key);
+    table->size--;
 }
 
 void freeItem(void * item) {
