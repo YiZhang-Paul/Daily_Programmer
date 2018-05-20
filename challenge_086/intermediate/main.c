@@ -3,7 +3,7 @@
 #include <stdbool.h>
 
 int getAnchorDay(int);
-int getDoomsday(int);
+int getDoomsDay(int);
 bool isLeapYear(int);
 char * getDayInWeek(int, int, int);
 
@@ -14,6 +14,11 @@ int main(void) {
     printf("%s\n", getDayInWeek(9, 5, 2018));
     printf("%s\n", getDayInWeek(10, 5, 2018));
     printf("%s\n", getDayInWeek(20, 5, 2018));
+    printf("%s\n", getDayInWeek(1, 11, 2017));
+    printf("%s\n", getDayInWeek(2, 11, 2017));
+    printf("%s\n", getDayInWeek(9, 11, 2017));
+    printf("%s\n", getDayInWeek(10, 11, 2017));
+    printf("%s\n", getDayInWeek(20, 11, 2017));
 
     return 0;
 }
@@ -25,7 +30,7 @@ int getAnchorDay(int year) {
     return anchors[year / 100 % 4];
 }
 
-int getDoomsday(int year) {
+int getDoomsDay(int year) {
 
     const int lastTwo = year % 100;
     const int anchorDay = getAnchorDay(year);
@@ -45,12 +50,12 @@ bool isLeapYear(int year) {
 
 char * getDayInWeek(int day, int month, int year) {
 
-    const bool leap = isLeapYear(year);
-    const int doomsday = getDoomsday(year) + 35;
+    const bool isLeap = isLeapYear(year);
+    const int doomsDay = getDoomsDay(year) + 35;
 
-    int marker[] = {
+    int specialDays[] = {
 
-        leap ? 4 : 3, leap ? 29 : 28, 7, 4, 9, 6, 11, 8, 5, 10, 7, 12
+        isLeap ? 4 : 3, isLeap ? 29 : 28, 7, 4, 9, 6, 11, 8, 5, 10, 7, 12
     };
 
     char *dayInWeek[] = {
@@ -58,5 +63,5 @@ char * getDayInWeek(int day, int month, int year) {
         "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"
     };
 
-    return dayInWeek[(doomsday + day - marker[month - 1]) % 7];
+    return dayInWeek[(doomsDay + day - specialDays[month - 1]) % 7];
 }
