@@ -1,0 +1,9 @@
+#86[Intermediate] Weekday calculations
+
+url: https://www.reddit.com/r/dailyprogrammer/comments/xx97s/882012_challenge_86_intermediate_weekday/
+
+Today's intermediate challenge comes from user nagasgura
+
+    Calculate the day of the week on any date in history
+
+    You could use the Doomsday rule to program it. It should take in a day, month, and year as input, and return the day of the week for that date.
