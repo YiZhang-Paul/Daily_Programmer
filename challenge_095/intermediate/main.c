@@ -15,8 +15,12 @@ bool hasChance(int);
 bool needSpace(char *, char *);
 char * trimEnd(char *);
 char * append(char *, char *);
+char * addPunctuation(char *);
+char * swapPunctuation(char *, char);
 char * createWord(bool);
 char * createNumber();
+char * addWords(char *, int);
+char * addLineBreak(char *);
 char * createSentence(int *);
 void generateText(char *, int);
 
@@ -69,6 +73,29 @@ char * append(char * word1, char * word2) {
     return word1;
 }
 
+char * addPunctuation(char * word) {
+
+    char options[] = ".,!?";
+    char result[] = { options[getRandom(0, strlen(options) - 1)], ' ', '\0' };
+
+    return append(word, result);
+}
+
+char * swapPunctuation(char * sentence, char punctuation) {
+
+    for(int i = strlen(sentence) - 1; i >= 0; i--) {
+
+        if(ispunct(sentence[i])) {
+
+            sentence[i] = punctuation;
+
+            break;
+        }
+    }
+
+    return sentence;
+}
+
 char * createWord(bool capitalize) {
 
     const int length = getRandom(MIN_CHARS, MAX_CHARS);
@@ -100,42 +127,47 @@ char * createNumber() {
     return number;
 }
 
-char * createSentence(int * total) {
+char * addWords(char * sentence, int total) {
 
-    *total = getRandom(MIN_WORDS, MAX_WORDS);
-    bool hasNumber = false;
-    char *sentence = malloc(1);
-    sentence[0] = '\0';
+    for(int i = 0, numbers = 0; i < total; i++) {
 
-    for(int i = 0; i < *total; i++) {
+        char *word;
 
-        char *item;
+        if(numbers == 0 && hasChance(5)) {
 
-        if(!hasNumber && hasChance(5)) {
-
-            hasNumber = true;
-            item = createNumber();
+            numbers++;
+            word = createNumber();
         }
         else {
 
-            item = createWord(i == 0);
+            word = createWord(i == 0);
         }
 
-        sentence = append(sentence, item);
+        sentence = append(sentence, word);
 
-        free(item);
-    }
-
-    sentence = append(sentence, ".");
-    sentence = append(sentence, " ");
-
-    if(hasChance(15)) {
-
-        sentence[strlen(sentence) - 1] = '\0';
-        sentence = append(sentence, hasChance(50) ? "\n\n" : "\n");
+        free(word);
     }
 
     return sentence;
+}
+
+char * addLineBreak(char * sentence) {
+
+    sentence[strlen(sentence) - 1] = '\0';
+    sentence = swapPunctuation(sentence, '.');
+
+    return append(sentence, hasChance(50) ? "\n\n" : "\n");
+}
+
+char * createSentence(int * total) {
+
+    char *sentence = malloc(1);
+    sentence[0] = '\0';
+    *total = getRandom(MIN_WORDS, MAX_WORDS);
+    sentence = addWords(sentence, *total);
+    sentence = addPunctuation(sentence);
+
+    return hasChance(15) ? addLineBreak(sentence) : sentence;
 }
 
 void generateText(char * output, int words) {
