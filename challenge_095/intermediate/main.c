@@ -11,9 +11,12 @@
 #define OUTPUT_FILE "output.txt"
 
 int getRandom(int, int);
-int hasChance(int);
+bool hasChance(int);
+bool needSpace(char *, char *);
+char * trimEnd(char *);
 char * append(char *, char *);
 char * createWord(bool);
+char * createNumber();
 char * createSentence(int *);
 void generateText(char *, int);
 
@@ -34,14 +37,29 @@ int getRandom(int min, int max) {
     return rand() % (max - min + 1) + min;
 }
 
-int hasChance(int chance) {
+bool hasChance(int chance) {
 
     return getRandom(1, 100) <= chance;
 }
 
+bool needSpace(char * word1, char * word2) {
+
+    return strlen(word1) > 0 && !ispunct(word2[0]) && isgraph(word2[0]);
+}
+
+char * trimEnd(char * word) {
+
+    while(!isgraph(word[strlen(word) - 1])) {
+
+        word[strlen(word) - 1] = '\0';
+    }
+
+    return word;
+}
+
 char * append(char * word1, char * word2) {
 
-    const bool hasSpace = isgraph(word2[0]);
+    const bool hasSpace = needSpace(word1, word2);
     const int length = strlen(word1) + (hasSpace ? 1 : 0) + strlen(word2);
     word1 = realloc(word1, length + 1);
     word1[strlen(word1)] = hasSpace ? ' ' : word1[strlen(word1)];
@@ -58,7 +76,7 @@ char * createWord(bool capitalize) {
 
     for(int i = 0; i < length; i++) {
 
-        word[i] = 'a';
+        word[i] = 'a' + getRandom(0, 25);
     }
 
     word[0] = capitalize ? toupper(word[0]) : word[0];
@@ -67,22 +85,53 @@ char * createWord(bool capitalize) {
     return word;
 }
 
+char * createNumber() {
+
+    const int length = getRandom(MIN_CHARS, MAX_CHARS);
+    char *number = malloc(length + 1);
+
+    for(int i = 0; i < length; i++) {
+
+        number[i] = '0' + getRandom(0, 9);
+    }
+
+    number[length] = '\0';
+
+    return number;
+}
+
 char * createSentence(int * total) {
 
     *total = getRandom(MIN_WORDS, MAX_WORDS);
+    bool hasNumber = false;
     char *sentence = malloc(1);
     sentence[0] = '\0';
 
     for(int i = 0; i < *total; i++) {
 
-        char *word = createWord(i == 0);
-        sentence = append(sentence, word);
+        char *item;
 
-        free(word);
+        if(!hasNumber && hasChance(5)) {
+
+            hasNumber = true;
+            item = createNumber();
+        }
+        else {
+
+            item = createWord(i == 0);
+        }
+
+        sentence = append(sentence, item);
+
+        free(item);
     }
+
+    sentence = append(sentence, ".");
+    sentence = append(sentence, " ");
 
     if(hasChance(15)) {
 
+        sentence[strlen(sentence) - 1] = '\0';
         sentence = append(sentence, hasChance(50) ? "\n\n" : "\n");
     }
 
@@ -99,8 +148,9 @@ void generateText(char * output, int words) {
 
             int total = 0;
             char *sentence = createSentence(&total);
-            fprintf(file, "%s", sentence);
             words -= total;
+            fprintf(file, "%s", words < MIN_WORDS ? trimEnd(sentence) : sentence);
+
             free(sentence);
         }
     }
