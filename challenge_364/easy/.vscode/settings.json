@@ -1,0 +1,8 @@
+{
+    "files.associations": {
+        "stdlib.h": "c"
+    },
+    "code-runner.executorMap": {
+        "c": "cd $workspaceRoot && gcc -g main.c -o main && $workspaceRoot/main"
+    }
+}
