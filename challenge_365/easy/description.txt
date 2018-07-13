@@ -1,5 +1,7 @@
 #365[Easy] Up-arrow Notation
 
+All Done
+
 url: https://www.reddit.com/r/dailyprogrammer/comments/8xbxi9/20180709_challenge_365_easy_uparrow_notation/
 
 Description
