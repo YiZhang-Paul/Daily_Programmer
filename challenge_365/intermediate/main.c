@@ -7,18 +7,19 @@
 #define MAX(a, b) ((a) > (b) ? (a) : (b))
 #define LINE_LENGTH 256
 
-char * copyText(char *);
 bool isBlank(char *);
 bool isName(char *);
 bool isItem(char *);
+char * copyText(char *);
+int * toValues(char **, int);
+int * parseValues(char *);
+void fill(double *, int, double);
 char ** getTextByType(char *, int func(int), int *);
 char ** getNames(char *, int *);
-int * toValues(char **, int);
-int * getValues(char *);
-void readSalesData(char *, char ***, int ***, int ***, int *, int *);
-void fill(double *, int, double);
+int ** getValues(char *, int *, int);
 double * getCommissions(int **, int **, int, int);
 void printNames(char **, int, int);
+void printCommissions(double *, int);
 void freeTexts(char **, int);
 void freeValues(int **, int);
 void getResult(char *);
@@ -29,14 +30,6 @@ int main(void) {
     getResult("input2.txt");
 
     return 0;
-}
-
-char * copyText(char * text) {
-
-    char *copy = malloc(strlen(text) + 1);
-    copy[strlen(text)] = '\0';
-
-    return strcpy(copy, text);
 }
 
 bool isBlank(char * line) {
@@ -70,7 +63,46 @@ bool isItem(char * line) {
     return false;
 }
 
-char ** getTextByType(char * line, int typeCheck(int), int * total) {
+char * copyText(char * text) {
+
+    char *copy = malloc(strlen(text) + 1);
+    copy[strlen(text)] = '\0';
+
+    return strcpy(copy, text);
+}
+
+int * toValues(char ** texts, int total) {
+
+    int *values = malloc(sizeof *values * total);
+
+    for(int i = 0; i < total; i++) {
+
+        values[i] = atoi(texts[i]);
+    }
+
+    return values;
+}
+
+int * parseValues(char * line) {
+
+    int total = 0;
+    char **texts = getTextByType(line, isdigit, &total);
+    int *values = toValues(texts, total);
+
+    freeTexts(texts, total);
+
+    return values;
+}
+
+void fill(double * collection, int total, double value) {
+
+    for(int i = 0; i < total; i++) {
+
+        collection[i] = value;
+    }
+}
+
+char ** getTextByType(char * line, int isType(int), int * total) {
 
     *total = 0;
     char text[LINE_LENGTH];
@@ -78,16 +110,16 @@ char ** getTextByType(char * line, int typeCheck(int), int * total) {
 
     for(int i = 0, j = 0; i < strlen(line); i++) {
 
-        if(!typeCheck(line[i]) || i == strlen(line) - 1) {
+        if(!isType(line[i]) || i == strlen(line) - 1) {
 
-            if(typeCheck(line[i])) {
+            if(isType(line[i])) {
 
                 text[j++] = line[i];
             }
 
             if(j != 0) {
 
-                texts = realloc(texts, sizeof * texts * (*total + 1));
+                texts = realloc(texts, sizeof *texts * (*total + 1));
                 texts[(*total)++] = copyText(text);
                 text[0] = '\0';
                 j = 0;
@@ -103,42 +135,14 @@ char ** getTextByType(char * line, int typeCheck(int), int * total) {
     return texts;
 }
 
-char ** getNames(char * line, int * total) {
+char ** getNames(char * input, int * total) {
 
-    return getTextByType(line, isalpha, total);
-}
-
-int * toValues(char ** texts, int total) {
-
-    int *values = malloc(sizeof *values * total);
-
-    for(int i = 0; i < total; i++) {
-
-        values[i] = atoi(texts[i]);
-    }
-
-    return values;
-}
-
-int * getValues(char * line) {
-
-    int total = 0;
-    char **texts = getTextByType(line, isdigit, &total);
-    int *values = toValues(texts, total);
-
-    freeTexts(texts, total);
-
-    return values;
-}
-
-void readSalesData(char * input, char *** names, int *** revenue, int *** expense, int * totalNames, int * totalItems) {
-
+    *total = 0;
     FILE *file = fopen(input, "r");
 
     if(file) {
 
         char line[LINE_LENGTH];
-        int state = 0;
 
         while(!feof(file)) {
 
@@ -146,30 +150,52 @@ void readSalesData(char * input, char *** names, int *** revenue, int *** expens
 
             if(isName(line)) {
 
-                state++;
-                *totalItems = 0;
-                char **result = getNames(line, totalNames);
-                *names = realloc(*names, sizeof **names * *totalNames);
-                *names = result;
-            }
-            else if(isItem(line)) {
+                char **names = getTextByType(line, isalnum, total);
 
-                int ***collection = state == 1 ? revenue : expense;
-                *collection = realloc(*collection, sizeof **collection * (*totalItems + 1));
-                (*collection)[(*totalItems)++] = getValues(line);
+                fclose(file);
+
+                return names;
+            }
+        }
+    }
+
+    return NULL;
+}
+
+int ** getValues(char * input, int * total, int targetState) {
+
+    *total = 0;
+    int **values = malloc(sizeof *values * (*total + 1));
+    FILE *file = fopen(input, "r");
+
+    if(file) {
+
+        int currentState = 0;
+        char line[LINE_LENGTH];
+
+        while(!feof(file)) {
+
+            fgets(line, LINE_LENGTH, file);
+
+            if(isName(line)) {
+
+                currentState++;
+                *total = 0;
+
+                continue;
+            }
+
+            if(currentState == targetState && isItem(line)) {
+
+                values = realloc(values, sizeof *values * (*total + 1));
+                values[(*total)++] = parseValues(line);
             }
         }
     }
 
     fclose(file);
-}
 
-void fill(double * collection, int total, double value) {
-
-    for(int i = 0; i < total; i++) {
-
-        collection[i] = value;
-    }
+    return values;
 }
 
 double * getCommissions(int ** revenue, int ** expense, int rows, int columns) {
@@ -235,10 +261,9 @@ void getResult(char * input) {
 
     int totalNames = 0;
     int totalItems = 0;
-    char **names = malloc(sizeof *names);
-    int **revenue = malloc(sizeof *revenue);
-    int **expense = malloc(sizeof *expense);
-    readSalesData(input, &names, &revenue, &expense, &totalNames, &totalItems);
+    char **names = getNames(input, &totalNames);
+    int **revenue = getValues(input, &totalItems, 1);
+    int **expense = getValues(input, &totalItems, 2);
     double *commissions = getCommissions(revenue, expense, totalItems, totalNames);
 
     printNames(names, totalNames, strlen("Commission "));
