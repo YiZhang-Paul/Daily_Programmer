@@ -4,17 +4,23 @@
 #include <stdbool.h>
 #include <ctype.h>
 
+#define MAX(a, b) ((a) > (b) ? (a) : (b))
 #define LINE_LENGTH 256
 
 char * copyText(char *);
 bool isBlank(char *);
 bool isName(char *);
 bool isItem(char *);
+char ** getTextByType(char *, int func(int), int *);
 char ** getNames(char *, int *);
+int * toValues(char **, int);
 int * getValues(char *);
 void readSalesData(char *, char ***, int ***, int ***, int *, int *);
+void fill(double *, int, double);
 double * getCommissions(int **, int **, int, int);
-void printNames(char **, int);
+void printNames(char **, int, int);
+void freeTexts(char **, int);
+void freeValues(int **, int);
 void getResult(char *);
 
 int main(void) {
@@ -64,68 +70,63 @@ bool isItem(char * line) {
     return false;
 }
 
-char ** getNames(char * line, int * total) {
+char ** getTextByType(char * line, int typeCheck(int), int * total) {
 
     *total = 0;
-    char name[LINE_LENGTH];
-    char **names = malloc(sizeof *names * (*total + 1));
+    char text[LINE_LENGTH];
+    char **texts = malloc(sizeof *texts * (*total + 1));
 
     for(int i = 0, j = 0; i < strlen(line); i++) {
 
-        if(!isalpha(line[i]) || i == strlen(line) - 1) {
+        if(!typeCheck(line[i]) || i == strlen(line) - 1) {
 
-            if(isalpha(line[i])) {
+            if(typeCheck(line[i])) {
 
-                name[j++] = line[i];
+                text[j++] = line[i];
             }
 
             if(j != 0) {
 
-                names = realloc(names, sizeof *names * (*total + 1));
-                names[(*total)++] = copyText(name);
-                name[0] = '\0';
+                texts = realloc(texts, sizeof * texts * (*total + 1));
+                texts[(*total)++] = copyText(text);
+                text[0] = '\0';
                 j = 0;
             }
 
             continue;
         }
 
-        name[j++] = line[i];
-        name[j] = '\0';
+        text[j++] = line[i];
+        text[j] = '\0';
     }
 
-    return names;
+    return texts;
+}
+
+char ** getNames(char * line, int * total) {
+
+    return getTextByType(line, isalpha, total);
+}
+
+int * toValues(char ** texts, int total) {
+
+    int *values = malloc(sizeof *values * total);
+
+    for(int i = 0; i < total; i++) {
+
+        values[i] = atoi(texts[i]);
+    }
+
+    return values;
 }
 
 int * getValues(char * line) {
 
     int total = 0;
-    char value[LINE_LENGTH];
-    int *values = malloc(sizeof *values * (total + 1));
+    char **texts = getTextByType(line, isdigit, &total);
+    int *values = toValues(texts, total);
 
-    for(int i = 0, j = 0; i < strlen(line); i++) {
-
-        if(!isdigit(line[i]) || i == strlen(line) - 1) {
-
-            if(isdigit(line[i])) {
-
-                value[j++] = line[i];
-            }
-
-            if(j != 0) {
-
-                values = realloc(values, sizeof *values * (total + 1));
-                values[total++] = atoi(value);
-                value[0] = '\0';
-                j = 0;
-            }
-
-            continue;
-        }
-
-        value[j++] = line[i];
-        value[j] = '\0';
-    }
+    freeTexts(texts, total);
 
     return values;
 }
@@ -147,51 +148,49 @@ void readSalesData(char * input, char *** names, int *** revenue, int *** expens
 
                 state++;
                 *totalItems = 0;
-                *names = getNames(line, totalNames);
-
-                continue;
+                char **result = getNames(line, totalNames);
+                *names = realloc(*names, sizeof **names * *totalNames);
+                *names = result;
             }
+            else if(isItem(line)) {
 
-            if(!isItem(line)) {
-
-                continue;
+                int ***collection = state == 1 ? revenue : expense;
+                *collection = realloc(*collection, sizeof **collection * (*totalItems + 1));
+                (*collection)[(*totalItems)++] = getValues(line);
             }
-
-            (*(state == 1 ? revenue : expense))[(*totalItems)++] = getValues(line);
         }
     }
 
     fclose(file);
 }
 
+void fill(double * collection, int total, double value) {
+
+    for(int i = 0; i < total; i++) {
+
+        collection[i] = value;
+    }
+}
+
 double * getCommissions(int ** revenue, int ** expense, int rows, int columns) {
 
     double *commission = malloc(sizeof *commission * columns);
-
-    for(int i = 0; i < columns; i++) {
-
-        commission[i] = 0;
-    }
+    fill(commission, columns, 0);
 
     for(int i = 0; i < rows; i++) {
 
         for(int j = 0; j < columns; j++) {
 
-            double profit = revenue[i][j] - expense[i][j];
-
-            if(profit > 0) {
-
-                commission[j] += profit * 0.062;
-            }
+            commission[j] += MAX(revenue[i][j] - expense[i][j], 0) * 0.062;
         }
     }
 
     return commission;
 }
 
-void printNames(char ** names, int total) {
+void printNames(char ** names, int total, int space) {
 
-    for(int i = 0; i < strlen("Commission "); i++) {
+    for(int i = 0; i < space; i++) {
 
         printf(" ");
     }
@@ -208,8 +207,28 @@ void printCommissions(double * commissions, int total) {
 
     for(int i = 0; i < total; i++) {
 
-        printf("%f%s", commissions[i], i == total - 1 ? "" : " ");
+        printf("%0.2f%s", commissions[i], i == total - 1 ? "" : " ");
     }
+}
+
+void freeTexts(char ** texts, int total) {
+
+    for(int i = 0; i < total; i++) {
+
+        free(texts[i]);
+    }
+
+    free(texts);
+}
+
+void freeValues(int ** values, int total) {
+
+    for(int i = 0; i < total; i++) {
+
+        free(values[i]);
+    }
+
+    free(values);
 }
 
 void getResult(char * input) {
@@ -222,10 +241,13 @@ void getResult(char * input) {
     readSalesData(input, &names, &revenue, &expense, &totalNames, &totalItems);
     double *commissions = getCommissions(revenue, expense, totalItems, totalNames);
 
-    printNames(names, totalNames);
+    printNames(names, totalNames, strlen("Commission "));
     printf("\n");
     printCommissions(commissions, totalNames);
     printf("\n\n");
 
     free(commissions);
+    freeTexts(names, totalNames);
+    freeValues(revenue, totalItems);
+    freeValues(expense, totalItems);
 }
