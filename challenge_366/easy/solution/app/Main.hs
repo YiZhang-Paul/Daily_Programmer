@@ -2,6 +2,7 @@ module Main where
 
 import Data.List
 import Data.Maybe
+import System.IO
 
 main :: IO ()
 main = do
@@ -14,9 +15,19 @@ main = do
         showResult "eave" "leave"
         showResult "sleet" "lets"
         showResult "skiff" "ski"
+        showResultFromFile "wordList.txt" "dragoon"
+        showResultFromFile "wordList.txt" "boats"
+        showResultFromFile "wordList.txt" "affidavit"
 
 showResult :: String -> String -> IO ()
 showResult a b = print . show $ funnel a b
+
+showResultFromFile :: FilePath -> String -> IO ()
+showResultFromFile a b = do
+                            content <- readFile a
+                            let allWords = lines content
+                                validWords = filter (funnel b) allWords
+                            print validWords
 
 funnel :: String -> String -> Bool
 funnel a b =
