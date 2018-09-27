@@ -9,7 +9,9 @@ showResult :: FilePath -> String -> IO ()
 showResult filePath word = do
                             content <- readFile filePath
                             let allWords = lines content
-                            print . funnels word $ allWords
+                                input    = "funnels(\"" ++ word ++ "\") => "
+                                output   = funnels word allWords
+                            putStrLn $ input ++ show output
 
 funnels :: String -> [String] -> [String]
 funnels word = filter (B.funnel word)
