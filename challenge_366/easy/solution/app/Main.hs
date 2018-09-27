@@ -2,6 +2,7 @@ module Main where
 
 import qualified BaseChallenge as B
 import qualified OptionChallengeOne as OpOne
+import qualified OptionChallengeTwo as OpTwo
 
 main :: IO ()
 main = do
@@ -17,3 +18,4 @@ main = do
         OpOne.showResult "wordList.txt" "dragoon"
         OpOne.showResult "wordList.txt" "boats"
         OpOne.showResult "wordList.txt" "affidavit"
+        OpTwo.showResult "wordList.txt"

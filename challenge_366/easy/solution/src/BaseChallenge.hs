@@ -17,8 +17,9 @@ funnel wordA wordB =
 hasLettersInOrder :: String -> String -> Bool
 hasLettersInOrder _ "" = True
 hasLettersInOrder aLetters (bLetter:bLetters)
-    | isNothing index = False
-    | otherwise       = hasLettersInOrder lettersRemain bLetters
+    | length aLetters < length bLetters + 1 = False
+    | isNothing index                       = False
+    | otherwise = hasLettersInOrder lettersRemain bLetters
     where index         = elemIndex bLetter aLetters
           sliceIndex    = fromJust index + 1
           lettersRemain = drop sliceIndex aLetters
