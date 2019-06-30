@@ -33,35 +33,40 @@ func isBalanced(text string, check []rune) bool {
 	if len(text) == 0 {
 		return true
 	}
-	table := make(map[rune]int)
+	occurrence := countOccurrence(text)
+	if len(check) == 0 {
+		check = getKeys(occurrence)
+	}
+	return checkOccurrence(occurrence, check)
+}
+
+func countOccurrence(text string) map[rune]int {
+	result := make(map[rune]int)
 	for _, char := range text {
-		if _, ok := table[char]; !ok {
-			table[char] = 0
+		if _, ok := result[char]; !ok {
+			result[char] = 0
 		}
-		table[char]++
+		result[char]++
 	}
-	prev := -1
-	for _, char := range check {
-		if _, ok := table[char]; !ok {
+	return result
+}
+
+func checkOccurrence(table map[rune]int, keys []rune) bool {
+	current := -1
+	for _, key := range keys {
+		_, hasKey := table[key]
+		if !hasKey || (current != -1 && current != table[key]) {
 			return false
 		}
-		if prev == -1 {
-			prev = table[char]
-			continue
-		}
-		if prev != table[char] {
-			return false
-		}
-	}
-	prev = -1
-	for _, total := range table {
-		if prev == -1 {
-			prev = total
-			continue
-		}
-		if prev != total {
-			return false
-		}
+		current = table[key]
 	}
 	return true
+}
+
+func getKeys(table map[rune]int) []rune {
+	keys := make([]rune, 0, len(table))
+	for key := range table {
+		keys = append(keys, key)
+	}
+	return keys
 }
