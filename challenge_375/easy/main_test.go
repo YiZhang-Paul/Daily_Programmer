@@ -15,3 +15,17 @@ func TestIncrementDigit(t *testing.T) {
 		}
 	}
 }
+
+func TestIncrementDigitWithoutCasting(t *testing.T) {
+	cases := []struct {
+		number, expected int
+	}{
+		{998, 10109},
+		{315972, 4261083},
+	}
+	for _, c := range cases {
+		if actual := incrementDigitWithoutCasting(c.number); c.expected != actual {
+			t.Errorf("incrementDigitWithoutCasting(%d) == %d, expected %d", c.number, actual, c.expected)
+		}
+	}
+}

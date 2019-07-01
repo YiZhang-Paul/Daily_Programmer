@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"math"
 	"strconv"
 	"strings"
 )
@@ -10,6 +11,9 @@ func main() {
 	// base challenge
 	fmt.Printf("incrementDigit(%d) => %d\n", 998, incrementDigit(998))
 	fmt.Printf("incrementDigit(%d) => %d\n", 315972, incrementDigit(315972))
+	// bonus challenge
+	fmt.Printf("incrementDigitWithoutCasting(%d) => %d\n", 315972, incrementDigitWithoutCasting(315972))
+	fmt.Printf("incrementDigitWithoutCasting(%d) => %d\n", 315972, incrementDigitWithoutCasting(315972))
 }
 
 func incrementDigit(number int) int {
@@ -51,4 +55,15 @@ func toDigits(number int) []int {
 		number = (number - number%10) / 10
 	}
 	return digits
+}
+
+func incrementDigitWithoutCasting(number int) int {
+	shifted, incremented := 0, 0
+	for i, digit := range toDigits(number) {
+		incremented += int(math.Pow10(i+shifted)) * (digit + 1)
+		if digit+1 > 9 {
+			shifted++
+		}
+	}
+	return incremented
 }
