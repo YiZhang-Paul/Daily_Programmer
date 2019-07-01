@@ -14,6 +14,7 @@ func main() {
 	showResult("001011011101001001000")
 	showResult("1010010101001011011001011101111")
 	showResult("1101110110000001010111011100110")
+	showResult("010111111111100100101000100110111000101111001001011011000011000")
 }
 
 func showResult(cards string) {
@@ -21,30 +22,29 @@ func showResult(cards string) {
 }
 
 func flip(cards string) string {
-	if result := deepFlip(cards); result != nil {
+	if result := flipWithBackTracking(cards); result != nil {
 		return strings.Join(reverse(result), " ")
 	}
 	return "no solution"
 }
 
-func deepFlip(cards string) []string {
-	if matched, _ := regexp.Match(`^\.*$`, []byte(cards)); matched {
+func flipWithBackTracking(cards string) []string {
+	if isMatch(cards, `^\.*$`) {
 		return make([]string, 0)
 	}
-	if matched, _ := regexp.Match(`^([^1]|0)*$`, []byte(cards)); matched {
+	if isMatch(cards, `[^1]0+[^1]`) {
 		return nil
 	}
 	for i, card := range cards {
 		if string(card) != "1" {
 			continue
 		}
-		newCards := cards[0:max(0, i-1)] + tryFlip(cards, i-1) + "." + tryFlip(cards, i+1)
+		flipped := cards[0:max(0, i-1)] + tryFlip(cards, i-1) + "." + tryFlip(cards, i+1)
 		if i+2 <= len(cards)-1 {
-			newCards += cards[i+2:]
+			flipped += cards[i+2:]
 		}
-		if result := deepFlip(newCards); result != nil {
-			result = append(result, strconv.Itoa(i))
-			return result
+		if result := flipWithBackTracking(flipped); result != nil {
+			return append(result, strconv.Itoa(i))
 		}
 	}
 	return nil
@@ -62,6 +62,14 @@ func tryFlip(cards string, index int) string {
 		return "1"
 	}
 	return "0"
+}
+
+func isMatch(text string, pattern string) bool {
+	matched, err := regexp.Match(pattern, []byte(text))
+	if err != nil {
+		return false
+	}
+	return matched
 }
 
 func max(numbers ...int) int {
