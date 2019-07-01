@@ -2,22 +2,21 @@ package main
 
 import "testing"
 
-func TestFlip(t *testing.T) {
+func TestFastFlip(t *testing.T) {
 	cases := []struct {
-		cards    string
-		expected bool
+		cards, expected string
 	}{
-		{"0100110", true},
-		{"01001100111", false},
-		{"100001100101000", true},
-		{"001011011101001001000", true},
-		{"1010010101001011011001011101111", false},
-		{"1101110110000001010111011100110", true},
-		{"010111111111100100101000100110111000101111001001011011000011000", true},
+		{"0100110", "1 5 2 3 4 0 6"},
+		{"01001100111", "no solution"},
+		{"100001100101000", "0 6 11 1 2 3 4 7 8 10 12 13 5 9 14"},
+		{"001011011101001001000", "2 5 8 11 17 1 3 6 10 12 13 16 18 19 15 4 7 9 14 0 20"},
+		{"1010010101001011011001011101111", "no solution"},
+		{"1101110110000001010111011100110", "0 3 5 8 17 20 23 25 29 2 6 9 10 11 12 13 14 16 18 22 26 27 1 4 7 15 19 21 24 28 30"},
+		{"010111111111100100101000100110111000101111001001011011000011000", "1 4 6 8 10 12 18 24 28 31 36 39 41 47 50 53 59 2 13 14 17 19 23 25 26 29 35 37 42 43 46 48 51 54 55 56 57 60 61 16 22 34 45 21 33 3 5 7 9 11 15 20 27 30 32 38 40 44 49 52 58 0 62"},
 	}
 	for _, c := range cases {
-		if flip(c.cards) == "no solution" && c.expected {
-			t.Errorf("flip(%v) is expected to have at least one solution", c.cards)
+		if actual := fastFlip(c.cards); c.expected != actual {
+			t.Errorf("fastFlip(%q) == %q, expected %q", c.cards, actual, c.expected)
 		}
 	}
 }

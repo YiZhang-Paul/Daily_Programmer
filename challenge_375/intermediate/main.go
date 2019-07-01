@@ -7,6 +7,15 @@ import (
 	"strings"
 )
 
+const (
+	yellow = iota
+	blueL
+	blueR
+	purple
+	red
+	green
+)
+
 func main() {
 	showResult("0100110")
 	showResult("01001100111")
@@ -18,7 +27,93 @@ func main() {
 }
 
 func showResult(cards string) {
-	fmt.Printf("flip(%q) => %s\n", cards, flip(cards))
+	fmt.Printf("fastFlip(%q) => %s\n", cards, fastFlip(cards))
+}
+
+func fastFlip(cards string) string {
+	faceUpCards := removeByPattern(cards, `[^1]`)
+	if len(faceUpCards)%2 == 0 {
+		return "no solution"
+	}
+	slots, flags, steps := strings.Split(cards, ""), make([]int, len(cards)), make([]string, 0)
+	for i, slot := range slots {
+		if i == 0 || i == len(slots)-1 {
+			if string(slot) == "1" {
+				flags[i] = purple
+			} else {
+				flags[i] = green
+			}
+		} else if left := flags[i-1]; left == yellow || left == purple || left == blueL {
+			if string(slot) == "1" {
+				flags[i] = red
+			} else {
+				flags[i] = blueL
+			}
+		} else {
+			if string(slot) == "1" {
+				flags[i] = yellow
+			} else {
+				flags[i] = blueR
+			}
+		}
+	}
+	for i := range slots {
+		if flags[i] == yellow || flags[i] == purple {
+			slots[i] = "."
+			tryFlip(slots, i-1)
+			tryFlip(slots, i+1)
+			steps = append(steps, strconv.Itoa(i))
+		}
+	}
+	flippedBlue := true
+	for flippedBlue {
+		flippedBlue = false
+		for i := range slots {
+			if slots[i] == "." {
+				continue
+			}
+			if (flags[i] == blueR && slots[i+1] == ".") || (flags[i] == blueL && slots[i-1] == ".") {
+				flippedBlue = true
+				slots[i] = "."
+				tryFlip(slots, i-1)
+				tryFlip(slots, i+1)
+				steps = append(steps, strconv.Itoa(i))
+			}
+		}
+	}
+	for i := range slots {
+		if flags[i] == red {
+			slots[i] = "."
+			tryFlip(slots, i-1)
+			tryFlip(slots, i+1)
+			steps = append(steps, strconv.Itoa(i))
+		}
+	}
+	for i := range slots {
+		if flags[i] == green {
+			slots[i] = "."
+			tryFlip(slots, i-1)
+			tryFlip(slots, i+1)
+			steps = append(steps, strconv.Itoa(i))
+		}
+	}
+	return strings.Join(steps, " ")
+}
+
+func tryFlip(slots []string, index int) {
+	if index < 0 || index > len(slots)-1 || (slots[index] != "0" && slots[index] != "1") {
+		return
+	}
+	if slots[index] == "0" {
+		slots[index] = "1"
+	} else {
+		slots[index] = "0"
+	}
+}
+
+func removeByPattern(text string, pattern string) string {
+	regex := regexp.MustCompile(pattern)
+	return string(regex.ReplaceAll([]byte(text), []byte("")))
 }
 
 func flip(cards string) string {
@@ -39,7 +134,7 @@ func flipWithBackTracking(cards string) []string {
 		if string(card) != "1" {
 			continue
 		}
-		flipped := cards[0:max(0, i-1)] + tryFlip(cards, i-1) + "." + tryFlip(cards, i+1)
+		flipped := cards[0:max(0, i-1)] + getFlipped(cards, i-1) + "." + getFlipped(cards, i+1)
 		if i+2 <= len(cards)-1 {
 			flipped += cards[i+2:]
 		}
@@ -50,7 +145,7 @@ func flipWithBackTracking(cards string) []string {
 	return nil
 }
 
-func tryFlip(cards string, index int) string {
+func getFlipped(cards string, index int) string {
 	if index < 0 || index > len(cards)-1 {
 		return ""
 	}
