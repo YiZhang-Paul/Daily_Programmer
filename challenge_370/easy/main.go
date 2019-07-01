@@ -17,24 +17,27 @@ func showResult(code string) {
 }
 
 func upc(code string) int {
-	sum := 0
-	for i, char := range code {
+	oddSum, evenSum := 0, 0
+	for i, digit := range toDigits(code) {
 		if i%2 == 0 {
-			if digit, err := strconv.Atoi(string(char)); err == nil {
-				sum += digit
-			}
+			oddSum += digit
+		} else {
+			evenSum += digit
 		}
 	}
-	sum *= 3
-	for i, char := range code {
-		if i%2 == 1 {
-			if digit, err := strconv.Atoi(string(char)); err == nil {
-				sum += digit
-			}
-		}
-	}
-	if sum%10 == 0 {
+	mod := (oddSum*3 + evenSum) % 10
+	if mod == 0 {
 		return 0
 	}
-	return 10 - sum%10
+	return 10 - mod
+}
+
+func toDigits(code string) []int {
+	digits := make([]int, len(code))
+	for i, char := range code {
+		if digit, err := strconv.Atoi(string(char)); err == nil {
+			digits[i] = digit
+		}
+	}
+	return digits
 }
