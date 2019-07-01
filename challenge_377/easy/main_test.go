@@ -56,3 +56,21 @@ func TestAlignAxis3D(t *testing.T) {
 		}
 	}
 }
+
+func TestAlignAxisND(t *testing.T) {
+	cases := []struct {
+		crate, box []int
+		expected   int
+	}{
+		{[]int{3, 4}, []int{1, 2}, 6},
+		{[]int{123, 456, 789}, []int{10, 11, 12}, 32604},
+		{[]int{123, 456, 789, 1011, 1213, 1415}, []int{16, 17, 18, 19, 20, 21}, 1883443968},
+	}
+	for _, c := range cases {
+		actual := alignAxisND(c.crate, c.box)
+		if c.expected != actual {
+			format := "alignAxisND(%v, %v) == %d, expected %d"
+			t.Errorf(format, c.crate, c.box, actual, c.expected)
+		}
+	}
+}

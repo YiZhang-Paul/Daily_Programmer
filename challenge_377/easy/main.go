@@ -39,6 +39,10 @@ func alignAxis3D(crateX, crateY, crateZ, boxX, boxY, boxZ int) int {
 	return maxAlign([]int{crateX, crateY, crateZ}, []int{boxX, boxY, boxZ}, make([]int, 0))
 }
 
+func alignAxisND(crate []int, box []int) int {
+	return maxAlign(crate, box, make([]int, 0))
+}
+
 func getAlign(crate []int, box []int) int {
 	align := 1
 	for i, dimension := range crate {
