@@ -23,6 +23,10 @@ func main() {
 	fmt.Printf("alignAxis3D(12, 34, 56, 7, 8, 9) => %d\n", alignAxis3D(12, 34, 56, 7, 8, 9))
 	fmt.Printf("alignAxis3D(123, 456, 789, 10, 11, 12) => %d\n", alignAxis3D(123, 456, 789, 10, 11, 12))
 	fmt.Printf("alignAxis3D(1234567, 89101112, 13141516, 171819, 202122, 232425) => %d\n", alignAxis3D(1234567, 89101112, 13141516, 171819, 202122, 232425))
+	// bonus challenge 3
+	fmt.Printf("alignAxisND([]int{3, 4}, []int{1, 2}) => %d\n", alignAxisND([]int{3, 4}, []int{1, 2}))
+	fmt.Printf("alignAxisND([]int{123, 456, 789}, []int{10, 11, 12}) => %d\n", alignAxisND([]int{123, 456, 789}, []int{10, 11, 12}))
+	fmt.Printf("alignAxisND([]int{123, 456, 789, 1011, 1213, 1415}, []int{16, 17, 18, 19, 20, 21) => %d\n", alignAxisND([]int{123, 456, 789, 1011, 1213, 1415}, []int{16, 17, 18, 19, 20, 21}))
 }
 
 func alignAxis2D(crateX, crateY, boxX, boxY int) int {
@@ -43,14 +47,6 @@ func alignAxisND(crate []int, box []int) int {
 	return maxAlign(crate, box, make([]int, 0))
 }
 
-func getAlign(crate []int, box []int) int {
-	align := 1
-	for i, dimension := range crate {
-		align *= dimension / box[i]
-	}
-	return align
-}
-
 func maxAlign(crate []int, options []int, box []int) int {
 	if len(options) == 0 {
 		return getAlign(crate, box)
@@ -62,6 +58,14 @@ func maxAlign(crate []int, options []int, box []int) int {
 		aligns = append(aligns, maxAlign(crate, optionsLeft, currentBox))
 	}
 	return max(aligns...)
+}
+
+func getAlign(crate []int, box []int) int {
+	align := 1
+	for i, dimension := range crate {
+		align *= dimension / box[i]
+	}
+	return align
 }
 
 func copyFrom(numbers []int) []int {
