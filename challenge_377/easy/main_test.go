@@ -38,3 +38,21 @@ func TestAlignAxis2DWithRotate(t *testing.T) {
 		}
 	}
 }
+
+func TestAlignAxis3D(t *testing.T) {
+	cases := []struct {
+		crateX, crateY, crateZ, boxX, boxY, boxZ, expected int
+	}{
+		{10, 10, 10, 1, 1, 1, 1000},
+		{12, 34, 56, 7, 8, 9, 32},
+		{123, 456, 789, 10, 11, 12, 32604},
+		{1234567, 89101112, 13141516, 171819, 202122, 232425, 174648},
+	}
+	for _, c := range cases {
+		actual := alignAxis3D(c.crateX, c.crateY, c.crateZ, c.boxX, c.boxY, c.boxZ)
+		if c.expected != actual {
+			format := "alignAxis3D(%d, %d, %d, %d, %d, %d) == %d, expected %d"
+			t.Errorf(format, c.crateX, c.crateY, c.crateZ, c.boxX, c.boxY, c.boxZ, actual, c.expected)
+		}
+	}
+}
