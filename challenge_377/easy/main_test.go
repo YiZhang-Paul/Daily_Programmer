@@ -19,3 +19,22 @@ func TestAlignAxis2D(t *testing.T) {
 		}
 	}
 }
+
+func TestAlignAxis2DWithRotate(t *testing.T) {
+	cases := []struct {
+		crateX, crateY, boxX, boxY, expected int
+	}{
+		{25, 18, 6, 5, 15},
+		{12, 34, 5, 6, 12},
+		{12345, 678910, 1112, 1314, 5676},
+		{5, 5, 3, 2, 2},
+		{5, 100, 6, 1, 80},
+		{5, 5, 6, 1, 0},
+	}
+	for _, c := range cases {
+		if actual := alignAxis2DWithRotate(c.crateX, c.crateY, c.boxX, c.boxY); c.expected != actual {
+			format := "alignAxis2DWithRotate(%d, %d, %d, %d) == %d, expected %d"
+			t.Errorf(format, c.crateX, c.crateY, c.boxX, c.boxY, actual, c.expected)
+		}
+	}
+}
