@@ -77,6 +77,35 @@ func groupDuplicateCodes(codes map[string]string) map[string][]string {
 	return grouped
 }
 
+func findSequenceWithContinuousDashes(sequences map[string]string, total int) (string, string) {
+	for key, value := range sequences {
+		firstDashIndex := strings.IndexByte(value, "."[0])
+		if len(value) < total || firstDashIndex == -1 || firstDashIndex+total > len(value)-1 {
+			continue
+		}
+		dashIndexes := countIndexes(value, "."[0])
+		if len(dashIndexes) == 1 {
+			continue
+		}
+		for i := 1; i < len(dashIndexes); i++ {
+			if dashIndexes[i]-dashIndexes[i-1] == total+1 {
+				return key, value
+			}
+		}
+	}
+	return "", ""
+}
+
+func countIndexes(sequence string, character byte) []int {
+	indexes := make([]int, 0)
+	for i, letter := range sequence {
+		if byte(letter) == character {
+			indexes = append(indexes, i)
+		}
+	}
+	return indexes
+}
+
 func main() {
 	// base challenge
 	for _, word := range []string{"sos", "daily", "programmer", "bits", "three"} {
@@ -91,4 +120,7 @@ func main() {
 			fmt.Printf("%s is the sequence for 13 different words: %q\n", key, value)
 		}
 	}
+	// bonus challenge 2
+	word, sequence := findSequenceWithContinuousDashes(codes, 15)
+	fmt.Printf("%s is the sequence with 15 dashes in a row for word: %s\n", sequence, word)
 }
