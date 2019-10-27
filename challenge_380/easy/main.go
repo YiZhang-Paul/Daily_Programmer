@@ -146,6 +146,61 @@ func isPalindrome(sequence string) bool {
 	return true
 }
 
+func getAllSequences(sequences []string, length int) []string {
+	if length == 1 {
+		return sequences
+	}
+	if len(sequences) == 0 {
+		sequences = []string{".", "-"}
+	}
+	var newSequences = make([]string, 0)
+	for _, letter := range []string{".", "-"} {
+		for _, sequence := range sequences {
+			newSequences = append(newSequences, sequence+letter)
+		}
+	}
+	return getAllSequences(newSequences, length-1)
+}
+
+func getSequencesLongerThan(sequences map[string]string, length int) []string {
+	var result = make([]string, 0)
+	for _, value := range sequences {
+		if len(value) > length {
+			result = append(result, value)
+		}
+	}
+	return result
+}
+
+func isEmbedded(a, b string) bool {
+	for i, j := 0, len(b)-1-len(a); i <= j; i++ {
+		if a == b[i:i+len(a)] {
+			return true
+		}
+	}
+	return false
+}
+
+func isSeen(sequence string, sequences []string) bool {
+	for _, value := range sequences {
+		if isEmbedded(sequence, value) {
+			return true
+		}
+	}
+	return false
+}
+
+func getAllUnseenSequences(codes map[string]string, length int) []string {
+	var sequences = getSequencesLongerThan(codes, length-1)
+	var unseen = make([]string, 0)
+	for _, sequence := range getAllSequences(make([]string, 0), length) {
+		if !isSeen(sequence, sequences) {
+			unseen = append(unseen, sequence)
+		}
+	}
+	return unseen
+}
+
 func main() {
 	// base challenge
 	for _, word := range []string{"sos", "daily", "programmer", "bits", "three"} {
@@ -167,4 +222,6 @@ func main() {
 	fmt.Printf("%q are the perfectly balanced words with length 21\n", findBalancedWords(codes, 21))
 	// bonus challenge 4
 	fmt.Printf("%q is the only palindrome with length 13\n", findPalindromes(codes, 13))
+	// bonus challenge 5
+	fmt.Printf("%q are the 13-character sequences that does not appear in the encoding of any word\n", getAllUnseenSequences(codes, 13))
 }
