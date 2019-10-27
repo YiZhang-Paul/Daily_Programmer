@@ -127,6 +127,25 @@ func isBalanced(sequence string) bool {
 	return dots == dashes
 }
 
+func findPalindromes(sequences map[string]string, length int) []string {
+	var palindromes = make([]string, 0)
+	for key, value := range sequences {
+		if isPalindrome(value) && len(key) == length {
+			palindromes = append(palindromes, key)
+		}
+	}
+	return palindromes
+}
+
+func isPalindrome(sequence string) bool {
+	for i := 0; i < len(sequence)-1-i; i++ {
+		if sequence[i] != sequence[len(sequence)-1-i] {
+			return false
+		}
+	}
+	return true
+}
+
 func main() {
 	// base challenge
 	for _, word := range []string{"sos", "daily", "programmer", "bits", "three"} {
@@ -146,4 +165,6 @@ func main() {
 	fmt.Printf("%s is the sequence with 15 dashes in a row for word: %s\n", sequence, word)
 	// bonus challenge 3
 	fmt.Printf("%q are the perfectly balanced words with length 21\n", findBalancedWords(codes, 21))
+	// bonus challenge 4
+	fmt.Printf("%q is the only palindrome with length 13\n", findPalindromes(codes, 13))
 }
