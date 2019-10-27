@@ -79,10 +79,7 @@ func groupDuplicateCodes(codes map[string]string) map[string][]string {
 
 func findSequenceWithContinuousDashes(sequences map[string]string, total int) (string, string) {
 	for key, value := range sequences {
-		dotIndexes := countIndexes(value, "."[0])
-		if len(dotIndexes) == 1 {
-			continue
-		}
+		var dotIndexes = countIndexes(value, "."[0])
 		for i := 1; i < len(dotIndexes); i++ {
 			if dotIndexes[i]-dotIndexes[i-1] == total+1 {
 				return key, value
@@ -93,7 +90,7 @@ func findSequenceWithContinuousDashes(sequences map[string]string, total int) (s
 }
 
 func countIndexes(sequence string, character byte) []int {
-	indexes := make([]int, 0)
+	var indexes = make([]int, 0)
 	for i, letter := range sequence {
 		if byte(letter) == character {
 			indexes = append(indexes, i)
@@ -191,8 +188,10 @@ func isSeen(sequence string, sequences []string) bool {
 }
 
 func getAllUnseenSequences(codes map[string]string, length int) []string {
-	var sequences = getSequencesLongerThan(codes, length-1)
-	var unseen = make([]string, 0)
+	var (
+		unseen    = make([]string, 0)
+		sequences = getSequencesLongerThan(codes, length-1)
+	)
 	for _, sequence := range getAllSequences(make([]string, 0), length) {
 		if !isSeen(sequence, sequences) {
 			unseen = append(unseen, sequence)
@@ -207,8 +206,10 @@ func main() {
 		fmt.Printf("SmooshMorse(%s) => %s\n", word, SmooshMorse(word))
 	}
 	// bonus challenge preparation
-	var words = getWords("words.txt")
-	var codes = smooshMorses(words)
+	var (
+		words = getWords("words.txt")
+		codes = smooshMorses(words)
+	)
 	// bonus challenge 1
 	for key, value := range groupDuplicateCodes(codes) {
 		if len(value) == 13 {
