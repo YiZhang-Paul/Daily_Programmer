@@ -79,16 +79,12 @@ func groupDuplicateCodes(codes map[string]string) map[string][]string {
 
 func findSequenceWithContinuousDashes(sequences map[string]string, total int) (string, string) {
 	for key, value := range sequences {
-		firstDashIndex := strings.IndexByte(value, "."[0])
-		if len(value) < total || firstDashIndex == -1 || firstDashIndex+total > len(value)-1 {
+		dotIndexes := countIndexes(value, "."[0])
+		if len(dotIndexes) == 1 {
 			continue
 		}
-		dashIndexes := countIndexes(value, "."[0])
-		if len(dashIndexes) == 1 {
-			continue
-		}
-		for i := 1; i < len(dashIndexes); i++ {
-			if dashIndexes[i]-dashIndexes[i-1] == total+1 {
+		for i := 1; i < len(dotIndexes); i++ {
+			if dotIndexes[i]-dotIndexes[i-1] == total+1 {
 				return key, value
 			}
 		}
@@ -104,6 +100,31 @@ func countIndexes(sequence string, character byte) []int {
 		}
 	}
 	return indexes
+}
+
+func findBalancedWords(sequences map[string]string, length int) []string {
+	var words = make([]string, 0)
+	for key, value := range sequences {
+		if isBalanced(value) && len(key) == length {
+			words = append(words, key)
+		}
+	}
+	return words
+}
+
+func isBalanced(sequence string) bool {
+	var (
+		dashes int
+		dots   int
+	)
+	for _, letter := range sequence {
+		if byte(letter) == "."[0] {
+			dots++
+		} else {
+			dashes++
+		}
+	}
+	return dots == dashes
 }
 
 func main() {
@@ -123,4 +144,6 @@ func main() {
 	// bonus challenge 2
 	word, sequence := findSequenceWithContinuousDashes(codes, 15)
 	fmt.Printf("%s is the sequence with 15 dashes in a row for word: %s\n", sequence, word)
+	// bonus challenge 3
+	fmt.Printf("%q are the perfectly balanced words with length 21\n", findBalancedWords(codes, 21))
 }
