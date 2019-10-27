@@ -26,23 +26,16 @@ func NewTaxCalculator(path string) TaxCalculator {
 }
 
 func (tc TaxCalculator) Tax(income int) int {
-	var (
-		index int
-		total float64
-	)
+	var total float64
 	if income < 0 {
 		return 0
 	}
 	for i := len(tc.Brackets) - 1; i >= 0; i-- {
-		if income >= tc.Brackets[i].Cap {
-			index = i
-			break
-		}
-	}
-	for i := index; i >= 0; i-- {
 		bracket := tc.Brackets[i]
-		total += float64(income-bracket.Cap) * bracket.Rate
-		income = bracket.Cap
+		if income > bracket.Cap {
+			total += float64(income-bracket.Cap) * bracket.Rate
+			income = bracket.Cap
+		}
 	}
 	return int(total)
 }
@@ -54,16 +47,16 @@ func (tc TaxCalculator) Overall(rate float64) int {
 	if rate == tc.Brackets[len(tc.Brackets)-1].Rate {
 		return -1
 	}
-	var (
-		low  = 0
-		high = math.MaxInt32
-	)
+	return tc.tryFindIncome(rate, 0, math.MaxInt32)
+}
+
+func (tc TaxCalculator) tryFindIncome(targetRate float64, low, high int) int {
 	for low < high {
 		income := (low + high) / 2
-		currentRate := float64(tc.Tax(income)) / float64(income)
-		if math.Abs(currentRate-rate) <= 0.00001 {
+		rate := float64(tc.Tax(income)) / float64(income)
+		if math.Abs(rate-targetRate) <= 0.00001 {
 			return income
-		} else if currentRate > rate {
+		} else if rate > targetRate {
 			high = income
 		} else {
 			low = income
@@ -74,12 +67,12 @@ func (tc TaxCalculator) Overall(rate float64) int {
 
 func main() {
 	var calculator = NewTaxCalculator("./brackets.json")
-	incomes := []int{0, 10000, 10009, 10010, 12000, 56789, 1234567}
-	for _, income := range incomes {
+	// base challenge
+	for _, income := range []int{0, 10000, 10009, 10010, 12000, 56789, 1234567} {
 		fmt.Printf("tax(%d) => %d\n", income, calculator.Tax(income))
 	}
-	rates := []float64{0.0, 0.06, 0.09, 0.32, 0.4}
-	for _, rate := range rates {
+	// bonus challenge
+	for _, rate := range []float64{0.0, 0.06, 0.09, 0.32, 0.4} {
 		fmt.Printf("overall(%f) => %d\n", rate, calculator.Overall(rate))
 	}
 }

@@ -1,5 +1,7 @@
 #379[Easy] Progressive taxation
 
+All Done
+
 url: https://www.reddit.com/r/dailyprogrammer/comments/cdieag/20190715_challenge_379_easy_progressive_taxation/
 
 The nation of Examplania has the following income tax brackets:
