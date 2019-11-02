@@ -107,3 +107,23 @@ func TestGetDoomsday(t *testing.T) {
 		}
 	}
 }
+
+func TestGetDayInWeek(t *testing.T) {
+	cases := []struct {
+		year     int
+		month    int
+		day      int
+		expected string
+	}{
+		{1898, 5, 12, "Thursday"},
+		{1903, 9, 9, "Wednesday"},
+		{1997, 12, 7, "Sunday"},
+		{2001, 3, 17, "Saturday"},
+		{2017, 8, 1, "Tuesday"},
+	}
+	for _, c := range cases {
+		if actual := getDayInWeek(c.year, c.month, c.day); c.expected != actual {
+			t.Errorf("getDayInWeek(%d, %d, %d) == %s, expected %s", c.year, c.month, c.day, actual, c.expected)
+		}
+	}
+}

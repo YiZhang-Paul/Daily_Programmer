@@ -1,9 +1,26 @@
 package main
 
-import "time"
+import (
+	"fmt"
+	"time"
+)
 
 func main() {
-
+	var inputs = []struct {
+		year  int
+		month int
+		day   int
+	}{
+		{1898, 5, 12},
+		{1903, 9, 9},
+		{1997, 12, 7},
+		{2001, 3, 17},
+		{2017, 8, 1},
+	}
+	for _, input := range inputs {
+		var dayInWeek = getDayInWeek(input.year, input.month, input.day)
+		fmt.Printf("%d/%d/%d is %s.\n", input.month, input.day, input.year, dayInWeek)
+	}
 }
 
 func daysInMonth(month, year int) int {
@@ -53,4 +70,24 @@ func ternaryInt(condition bool, whenTrue, whenFalse int) int {
 		return whenTrue
 	}
 	return whenFalse
+}
+
+func getDayInWeek(year, month, day int) string {
+	var (
+		anchorDay = anchorDayByMonth(month, year)
+		doomsday  = getDoomsday(year)
+		dayInWeek = (day - anchorDay + doomsday) % 7
+	)
+	if dayInWeek < 0 {
+		dayInWeek += 7
+	}
+	return []string{
+		"Sunday",
+		"Monday",
+		"Tuesday",
+		"Wednesday",
+		"Thursday",
+		"Friday",
+		"Saturday",
+	}[dayInWeek]
 }
