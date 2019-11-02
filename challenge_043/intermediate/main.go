@@ -14,30 +14,38 @@ func isLeapYear(year int) bool {
 	return daysInMonth(2, year) == 29
 }
 
-func anchorDay(month, year int) int {
+func anchorDayByMonth(month, year int) int {
 	month %= 12
-	if month <= 2 {
-		var isLeapYear = isLeapYear(year)
-		if month == 0 {
-			return 12
-		} else if month == 1 {
-			return ternaryInt(isLeapYear, 4, 3)
-		} else {
-			return ternaryInt(isLeapYear, 29, 28)
-		}
+	if month > 2 {
+		return map[int]int{
+			3:  0,
+			4:  4,
+			5:  2,
+			6:  6,
+			7:  4,
+			8:  1,
+			9:  5,
+			10: 3,
+			11: 7,
+		}[month]
 	}
-	var lookup = map[int]int{
-		3:  0,
-		4:  4,
-		5:  9,
-		6:  6,
-		7:  11,
-		8:  8,
-		9:  5,
-		10: 10,
-		11: 7,
+	var isLeapYear = isLeapYear(year)
+	if month == 0 {
+		return 5
+	} else if month == 1 {
+		return ternaryInt(isLeapYear, 4, 3)
+	} else {
+		return ternaryInt(isLeapYear, 29, 28)
 	}
-	return lookup[month]
+}
+
+func anchorDayByCentury(year int) int {
+	return (year/100%4%7*5 + 2) % 7
+}
+
+func getDoomsday(year int) int {
+	var offset = (year%100/12 + year%100%12 + year%100%12/4) % 7
+	return (offset + anchorDayByCentury(year)) % 7
 }
 
 func ternaryInt(condition bool, whenTrue, whenFalse int) int {

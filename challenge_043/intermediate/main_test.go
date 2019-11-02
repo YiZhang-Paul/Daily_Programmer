@@ -44,7 +44,7 @@ func TestIsLeapYear(t *testing.T) {
 	}
 }
 
-func TestAnchorDay(t *testing.T) {
+func TestAnchorDayByMonth(t *testing.T) {
 	cases := []struct {
 		month    int
 		year     int
@@ -56,18 +56,54 @@ func TestAnchorDay(t *testing.T) {
 		{2, 2020, 29},
 		{3, 2019, 0},
 		{4, 2019, 4},
-		{5, 2019, 9},
+		{5, 2019, 2},
 		{6, 2019, 6},
-		{7, 2019, 11},
-		{8, 2019, 8},
+		{7, 2019, 4},
+		{8, 2019, 1},
 		{9, 2019, 5},
-		{10, 2019, 10},
+		{10, 2019, 3},
 		{11, 2019, 7},
-		{12, 2019, 12},
+		{12, 2019, 5},
 	}
 	for _, c := range cases {
-		if actual := anchorDay(c.month, c.year); c.expected != actual {
-			t.Errorf("anchorDay(%d, %d) == %d, expected %d", c.month, c.year, actual, c.expected)
+		if actual := anchorDayByMonth(c.month, c.year); c.expected != actual {
+			t.Errorf("anchorDayByMonth(%d, %d) == %d, expected %d", c.month, c.year, actual, c.expected)
+		}
+	}
+}
+
+func TestAnchorDayByCentury(t *testing.T) {
+	cases := []struct {
+		year     int
+		expected int
+	}{
+		{1850, 5},
+		{1997, 3},
+		{2015, 2},
+		{2179, 0},
+	}
+	for _, c := range cases {
+		if actual := anchorDayByCentury(c.year); c.expected != actual {
+			t.Errorf("anchorDayByCentury(%d) == %d, expected %d", c.year, actual, c.expected)
+		}
+	}
+}
+
+func TestGetDoomsday(t *testing.T) {
+	cases := []struct {
+		year     int
+		expected int
+	}{
+		{1898, 1},
+		{1903, 6},
+		{1926, 0},
+		{1997, 5},
+		{2001, 3},
+		{2017, 2},
+	}
+	for _, c := range cases {
+		if actual := getDoomsday(c.year); c.expected != actual {
+			t.Errorf("getDoomsday(%d) == %d, expected %d", c.year, actual, c.expected)
 		}
 	}
 }
