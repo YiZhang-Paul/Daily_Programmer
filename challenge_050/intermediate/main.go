@@ -7,34 +7,39 @@ import (
 )
 
 func main() {
-	fmt.Println(getFileTree("D:\\Resources", 1, true))
+	fmt.Println(getFileTree("D:\\Resources"))
 }
 
-func getFileTree(path string, depth int, hasRuler bool) string {
+func getFileTree(path string) string {
 	if !filepath.IsAbs(path) {
 		return "Invalid path. Must be an absolute path."
 	}
-	contents, err := ioutil.ReadDir(path)
+	var tree, err = generateTree(path, "..")
 	if err != nil {
 		return "Failed to read specified directory."
 	}
-	var tree = ""
-	if depth == 1 {
-		tree = "+-" + filepath.Base(path) + "/\n"
+	return "+-" + filepath.Base(path) + "/\n" + tree
+}
+
+func generateTree(path string, aligners string) (string, error) {
+	var (
+		tree       = ""
+		infos, err = ioutil.ReadDir(path)
+	)
+	if err != nil {
+		return tree, err
 	}
-	for i, content := range contents {
-		tree += "  "
-		for i := 0; i < depth-1; i++ {
-			if hasRuler {
-				tree += "| "
-			} else {
-				tree += "  "
-			}
+	for i, info := range infos {
+		tree += aligners + "+-" + info.Name() + "/\n"
+		if !info.IsDir() {
+			continue
 		}
-		tree += "+-" + content.Name() + "/\n"
-		if content.IsDir() {
-			tree += getFileTree(path+"\\"+content.Name(), depth+1, i != len(contents)-1)
+		var aligner = "|."
+		if i == len(infos)-1 {
+			aligner = ".."
 		}
+		var subTree, _ = generateTree(path+"\\"+info.Name(), aligners+aligner)
+		tree += subTree
 	}
-	return tree
+	return tree, nil
 }
