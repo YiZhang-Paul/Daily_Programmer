@@ -10,7 +10,7 @@ func main() {
 		input  = "My country, tis of thee"
 		cipher = "Myouofhe\n cnt te \nryti\n, s "
 	)
-	fmt.Printf("encrypt(%s) = \n%s\n", input, encrypt(input))
+	fmt.Printf("encrypt(%s) = \n%s\n\n", input, encrypt(input))
 	fmt.Printf("decrypt(%s) = %s\n", cipher, decrypt(cipher))
 }
 
@@ -28,11 +28,28 @@ func encrypt(text string) string {
 	for _, row := range square {
 		encrypted.WriteString(strings.Join(row, "") + "\n")
 	}
-	return encrypted.String()
+	return strings.TrimSpace(encrypted.String())
 }
 
 func decrypt(cipher string) string {
-	return ""
+	var (
+		decrypted strings.Builder
+		rows      = strings.Split(cipher, "\n")
+		total     = len(cipher) - len(rows) + 1
+		square    = getSquare(total)
+		x         = 0
+		y         = 0
+	)
+	for i, row := range rows {
+		for j, content := range row {
+			square[i][j] = string(content)
+		}
+	}
+	for i := 0; i < total; i++ {
+		decrypted.WriteString(square[y][x])
+		x, y = nextPosition(x, y, i+1)
+	}
+	return decrypted.String()
 }
 
 func getSquare(total int) [][]string {
