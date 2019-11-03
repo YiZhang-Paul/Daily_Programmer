@@ -5,33 +5,38 @@ import (
 	"strings"
 )
 
-type textBasedTriangle struct {
+type asciiTriangle struct {
 	lines []string
 }
 
 func main() {
-	var triangle = textBasedTriangle{lines: []string{"*"}}
-	for i := 0; i < 5; i++ {
+	var triangle = asciiTriangle{lines: []string{"*"}}
+	for i := 0; i < 7; i++ {
 		fmt.Printf(triangle.String() + "\n\n")
 		triangle = triangle.nextTriangle()
 	}
 }
 
-func (t textBasedTriangle) String() string {
-	var builder strings.Builder
+func (t asciiTriangle) String() string {
+	var (
+		triangle  strings.Builder
+		lastIndex = len(t.lines) - 1
+	)
 	for i, line := range t.lines {
-		var padding = strings.Repeat(" ", len(t.lines)-1-i)
-		builder.WriteString(padding + line + "\n")
+		var padding = strings.Repeat(" ", lastIndex-i)
+		triangle.WriteString(padding + line + "\n")
 	}
-	return builder.String()
+	return triangle.String()
 }
 
-func (t textBasedTriangle) nextTriangle() textBasedTriangle {
-	var newLines = make([]string, 0)
-	for i := range t.lines {
-		var padding = strings.Repeat(" ", len(t.lines[len(t.lines)-1])-i*2)
-		newLines = append(newLines, t.lines[i]+padding+t.lines[i])
+func (t asciiTriangle) nextTriangle() asciiTriangle {
+	var (
+		lines = make([]string, 0)
+		base  = t.lines[len(t.lines)-1]
+	)
+	for i, line := range t.lines {
+		var padding = strings.Repeat(" ", len(base)-i*2)
+		lines = append(lines, line+padding+line)
 	}
-	t.lines = append(t.lines, newLines...)
-	return t
+	return asciiTriangle{lines: append(t.lines, lines...)}
 }
