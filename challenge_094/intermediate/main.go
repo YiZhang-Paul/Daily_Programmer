@@ -86,21 +86,15 @@ func encodeBase64(text string) string {
 
 func decodeBase64(encoded string) string {
 	var (
-		binaryBuilder strings.Builder
-		decoded       strings.Builder
+		rawBinary strings.Builder
+		decoded   strings.Builder
 	)
 	for _, character := range encoded {
-		var index = indexOf(string(character), table)
-		if index != -1 {
-			binaryBuilder.WriteString(toBinary(rune(index))[2:])
+		if index := indexOf(string(character), table); index != -1 {
+			rawBinary.WriteString(toBinary(rune(index))[2:])
 		}
 	}
-	var binary = binaryBuilder.String()
-	if len(binary)%24 == 18 {
-		binary = binary[:len(binary)-2]
-	} else if len(binary)%24 == 12 {
-		binary = binary[:len(binary)-4]
-	}
+	var binary = removePadding(rawBinary.String())
 	for i := 0; i < len(binary); i += 8 {
 		decoded.WriteString(string(toDecimal(binary[i : i+8])))
 	}
@@ -121,4 +115,14 @@ func padString(text, pad string, size int) string {
 		return text
 	}
 	return text + strings.Repeat(pad, size-len(text)%size)
+}
+
+func removePadding(binary string) string {
+	if len(binary)%24 == 18 {
+		return binary[:len(binary)-2]
+	}
+	if len(binary)%24 == 12 {
+		return binary[:len(binary)-4]
+	}
+	return binary
 }
