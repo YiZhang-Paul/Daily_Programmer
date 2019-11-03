@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"math"
 	"strings"
 )
 
@@ -22,11 +23,11 @@ func printCuboid(length, height, depth int) {
 	}
 	for i := 0; i < height; i++ {
 		cuboid.WriteString(strings.Repeat("#", length))
-		if height-i <= depth {
-			cuboid.WriteString(strings.Repeat("+", height-i-1) + "\n")
-		} else {
-			cuboid.WriteString(strings.Repeat("+", depth) + "\n")
-		}
+		cuboid.WriteString(strings.Repeat("+", minInt(height-i-1, depth)) + "\n")
 	}
 	fmt.Println(cuboid.String())
+}
+
+func minInt(a, b int) int {
+	return int(math.Min(float64(a), float64(b)))
 }
