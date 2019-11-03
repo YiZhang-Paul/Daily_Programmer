@@ -28,6 +28,15 @@ func main() {
 	for _, input := range inputs {
 		fmt.Printf("encodeBase64(%s) = %s\n", input, encodeBase64(input))
 	}
+	var encoded = []string{
+		"TWFu",
+		"TWE=",
+		"TQ==",
+		"TWFuIGlzIGRpc3Rpbmd1aXNoZWQsIG5vdCBvbmx5IGJ5IGhpcyByZWFzb24sIGJ1dCBieSB0aGlzIHNpbmd1bGFyIHBhc3Npb24gZnJvbSBvdGhlciBhbmltYWxzLCB3aGljaCBpcyBhIGx1c3Qgb2YgdGhlIG1pbmQsIHRoYXQgYnkgYSBwZXJzZXZlcmFuY2Ugb2YgZGVsaWdodCBpbiB0aGUgY29udGludWVkIGFuZCBpbmRlZmF0aWdhYmxlIGdlbmVyYXRpb24gb2Yga25vd2xlZGdlLCBleGNlZWRzIHRoZSBzaG9ydCB2ZWhlbWVuY2Ugb2YgYW55IGNhcm5hbCBwbGVhc3VyZS4=",
+	}
+	for _, encode := range encoded {
+		fmt.Printf("decodeBase64(%s) = %s\n", encode, decodeBase64(encode))
+	}
 }
 
 func toBinary(character rune) string {
@@ -73,6 +82,38 @@ func encodeBase64(text string) string {
 		encoded.WriteString(toBase64Char(padded[i : i+6]))
 	}
 	return padString(encoded.String(), "=", 4)
+}
+
+func decodeBase64(encoded string) string {
+	var (
+		binaryBuilder strings.Builder
+		decoded       strings.Builder
+	)
+	for _, character := range encoded {
+		var index = indexOf(string(character), table)
+		if index != -1 {
+			binaryBuilder.WriteString(toBinary(rune(index))[2:])
+		}
+	}
+	var binary = binaryBuilder.String()
+	if len(binary)%24 == 18 {
+		binary = binary[:len(binary)-2]
+	} else if len(binary)%24 == 12 {
+		binary = binary[:len(binary)-4]
+	}
+	for i := 0; i < len(binary); i += 8 {
+		decoded.WriteString(string(toDecimal(binary[i : i+8])))
+	}
+	return decoded.String()
+}
+
+func indexOf(value string, collection []string) int {
+	for i, element := range collection {
+		if value == element {
+			return i
+		}
+	}
+	return -1
 }
 
 func padString(text, pad string, size int) string {
