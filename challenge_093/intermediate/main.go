@@ -2,29 +2,37 @@ package main
 
 import (
 	"fmt"
-	"strconv"
 	"strings"
 )
 
 func main() {
 	var (
-		total  = 260
-		square = getSquare(total)
-		width  = len(strconv.Itoa(total))
-		x      = 0
-		y      = 0
+		input  = "My country, tis of thee"
+		cipher = "Myouofhe\n cnt te \nryti\n, s "
 	)
-	for i := 0; i < total; i++ {
-		var value = strconv.Itoa(i)
-		square[y][x] = strings.Repeat(" ", width-len(value)+1) + value
+	fmt.Printf("encrypt(%s) = \n%s\n", input, encrypt(input))
+	fmt.Printf("decrypt(%s) = %s\n", cipher, decrypt(cipher))
+}
+
+func encrypt(text string) string {
+	var (
+		encrypted strings.Builder
+		square    = getSquare(len(text))
+		x         = 0
+		y         = 0
+	)
+	for i, content := range text {
+		square[y][x] = string(content)
 		x, y = nextPosition(x, y, i+1)
 	}
 	for _, row := range square {
-		for _, content := range row {
-			fmt.Print(content)
-		}
-		fmt.Print("\n")
+		encrypted.WriteString(strings.Join(row, "") + "\n")
 	}
+	return encrypted.String()
+}
+
+func decrypt(cipher string) string {
+	return ""
 }
 
 func getSquare(total int) [][]string {
