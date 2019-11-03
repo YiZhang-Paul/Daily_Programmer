@@ -17,3 +17,20 @@ func TestToBinary(t *testing.T) {
 		}
 	}
 }
+
+func TestToBase64Char(t *testing.T) {
+	var cases = []struct {
+		binary   string
+		expected string
+	}{
+		{"010011", "T"},
+		{"010110", "W"},
+		{"000101", "F"},
+		{"101110", "u"},
+	}
+	for _, c := range cases {
+		if actual := toBase64Char(c.binary); actual != c.expected {
+			t.Errorf("toBase64Char(%s) == %s, expected %s", string(c.binary), actual, c.expected)
+		}
+	}
+}
