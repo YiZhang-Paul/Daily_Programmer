@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"math"
 	"strconv"
 	"strings"
@@ -18,7 +19,15 @@ var table = []string{
 }
 
 func main() {
-
+	var inputs = []string{
+		"Man",
+		"Ma",
+		"M",
+		"Man is distinguished, not only by his reason, but by this singular passion from other animals, which is a lust of the mind, that by a perseverance of delight in the continued and indefatigable generation of knowledge, exceeds the short vehemence of any carnal pleasure.",
+	}
+	for _, input := range inputs {
+		fmt.Printf("encodeBase64(%s) = %s\n", input, encodeBase64(input))
+	}
 }
 
 func toBinary(character rune) string {
@@ -49,4 +58,26 @@ func toBase64Char(binary string) string {
 		return ""
 	}
 	return table[decimal]
+}
+
+func encodeBase64(text string) string {
+	var (
+		binary  strings.Builder
+		encoded strings.Builder
+	)
+	for _, character := range text {
+		binary.WriteString(toBinary(character))
+	}
+	var padded = padString(binary.String(), "0", 6)
+	for i := 0; i < len(padded); i += 6 {
+		encoded.WriteString(toBase64Char(padded[i : i+6]))
+	}
+	return padString(encoded.String(), "=", 4)
+}
+
+func padString(text, pad string, size int) string {
+	if len(text)%size == 0 {
+		return text
+	}
+	return text + strings.Repeat(pad, size-len(text)%size)
 }
